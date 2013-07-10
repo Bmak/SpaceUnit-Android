@@ -12,22 +12,25 @@ import com.glowman.android.framework.math.OverlapTester;
 import com.glowman.android.framework.math.Vector2;
 
 import java.util.List;
-import java.util.logging.Logger;
 
 
 public class MainScreen extends Screen {
 
-	Circle button;
-	Graphics g;
-	int btnColor;
+	private final Circle _buttonModel;
+	private final Graphics _g;
+
+	private final int DEFAULT_BTN_COLOR = Color.DKGRAY;
+	private final int TOUCH_BTN_COLOR = Color.RED;
+	private final String BUTTON_TEXT = "push";
 
 	public MainScreen(Game game) {
 		super(game);
 
-		g = game.getGraphics();
+		_g = game.getGraphics();
 
-		button = new Circle(g.getWidth()/2, g.getHeight()/2, 50);
-		btnColor = Color.DKGRAY;
+		_buttonModel = new Circle(_g.getWidth()/2, _g.getHeight()/2, 50);
+
+		this.drawButton();
 	}
 
 	@Override
@@ -37,27 +40,23 @@ public class MainScreen extends Screen {
 
 		for(int i = 0; i < len; i++) {
 			Input.TouchEvent event = touchEvents.get(i);
-			Log.d("hz", "event : " + event.type);
 
-			if (OverlapTester.pointInCircle(button, new Vector2(event.x, event.y))) {
+			if (OverlapTester.pointInCircle(_buttonModel, new Vector2(event.x, event.y))) {
 				if(event.type == Input.TouchEvent.TOUCH_DOWN) {
-					btnColor = Color.RED;
+					this.updateButtonColor(TOUCH_BTN_COLOR);
 				} else if(event.type == Input.TouchEvent.TOUCH_UP) {
-					btnColor = Color.DKGRAY;
-					g.clear(Color.BLACK);
+					this.updateButtonColor(DEFAULT_BTN_COLOR);
 					game.setScreen(new TestScreenOne(game));
 				}
 			} else {
-				btnColor = Color.DKGRAY;
+				this.updateButtonColor(DEFAULT_BTN_COLOR);
 			}
 		}
 	}
 
 	@Override
 	public void present(float deltaTime) {
-		g.drawCirlce(button.center.x, button.center.y, button.radius, btnColor);
-
-		g.drawText("push", (int)button.center.x, (int)button.center.y, 25, Color.BLACK);
+		Log.d("hz", "present called");
 	}
 
 	@Override
@@ -67,11 +66,26 @@ public class MainScreen extends Screen {
 
 	@Override
 	public void resume() {
-		//To change body of implemented methods use File | Settings | File Templates.
+		this.drawButton();
 	}
 
 	@Override
 	public void dispose() {
-
+		_g.clear(Color.BLACK);
 	}
+
+	private void updateButtonColor(final int color) {
+		this.drawButtonCircle(color);
+	}
+
+	private void drawButton() {
+		this.drawButtonCircle(DEFAULT_BTN_COLOR);
+		_g.drawText(BUTTON_TEXT, (int) _buttonModel.center.x, (int) _buttonModel.center.y, 25, Color.BLACK);
+	}
+
+	private void drawButtonCircle(final int circleColor)
+	{
+		_g.drawCirlce(_buttonModel.center.x, _buttonModel.center.y, _buttonModel.radius, circleColor);
+	}
+
 }

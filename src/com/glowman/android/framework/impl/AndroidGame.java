@@ -72,7 +72,7 @@ public class AndroidGame extends Activity implements Game {
 		
 		setContentView(renderView);
 		
-		//TODO ���������� �������
+		//TODO я хз что тут было написанно, но наверно что-то важное про этих двух ребят снизу :)
 		//PowerManager powerManager = (PowerManager) getSystemService(Context.POWER_SERVICE);
 		//wakeLock = powerManager.newWakeLock(PowerManager.FULL_WAKE_LOCK, "GLGame");
 	}
