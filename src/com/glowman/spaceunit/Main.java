@@ -1,15 +1,15 @@
-package com.glowman.androidgames.bolvanka;
+package com.glowman.spaceunit;
 
 import com.glowman.android.framework.Screen;
 import com.glowman.android.framework.impl.AndroidGame;
 
 
 /**
- * Пример создания болванки на системе отображения Canvas
+ * РјРµР№РЅ РєР»Р°СЃСЃ РЅР° Canvas
  * @author MAX
  */
 
-public class MainBolvanka extends AndroidGame {
+public class Main extends AndroidGame {
 
 	@Override
 	public Screen getStartScreen() {

@@ -1,13 +1,14 @@
-=======
-#################
-## Eclipse
-#################
 
 .settings
 *.pydevproject
 
 .metadata
 
+bin
+out
+.idea
+SpaceUnit-Android.iml
+.DS_Store
 *.tmp
 *.bak
 *.swp
