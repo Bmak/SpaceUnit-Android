@@ -1,4 +1,18 @@
+=======
+#################
+## Eclipse
+#################
+
 .settings
+*.pydevproject
+
+.metadata
+
+*.tmp
+*.bak
+*.swp
+*~.nib
+local.properties
 .classpath
 .project
 proguard-project.txt
