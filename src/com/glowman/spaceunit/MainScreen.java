@@ -10,6 +10,7 @@ import com.glowman.android.framework.Screen;
 import com.glowman.android.framework.math.Circle;
 import com.glowman.android.framework.math.OverlapTester;
 import com.glowman.android.framework.math.Vector2;
+import com.glowman.spaceunit.game.GameScreen;
 
 import java.util.List;
 
@@ -46,7 +47,7 @@ public class MainScreen extends Screen {
 					this.updateButtonColor(TOUCH_BTN_COLOR);
 				} else if(event.type == Input.TouchEvent.TOUCH_UP) {
 					this.updateButtonColor(DEFAULT_BTN_COLOR);
-					game.setScreen(new TestScreenOne(game));
+					game.setScreen(new GameScreen(game));
 				}
 			} else {
 				this.updateButtonColor(DEFAULT_BTN_COLOR);

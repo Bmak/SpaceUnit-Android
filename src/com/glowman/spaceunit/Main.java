@@ -9,7 +9,7 @@ import com.glowman.android.framework.impl.AndroidGame;
  * @author MAX
  */
 
-public class Main extends AndroidGame {
+public class Main extends AndroidGame{
 
 	@Override
 	public Screen getStartScreen() {
