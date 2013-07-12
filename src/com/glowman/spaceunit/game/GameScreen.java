@@ -1,69 +1,86 @@
 package com.glowman.spaceunit.game;
 
-import java.util.List;
-
 import android.graphics.Color;
 
-import com.glowman.android.framework.Game;
+import android.util.Log;
 import com.glowman.android.framework.Graphics;
-import com.glowman.android.framework.Input;
+import com.glowman.android.framework.Game;
+import com.glowman.android.framework.Pixmap;
 import com.glowman.android.framework.Screen;
-import com.glowman.android.framework.math.OverlapTester;
-import com.glowman.android.framework.math.Rectangle;
 import com.glowman.android.framework.math.Vector2;
-import com.glowman.spaceunit.MainScreen;
+import com.glowman.spaceunit.game.mapObject.MapObjectImagesENUM;
+import com.glowman.spaceunit.game.mapObject.Ship;
+import com.glowman.spaceunit.game.strategy.GameRunStrategy;
+import com.glowman.spaceunit.game.strategy.GameStrategy;
+
+import com.glowman.spaceunit.game.mapObject.Enemy;
 
 public class GameScreen extends Screen {
 
-	Rectangle backBtn;
-	Vector2 touchPoint;
-	Graphics g;
-	int btnColor;
+	public static final int SHOOT_GAME = 0;
+	public static final int RUN_GAME = 1;
+
+	public static final int MAX_TIME_ENEMY_RESPAWN = 3;
+
+	private Ship _ship;
+	private GameStrategy _gameStrategy;
+	private int _gameType;
+	private Graphics _graphics;
 
 	public GameScreen(Game game) {
 		super(game);
+		_graphics = game.getGraphics();
+		this.createShip();
 
-		g = game.getGraphics();
+		_gameStrategy = new GameRunStrategy(_graphics, _ship);
 
-		backBtn = new Rectangle(10, 10, 100, 50);
-		btnColor = Color.GREEN;
-		touchPoint = new Vector2();
+	}
+
+	private void createShip() {
+		if (_ship != null) { Log.e("hz", "ship already exists!"); }
+
+		Pixmap pixMap = _graphics.newPixmap(MapObjectImagesENUM.HERO_SHIP);
+		_ship = new Ship(pixMap, new Vector2(_graphics.getWidth(), _graphics.getHeight()), 10);
+		_ship.setGeneralSpeed(2);
+		_ship.setPosition(new Vector2(_graphics.getWidth() / 2, _graphics.getHeight() / 2));
 	}
 
 	@Override
 	public void update(float deltaTime) {
-		 List<Input.TouchEvent> touchEvents = game.getInput().getTouchEvents();
-		 game.getInput().getKeyEvents();
-		 int len = touchEvents.size();
-
-		 for(int i = 0; i < len; i++) {
-			 Input.TouchEvent event = touchEvents.get(i);
-			 touchPoint.set(event.x,event.y);
-
-			 if (OverlapTester.pointInRectangle(backBtn, touchPoint)) {
-				 if(event.type == Input.TouchEvent.TOUCH_DOWN) {
-					btnColor = Color.YELLOW;
-				 } else if(event.type == Input.TouchEvent.TOUCH_UP) {
-					btnColor = Color.GREEN;
-					g.clear(Color.BLACK);
-					game.setScreen(new MainScreen(game));
-				 }
-			 } else {
-				btnColor = Color.GREEN;
-			 }
-		 }
+		_gameStrategy.update();
+//		 List<Input.TouchEvent> touchEvents = game.getInput().getTouchEvents();
+//		 game.getInput().getKeyEvents();
+//		 int len = touchEvents.size();
+//
+//		 for(int i = 0; i < len; i++) {
+//			 Input.TouchEvent event = touchEvents.get(i);
+//			 touchPoint.set(event.x,event.y);
+//
+//			 if (OverlapTester.pointInRectangle(backBtn, touchPoint)) {
+//				 if(event.type == Input.TouchEvent.TOUCH_DOWN) {
+//					btnColor = Color.YELLOW;
+//				 } else if(event.type == Input.TouchEvent.TOUCH_UP) {
+//					btnColor = Color.GREEN;
+//					g.clear(Color.BLACK);
+//					game.setScreen(new MainScreen(game));
+//				 }
+//			 } else {
+//				btnColor = Color.GREEN;
+//			 }
+//		 }
 	}
 
 	@Override
 	public void present(float deltaTime) {
-		g.drawRect(
-				(int)(backBtn.lowerLeft.x), (int)(backBtn.lowerLeft.y),
-				(int)(backBtn.width), (int)(backBtn.height),  btnColor);
-
-		g.drawText("back", (int)(backBtn.lowerLeft.x + backBtn.width/2),
-				(int)(backBtn.lowerLeft.y + backBtn.height/2), 30, Color.BLACK);
-
-		g.drawText("O_o", g.getWidth()/2, g.getHeight()/2, 60, Color.WHITE);
+		_graphics.clear(Color.GREEN);
+		this.drawHero();
+		if (_gameStrategy.getEnemies() != null)
+		{
+			for (Enemy enemy : _gameStrategy.getEnemies())
+			{
+				_graphics.drawPixmap(enemy.getImage(), (int)enemy.getPosition().x, (int)enemy.getPosition().y);
+			}
+		}
 	}
 
 	@Override
@@ -80,4 +97,11 @@ public class GameScreen extends Screen {
 	public void dispose() {
 		//To change body of implemented methods use File | Settings | File Templates.
 	}
+
+	private void drawHero() {
+		_graphics.drawPixmap(_ship.getImage(), (int)_ship.getPosition().x, (int)_ship.getPosition().y);
+	}
+
+
+
 }

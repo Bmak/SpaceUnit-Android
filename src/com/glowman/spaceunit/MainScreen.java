@@ -47,6 +47,7 @@ public class MainScreen extends Screen {
 					this.updateButtonColor(TOUCH_BTN_COLOR);
 				} else if(event.type == Input.TouchEvent.TOUCH_UP) {
 					this.updateButtonColor(DEFAULT_BTN_COLOR);
+					Log.d("hz", "try to change screen, TADASH!");
 					game.setScreen(new GameScreen(game));
 				}
 			} else {
@@ -57,7 +58,6 @@ public class MainScreen extends Screen {
 
 	@Override
 	public void present(float deltaTime) {
-		Log.d("hz", "present called");
 	}
 
 	@Override
@@ -72,7 +72,7 @@ public class MainScreen extends Screen {
 
 	@Override
 	public void dispose() {
-		_g.clear(Color.BLACK);
+		//_g.clear(Color.WHITE);
 	}
 
 	private void updateButtonColor(final int color) {

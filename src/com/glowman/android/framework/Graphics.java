@@ -4,6 +4,8 @@ public interface Graphics {
 	public static enum PixmapFormat {
 		ARGB8888, ARGB4444, RGB565
 	}
+	public Pixmap newPixmap(String fileName);
+
 	public Pixmap newPixmap(String fileName, PixmapFormat format);
 	
 	public void clear(int color);

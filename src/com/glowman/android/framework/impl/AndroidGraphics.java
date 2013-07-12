@@ -12,7 +12,6 @@ import android.graphics.Bitmap.Config;
 import android.graphics.BitmapFactory;
 import android.graphics.BitmapFactory.Options;
 import android.graphics.Canvas;
-import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Paint.Style;
 import android.graphics.Rect;
@@ -30,6 +29,11 @@ public class AndroidGraphics implements Graphics {
 		this.frameBuffer = frameBuffer;
 		this.canvas = new Canvas(frameBuffer);
 		this.paint = new Paint();
+	}
+
+	@Override
+	public Pixmap newPixmap(String fileName) {
+		return this.newPixmap(fileName, null);
 	}
 	
 	@Override
@@ -118,7 +122,7 @@ public class AndroidGraphics implements Graphics {
 
 	@Override
 	public void drawText(String text, int x, int y, int size, int color) {
-		//TODO это тестовый метод, для него необходимо писать свой класс Font
+		//TODO пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ, пїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ Font
 		
 		paint.setColor(color);
 		paint.setTextSize(size);
