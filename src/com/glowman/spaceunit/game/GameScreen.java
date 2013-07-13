@@ -74,13 +74,7 @@ public class GameScreen extends Screen {
 	public void present(float deltaTime) {
 		_graphics.clear(Color.GREEN);
 		this.drawHero();
-		if (_gameStrategy.getEnemies() != null)
-		{
-			for (Enemy enemy : _gameStrategy.getEnemies())
-			{
-				_graphics.drawPixmap(enemy.getImage(), (int)enemy.getPosition().x, (int)enemy.getPosition().y);
-			}
-		}
+		this.drawEnemies();
 	}
 
 	@Override
@@ -102,6 +96,26 @@ public class GameScreen extends Screen {
 		_graphics.drawPixmap(_ship.getImage(), (int)_ship.getPosition().x, (int)_ship.getPosition().y);
 	}
 
+	private void drawEnemies() {
+		if (_gameStrategy.getEnemies() != null)
+		{
+			for (Enemy enemy : _gameStrategy.getEnemies())
+			{
+				this.drawEnemy(enemy);
+			}
+		}
+		if (_gameStrategy.getDeadEnemies() != null)
+		{
+			for (Enemy enemy : _gameStrategy.getDeadEnemies())
+			{
+				this.drawEnemy(enemy);
+			}
+		}
+	}
 
+	private void drawEnemy(Enemy enemy) {
+		_graphics.drawPixmap(enemy.getImage(), (int)enemy.getPosition().x, (int)enemy.getPosition().y);
+
+	}
 
 }

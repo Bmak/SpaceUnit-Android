@@ -31,8 +31,8 @@ public class MovingSpaceObject extends SpaceObject {
 		float vx = 0;
 		float vy = 0;
 		if (h != 0){
-			vx = dx / h * _generalSpeed;
-			vy = dy / h * _generalSpeed;
+			vx = (dx / h) * _generalSpeed;
+			vy = (dy / h) * _generalSpeed;
 		}
 		_position.x += vx;
 		_position.y += vy;

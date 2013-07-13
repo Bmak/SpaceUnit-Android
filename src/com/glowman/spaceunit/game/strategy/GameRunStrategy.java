@@ -1,7 +1,7 @@
 package com.glowman.spaceunit.game.strategy;
 
-import android.util.Log;
 import com.glowman.android.framework.Graphics;
+import com.glowman.android.framework.Input;
 import com.glowman.android.framework.math.Vector2;
 import com.glowman.spaceunit.game.mapObject.Enemy;
 import com.glowman.spaceunit.game.mapObject.MapObjectImagesENUM;
@@ -10,6 +10,7 @@ import com.glowman.spaceunit.game.mapObject.Ship;
 import java.lang.Math;
 import java.lang.Override;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -40,7 +41,6 @@ public class GameRunStrategy extends GameStrategy {
 	@Override
 	public void update()
 	{
-		Log.d("hz", "udpate of Game Run Strategy");
 		if (_heroShip.isMoving())
 		{
 			_heroShip.moveTo(_heroShip.getTargetPosition().x, _heroShip.getTargetPosition().y);
@@ -59,10 +59,22 @@ public class GameRunStrategy extends GameStrategy {
 		{
 			this.checkEnemyHits();
 		}
+	}
+
+	@Override
+	public void touchesBegan(List<Input.TouchEvent> touches) {
 
 	}
 
-	void checkEnemyHits()
+	public void touchesEnded(List<Input.TouchEvent> touches) {
+
+	}
+	public void touchesMoved(List<Input.TouchEvent> touches) {
+
+	}
+
+
+	private void checkEnemyHits()
 	{
 		ArrayList<Enemy> enemiesForExplosion = new ArrayList<Enemy>();
 		float distance;
@@ -70,12 +82,12 @@ public class GameRunStrategy extends GameStrategy {
 		Vector2 position1, position2;
 		for (int i = 0; i < (_enemies.size() - 1); ++i) {
 			for (int j = i + 1; j < _enemies.size(); ++j) {
-				radius1 = _enemies.get(i).getImage().getHeight()/2 *
-						_enemies.get(i).getImage().getScale();
-				radius2 = _enemies.get(j).getImage().getHeight()/2 *
-						_enemies.get(j).getImage().getScale();
-				position1 = _enemies.get(i).getPosition();
-				position2 = _enemies.get(j).getPosition();
+				radius1 = _enemies.get(i).getImage().getHeight()/2;// *
+						//(_enemies.get(i).getImage().getScale()/100);
+				radius2 = _enemies.get(j).getImage().getHeight()/2;// *
+						//(_enemies.get(j).getImage().getScale()/100);
+				position1 = _enemies.get(i).getCenterPosition();
+				position2 = _enemies.get(j).getCenterPosition();
 
 				distance = position1.dist(position2);
 				if (distance < radius1 + radius2)
