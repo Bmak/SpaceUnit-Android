@@ -3,10 +3,7 @@ package com.glowman.spaceunit.game;
 import android.graphics.Color;
 
 import android.util.Log;
-import com.glowman.android.framework.Graphics;
-import com.glowman.android.framework.Game;
-import com.glowman.android.framework.Pixmap;
-import com.glowman.android.framework.Screen;
+import com.glowman.android.framework.*;
 import com.glowman.android.framework.math.Vector2;
 import com.glowman.spaceunit.game.mapObject.MapObjectImagesENUM;
 import com.glowman.spaceunit.game.mapObject.Ship;
@@ -14,6 +11,9 @@ import com.glowman.spaceunit.game.strategy.GameRunStrategy;
 import com.glowman.spaceunit.game.strategy.GameStrategy;
 
 import com.glowman.spaceunit.game.mapObject.Enemy;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class GameScreen extends Screen {
 
@@ -48,26 +48,23 @@ public class GameScreen extends Screen {
 	@Override
 	public void update(float deltaTime) {
 		_gameStrategy.update();
-//		 List<Input.TouchEvent> touchEvents = game.getInput().getTouchEvents();
-//		 game.getInput().getKeyEvents();
-//		 int len = touchEvents.size();
-//
-//		 for(int i = 0; i < len; i++) {
-//			 Input.TouchEvent event = touchEvents.get(i);
-//			 touchPoint.set(event.x,event.y);
-//
-//			 if (OverlapTester.pointInRectangle(backBtn, touchPoint)) {
-//				 if(event.type == Input.TouchEvent.TOUCH_DOWN) {
-//					btnColor = Color.YELLOW;
-//				 } else if(event.type == Input.TouchEvent.TOUCH_UP) {
-//					btnColor = Color.GREEN;
-//					g.clear(Color.BLACK);
-//					game.setScreen(new MainScreen(game));
-//				 }
-//			 } else {
-//				btnColor = Color.GREEN;
-//			 }
-//		 }
+		List<Input.TouchEvent> touchEvents = game.getInput().getTouchEvents();
+		List<Input.TouchEvent> moveTouches = new ArrayList<Input.TouchEvent>();
+		List<Input.TouchEvent> downTouches = new ArrayList<Input.TouchEvent>();
+
+		for(int i = 0; i < touchEvents.size(); i++) {
+			 Input.TouchEvent event = touchEvents.get(i);
+
+			if(event.type == Input.TouchEvent.TOUCH_DOWN) {
+				downTouches.add(event);
+				_gameStrategy.touchesBegan(downTouches);
+			} else if(event.type == Input.TouchEvent.TOUCH_DRAGGED) {
+				moveTouches.add(event);
+				_gameStrategy.touchesMoved(moveTouches);
+			} else if (event.type == Input.TouchEvent.TOUCH_UP) {
+				_gameStrategy.touchesEnded(touchEvents);
+			} else { throw new Error("some undefined touch event here"); }
+		}
 	}
 
 	@Override

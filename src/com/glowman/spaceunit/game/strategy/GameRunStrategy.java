@@ -1,5 +1,6 @@
 package com.glowman.spaceunit.game.strategy;
 
+import android.util.Log;
 import com.glowman.android.framework.Graphics;
 import com.glowman.android.framework.Input;
 import com.glowman.android.framework.math.Vector2;
@@ -63,14 +64,22 @@ public class GameRunStrategy extends GameStrategy {
 
 	@Override
 	public void touchesBegan(List<Input.TouchEvent> touches) {
-
+		if (touches.size() == 0) { throw new Error("touches length cant be 0 here"); }
+		Input.TouchEvent touch = touches.get(0);
+		_heroShip.setTargetPosition(new Vector2(touch.x, touch.y));
+		_heroShip.setMoving(true);
 	}
 
 	public void touchesEnded(List<Input.TouchEvent> touches) {
-
+		if (touches.size() == 0) { throw new Error("touches length cant be 0 here"); }
+		_heroShip.setMoving(false);
 	}
-	public void touchesMoved(List<Input.TouchEvent> touches) {
 
+	public void touchesMoved(List<Input.TouchEvent> touches) {
+		if (touches.size() == 0) { throw new Error("touches length cant be 0 here"); }
+		Input.TouchEvent touch = touches.get(0);
+		_heroShip.setTargetPosition(new Vector2(touch.x, touch.y));
+		_heroShip.setMoving(true);
 	}
 
 

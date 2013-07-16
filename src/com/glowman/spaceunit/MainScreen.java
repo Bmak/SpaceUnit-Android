@@ -47,6 +47,7 @@ public class MainScreen extends Screen {
 				Log.d("hz", "touch dragged!");
 			}
 
+
 			if (OverlapTester.pointInCircle(_buttonModel, new Vector2(event.x, event.y))) {
 				if(event.type == Input.TouchEvent.TOUCH_DOWN) {
 					this.updateButtonColor(TOUCH_BTN_COLOR);
