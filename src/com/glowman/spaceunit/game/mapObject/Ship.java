@@ -1,8 +1,8 @@
 package com.glowman.spaceunit.game.mapObject;
 
 import android.graphics.Bitmap;
-import com.glowman.android.framework.Pixmap;
-import com.glowman.android.framework.math.Vector2;
+import com.badlogic.gdx.graphics.Pixmap;
+import com.badlogic.gdx.math.Vector2;
 
 /**
  *

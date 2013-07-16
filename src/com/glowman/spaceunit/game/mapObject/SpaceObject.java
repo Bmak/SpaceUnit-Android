@@ -1,7 +1,7 @@
 package com.glowman.spaceunit.game.mapObject;
 
-import com.glowman.android.framework.Pixmap;
-import com.glowman.android.framework.math.Vector2;
+import com.badlogic.gdx.graphics.Pixmap;
+import com.badlogic.gdx.math.Vector2;
 
 /**
  *
@@ -18,7 +18,7 @@ public abstract class SpaceObject {
 		_screenSize = screenSize;
 		_scale = randomScale ? ((int)Math.random() * 50) + 50 : 50;
 		_image = image;
-		_image.setScale(_scale);
+		//_image.setScale(_scale);
 		_position = new Vector2(0, 0);
 		_rotation = 0;
 	}
@@ -34,7 +34,7 @@ public abstract class SpaceObject {
 	public Vector2 getPosition() { return _position; }
 
 	public Vector2 getCenterPosition() {
-		Vector2 result = this.getPosition().copy();
+		Vector2 result = this.getPosition().cpy();
 		result.x += _image.getWidth()/2;
 		result.y += _image.getHeight()/2;
 		return result;

@@ -1,6 +1,7 @@
 package com.glowman.spaceunit;
 
 import android.os.Bundle;
+import com.badlogic.gdx.Game;
 import com.badlogic.gdx.backends.android.AndroidApplication;
 
 
@@ -9,13 +10,11 @@ import com.badlogic.gdx.backends.android.AndroidApplication;
  * @author MAX
  */
 
-public class Main extends AndroidApplication{
+public class Main extends Game{
 
 	@Override
-	public void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
-		super.initialize(new MainScreen(), true);
-		  return new MainScreen(this);
+	public void create () {
+		setScreen(new MainScreen(this));
 	}
 
 }
