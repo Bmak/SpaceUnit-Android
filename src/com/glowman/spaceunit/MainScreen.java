@@ -44,6 +44,7 @@ public class MainScreen implements Screen {
 
 	@Override
 	public void render(float deltaTime) {
+		Log.d("hz", "render!!!");
 //		List<Input.TouchEvent> touchEvents = game.getInput().getTouchEvents();
 //		int len = touchEvents.size();
 //
