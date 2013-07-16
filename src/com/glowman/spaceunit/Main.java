@@ -1,7 +1,7 @@
 package com.glowman.spaceunit;
 
-import com.glowman.android.framework.Screen;
-import com.glowman.android.framework.impl.AndroidGame;
+import android.os.Bundle;
+import com.badlogic.gdx.backends.android.AndroidApplication;
 
 
 /**
@@ -9,11 +9,13 @@ import com.glowman.android.framework.impl.AndroidGame;
  * @author MAX
  */
 
-public class Main extends AndroidGame{
+public class Main extends AndroidApplication{
 
 	@Override
-	public Screen getStartScreen() {
-		return new MainScreen(this);
+	public void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		super.initialize(new MainScreen(), true);
+		  return new MainScreen(this);
 	}
 
 }
