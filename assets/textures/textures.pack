@@ -1,0 +1,52 @@
+
+textures.png
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+bkg/bkg1
+  rotate: false
+  xy: 1, 1
+  size: 320, 480
+  orig: 320, 480
+  offset: 0, 0
+  index: -1
+bkg/bkg2
+  rotate: false
+  xy: 323, 1
+  size: 320, 480
+  orig: 320, 480
+  offset: 0, 0
+  index: -1
+
+textures2.png
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+buttons/PlayBtnRun
+  rotate: false
+  xy: 1, 1
+  size: 162, 115
+  orig: 162, 115
+  offset: 0, 0
+  index: 1
+buttons/PlayBtnRun
+  rotate: false
+  xy: 165, 1
+  size: 162, 115
+  orig: 162, 115
+  offset: 0, 0
+  index: 2
+buttons/PlayBtnShoot
+  rotate: false
+  xy: 329, 2
+  size: 162, 114
+  orig: 162, 114
+  offset: 0, 0
+  index: 1
+buttons/PlayBtnShoot
+  rotate: false
+  xy: 493, 2
+  size: 162, 114
+  orig: 162, 114
+  offset: 0, 0
+  index: 2

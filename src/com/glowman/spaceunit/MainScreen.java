@@ -1,50 +1,106 @@
 package com.glowman.spaceunit;
 
-import android.graphics.Color;
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.Game;
+import com.badlogic.gdx.graphics.GL10;
+import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.math.Vector3;
 
 import android.util.Log;
-import com.glowman.spaceunit.game.GameScreen;
 
-import java.util.List;
 
 
 public class MainScreen implements Screen {
+	
+	float MENU_WIDTH = Gdx.graphics.getWidth();
+	float MENU_HEIGHT = Gdx.graphics.getHeight();
+	
+	private Game _game;
+	
+	SpriteBatch spriteBatch;
+	private OrthographicCamera menuCam;
+	//private SimpleButton playButton;
+	//private SimpleButton scoresButton;
+	
+	private Sprite _playBtn;
+	private Sprite _bkg;
+	private Vector3 _touchPoint;
+	private boolean _wasTouched;
 
-	//private Game _game;
-
-	//private final Circle _buttonModel;
-	//private final Graphics _g;
-
-	private final int DEFAULT_BTN_COLOR = Color.DKGRAY;
-	private final int TOUCH_BTN_COLOR = Color.RED;
-	private final String BUTTON_TEXT = "push";
 
 	public MainScreen(Game game) {
-		//super(game);
-
-		//_g = game.getGraphics();
-
-		//_buttonModel = new Circle(_g.getWidth()/2, _g.getHeight()/2, 50);
-
-		//this.drawButton();
+		_game = game;
+		
+		_touchPoint = new Vector3();
+		
+		_bkg = Assets.bkg1;
+		_playBtn = Assets.playBtnRun1;
+		
+		menuCam = new OrthographicCamera(MENU_WIDTH, MENU_HEIGHT);
+		menuCam.position.set(MENU_WIDTH / 2f, MENU_HEIGHT / 2f, 0);
+		menuCam.update();
+		spriteBatch = new SpriteBatch();
+		spriteBatch.setProjectionMatrix(menuCam.combined);
+		
+		Log.d("SIZE", "size: " + MENU_WIDTH + " / " + MENU_HEIGHT);
+		
 	}
 
 	@Override
-	public void resize(int width, int height)
-	{}
+	public void resize(int width, int height) {
+		MENU_WIDTH = (float) width;
+		MENU_HEIGHT = (float) height;
+		
+		Log.d("RESIZE", "REsize: " + MENU_WIDTH + " / " + MENU_HEIGHT);
+		
+		//TODO refact this
+		Assets.playBtnRun1.setScale(1.5f);
+		Assets.playBtnRun2.setScale(1.5f);
+		
+		Assets.playBtnRun1.setX((MENU_WIDTH - Assets.playBtnRun1.getWidth())/2);
+		Assets.playBtnRun1.setY((MENU_HEIGHT - Assets.playBtnRun1.getHeight())/2);
+		Assets.playBtnRun2.setX((MENU_WIDTH - Assets.playBtnRun2.getWidth())/2);
+		Assets.playBtnRun2.setY((MENU_HEIGHT - Assets.playBtnRun2.getHeight())/2);
+		
+		//TODO this shit cuz wrong picture
+		//_bkg.setRotation(90);
+		_bkg.setSize(MENU_WIDTH, MENU_HEIGHT);
+	}
 
 	@Override
-	public void hide()
-	{}
+	public void hide() {}
 
 	@Override
 	public void show() {}
 
 	@Override
 	public void render(float deltaTime) {
-		Log.d("hz", "render!!!");
+		_playBtn = Assets.playBtnRun1;
+		if (Gdx.input.isTouched()) {
+			_touchPoint.x = Gdx.input.getX();
+			_touchPoint.y = Gdx.input.getY();
+			
+			if (_playBtn.getBoundingRectangle().contains(_touchPoint.x, _touchPoint.y)) {
+				_playBtn = Assets.playBtnRun2;
+			}
+		}
+		
+		
+		Gdx.gl.glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
+		Gdx.gl.glClear(GL10.GL_COLOR_BUFFER_BIT);
+		spriteBatch.begin();
+		
+		_bkg.draw(spriteBatch);
+		_playBtn.draw(spriteBatch);
+		
+		spriteBatch.end();
+		
+		
+		
+		//Log.d("hz", "render!!!");
 //		List<Input.TouchEvent> touchEvents = game.getInput().getTouchEvents();
 //		int len = touchEvents.size();
 //
@@ -70,10 +126,6 @@ public class MainScreen implements Screen {
 //			}
 //		}
 	}
-
-//	@Override
-//	public void present(float deltaTime) {
-//	}
 
 	@Override
 	public void pause() {
