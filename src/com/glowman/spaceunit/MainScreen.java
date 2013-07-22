@@ -21,7 +21,8 @@ public class MainScreen implements Screen {
 
 	SpriteBatch spriteBatch;
 
-	private Sprite _playBtn;
+	private Sprite _playBtnRun;
+	private Sprite _playBtnShoot;
 	private Sprite _bkg;
 	private Vector3 _touchPoint;
 
@@ -32,7 +33,8 @@ public class MainScreen implements Screen {
 		_touchPoint = new Vector3();
 		
 		_bkg = Assets.bkg2;
-		_playBtn = Assets.playBtnRun1;
+		_playBtnRun = new Sprite(Assets.getPlayRunRegion(1));
+		//_playBtnShoot = new Sprite(Assets.playBtnShoot1.getTexture());
 		
 		spriteBatch = new SpriteBatch();
 
@@ -49,15 +51,20 @@ public class MainScreen implements Screen {
 		MENU_HEIGHT = (float) height;
 		
 		Log.d("RESIZE", "REsize: " + MENU_WIDTH + " / " + MENU_HEIGHT);
+
+		_playBtnRun.setScale(0.5f);
+		_playBtnRun.setX((MENU_WIDTH - _playBtnRun.getWidth())/2);
+		_playBtnRun.setY((MENU_HEIGHT - _playBtnRun.getHeight())/2);
 		
 		//TODO refact this
 		//Assets.playBtnRun1.setScale(1.5f);
 		//Assets.playBtnRun2.setScale(1.5f);
-		
-		Assets.playBtnRun1.setX((MENU_WIDTH - Assets.playBtnRun1.getWidth())/2);
-		Assets.playBtnRun1.setY((MENU_HEIGHT - Assets.playBtnRun1.getHeight())/2);
-		Assets.playBtnRun2.setX(Assets.playBtnRun1.getX());
-		Assets.playBtnRun2.setY(Assets.playBtnRun1.getY() + (Assets.playBtnRun1.getHeight() - Assets.playBtnRun2.getHeight()));
+
+
+//		Assets.playBtnRun1.setX((MENU_WIDTH - Assets.playBtnRun1.getWidth())/2);
+//		Assets.playBtnRun1.setY((MENU_HEIGHT - Assets.playBtnRun1.getHeight())/2);
+//		Assets.playBtnRun2.setX(Assets.playBtnRun1.getX());
+//		Assets.playBtnRun2.setY(Assets.playBtnRun1.getY() + (Assets.playBtnRun1.getHeight() - Assets.playBtnRun2.getHeight()));
 		
 		//TODO this shit cuz wrong picture
 		//_bkg.setRotation(90);
@@ -72,16 +79,6 @@ public class MainScreen implements Screen {
 
 	@Override
 	public void render(float deltaTime) {
-		_playBtn = Assets.playBtnRun1;
-		if (Gdx.input.isTouched()) {
-			_touchPoint.x = Gdx.input.getX();
-			_touchPoint.y = Gdx.input.getY();
-			
-			if (_playBtn.getBoundingRectangle().contains(_touchPoint.x, _touchPoint.y)) {
-				_playBtn = Assets.playBtnRun2;
-			}
-		}
-		
 		this.touchesProcessing();
 
 		Gdx.gl.glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
@@ -89,7 +86,7 @@ public class MainScreen implements Screen {
 		spriteBatch.begin();
 		
 		_bkg.draw(spriteBatch);
-		_playBtn.draw(spriteBatch);
+		_playBtnRun.draw(spriteBatch);
 		
 		spriteBatch.end();
 		
@@ -111,15 +108,26 @@ public class MainScreen implements Screen {
 
 	private void touchesProcessing()
 	{
-		_playBtn = Assets.playBtnRun1;
-		if (Gdx.input.isTouched()) {
-			_touchPoint.x = Gdx.input.getX();
-			_touchPoint.y = Gdx.input.getY();
+		if (this.isButtonTouched(_playBtnRun)) {
+			_playBtnRun.setRegion(Assets.getPlayRunRegion(2));
+		} else {
+			_playBtnRun.setRegion(Assets.getPlayRunRegion(1));
+		}
+	}
 
-			if (_playBtn.getBoundingRectangle().contains(_touchPoint.x, _touchPoint.y)) {
-				_playBtn = Assets.playBtnRun2;
+	private boolean isButtonTouched(Sprite button)
+	{
+		boolean result = false;
+		Vector3 touchPoint = new Vector3();
+		if (Gdx.input.isTouched()) {
+			touchPoint.x = Gdx.input.getX();
+			touchPoint.y = Gdx.input.getY();
+
+			if (button.getBoundingRectangle().contains(touchPoint.x, touchPoint.y)) {
+				result = true;
 			}
 		}
+		return result;
 	}
 
 }

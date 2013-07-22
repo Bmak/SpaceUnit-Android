@@ -29,4 +29,8 @@ public class Assets {
 		
 		playBtnShootAnim = new Animation(0.2f, Assets.playBtnShoot1, Assets.playBtnShoot2);
 	}
+
+	public static TextureRegion getPlayRunRegion(int index) {
+		return atlas.findRegion("buttons/PlayBtnRun", index);
+	}
 }
