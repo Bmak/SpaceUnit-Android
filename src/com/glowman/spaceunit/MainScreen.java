@@ -36,7 +36,7 @@ public class MainScreen implements Screen {
 		
 		_touchPoint = new Vector3();
 		
-		_bkg = Assets.bkg1;
+		_bkg = Assets.bkg2;
 		_playBtn = Assets.playBtnRun1;
 		
 		menuCam = new OrthographicCamera(MENU_WIDTH, MENU_HEIGHT);
@@ -57,13 +57,13 @@ public class MainScreen implements Screen {
 		Log.d("RESIZE", "REsize: " + MENU_WIDTH + " / " + MENU_HEIGHT);
 		
 		//TODO refact this
-		Assets.playBtnRun1.setScale(1.5f);
-		Assets.playBtnRun2.setScale(1.5f);
+		//Assets.playBtnRun1.setScale(1.5f);
+		//Assets.playBtnRun2.setScale(1.5f);
 		
 		Assets.playBtnRun1.setX((MENU_WIDTH - Assets.playBtnRun1.getWidth())/2);
 		Assets.playBtnRun1.setY((MENU_HEIGHT - Assets.playBtnRun1.getHeight())/2);
-		Assets.playBtnRun2.setX((MENU_WIDTH - Assets.playBtnRun2.getWidth())/2);
-		Assets.playBtnRun2.setY((MENU_HEIGHT - Assets.playBtnRun2.getHeight())/2);
+		Assets.playBtnRun2.setX(Assets.playBtnRun1.getX());
+		Assets.playBtnRun2.setY(Assets.playBtnRun1.getY() + (Assets.playBtnRun1.getHeight() - Assets.playBtnRun2.getHeight()));
 		
 		//TODO this shit cuz wrong picture
 		//_bkg.setRotation(90);
@@ -87,7 +87,6 @@ public class MainScreen implements Screen {
 				_playBtn = Assets.playBtnRun2;
 			}
 		}
-		
 		
 		Gdx.gl.glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
 		Gdx.gl.glClear(GL10.GL_COLOR_BUFFER_BIT);
