@@ -1,6 +1,7 @@
 package com.glowman.spaceunit;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.graphics.GL10;
@@ -30,12 +31,15 @@ public class MainScreen implements Screen {
 	public MainScreen(Game game) {
 		_game = game;
 
+
 		_touchPoint = new Vector3();
 		
 		_bkg = Assets.bkg2;
 		_playBtnRun = new Button(Assets.getPlayRunRegion(1), Assets.getPlayRunRegion(2));
 
 		spriteBatch = new SpriteBatch();
+
+		Gdx.input.setInputProcessor(new MenuTouchListener(_game, _playBtnRun));
 
 		//why this shit if still working without?
 		//spriteBatch.setProjectionMatrix(menuCam.combined);
@@ -61,17 +65,17 @@ public class MainScreen implements Screen {
 	}
 
 	@Override
-	public void hide() {}
+	public void hide() {
+		this.clear();
+	}
 
 	@Override
-	public void show() {}
+	public void show() {
+	}
 
 	@Override
 	public void render(float deltaTime) {
-		this.touchesProcessing();
-
-		Gdx.gl.glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
-		Gdx.gl.glClear(GL10.GL_COLOR_BUFFER_BIT);
+		this.clear();
 		spriteBatch.begin();
 		
 		_bkg.draw(spriteBatch);
@@ -93,30 +97,14 @@ public class MainScreen implements Screen {
 
 	@Override
 	public void dispose() {
+		Log.d("hz", "dispose!!");
+		this.clear();
 	}
 
-	private void touchesProcessing()
-	{
-		if (this.isButtonTouched(_playBtnRun)) {
-			_playBtnRun.setClickedMode();
-		} else {
-			_playBtnRun.setNormalMode();
-		}
+	private void clear() {
+		Gdx.gl.glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
+		Gdx.gl.glClear(GL10.GL_COLOR_BUFFER_BIT);
 	}
 
-	private boolean isButtonTouched(Button button)
-	{
-		boolean result = false;
-		Vector3 touchPoint = new Vector3();
-		if (Gdx.input.isTouched()) {
-			touchPoint.x = Gdx.input.getX();
-			touchPoint.y = Gdx.input.getY();
-
-			if (button.getView().getBoundingRectangle().contains(touchPoint.x, touchPoint.y)) {
-				result = true;
-			}
-		}
-		return result;
-	}
 
 }

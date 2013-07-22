@@ -1,6 +1,5 @@
 package com.glowman.spaceunit.game.core;
 
-import android.util.Log;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
