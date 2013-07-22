@@ -43,7 +43,6 @@ public class Button {
 		_clicked.setScale(scale);
 
 		updateXY();
-
 	}
 
 	public void setX(float x)
@@ -53,21 +52,10 @@ public class Button {
 	}
 	public void setY(float y)
 	{
-		/*
-		Log.d("hz", "scale now : " + _normal.getScaleY());
-		float scaledDelta = (_normal.getHeight() - _normal.getHeight() * _normal.getScaleX());
-		_normal.setY(y - scaledDelta);
-		//scaledDelta = (_clicked.getHeight() - _clicked.getHeight() * _clicked.getScaleX());
-		_clicked.setY(y + (_normal.getHeight() - _clicked.getHeight())- scaledDelta);
-		
-		*/
-		
 		_normal.setY(y);
-		
-		Log.d("hz", "scale now : " + _normal.getScaleY());
-		Log.d("wtf", "size now : " + _clicked.getHeight() + " " + _normal.getHeight());
-		
-		float otherY = y - (_clicked.getHeight() - _normal.getHeight())*_normal.getScaleY();
+
+		float deltaHeight = (_normal.getHeight() - _clicked.getHeight());
+		float otherY = y + deltaHeight * _normal.getScaleY() * 3/2;
 		
 		_clicked.setY(otherY);
 	}
