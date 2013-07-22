@@ -9,7 +9,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector3;
 
 import android.util.Log;
-
+import com.glowman.spaceunit.game.core.Button;
 
 
 public class MainScreen implements Screen {
@@ -21,7 +21,7 @@ public class MainScreen implements Screen {
 
 	SpriteBatch spriteBatch;
 
-	private Sprite _playBtnRun;
+	private Button _playBtnRun;
 	private Sprite _playBtnShoot;
 	private Sprite _bkg;
 	private Vector3 _touchPoint;
@@ -33,9 +33,8 @@ public class MainScreen implements Screen {
 		_touchPoint = new Vector3();
 		
 		_bkg = Assets.bkg2;
-		_playBtnRun = new Sprite(Assets.getPlayRunRegion(1));
-		//_playBtnShoot = new Sprite(Assets.playBtnShoot1.getTexture());
-		
+		_playBtnRun = new Button(Assets.getPlayRunRegion(1), Assets.getPlayRunRegion(2));
+
 		spriteBatch = new SpriteBatch();
 
 		//why this shit if still working without?
@@ -53,18 +52,8 @@ public class MainScreen implements Screen {
 		Log.d("RESIZE", "REsize: " + MENU_WIDTH + " / " + MENU_HEIGHT);
 
 		_playBtnRun.setScale(0.5f);
-		_playBtnRun.setX((MENU_WIDTH - _playBtnRun.getWidth())/2);
-		_playBtnRun.setY((MENU_HEIGHT - _playBtnRun.getHeight())/2);
-		
-		//TODO refact this
-		//Assets.playBtnRun1.setScale(1.5f);
-		//Assets.playBtnRun2.setScale(1.5f);
-
-
-//		Assets.playBtnRun1.setX((MENU_WIDTH - Assets.playBtnRun1.getWidth())/2);
-//		Assets.playBtnRun1.setY((MENU_HEIGHT - Assets.playBtnRun1.getHeight())/2);
-//		Assets.playBtnRun2.setX(Assets.playBtnRun1.getX());
-//		Assets.playBtnRun2.setY(Assets.playBtnRun1.getY() + (Assets.playBtnRun1.getHeight() - Assets.playBtnRun2.getHeight()));
+		_playBtnRun.setX((MENU_WIDTH - _playBtnRun.getView().getWidth())/2);
+		_playBtnRun.setY((MENU_HEIGHT - _playBtnRun.getView().getHeight())/2);
 		
 		//TODO this shit cuz wrong picture
 		//_bkg.setRotation(90);
@@ -109,13 +98,13 @@ public class MainScreen implements Screen {
 	private void touchesProcessing()
 	{
 		if (this.isButtonTouched(_playBtnRun)) {
-			_playBtnRun.setRegion(Assets.getPlayRunRegion(2));
+			_playBtnRun.setClickedMode();
 		} else {
-			_playBtnRun.setRegion(Assets.getPlayRunRegion(1));
+			_playBtnRun.setNormalMode();
 		}
 	}
 
-	private boolean isButtonTouched(Sprite button)
+	private boolean isButtonTouched(Button button)
 	{
 		boolean result = false;
 		Vector3 touchPoint = new Vector3();
@@ -123,7 +112,7 @@ public class MainScreen implements Screen {
 			touchPoint.x = Gdx.input.getX();
 			touchPoint.y = Gdx.input.getY();
 
-			if (button.getBoundingRectangle().contains(touchPoint.x, touchPoint.y)) {
+			if (button.getView().getBoundingRectangle().contains(touchPoint.x, touchPoint.y)) {
 				result = true;
 			}
 		}

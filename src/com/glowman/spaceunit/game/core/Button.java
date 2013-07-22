@@ -1,0 +1,68 @@
+package com.glowman.spaceunit.game.core;
+
+import android.util.Log;
+import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
+
+/**
+ *
+ */
+public class Button {
+	private final Sprite _normal;
+	private final Sprite _clicked;
+	private Sprite _currentView;
+
+	public Button(TextureRegion normal, TextureRegion clicked)
+	{
+		_normal = new Sprite(normal);
+		_clicked = new Sprite(clicked);
+		_currentView = _normal;
+	}
+
+	public Sprite getView() { return _currentView; }
+
+	public void setClickedMode()
+	{
+		_currentView = _clicked;
+	}
+
+	public void setNormalMode()
+	{
+		_currentView = _normal;
+	}
+
+	public void draw(SpriteBatch spriteBatch)
+	{
+		_currentView.draw(spriteBatch);
+	}
+
+	public void setScale(float scale)
+	{
+		_normal.setScale(scale);
+		_clicked.setScale(scale);
+
+		//updateXY();
+
+	}
+
+	public void setX(float x)
+	{
+		_normal.setX(x);
+		_clicked.setX(x);
+	}
+	public void setY(float y)
+	{
+		Log.d("hz", "scale now : " + _normal.getScaleX());
+		float scaledDelta = 0;//(_normal.getHeight() - _normal.getHeight() * _normal.getScaleX());
+		_normal.setY(y - scaledDelta);
+		//scaledDelta = (_clicked.getHeight() - _clicked.getHeight() * _clicked.getScaleX());
+		_clicked.setY(y + (_normal.getHeight() - _clicked.getHeight())- scaledDelta);
+	}
+
+	private void updateXY()
+	{
+		this.setY(_normal.getY());
+	}
+
+}
