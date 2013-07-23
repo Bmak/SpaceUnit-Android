@@ -24,13 +24,11 @@ public class Enemy extends MovingSpaceObject {
 		super.tick(deltaTime);
 	}
 	
-<<<<<<< HEAD
-=======
 	public void setRandomBehaviour()
 	{
-		_speedX = 5*((float)Math.random() * 2 - 1);
+		/*_speedX = 5*((float)Math.random() * 2 - 1);
 		_speedY = 5*((float)Math.random() * 2 - 1);
-		_speedRotate = 5*((float)Math.random() * 2 - 1);
+		_speedRotate = 5*((float)Math.random() * 2 - 1);*/
 	}
 
 	public void setRandomBorderPosition()
@@ -66,5 +64,4 @@ public class Enemy extends MovingSpaceObject {
 			this.setRandomBorderPosition();
 		}
 	}
->>>>>>> simple fixex
 }

@@ -47,7 +47,7 @@ public class MenuTouchListener extends InputAdapter {
 
 	@Override
 	public boolean touchUp(int screenX, int screenY, int pointer, int button) {
-		if (!_wasTouchDown) { return false; }
+		/*if (!_wasTouchDown) { return false; }
 		_wasTouchDown = false;
 		Log.d("hz", "touch up!!!");
 		_playBtnRun.setNormalMode();
@@ -57,7 +57,7 @@ public class MenuTouchListener extends InputAdapter {
 		{
 			Gdx.input.setInputProcessor(null);
 			_game.setScreen(new GameScreen(_game));
-		}
+		}*/
 		return false;
 	}
 

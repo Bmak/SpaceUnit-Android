@@ -4,7 +4,9 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.Game;
+import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.GL10;
+import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector3;
@@ -17,25 +19,30 @@ import com.glowman.spaceunit.game.core.Button;
 
 public class MainScreen implements Screen {
 	
-	float MENU_WIDTH = Gdx.graphics.getWidth();
-	float MENU_HEIGHT = Gdx.graphics.getHeight();
+	float MENU_WIDTH = 480;
+	float MENU_HEIGHT = 800;
 	
 	private Game _game;
 
 	SpriteBatch _spriteBatch;
-
+	
+	private OrthographicCamera _camera;
 	private Button _playBtnRun;
 	private Button _playBtnShoot;
 	private Sprite _bkg;
 	private Vector3 _touchPoint;
 	
 	private AsteroidsBehavior _behavior;
-
+	private float _frustX;
+	private float _frustY;
 
 	public MainScreen(Game game) {
 		_game = game;
-
-
+		
+		_camera = new OrthographicCamera(MENU_WIDTH, MENU_HEIGHT);
+		_camera.position.set(MENU_WIDTH / 2f, MENU_WIDTH / 2f, 0);
+		_camera.update();
+		
 		_touchPoint = new Vector3();
 		
 		_bkg = new Sprite(Assets.bkg2);
@@ -43,6 +50,7 @@ public class MainScreen implements Screen {
 		_playBtnShoot = new Button(Assets.getPlayShootRegion(1), Assets.getPlayShootRegion(2));
 
 		_spriteBatch = new SpriteBatch();
+		//_spriteBatch.setProjectionMatrix(_camera.combined);
 		
 		_behavior = new AsteroidsBehavior(15, _spriteBatch);
 
@@ -58,6 +66,12 @@ public class MainScreen implements Screen {
 	public void resize(int width, int height) {
 		MENU_WIDTH = (float) width;
 		MENU_HEIGHT = (float) height;
+		/*_frustX = (float)width/MENU_WIDTH;
+		_frustY = (float)height/MENU_HEIGHT;
+		
+		_camera = new OrthographicCamera(MENU_WIDTH, MENU_HEIGHT);
+		_camera.position.set(MENU_WIDTH / 2f, MENU_WIDTH / 2f, 0);
+		_camera.update();*/
 		
 		Log.d("RESIZE", "REsize: " + MENU_WIDTH + " / " + MENU_HEIGHT);
 		
