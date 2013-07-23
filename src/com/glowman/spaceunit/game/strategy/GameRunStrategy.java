@@ -3,6 +3,7 @@ package com.glowman.spaceunit.game.strategy;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.Vector2;
 import com.glowman.spaceunit.Assets;
+import com.glowman.spaceunit.game.core.TouchEvent;
 import com.glowman.spaceunit.game.mapObject.Enemy;
 import com.glowman.spaceunit.game.mapObject.Ship;
 
@@ -48,6 +49,7 @@ public class GameRunStrategy extends GameStrategy {
 			for (Enemy enemy : _enemies)
 			{
 				enemy.moveTo(_heroShip.getPosition().x, _heroShip.getPosition().y);
+				enemy.tick(0f); //TODO
 			}
 		}
 		if (_enemies != null)
@@ -56,26 +58,22 @@ public class GameRunStrategy extends GameStrategy {
 		}
 	}
 
-	//TODO
-//	@Override
-//	public void touchesBegan(List<Input.TouchEvent> touches) {
-//		if (touches.size() == 0) { throw new Error("touches length cant be 0 here"); }
-//		Input.TouchEvent touch = touches.get(0);
-//		_heroShip.setTargetPosition(new Vector2(touch.x, touch.y));
-//		_heroShip.setMoving(true);
-//	}
-//
-//	public void touchesEnded(List<Input.TouchEvent> touches) {
-//		if (touches.size() == 0) { throw new Error("touches length cant be 0 here"); }
-//		_heroShip.setMoving(false);
-//	}
-//
-//	public void touchesMoved(List<Input.TouchEvent> touches) {
-//		if (touches.size() == 0) { throw new Error("touches length cant be 0 here"); }
-//		Input.TouchEvent touch = touches.get(0);
-//		_heroShip.setTargetPosition(new Vector2(touch.x, touch.y));
-//		_heroShip.setMoving(true);
-//	}
+	@Override
+	public void touchDown(TouchEvent touch) {
+		_heroShip.setTargetPosition(new Vector2(touch.x, touch.y));
+		_heroShip.setMoving(true);
+	}
+
+	@Override
+	public void touchUp(TouchEvent touch) {
+		_heroShip.setMoving(false);
+	}
+
+	@Override
+	public void touchMove(TouchEvent touch) {
+		_heroShip.setTargetPosition(new Vector2(touch.x, touch.y));
+		_heroShip.setMoving(true);
+	}
 
 
 	private void checkEnemyHits()

@@ -33,13 +33,8 @@ public class Ship extends MovingSpaceObject {
 
 	public void tick(float deltaTime)
 	{
+		super.tick(deltaTime);
 		_readyForShoot = false;
-		if (_moving)
-		{
-			this.moveTo(_targetPosition.x, _targetPosition.y);
-			this.rotateTo(_targetPosition.x, _targetPosition.y);
-		}
-
 		if (_shooting)
 		{
 			if (_currentReloadTime >= _reloadTime)
@@ -55,15 +50,29 @@ public class Ship extends MovingSpaceObject {
 	}
 
 	public boolean isMoving() { return _moving; }
-	public void setMoving(boolean value) { _moving = value; }
+	public void setMoving(boolean value) {
+		if (_moving != value) {
+			_moving = value;
+			if (!_moving) { super.stop(); }
+			if (_moving) { this.moveToTargetPoint(); }
+		}
+	}
 	public boolean isShooting() { return _shooting; }
 	public void setShooting(boolean value) { _shooting = value; }
 
 	public boolean isReadyForShoot() { return _readyForShoot; }
 
 	public Vector2 getTargetPosition() { return _targetPosition; }
-	public void setTargetPosition(Vector2 value) { _targetPosition = value; }
+	public void setTargetPosition(Vector2 value) {
+		_targetPosition = value;
+		if (_moving) { this.moveToTargetPoint(); }
+	}
 	public void setTargetForShooting(Vector2 value) { _targetForShooting = value; }
 
+
+	private void moveToTargetPoint() {
+		this.moveTo(_targetPosition.x, _targetPosition.y);
+		this.rotateTo(_targetPosition.x, _targetPosition.y);
+	}
 
 }

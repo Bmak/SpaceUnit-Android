@@ -2,6 +2,7 @@ package com.glowman.spaceunit.game.strategy;
 
 
 import com.badlogic.gdx.math.Vector2;
+import com.glowman.spaceunit.game.core.TouchEvent;
 import com.glowman.spaceunit.game.mapObject.Enemy;
 import com.glowman.spaceunit.game.mapObject.Ship;
 
@@ -41,8 +42,7 @@ public abstract class GameStrategy {
 		_deadEnemies.add(enemy);
 	}
 
-	//TODO
-//	public abstract void touchesBegan(List<Input.TouchEvent> touches);
-//	public abstract void touchesEnded(List<Input.TouchEvent> touches);
-//	public abstract void touchesMoved(List<Input.TouchEvent> touches);
+	public abstract void touchUp(TouchEvent touch);
+	public abstract void touchDown(TouchEvent touch);
+	public abstract void touchMove(TouchEvent touch);
 }
