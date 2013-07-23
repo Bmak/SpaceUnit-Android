@@ -40,4 +40,8 @@ public class Assets {
 	public static TextureRegion getPlayRunRegion(int index) {
 		return atlas.findRegion("buttons/PlayBtnRun", index);
 	}
+	
+	public static TextureRegion getPlayShootRegion(int index) {
+		return atlas.findRegion("buttons/PlayBtnShoot", index);
+	}
 }

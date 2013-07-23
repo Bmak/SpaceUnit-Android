@@ -15,14 +15,16 @@ import com.glowman.spaceunit.game.core.Button;
 public class MenuTouchListener extends InputAdapter {
 	private Game _game;
 	private Button _playBtnRun;
+	private Button _playBtnShoot;
 
 	//coz touch up can fire just after screen changing, and touch down was into previous screen...
 	private boolean _wasTouchDown = false;
 
-	public MenuTouchListener(Game game, Button playBtnRun)
+	public MenuTouchListener(Game game, Button playBtnRun, Button playBtnShoot)
 	{
 		_game = game;
 		_playBtnRun = playBtnRun;
+		_playBtnShoot = playBtnShoot;
 	}
 
 	@Override
@@ -34,6 +36,12 @@ public class MenuTouchListener extends InputAdapter {
 		} else {
 			_playBtnRun.setNormalMode();
 		}
+		
+		if (this.isButtonUnderPoint(_playBtnShoot)) {
+			_playBtnShoot.setClickedMode();
+		} else {
+			_playBtnShoot.setNormalMode();
+		}
 		return false;
 	}
 
@@ -43,8 +51,9 @@ public class MenuTouchListener extends InputAdapter {
 		_wasTouchDown = false;
 		Log.d("hz", "touch up!!!");
 		_playBtnRun.setNormalMode();
+		_playBtnShoot.setNormalMode();
 
-		if (this.isButtonUnderPoint(_playBtnRun))
+		if (this.isButtonUnderPoint(_playBtnRun) || this.isButtonUnderPoint(_playBtnShoot))
 		{
 			Gdx.input.setInputProcessor(null);
 			_game.setScreen(new GameScreen(_game));

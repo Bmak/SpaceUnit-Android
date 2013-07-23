@@ -25,7 +25,7 @@ public class MainScreen implements Screen {
 	SpriteBatch _spriteBatch;
 
 	private Button _playBtnRun;
-	private Sprite _playBtnShoot;
+	private Button _playBtnShoot;
 	private Sprite _bkg;
 	private Vector3 _touchPoint;
 	
@@ -40,13 +40,14 @@ public class MainScreen implements Screen {
 		
 		_bkg = Assets.bkg2;
 		_playBtnRun = new Button(Assets.getPlayRunRegion(1), Assets.getPlayRunRegion(2));
+		_playBtnShoot = new Button(Assets.getPlayShootRegion(1), Assets.getPlayShootRegion(2));
 
 		_spriteBatch = new SpriteBatch();
 		
 		_behavior = new AsteroidsBehavior(1, 15, _spriteBatch);
 
-		Gdx.input.setInputProcessor(new MenuTouchListener(_game, _playBtnRun));
-
+		Gdx.input.setInputProcessor(new MenuTouchListener(_game, _playBtnRun, _playBtnShoot));
+		
 		//why this shit if still working without?
 		//spriteBatch.setProjectionMatrix(menuCam.combined);
 
@@ -62,9 +63,14 @@ public class MainScreen implements Screen {
 		Log.d("RESIZE", "REsize: " + MENU_WIDTH + " / " + MENU_HEIGHT);
 		
 
-		_playBtnRun.setScale(0.5f);
-		_playBtnRun.setX((MENU_WIDTH - _playBtnRun.getView().getWidth())/2);
+		_playBtnRun.setScale(0.75f);
+		_playBtnRun.setX(MENU_WIDTH/2 - _playBtnRun.getView().getWidth() - 10);
 		_playBtnRun.setY((MENU_HEIGHT - _playBtnRun.getView().getHeight())/2);
+		
+		_playBtnShoot.setScale(0.75f);
+		_playBtnShoot.setX(MENU_WIDTH/2 + 10);
+		_playBtnShoot.setY((MENU_HEIGHT - _playBtnShoot.getView().getHeight())/2);
+		
 		
 		//TODO this shit cuz wrong picture
 		//_bkg.setRotation(90);
@@ -88,6 +94,7 @@ public class MainScreen implements Screen {
 		_bkg.draw(_spriteBatch);
 		_behavior.tick(deltaTime);
 		_playBtnRun.draw(_spriteBatch);
+		_playBtnShoot.draw(_spriteBatch);
 		
 		_spriteBatch.end();
 		
