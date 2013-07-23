@@ -32,6 +32,7 @@ public class AsteroidsBehavior {
 			spaceObject.setRandomPosition();
 			spaceObject.setRandomBehaviour();
 			_spaceObjects.add(spaceObject);
+
 		}
 	}
 	
