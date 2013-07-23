@@ -7,6 +7,9 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 public class Assets {
 	private static TextureAtlas atlas;
 
+	public static TextureRegion ship;
+	public static TextureRegion bullet;
+
 	public static TextureRegion bkg1;
 	public static TextureRegion bkg2;
 
@@ -25,6 +28,9 @@ public class Assets {
 		
 		bkg1 = atlas.findRegion("bkg/bkg1");
 		bkg2 = atlas.findRegion("bkg/bkg2");
+
+		ship = atlas.findRegion("unit/unit");
+		bullet = atlas.findRegion("unit/bullet");
 
 		asteroid = atlas.findRegion("enemies/asteroid");
 		meteor = atlas.findRegion("enemies/meteor");

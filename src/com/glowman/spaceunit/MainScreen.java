@@ -46,8 +46,7 @@ public class MainScreen implements Screen {
 		
 		_behavior = new AsteroidsBehavior(15, _spriteBatch);
 
-		Gdx.input.setInputProcessor(new MenuTouchListener(_game, _playBtnRun, _playBtnShoot));
-		
+
 		//why this shit if still working without?
 		//spriteBatch.setProjectionMatrix(menuCam.combined);
 
@@ -80,10 +79,12 @@ public class MainScreen implements Screen {
 	@Override
 	public void hide() {
 		this.clear();
+		Gdx.input.setInputProcessor(null);
 	}
 
 	@Override
 	public void show() {
+		Gdx.input.setInputProcessor(new MenuTouchListener(_game, _playBtnRun, _playBtnShoot));
 	}
 
 	@Override

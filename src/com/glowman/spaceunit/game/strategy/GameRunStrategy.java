@@ -1,5 +1,6 @@
 package com.glowman.spaceunit.game.strategy;
 
+import android.util.Log;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.Vector2;
 import com.glowman.spaceunit.Assets;
@@ -37,12 +38,6 @@ public class GameRunStrategy extends GameStrategy {
 	@Override
 	public void update()
 	{
-		if (_heroShip.isMoving())
-		{
-			_heroShip.moveTo(_heroShip.getTargetPosition().x, _heroShip.getTargetPosition().y);
-			_heroShip.rotateTo(_heroShip.getTargetPosition().x, _heroShip.getTargetPosition().y);
-		}
-
 		if (Math.random() < .03) { this.createEnemy(); }
 		if (_enemies != null)
 		{
@@ -60,17 +55,22 @@ public class GameRunStrategy extends GameStrategy {
 
 	@Override
 	public void touchDown(TouchEvent touch) {
+		Log.d("hz", "touch down!");
 		_heroShip.setTargetPosition(new Vector2(touch.x, touch.y));
 		_heroShip.setMoving(true);
 	}
 
 	@Override
 	public void touchUp(TouchEvent touch) {
+		Log.d("hz", "touch up!");
+
 		_heroShip.setMoving(false);
 	}
 
 	@Override
 	public void touchMove(TouchEvent touch) {
+		Log.d("hz", "touch move!");
+
 		_heroShip.setTargetPosition(new Vector2(touch.x, touch.y));
 		_heroShip.setMoving(true);
 	}

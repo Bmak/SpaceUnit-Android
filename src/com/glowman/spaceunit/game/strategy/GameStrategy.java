@@ -34,7 +34,7 @@ public abstract class GameStrategy {
 	public abstract void createEnemy();
 
 	public void explodeEnemy(Enemy enemy) {
-		enemy.getImage().setScale(10);
+		enemy.getImage().setScale(.1f);
 		enemy.stop();
 		enemy.setGeneralSpeed(0);
 		_enemies.remove(enemy);

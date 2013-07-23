@@ -33,7 +33,10 @@ public abstract class SpaceObject {
 		_position.y = (float)Math.random() * _screenSize.y;
 	}
 
-	public void setPosition(Vector2 value) { _position = value; }
+	public void setPosition(Vector2 value) {
+		_position = value;
+		_image.setPosition(_position.x, _position.y);
+	}
 	public Vector2 getPosition() { return _position; }
 
 	public Vector2 getCenterPosition() {

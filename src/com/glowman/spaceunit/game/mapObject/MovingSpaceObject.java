@@ -39,7 +39,7 @@ public class MovingSpaceObject extends SpaceObject {
 		float vy = 0;
 		if (h != 0){
 			vx = (dx / h) * _generalSpeed;
-			vy = (dy / h) * _generalSpeed;
+			vy = -(dy / h) * _generalSpeed; //TODO
 		}
 		_vX = vx;
 		_vY = vy;
@@ -48,7 +48,7 @@ public class MovingSpaceObject extends SpaceObject {
 	public void stop()
 	{
 		_vX = 0;
-		_vX = 0;
+		_vY = 0;
 	}
 
 	public void tick(float delta) {

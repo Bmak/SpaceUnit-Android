@@ -1,38 +1,68 @@
 package com.glowman.spaceunit.game;
 
+import android.util.Log;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.graphics.GL10;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.math.Vector2;
+import com.glowman.spaceunit.Assets;
 import com.glowman.spaceunit.MainScreen;
+import com.glowman.spaceunit.game.mapObject.Ship;
+import com.glowman.spaceunit.game.mapObject.Enemy;
+import com.glowman.spaceunit.game.strategy.GameRunStrategy;
+import com.glowman.spaceunit.game.strategy.GameStrategy;
 
 
 public class GameScreen implements Screen {
+	public static final int SHOOT_GAME = 0;
+	public static final int RUN_GAME = 1;
+
+	public static final int MAX_TIME_ENEMY_RESPAWN = 3;
+
 
 	//DEBUG
 	private int _timer = 0;
+	private final int TIMER_MAX = 1000;
 
-	private Game _game;
+	private final Game _game;
 
-	private SpriteBatch _drawer;
+	private int _gameType;
+	private Ship _ship;
+	private final GameStrategy _gameStrategy;
+
+	private final SpriteBatch _drawer;
 
 	public GameScreen(Game game)
 	{
 		_game = game;
 		_drawer = new SpriteBatch();
+
+		this.createShip();
+		Vector2 screenSize = new Vector2(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+		_gameStrategy = new GameRunStrategy(_ship, screenSize);
 	}
 
 
 	@Override
 	public void render(float delta) {
 		_timer++;
-		if (_timer > 1000)
+		if (_timer > TIMER_MAX)
 		{
 			_game.setScreen(new MainScreen(_game));
 		}
+		_gameStrategy.update();
+		_ship.tick(delta);
 
 		this.clear();
+		_drawer.begin();
+
+		this.drawHero();
+		this.drawEnemies();
+
+		_drawer.end();
 	}
 
 	@Override
@@ -40,113 +70,47 @@ public class GameScreen implements Screen {
 
 	@Override
 	public void show() {
+		Gdx.input.setInputProcessor(new GameTouchListener(_gameStrategy));
 		_timer = 0;
 	}
 	@Override
 	public void hide() {
+		Gdx.input.setInputProcessor(null);
 		this.clear();
 	}
 	@Override public void pause() {}
 	@Override public void resume() {}
 	@Override public void dispose() {}
 
-//	public static final int SHOOT_GAME = 0;
-//	public static final int RUN_GAME = 1;
-//
-//	public static final int MAX_TIME_ENEMY_RESPAWN = 3;
-//
-//	private Ship _ship;
-//	private GameStrategy _gameStrategy;
-//	private int _gameType;
-//	//private Graphics _graphics;
-//
-//	public GameScreen(Game game) {
-//		super(game);
-//		_graphics = game.getGraphics();
-//		this.createShip();
-//
-//		_gameStrategy = new GameRunStrategy(_graphics, _ship);
-//
-//	}
-//
-//	private void createShip() {
-//		if (_ship != null) { Log.e("hz", "ship already exists!"); }
-//
-//		Pixmap pixMap = _graphics.newPixmap(MapObjectImagesENUM.HERO_SHIP);
-//		_ship = new Ship(pixMap, new Vector2(_graphics.getWidth(), _graphics.getHeight()), 10);
-//		_ship.setGeneralSpeed(2);
-//		_ship.setPosition(new Vector2(_graphics.getWidth() / 2, _graphics.getHeight() / 2));
-//	}
-//
-//	@Override
-//	public void update(float deltaTime) {
-//		_gameStrategy.update();
-//		List<Input.TouchEvent> touchEvents = game.getInput().getTouchEvents();
-//		List<Input.TouchEvent> moveTouches = new ArrayList<Input.TouchEvent>();
-//		List<Input.TouchEvent> downTouches = new ArrayList<Input.TouchEvent>();
-//
-//		for(int i = 0; i < touchEvents.size(); i++) {
-//			 Input.TouchEvent event = touchEvents.get(i);
-//
-//			if(event.type == Input.TouchEvent.TOUCH_DOWN) {
-//				downTouches.add(event);
-//				_gameStrategy.touchesBegan(downTouches);
-//			} else if(event.type == Input.TouchEvent.TOUCH_DRAGGED) {
-//				moveTouches.add(event);
-//				_gameStrategy.touchesMoved(moveTouches);
-//			} else if (event.type == Input.TouchEvent.TOUCH_UP) {
-//				_gameStrategy.touchesEnded(touchEvents);
-//			} else { throw new Error("some undefined touch event here"); }
-//		}
-//	}
-//
-//	@Override
-//	public void present(float deltaTime) {
-//		_graphics.clear(Color.GREEN);
-//		this.drawHero();
-//		this.drawEnemies();
-//	}
-//
-//	@Override
-//	public void pause() {
-//		//To change body of implemented methods use File | Settings | File Templates.
-//	}
-//
-//	@Override
-//	public void resume() {
-//		//To change body of implemented methods use File | Settings | File Templates.
-//	}
-//
-//	@Override
-//	public void dispose() {
-//		//To change body of implemented methods use File | Settings | File Templates.
-//	}
-//
-//	private void drawHero() {
-//		_graphics.drawPixmap(_ship.getImage(), (int)_ship.getPosition().x, (int)_ship.getPosition().y);
-//	}
-//
-//	private void drawEnemies() {
-//		if (_gameStrategy.getEnemies() != null)
-//		{
-//			for (Enemy enemy : _gameStrategy.getEnemies())
-//			{
-//				this.drawEnemy(enemy);
-//			}
-//		}
-//		if (_gameStrategy.getDeadEnemies() != null)
-//		{
-//			for (Enemy enemy : _gameStrategy.getDeadEnemies())
-//			{
-//				this.drawEnemy(enemy);
-//			}
-//		}
-//	}
-//
-//	private void drawEnemy(Enemy enemy) {
-//		_graphics.drawPixmap(enemy.getImage(), (int)enemy.getPosition().x, (int)enemy.getPosition().y);
-//
-//	}
+	private void createShip() {
+		if (_ship != null) { Log.e("hz", "ship already exists!"); }
+
+		Vector2 screenSize = new Vector2(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+		_ship = new Ship(new Sprite(Assets.ship), screenSize, 10);
+		_ship.setGeneralSpeed(2);
+		_ship.setPosition(new Vector2(screenSize.x / 2, screenSize.y / 2));
+	}
+
+	private void drawHero() {
+		_ship.getImage().draw(_drawer);
+	}
+
+	private void drawEnemies() {
+		if (_gameStrategy.getEnemies() != null)
+		{
+			for (Enemy enemy : _gameStrategy.getEnemies())
+			{
+				enemy.getImage().draw(_drawer);
+			}
+		}
+		if (_gameStrategy.getDeadEnemies() != null)
+		{
+			for (Enemy enemy : _gameStrategy.getDeadEnemies())
+			{
+				enemy.getImage().draw(_drawer);
+			}
+		}
+	}
 
 	private void clear() {
 		Gdx.gl.glClearColor(1.0f, 1.0f, 1.0f, 1.0f);

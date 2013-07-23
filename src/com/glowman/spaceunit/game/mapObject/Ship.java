@@ -1,6 +1,7 @@
 package com.glowman.spaceunit.game.mapObject;
 
 import android.graphics.Bitmap;
+import android.util.Log;
 import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.Vector2;
@@ -31,6 +32,7 @@ public class Ship extends MovingSpaceObject {
 		_shooting = false;
 	}
 
+	@Override
 	public void tick(float deltaTime)
 	{
 		super.tick(deltaTime);
@@ -53,7 +55,7 @@ public class Ship extends MovingSpaceObject {
 	public void setMoving(boolean value) {
 		if (_moving != value) {
 			_moving = value;
-			if (!_moving) { super.stop(); }
+			if (!_moving) { Log.d("hz", "stop ship"); super.stop(); }
 			if (_moving) { this.moveToTargetPoint(); }
 		}
 	}
@@ -64,6 +66,7 @@ public class Ship extends MovingSpaceObject {
 
 	public Vector2 getTargetPosition() { return _targetPosition; }
 	public void setTargetPosition(Vector2 value) {
+		Log.d("hz", "set target position for move");
 		_targetPosition = value;
 		if (_moving) { this.moveToTargetPoint(); }
 	}
