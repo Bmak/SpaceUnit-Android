@@ -45,6 +45,12 @@ public class MovingSpaceObject extends SpaceObject {
 		_vY = vy;
 	}
 
+	public void stop()
+	{
+		_vX = 0;
+		_vX = 0;
+	}
+
 	public void tick(float delta) {
 		if (_vX == 0 && _vY == 0) { return; }
 

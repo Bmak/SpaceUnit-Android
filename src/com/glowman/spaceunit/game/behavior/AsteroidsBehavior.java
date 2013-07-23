@@ -6,6 +6,7 @@ import java.util.List;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 import com.glowman.spaceunit.Assets;
 import com.glowman.spaceunit.game.mapObject.MovingSpaceObject;
@@ -17,8 +18,7 @@ public class AsteroidsBehavior {
 	private List<MovingSpaceObject> _spaceObjects;
 	private SpriteBatch _spriteBatch;
 	
-	private Sprite[] types = { Assets.asteroid, Assets.meteor };
-	
+
 	public AsteroidsBehavior(int numStartEnemies, SpriteBatch spriteBatch) {
 		_numStartEnemies = numStartEnemies;
 		_spriteBatch = spriteBatch;
@@ -26,7 +26,7 @@ public class AsteroidsBehavior {
 		_spaceObjects = new ArrayList<MovingSpaceObject>();
 		Vector2 screenSize = new Vector2(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
 		for (int i = 0; i < _numStartEnemies; i++) {
-			Sprite image = types[Math.round((float)Math.random())];
+			Sprite image = new Sprite(Assets.soImages[Math.round((float)Math.random())]);
 			//image.setScale(0.5f);
 			MovingSpaceObject spaceObject = new MovingSpaceObject(image, screenSize, true, true);
 			spaceObject.setRandomPosition();

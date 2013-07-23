@@ -38,7 +38,7 @@ public class MainScreen implements Screen {
 
 		_touchPoint = new Vector3();
 		
-		_bkg = Assets.bkg2;
+		_bkg = new Sprite(Assets.bkg2);
 		_playBtnRun = new Button(Assets.getPlayRunRegion(1), Assets.getPlayRunRegion(2));
 		_playBtnShoot = new Button(Assets.getPlayShootRegion(1), Assets.getPlayShootRegion(2));
 

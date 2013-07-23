@@ -1,6 +1,5 @@
 package com.glowman.spaceunit.game.mapObject;
 
-import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.Vector2;
 
