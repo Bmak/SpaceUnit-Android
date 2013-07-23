@@ -2,7 +2,9 @@ package com.glowman.spaceunit.game.mapObject;
 
 import android.graphics.Bitmap;
 import com.badlogic.gdx.graphics.Pixmap;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.math.Vector3;
 
 /**
  *
@@ -17,7 +19,7 @@ public class Ship extends MovingSpaceObject {
 	private boolean _moving;
 	private boolean _shooting;
 
-	public Ship(Pixmap image, Vector2 screenSize, int reloadTime)
+	public Ship(Sprite image, Vector2 screenSize, int reloadTime)
 	{
 		super(image, screenSize, true);
 		_reloadTime = reloadTime;
@@ -29,7 +31,7 @@ public class Ship extends MovingSpaceObject {
 		_shooting = false;
 	}
 
-	public void tick()
+	public void tick(float deltaTime)
 	{
 		_readyForShoot = false;
 		if (_moving)

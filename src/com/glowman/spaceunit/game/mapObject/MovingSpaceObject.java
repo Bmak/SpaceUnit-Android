@@ -2,7 +2,9 @@ package com.glowman.spaceunit.game.mapObject;
 
 import android.graphics.Bitmap;
 import com.badlogic.gdx.graphics.Pixmap;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.math.Vector3;
 
 /**
  *
@@ -10,13 +12,22 @@ import com.badlogic.gdx.math.Vector2;
 public class MovingSpaceObject extends SpaceObject {
 	private float _generalSpeed;
 
-	public MovingSpaceObject(Pixmap image, Vector2 screenSize, boolean randomScale)
+	/*public MovingSpaceObject(Pixmap image, Vector2 screenSize, boolean randomScale)
 	{
 		super(image, screenSize, randomScale);
 		_generalSpeed = 0;
 	}
 	public MovingSpaceObject(Pixmap image, Vector2 screenSize)
 	{
+		this(image, screenSize, false);
+	}*/
+	
+	public MovingSpaceObject(Sprite image, Vector2 screenSize, boolean randomScale) {
+		super(image, screenSize, randomScale);
+		_generalSpeed = 0;
+	}
+	
+	public MovingSpaceObject(Sprite image, Vector2 screenSize) {
 		this(image, screenSize, false);
 	}
 

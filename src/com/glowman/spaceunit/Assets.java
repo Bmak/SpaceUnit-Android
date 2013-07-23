@@ -17,6 +17,9 @@ public class Assets {
 	public static Sprite playBtnShoot2;
 	public static Animation playBtnShootAnim;
 	
+	public static Sprite asteroid;
+	public static Sprite meteor;
+	
 	public static void load() {
 		atlas = new TextureAtlas(Gdx.files.internal("textures/textures.pack"));
 		
@@ -28,6 +31,10 @@ public class Assets {
 		playBtnShoot2  = new Sprite(atlas.findRegion("buttons/PlayBtnShoot", 2));
 		
 		playBtnShootAnim = new Animation(0.2f, Assets.playBtnShoot1, Assets.playBtnShoot2);
+		
+		
+		asteroid = new Sprite(atlas.findRegion("enemies/asteroid"));
+		meteor = new Sprite(atlas.findRegion("enemies/meteor"));
 	}
 
 	public static TextureRegion getPlayRunRegion(int index) {

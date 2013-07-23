@@ -10,6 +10,8 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector3;
 
 import android.util.Log;
+
+import com.glowman.spaceunit.game.behavior.AsteroidsBehavior;
 import com.glowman.spaceunit.game.core.Button;
 
 
@@ -20,12 +22,14 @@ public class MainScreen implements Screen {
 	
 	private Game _game;
 
-	SpriteBatch spriteBatch;
+	SpriteBatch _spriteBatch;
 
 	private Button _playBtnRun;
 	private Sprite _playBtnShoot;
 	private Sprite _bkg;
 	private Vector3 _touchPoint;
+	
+	private AsteroidsBehavior _behavior;
 
 
 	public MainScreen(Game game) {
@@ -37,7 +41,9 @@ public class MainScreen implements Screen {
 		_bkg = Assets.bkg2;
 		_playBtnRun = new Button(Assets.getPlayRunRegion(1), Assets.getPlayRunRegion(2));
 
-		spriteBatch = new SpriteBatch();
+		_spriteBatch = new SpriteBatch();
+		
+		_behavior = new AsteroidsBehavior(1, 15, _spriteBatch);
 
 		Gdx.input.setInputProcessor(new MenuTouchListener(_game, _playBtnRun));
 
@@ -54,6 +60,7 @@ public class MainScreen implements Screen {
 		MENU_HEIGHT = (float) height;
 		
 		Log.d("RESIZE", "REsize: " + MENU_WIDTH + " / " + MENU_HEIGHT);
+		
 
 		_playBtnRun.setScale(0.5f);
 		_playBtnRun.setX((MENU_WIDTH - _playBtnRun.getView().getWidth())/2);
@@ -76,12 +83,13 @@ public class MainScreen implements Screen {
 	@Override
 	public void render(float deltaTime) {
 		this.clear();
-		spriteBatch.begin();
+		_spriteBatch.begin();
 		
-		_bkg.draw(spriteBatch);
-		_playBtnRun.draw(spriteBatch);
+		_bkg.draw(_spriteBatch);
+		_behavior.tick(deltaTime);
+		_playBtnRun.draw(_spriteBatch);
 		
-		spriteBatch.end();
+		_spriteBatch.end();
 		
 	}
 
