@@ -21,7 +21,7 @@ public class Ship extends MovingSpaceObject {
 
 	public Ship(Sprite image, Vector2 screenSize, int reloadTime)
 	{
-		super(image, screenSize, true);
+		super(image, screenSize, true, false);
 		_reloadTime = reloadTime;
 		_currentReloadTime = 0;
 		_readyForShoot = false;

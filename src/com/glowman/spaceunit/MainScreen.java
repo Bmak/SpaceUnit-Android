@@ -44,7 +44,7 @@ public class MainScreen implements Screen {
 
 		_spriteBatch = new SpriteBatch();
 		
-		_behavior = new AsteroidsBehavior(1, 15, _spriteBatch);
+		_behavior = new AsteroidsBehavior(15, _spriteBatch);
 
 		Gdx.input.setInputProcessor(new MenuTouchListener(_game, _playBtnRun, _playBtnShoot));
 		
