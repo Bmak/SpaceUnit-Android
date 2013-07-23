@@ -9,6 +9,9 @@ import com.badlogic.gdx.math.Vector2;
  */
 public abstract class SpaceObject {
 
+	public static double scaleMin = .2d;
+	public static double scaleMax = .4d;
+
 	protected final Vector2 _screenSize;
 	private final float _scale;
 	protected final Sprite _image;
@@ -17,7 +20,7 @@ public abstract class SpaceObject {
 
 	public SpaceObject(Sprite image, Vector2 screenSize, boolean randomScale) {
 		_screenSize = screenSize;
-		_scale = (float) (randomScale ? (Math.random() * .2) + .2 : 1);
+		_scale = (float) (randomScale ? (Math.random() * (scaleMax - scaleMin)) + scaleMin : 1);
 		_image = image;
 		_image.setScale(_scale);
 		_position = new Vector2(0,0);
