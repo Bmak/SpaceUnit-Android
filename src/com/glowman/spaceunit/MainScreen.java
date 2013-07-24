@@ -31,7 +31,6 @@ public class MainScreen implements Screen {
 	private OrthographicCamera _camera;
 	private Button _playBtnRun;
 	private Button _playBtnShoot;
-	private Sprite _playBtn;
 	private Sprite _bkg;
 	private Vector3 _touchPoint;
 	
@@ -51,7 +50,6 @@ public class MainScreen implements Screen {
 		_playBtnRun = new Button(Assets.getPlayRunRegion(1), Assets.getPlayRunRegion(2));
 		_playBtnShoot = new Button(Assets.getPlayShootRegion(1), Assets.getPlayShootRegion(2));
 		
-		_playBtn = new Sprite(Assets.getPlayRunRegion(1));
 		//_behavior = new AsteroidsBehavior(15, _spriteBatch);
 
 		
@@ -102,7 +100,7 @@ public class MainScreen implements Screen {
 		
 		float scale = 0.5f;
 		_playBtnRun.setSize(Assets.playBtnWidth*scale, Assets.playBtnHeight*scale);
-		//_playBtnRun.setScale(0.5f);
+		_playBtnRun.setScale(0.5f);
 		_playBtnShoot.setSize(Assets.playBtnWidth, Assets.playBtnHeight);
 	}
 

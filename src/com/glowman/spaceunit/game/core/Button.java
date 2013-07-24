@@ -3,6 +3,7 @@ package com.glowman.spaceunit.game.core;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.utils.ScreenUtils;
 
 /**
  *
@@ -11,12 +12,15 @@ public class Button {
 	private final Sprite _normal;
 	private final Sprite _clicked;
 	private Sprite _currentView;
+	private float _width;
+	private float _height;
 
 	public Button(TextureRegion normal, TextureRegion clicked)
 	{
 		_normal = new Sprite(normal);
 		_clicked = new Sprite(clicked);
 		_currentView = _normal;
+		
 	}
 
 	public Sprite getView() { return _currentView; }
