@@ -79,5 +79,4 @@ public class MenuTouchListener extends InputAdapter {
 		return result;
 	}
 
-
 }

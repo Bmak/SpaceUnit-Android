@@ -35,13 +35,18 @@ public class Button {
 	{
 		_currentView.draw(spriteBatch);
 	}
-
+	
+	public void setSize(float width, float height) {
+		_normal.setSize(width, height);
+		_clicked.setSize(width, height);
+	}
+	
 	public void setScale(float scale)
 	{
 		_normal.setScale(scale);
 		_clicked.setScale(scale);
 
-		updateXY();
+		//updateXY();
 	}
 
 	public void setX(float x)
