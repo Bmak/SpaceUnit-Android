@@ -59,16 +59,12 @@ public class MovingSpaceObject extends SpaceObject {
 		_position.x += _vX;
 		_position.y += _vY;
 		
-		_rotation += _rotationSpeed;
-
 		if (_teleportOnBorder) {
 			checkBorderTeleport();
 		}
 
 		super._image.setPosition(_position.x, _position.y);
-		//TODO yes. This is awesome pizdec :)
-		//super._image.setRotation(_rotation);
-		//_image.rotate(1/Assets.pixelDensity);
+		_image.rotate(_rotationSpeed);
 	}
 
 	public void rotateTo(float targetX, float targetY)

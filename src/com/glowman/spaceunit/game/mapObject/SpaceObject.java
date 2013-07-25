@@ -29,6 +29,8 @@ public abstract class SpaceObject {
 		_width = _image.getWidth() / Assets.pixelDensity;
 		_height = _image.getHeight() / Assets.pixelDensity;
 		_image.setSize(_width*_scale, _height*_scale);
+
+		_image.setOrigin(_image.getWidth()/2, _image.getHeight()/2);
 		
 		_position = new Vector2(0,0);
 		_rotation = 0;
