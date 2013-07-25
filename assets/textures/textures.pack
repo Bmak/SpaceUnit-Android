@@ -3,7 +3,7 @@ textures.png
 format: RGBA8888
 filter: Nearest,Nearest
 repeat: none
-bkg/bkg1
+bkg/bkg
   rotate: false
   xy: 1, 1
   size: 960, 640
@@ -12,18 +12,6 @@ bkg/bkg1
   index: -1
 
 textures2.png
-format: RGBA8888
-filter: Nearest,Nearest
-repeat: none
-bkg/bkg2
-  rotate: false
-  xy: 1, 1
-  size: 960, 640
-  orig: 960, 640
-  offset: 0, 0
-  index: -1
-
-textures3.png
 format: RGBA8888
 filter: Nearest,Nearest
 repeat: none
@@ -77,40 +65,40 @@ blow/blow7
   offset: 0, 0
   index: -1
 
-textures4.png
+textures3.png
 format: RGBA8888
 filter: Nearest,Nearest
 repeat: none
 buttons/PlayBtnRun
   rotate: false
-  xy: 1, 252
-  size: 354, 251
-  orig: 354, 251
+  xy: 1, 255
+  size: 355, 252
+  orig: 355, 252
   offset: 0, 0
-  index: 2
-buttons/PlayBtnShoot
-  rotate: false
-  xy: 1, 1
-  size: 354, 249
-  orig: 354, 249
-  offset: 0, 0
-  index: 2
+  index: 1
 buttons/PlayBtnRun
   rotate: false
-  xy: 357, 302
-  size: 354, 201
-  orig: 354, 201
+  xy: 1, 1
+  size: 355, 252
+  orig: 355, 252
+  offset: 0, 0
+  index: 2
+buttons/PlayBtnShoot
+  rotate: false
+  xy: 358, 255
+  size: 355, 252
+  orig: 355, 252
   offset: 0, 0
   index: 1
 buttons/PlayBtnShoot
   rotate: false
-  xy: 357, 99
-  size: 354, 201
-  orig: 354, 201
+  xy: 358, 1
+  size: 355, 252
+  orig: 355, 252
   offset: 0, 0
-  index: 1
+  index: 2
 
-textures5.png
+textures4.png
 format: RGBA8888
 filter: Nearest,Nearest
 repeat: none
@@ -128,50 +116,50 @@ enemies/mine2
   orig: 182, 183
   offset: 0, 0
   index: -1
-enemies/asteroid
-  rotate: false
-  xy: 369, 23
-  size: 161, 161
-  orig: 161, 161
-  offset: 0, 0
-  index: -1
-enemies/meteor
-  rotate: false
-  xy: 532, 23
-  size: 161, 161
-  orig: 161, 161
-  offset: 0, 0
-  index: -1
 enemies/alien1
   rotate: false
-  xy: 695, 99
+  xy: 369, 99
   size: 204, 85
   orig: 204, 85
   offset: 0, 0
   index: -1
 enemies/alien2
   rotate: false
-  xy: 695, 12
+  xy: 369, 12
   size: 204, 85
   orig: 204, 85
   offset: 0, 0
   index: -1
+enemies/asteroid
+  rotate: false
+  xy: 575, 60
+  size: 124, 124
+  orig: 124, 124
+  offset: 0, 0
+  index: -1
+enemies/meteor
+  rotate: false
+  xy: 701, 60
+  size: 124, 124
+  orig: 124, 124
+  offset: 0, 0
+  index: -1
 
-textures6.png
+textures5.png
 format: RGBA8888
 filter: Nearest,Nearest
 repeat: none
 unit/unit
   rotate: false
   xy: 1, 1
-  size: 201, 187
-  orig: 201, 187
+  size: 205, 191
+  orig: 205, 191
   offset: 0, 0
   index: -1
 unit/bullet
   rotate: false
-  xy: 204, 125
-  size: 51, 63
-  orig: 51, 63
+  xy: 208, 120
+  size: 60, 72
+  orig: 60, 72
   offset: 0, 0
   index: -1

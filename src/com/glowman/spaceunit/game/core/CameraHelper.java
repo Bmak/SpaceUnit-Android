@@ -16,6 +16,7 @@ package com.glowman.spaceunit.game.core;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.math.Vector3;
 
 public final class CameraHelper {
 
@@ -135,5 +136,11 @@ public final class CameraHelper {
 			bestDensity = density;
 		}
 		return bestDensity;
+	}
+	
+	public static Vector3 screenToViewport (OrthographicCamera cam, float x, float y) {
+		Vector3 touchPoint = new Vector3();
+		cam.unproject(touchPoint.set(x, y, 0));
+		return touchPoint;
 	}
 }

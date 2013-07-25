@@ -1,7 +1,9 @@
 package com.glowman.spaceunit.game.mapObject;
 
+
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.Vector2;
+import com.glowman.spaceunit.Assets;
 
 /**
  *
@@ -56,6 +58,7 @@ public class MovingSpaceObject extends SpaceObject {
 
 		_position.x += _vX;
 		_position.y += _vY;
+		
 		_rotation += _rotationSpeed;
 
 		if (_teleportOnBorder) {
@@ -63,11 +66,14 @@ public class MovingSpaceObject extends SpaceObject {
 		}
 
 		super._image.setPosition(_position.x, _position.y);
-		super._image.setRotation(_rotation);
+		//TODO yes. This is awesome pizdec :)
+		//super._image.setRotation(_rotation);
+		//_image.rotate(1/Assets.pixelDensity);
 	}
 
 	public void rotateTo(float targetX, float targetY)
 	{
+		
 	}
 
 	public void setRandomGeneralSpeed()
@@ -77,8 +83,8 @@ public class MovingSpaceObject extends SpaceObject {
 
 	public void setRandomBehaviour()
 	{
-		this.setGeneralSpeed(5 * (float)Math.random() * 2 - 1);
-		this.setRotationSpeed(5*((float)Math.random() * 2 - 1));
+		this.setGeneralSpeed(((float)Math.random() * 2f + 0.5f) / Assets.pixelDensity);
+		this.setRotationSpeed(5 * ((float)Math.random() * 2 - 1) / Assets.pixelDensity);
 		this.moveTo((float)Math.random() * _screenSize.x,
 					(float)Math.random() * _screenSize.y);
 	}
@@ -100,6 +106,8 @@ public class MovingSpaceObject extends SpaceObject {
 
 		_position.x = randomX;
 		_position.y = randomY;
+		this.setPosition(_position);
+		setRandomBehaviour();
 	}
 
 	private void checkBorderTeleport()

@@ -1,5 +1,6 @@
 package com.glowman.spaceunit;
 
+import android.R.string;
 import android.util.Log;
 
 import com.badlogic.gdx.Gdx;
@@ -19,8 +20,7 @@ public class Assets {
 	public static TextureRegion ship;
 	public static TextureRegion bullet;
 
-	public static TextureRegion bkg1;
-	public static TextureRegion bkg2;
+	public static TextureRegion bkg;
 
 	public static TextureRegion asteroid;
 	public static TextureRegion meteor;
@@ -31,6 +31,10 @@ public class Assets {
 	
 	public static float playBtnWidth;
 	public static float playBtnHeight;
+	public static float asteroidWidth;
+	public static float asteroidHeight;
+	public static float shipWidth;
+	public static float shipHeight;
 	
 	public static float pixelDensity;
 
@@ -47,8 +51,7 @@ public class Assets {
 	}
 	
 	private static void loadTextures () {
-		bkg1 = atlas.findRegion("bkg/bkg1");
-		bkg2 = atlas.findRegion("bkg/bkg2");
+		bkg = atlas.findRegion("bkg/bkg");
 
 		ship = atlas.findRegion("unit/unit");
 		bullet = atlas.findRegion("unit/bullet");
@@ -102,7 +105,11 @@ public class Assets {
 		playBtnWidth = toWidth(getPlayRunRegion(1));
 		playBtnHeight = toHeight(getPlayRunRegion(1));
 		
-		Log.d("Size BTN", "btn size: " + playBtnWidth + " / " + playBtnHeight);
+		//asteroidWidth = toWidth(asteroid);
+		//asteroidHeight = toHeight(asteroid);
+		
+		//shipWidth = toWidth(ship);
+		//shipHeight = toHeight(ship);
 	}
 	
 	private static float toWidth (TextureRegion region) {

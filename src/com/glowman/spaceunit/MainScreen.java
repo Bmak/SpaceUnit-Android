@@ -32,11 +32,8 @@ public class MainScreen implements Screen {
 	private Button _playBtnRun;
 	private Button _playBtnShoot;
 	private Sprite _bkg;
-	private Vector3 _touchPoint;
 	
 	private AsteroidsBehavior _behavior;
-	private float _frustX;
-	private float _frustY;
 
 	public MainScreen(Game game) {
 		_game = game;
@@ -44,46 +41,17 @@ public class MainScreen implements Screen {
 		_camera = CameraHelper.createCamera2(ViewportMode.STRETCH_TO_SCREEN, Assets.VIRTUAL_WIDTH, Assets.VIRTUAL_HEIGHT, Assets.pixelDensity);
 		_spriteBatch = new SpriteBatch();
 		_spriteBatch.setProjectionMatrix(_camera.combined);
-		_touchPoint = new Vector3();
 		
-		_bkg = new Sprite(Assets.bkg2);
+		_bkg = new Sprite(Assets.bkg);
 		_playBtnRun = new Button(Assets.getPlayRunRegion(1), Assets.getPlayRunRegion(2));
 		_playBtnShoot = new Button(Assets.getPlayShootRegion(1), Assets.getPlayShootRegion(2));
 		
-		//_behavior = new AsteroidsBehavior(15, _spriteBatch);
-
-		
-		//_playBtnRun.setX(Assets.VIRTUAL_WIDTH/2 - Assets.playBtnWidth - 10/Assets.pixelDensity);
-		//_playBtnRun.setY((Assets.VIRTUAL_HEIGHT - Assets.playBtnHeight)/2);
+		_behavior = new AsteroidsBehavior(15, _spriteBatch);
 	}
 
 	@Override
 	public void resize(int width, int height) {
-		//MENU_WIDTH = (float) width;
-		//MENU_HEIGHT = (float) height;
-		/*
-		_frustX = (float)width/MENU_WIDTH;
-		_frustY = (float)height/MENU_HEIGHT;
 		
-		_camera.position.set(MENU_WIDTH / 2f, MENU_WIDTH / 2f, 0);
-		_camera.update();
-		
-		Log.d("RESIZE", "REsize: " + MENU_WIDTH + " / " + MENU_HEIGHT);
-		
-
-		//_playBtnRun.getView().setSize(width, height)
-		_playBtnRun.setX((MENU_WIDTH/2 - _playBtnRun.getView().getWidth() - 10)*_frustX);
-		_playBtnRun.setY(((MENU_HEIGHT - _playBtnRun.getView().getHeight())/2)*_frustY);
-		
-		_playBtnShoot.setScale(0.75f*_frustY);
-		_playBtnShoot.setX((MENU_WIDTH/2 + 10)*_frustX);
-		_playBtnShoot.setY(((MENU_HEIGHT - _playBtnShoot.getView().getHeight())/2)*_frustY);
-		
-		
-		//TODO this shit cuz wrong picture
-		//_bkg.setRotation(90);
-		_bkg.setSize(MENU_WIDTH*_frustX, MENU_HEIGHT*_frustY);
-		*/
 	}
 
 	@Override
@@ -94,14 +62,19 @@ public class MainScreen implements Screen {
 
 	@Override
 	public void show() {
-		//Gdx.input.setInputProcessor(new MenuTouchListener(_game, _playBtnRun, _playBtnShoot));
+		Gdx.input.setInputProcessor(new MenuTouchListener(_game, _camera, _playBtnRun, _playBtnShoot));
 		
 		_bkg.setSize(Assets.VIRTUAL_WIDTH, Assets.VIRTUAL_HEIGHT);
 		
-		float scale = 0.5f;
-		_playBtnRun.setSize(Assets.playBtnWidth*scale, Assets.playBtnHeight*scale);
-		_playBtnRun.setScale(0.5f);
+		_playBtnRun.setSize(Assets.playBtnWidth, Assets.playBtnHeight);
+		_playBtnRun.setScale(0.75f);
+		_playBtnRun.setX(Assets.VIRTUAL_WIDTH/2 - _playBtnRun.getWidth() - 1);
+		_playBtnRun.setY((Assets.VIRTUAL_HEIGHT - _playBtnRun.getHeight())/2);
+		
 		_playBtnShoot.setSize(Assets.playBtnWidth, Assets.playBtnHeight);
+		_playBtnShoot.setScale(0.75f);
+		_playBtnShoot.setX(Assets.VIRTUAL_WIDTH/2 + 1);
+		_playBtnShoot.setY((Assets.VIRTUAL_HEIGHT - _playBtnShoot.getHeight())/2);
 	}
 
 	@Override
@@ -110,9 +83,9 @@ public class MainScreen implements Screen {
 		_spriteBatch.begin();
 		
 		_bkg.draw(_spriteBatch);
-		//_behavior.tick(deltaTime);
+		_behavior.tick(deltaTime);
 		_playBtnRun.draw(_spriteBatch);
-		//_playBtnShoot.draw(_spriteBatch);
+		_playBtnShoot.draw(_spriteBatch);
 		
 		_spriteBatch.end();
 		
@@ -138,6 +111,5 @@ public class MainScreen implements Screen {
 		Gdx.gl.glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
 		Gdx.gl.glClear(GL10.GL_COLOR_BUFFER_BIT);
 	}
-
 
 }

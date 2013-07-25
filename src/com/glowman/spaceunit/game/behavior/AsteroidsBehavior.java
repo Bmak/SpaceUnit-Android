@@ -3,7 +3,6 @@ package com.glowman.spaceunit.game.behavior;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
@@ -23,14 +22,14 @@ public class AsteroidsBehavior {
 		_spriteBatch = spriteBatch;
 		
 		_spaceObjects = new ArrayList<MovingSpaceObject>();
-		Vector2 screenSize = new Vector2(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+		Vector2 screenSize = new Vector2(Assets.VIRTUAL_WIDTH, Assets.VIRTUAL_HEIGHT);
 		for (int i = 0; i < _numStartEnemies; i++) {
 			Sprite image = new Sprite(Assets.soImages[Math.round((float)Math.random())]);
 			MovingSpaceObject spaceObject = new MovingSpaceObject(image, screenSize, true, true);
-			spaceObject.setRandomPosition();
+			//spaceObject.setRandomPosition();
+			spaceObject.setRandomBorderPosition();
 			spaceObject.setRandomBehaviour();
 			_spaceObjects.add(spaceObject);
-
 		}
 	}
 	

@@ -5,9 +5,11 @@ import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputAdapter;
+import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.math.Vector3;
 import com.glowman.spaceunit.game.GameScreen;
 import com.glowman.spaceunit.game.core.Button;
+import com.glowman.spaceunit.game.core.CameraHelper;
 
 /**
  *
@@ -16,13 +18,16 @@ public class MenuTouchListener extends InputAdapter {
 	private Game _game;
 	private Button _playBtnRun;
 	private Button _playBtnShoot;
+	private OrthographicCamera _camera;
+	private Vector3 _touchPoint;
 
 	//coz touch up can fire just after screen changing, and touch down was into previous screen...
 	private boolean _wasTouchDown = false;
 
-	public MenuTouchListener(Game game, Button playBtnRun, Button playBtnShoot)
+	public MenuTouchListener(Game game, OrthographicCamera camera, Button playBtnRun, Button playBtnShoot)
 	{
 		_game = game;
+		_camera = camera;
 		_playBtnRun = playBtnRun;
 		_playBtnShoot = playBtnShoot;
 	}
@@ -47,7 +52,7 @@ public class MenuTouchListener extends InputAdapter {
 
 	@Override
 	public boolean touchUp(int screenX, int screenY, int pointer, int button) {
-		/*if (!_wasTouchDown) { return false; }
+		if (!_wasTouchDown) { return false; }
 		_wasTouchDown = false;
 		Log.d("hz", "touch up!!!");
 		_playBtnRun.setNormalMode();
@@ -57,7 +62,7 @@ public class MenuTouchListener extends InputAdapter {
 		{
 			Gdx.input.setInputProcessor(null);
 			_game.setScreen(new GameScreen(_game));
-		}*/
+		}
 		return false;
 	}
 
@@ -68,15 +73,13 @@ public class MenuTouchListener extends InputAdapter {
 	 */
 	private boolean isButtonUnderPoint(Button button)
 	{
-		boolean result = false;
-		Vector3 touchPoint = new Vector3();
-		touchPoint.x = Gdx.input.getX();
-		touchPoint.y = Gdx.input.getY();
+		_touchPoint = CameraHelper.screenToViewport(_camera, Gdx.input.getX(), Gdx.input.getY());
 
-		if (button.getView().getBoundingRectangle().contains(touchPoint.x, touchPoint.y)) {
-			result = true;
+		if (button.getView().getBoundingRectangle().contains(_touchPoint.x, _touchPoint.y)) {
+			return true;
 		}
-		return result;
+		return false;
 	}
-
+	
+	
 }

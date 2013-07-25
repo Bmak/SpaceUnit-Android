@@ -1,9 +1,12 @@
 package com.glowman.spaceunit.game.core;
 
+import android.util.Log;
+
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.utils.ScreenUtils;
+import com.glowman.spaceunit.Assets;
 
 /**
  *
@@ -14,17 +17,22 @@ public class Button {
 	private Sprite _currentView;
 	private float _width;
 	private float _height;
+	private float _scale;
 
 	public Button(TextureRegion normal, TextureRegion clicked)
 	{
 		_normal = new Sprite(normal);
 		_clicked = new Sprite(clicked);
 		_currentView = _normal;
-		
+		_width = _normal.getWidth();
+		_height = _normal.getHeight();
+		_scale = 1f;
 	}
 
 	public Sprite getView() { return _currentView; }
-
+	public float getWidth() { return _width*_scale; }
+	public float getHeight() { return _height*_scale; }
+	
 	public void setClickedMode()
 	{
 		_currentView = _clicked;
@@ -43,14 +51,20 @@ public class Button {
 	public void setSize(float width, float height) {
 		_normal.setSize(width, height);
 		_clicked.setSize(width, height);
+		_width = width;
+		_height = height;
+		
+		//TODO need?
+		//_scale = 1f;
 	}
 	
 	public void setScale(float scale)
 	{
-		_normal.setScale(scale);
-		_clicked.setScale(scale);
-
-		//updateXY();
+		_scale = scale;
+		_normal.setSize(_width*_scale, _height*_scale);
+		_clicked.setSize(_width*_scale, _height*_scale);
+		//_normal.setScale(scale);
+		//_clicked.setScale(scale);
 	}
 
 	public void setX(float x)
@@ -58,19 +72,14 @@ public class Button {
 		_normal.setX(x);
 		_clicked.setX(x);
 	}
+	
 	public void setY(float y)
 	{
 		_normal.setY(y);
-
-		float deltaHeight = (_normal.getHeight() - _clicked.getHeight());
-		float otherY = y + deltaHeight * _normal.getScaleY() * 3/2;
+		_clicked.setY(y);
 		
-		_clicked.setY(otherY);
-	}
-
-	private void updateXY()
-	{
-		this.setY(_normal.getY());
+		//float deltaHeight = (_normal.getHeight() - _clicked.getHeight());
+		//float otherY = y + deltaHeight * _normal.getScaleY() * 3/2;
 	}
 
 }

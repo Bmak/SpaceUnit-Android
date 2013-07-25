@@ -5,11 +5,14 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.graphics.GL10;
+import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.glowman.spaceunit.Assets;
 import com.glowman.spaceunit.MainScreen;
+import com.glowman.spaceunit.game.core.CameraHelper;
+import com.glowman.spaceunit.game.core.CameraHelper.ViewportMode;
 import com.glowman.spaceunit.game.mapObject.Ship;
 import com.glowman.spaceunit.game.mapObject.Enemy;
 import com.glowman.spaceunit.game.strategy.GameRunStrategy;
@@ -34,15 +37,19 @@ public class GameScreen implements Screen {
 	private final GameStrategy _gameStrategy;
 
 	private final SpriteBatch _drawer;
+	private OrthographicCamera _gameCam;
+	private Vector2 _screenSize;
 
 	public GameScreen(Game game)
 	{
 		_game = game;
+		_gameCam = CameraHelper.createCamera2(ViewportMode.STRETCH_TO_SCREEN, Assets.VIRTUAL_WIDTH, Assets.VIRTUAL_HEIGHT, Assets.pixelDensity);
 		_drawer = new SpriteBatch();
-
+		_drawer.setProjectionMatrix(_gameCam.combined);
+		
+		_screenSize = new Vector2(Assets.VIRTUAL_WIDTH, Assets.VIRTUAL_HEIGHT);
 		this.createShip();
-		Vector2 screenSize = new Vector2(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
-		_gameStrategy = new GameRunStrategy(_ship, screenSize);
+		_gameStrategy = new GameRunStrategy(_ship, _screenSize);
 	}
 
 
@@ -85,10 +92,9 @@ public class GameScreen implements Screen {
 	private void createShip() {
 		if (_ship != null) { Log.e("hz", "ship already exists!"); }
 
-		Vector2 screenSize = new Vector2(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
-		_ship = new Ship(new Sprite(Assets.ship), screenSize, 10);
-		_ship.setGeneralSpeed(2);
-		_ship.setPosition(new Vector2(screenSize.x / 2, screenSize.y / 2));
+		_ship = new Ship(new Sprite(Assets.ship), _screenSize, 10);
+		_ship.setGeneralSpeed(1);
+		_ship.setPosition(new Vector2(_screenSize.x / 2, _screenSize.y / 2));
 	}
 
 	private void drawHero() {
