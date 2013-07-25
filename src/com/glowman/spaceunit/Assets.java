@@ -3,6 +3,7 @@ package com.glowman.spaceunit;
 import android.util.Log;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
@@ -24,6 +25,9 @@ public class Assets {
 	public static TextureRegion minePassive;
 	public static TextureRegion mineActive;
 	
+	public static TextureRegion myfont;
+	public static BitmapFont gameFont;
+	
 	public static float playBtnWidth;
 	public static float playBtnHeight;
 
@@ -34,7 +38,6 @@ public class Assets {
 
 	public static void load() {
 		pixelDensity = calculatePixelDensity();
-		Log.d("pixel", "density: " + pixelDensity);
 		atlas = new TextureAtlas(Gdx.files.internal("textures/textures.pack"));
 		
 		loadTextures();
@@ -55,6 +58,11 @@ public class Assets {
 		minePassive = atlas.findRegion("enemies/mine1");
 		mineActive = atlas.findRegion("enemies/mine2");
 
+		myfont = atlas.findRegion("fonts/newfont");
+		gameFont = new BitmapFont(Gdx.files.internal("fonts/newfont.fnt"), myfont, false);
+		//gameFont = new BitmapFont();
+
+		gameFont.setScale(1.0f / pixelDensity);
 
 		soImages = new TextureRegion[2];
 		soImages[0] = asteroid;
@@ -70,8 +78,14 @@ public class Assets {
 	}
 	
 	private static float calculatePixelDensity () {
+		//for me == 3
 		float density = ((Gdx.graphics.getWidth() + Gdx.graphics.getHeight()) / (VIRTUAL_WIDTH + VIRTUAL_HEIGHT));
-
+		
+		Log.d("DENSITY", "density: " + density);
+		/*
+		for me == 1.5;
+		density = Gdx.graphics.getDensity();
+		*/
 		return density;
 	}
 	

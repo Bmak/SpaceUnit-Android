@@ -1,16 +1,15 @@
 package com.glowman.spaceunit.game.core;
 
-import android.util.Log;
 
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.utils.ScreenUtils;
-import com.glowman.spaceunit.Assets;
+import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.scenes.scene2d.EventListener;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.InputListener;
+import com.glowman.spaceunit.game.GameScreen;
 
-/**
- *
- */
 public class Button {
 	private final Sprite _normal;
 	private final Sprite _clicked;
@@ -27,6 +26,7 @@ public class Button {
 		_width = _normal.getWidth();
 		_height = _normal.getHeight();
 		_scale = 1f;
+		
 	}
 
 	public Sprite getView() { return _currentView; }
@@ -42,10 +42,9 @@ public class Button {
 	{
 		_currentView = _normal;
 	}
-
-	public void draw(SpriteBatch spriteBatch)
-	{
-		_currentView.draw(spriteBatch);
+	
+	public void draw(SpriteBatch batch) {
+		_currentView.draw(batch);
 	}
 	
 	public void setSize(float width, float height) {

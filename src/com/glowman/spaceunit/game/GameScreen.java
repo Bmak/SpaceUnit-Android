@@ -12,6 +12,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.glowman.spaceunit.Assets;
 import com.glowman.spaceunit.MainScreen;
 import com.glowman.spaceunit.game.core.CameraHelper;
+import com.glowman.spaceunit.game.core.FPSViewer;
 import com.glowman.spaceunit.game.core.CameraHelper.ViewportMode;
 import com.glowman.spaceunit.game.mapObject.Ship;
 import com.glowman.spaceunit.game.mapObject.Enemy;
@@ -68,7 +69,8 @@ public class GameScreen implements Screen {
 
 		this.drawHero();
 		this.drawEnemies();
-
+		
+		FPSViewer.draw(_drawer);
 		_drawer.end();
 	}
 
