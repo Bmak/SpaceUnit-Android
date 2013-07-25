@@ -77,7 +77,7 @@ public class GameScreen implements Screen {
 
 	@Override
 	public void show() {
-		Gdx.input.setInputProcessor(new GameTouchListener(_gameStrategy));
+		Gdx.input.setInputProcessor(new GameTouchListener(_gameCam, _gameStrategy));
 		_timer = 0;
 	}
 	@Override
@@ -94,7 +94,7 @@ public class GameScreen implements Screen {
 
 		_ship = new Ship(new Sprite(Assets.ship), _screenSize, 10);
 		_ship.setGeneralSpeed(1);
-		_ship.setPosition(new Vector2(_screenSize.x / 2, _screenSize.y / 2));
+		//_ship.setPosition(new Vector2(_screenSize.x / 2, _screenSize.y / 2));
 	}
 
 	private void drawHero() {

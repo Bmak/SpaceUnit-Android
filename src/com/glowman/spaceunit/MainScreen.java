@@ -1,15 +1,12 @@
 package com.glowman.spaceunit;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.Game;
-import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.GL10;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.math.Vector3;
 
 import android.util.Log;
 
@@ -20,9 +17,6 @@ import com.glowman.spaceunit.game.core.CameraHelper.ViewportMode;
 
 
 public class MainScreen implements Screen {
-	
-	float MENU_WIDTH = 320f;
-	float MENU_HEIGHT = 480f;
 	
 	private Game _game;
 
