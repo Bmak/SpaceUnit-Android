@@ -51,6 +51,13 @@ public class Ship extends MovingSpaceObject {
 		}
 	}
 
+	@Override
+	public void moveTo(float x, float y)
+	{
+		super.moveTo(x, y);
+		super.rotateTo(x, y);
+	}
+
 	public boolean isMoving() { return _moving; }
 	public void setMoving(boolean value) {
 		if (_moving != value) {

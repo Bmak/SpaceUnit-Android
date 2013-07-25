@@ -58,18 +58,23 @@ public class MovingSpaceObject extends SpaceObject {
 
 		_position.x += _vX;
 		_position.y += _vY;
+		_rotation+= _rotationSpeed;
+		if (_rotation > 360) { _rotation %= 360; }
 		
 		if (_teleportOnBorder) {
 			checkBorderTeleport();
 		}
 
 		super._image.setPosition(_position.x, _position.y);
-		_image.rotate(_rotationSpeed);
+		_image.setRotation(_rotation);
 	}
 
 	public void rotateTo(float targetX, float targetY)
 	{
-		
+		float dx = _position.x - targetX;
+		float dy = _position.y - targetY;
+		float angle = 180 + (float)Math.atan2(dy, dx) * 180 / 3.14f;
+		_rotation = angle;
 	}
 
 	public void setRandomGeneralSpeed()
