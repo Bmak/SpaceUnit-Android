@@ -17,7 +17,7 @@ public class Main extends Game {
 	@Override
 	public void create () {
 		Assets.load();
-		FPSViewer.init();
+		FPSViewer.init(true);
 		
 		mainScreen = new MainScreen(this);
 		
