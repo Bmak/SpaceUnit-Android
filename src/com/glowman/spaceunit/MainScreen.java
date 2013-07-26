@@ -35,6 +35,7 @@ public class MainScreen implements Screen {
 		_game = game;
 		
 		_camera = CameraHelper.createCamera2(ViewportMode.STRETCH_TO_SCREEN, Assets.VIRTUAL_WIDTH, Assets.VIRTUAL_HEIGHT, Assets.pixelDensity);
+		CoordinatesTranslator.init(_camera);
 		_spriteBatch = new SpriteBatch();
 		_spriteBatch.setProjectionMatrix(_camera.combined);
 		

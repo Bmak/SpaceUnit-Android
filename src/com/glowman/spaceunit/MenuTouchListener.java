@@ -9,6 +9,7 @@ import com.badlogic.gdx.math.Vector3;
 import com.glowman.spaceunit.game.GameScreen;
 import com.glowman.spaceunit.game.core.Button;
 import com.glowman.spaceunit.game.core.CameraHelper;
+import com.glowman.spaceunit.game.strategy.GameStrategy;
 
 /**
  *
@@ -60,7 +61,8 @@ public class MenuTouchListener extends InputAdapter {
 		if (this.isButtonUnderPoint(_playBtnRun) || this.isButtonUnderPoint(_playBtnShoot))
 		{
 			Gdx.input.setInputProcessor(null);
-			_game.setScreen(new GameScreen(_game));
+			int gameType = this.isButtonUnderPoint(_playBtnRun) ? GameStrategy.RUN_GAME : GameStrategy.SHOOT_GAME;
+			_game.setScreen(new GameScreen(_game, gameType));
 		}
 		return false;
 	}

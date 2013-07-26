@@ -79,15 +79,15 @@ public class MovingSpaceObject extends SpaceObject {
 
 	public void setRandomGeneralSpeed()
 	{
-		_generalSpeed = (float)Math.random() * 2f;
+		_generalSpeed = (float)Math.random() * 2f/ Assets.pixelDensity;
 	}
 
 	public void setRandomBehaviour()
 	{
-		this.setGeneralSpeed(((float)Math.random() * 2f + 0.5f) / Assets.pixelDensity);
+		this.setRandomGeneralSpeed();
 		this.setRotationSpeed(5 * ((float)Math.random() * 2 - 1) / Assets.pixelDensity);
-		this.moveTo((float)Math.random() * _screenSize.x,
-					(float)Math.random() * _screenSize.y);
+		this.moveTo((float)Math.random() * _screenSize.x/Assets.pixelDensity,
+					(float)Math.random() * _screenSize.y/Assets.pixelDensity);
 	}
 
 	public void setRandomBorderPosition()
@@ -105,10 +105,7 @@ public class MovingSpaceObject extends SpaceObject {
 			randomY = -_image.getHeight() + (float) Math.round(Math.random()) * (_screenSize.y + _image.getHeight());
 		}
 
-		_position.x = randomX;
-		_position.y = randomY;
-		this.setPosition(_position);
-		setRandomBehaviour();
+		super.setPosition(randomX, randomY);
 	}
 
 	private void checkBorderTeleport()

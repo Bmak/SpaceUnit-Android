@@ -80,7 +80,7 @@ public class Ship extends MovingSpaceObject {
 
 	private void moveToTargetPoint() {
 		this.moveTo(_targetPosition.x, _targetPosition.y);
-		this.rotateTo(_targetPosition.x, _targetPosition.y);
+		//this.rotateTo(_targetPosition.x, _targetPosition.y);
 	}
 
 }

@@ -18,12 +18,10 @@ import com.glowman.spaceunit.game.mapObject.Ship;
 import com.glowman.spaceunit.game.mapObject.Enemy;
 import com.glowman.spaceunit.game.strategy.GameRunStrategy;
 import com.glowman.spaceunit.game.strategy.GameStrategy;
+import com.glowman.spaceunit.game.strategy.GameStrategyFactory;
 
 
 public class GameScreen implements Screen {
-	public static final int SHOOT_GAME = 0;
-	public static final int RUN_GAME = 1;
-
 	public static final int MAX_TIME_ENEMY_RESPAWN = 3;
 
 
@@ -41,7 +39,7 @@ public class GameScreen implements Screen {
 	private OrthographicCamera _gameCam;
 	private Vector2 _screenSize;
 
-	public GameScreen(Game game)
+	public GameScreen(Game game, int gameType)
 	{
 		_game = game;
 		_gameCam = CameraHelper.createCamera2(ViewportMode.STRETCH_TO_SCREEN, Assets.VIRTUAL_WIDTH, Assets.VIRTUAL_HEIGHT, Assets.pixelDensity);
@@ -50,7 +48,8 @@ public class GameScreen implements Screen {
 		
 		_screenSize = new Vector2(Assets.VIRTUAL_WIDTH, Assets.VIRTUAL_HEIGHT);
 		this.createShip();
-		_gameStrategy = new GameRunStrategy(_ship, _screenSize);
+		Log.d("hz", "game type : " + gameType);
+		_gameStrategy = GameStrategyFactory.createStrategy(_ship, _screenSize, gameType);
 	}
 
 
@@ -61,8 +60,7 @@ public class GameScreen implements Screen {
 		{
 			_game.setScreen(new MainScreen(_game));
 		}
-		_gameStrategy.update();
-		_ship.tick(delta);
+		_gameStrategy.tick(delta);
 
 		this.clear();
 		_drawer.begin();

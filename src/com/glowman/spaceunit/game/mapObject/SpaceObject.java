@@ -42,11 +42,16 @@ public abstract class SpaceObject {
 		_width = width;
 		_height = width;
 	}
+
+	public float getWidth() { return _width; }
+	public float getHeight() { return _height; }
 	
 	public void setScale(float scale) {
 		_scale = scale;
 		_image.setSize(_width*_scale, _height*_scale);
 	}
+
+	public float getScale() { return _scale; }
 	
 	public Sprite getImage() { return _image; }
 
@@ -56,9 +61,14 @@ public abstract class SpaceObject {
 		_image.setPosition(_position.x, _position.y);
 	}
 
+	public void setPosition(float x, float y)
+	{
+		_position.x = x;
+		_position.y = y;
+		_image.setPosition(x, y);
+	}
 	public void setPosition(Vector2 value) {
-		_position = value;
-		_image.setPosition(_position.x, _position.y);
+		this.setPosition(value.x, value.y);
 	}
 	public Vector2 getPosition() { return _position; }
 

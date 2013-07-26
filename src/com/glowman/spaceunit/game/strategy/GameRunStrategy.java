@@ -22,29 +22,18 @@ public class GameRunStrategy extends GameStrategy {
 	}
 
 	@Override
-	public void createEnemy()
+	public void tick(float delta)
 	{
-		if (_enemies == null)
-		{
-			_enemies = new ArrayList<Enemy>();
-		}
-		Sprite image = new Sprite(Assets.soImages[Math.round((float)Math.random())]);
-		Enemy enemy = new Enemy(image, super._screenSize, true);
-		enemy.setRandomBorderPosition();
-		enemy.setRandomGeneralSpeed();
-		_enemies.add(enemy);
-	}
+		super._heroShip.tick(delta);
 
-	@Override
-	public void update()
-	{
+		//TODO set game balance here
 		if (Math.random() < .03) { this.createEnemy(); }
 		if (_enemies != null)
 		{
 			for (Enemy enemy : _enemies)
 			{
 				enemy.moveTo(_heroShip.getPosition().x, _heroShip.getPosition().y);
-				enemy.tick(0f); //TODO
+				enemy.tick(delta);
 			}
 		}
 		if (_enemies != null)
@@ -72,7 +61,6 @@ public class GameRunStrategy extends GameStrategy {
 		Log.d("hz", "touch move!");
 
 		_heroShip.setTargetPosition(new Vector2(touch.x, touch.y));
-		_heroShip.setMoving(true);
 	}
 
 
