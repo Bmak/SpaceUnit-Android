@@ -3,7 +3,6 @@ package com.glowman.spaceunit;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.Game;
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL10;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.Sprite;
@@ -66,17 +65,13 @@ public class MainScreen implements Screen {
 		
 		_playBtnRun.setSize(Assets.playBtnWidth, Assets.playBtnHeight);
 		_playBtnRun.setScale(0.9f);
-		_playBtnRun.setX(Assets.VIRTUAL_WIDTH/2 - _playBtnRun.getWidth() - 20);
+		_playBtnRun.setX(Assets.VIRTUAL_WIDTH/2 - _playBtnRun.getWidth() - _playBtnRun.getWidth()/10);
 		_playBtnRun.setY((Assets.VIRTUAL_HEIGHT - _playBtnRun.getHeight())/2);
 		
 		_playBtnShoot.setSize(Assets.playBtnWidth, Assets.playBtnHeight);
 		_playBtnShoot.setScale(0.9f);
-		_playBtnShoot.setX(Assets.VIRTUAL_WIDTH/2 + 20);
+		_playBtnShoot.setX(Assets.VIRTUAL_WIDTH/2 + _playBtnShoot.getWidth()/10);
 		_playBtnShoot.setY((Assets.VIRTUAL_HEIGHT - _playBtnShoot.getHeight())/2);
-		
-		Assets.gameFont.setColor(Color.ORANGE);
-		scale = Assets.gameFont.getScaleX()* 2;
-		Assets.gameFont.setScale(scale);
 	}
 
 	@Override
@@ -84,15 +79,6 @@ public class MainScreen implements Screen {
 		this.clear();
 		
 		_spriteBatch.begin();
-		
-		/*
-		String str = "Hello World!";
-		TextBounds bounds = Assets.gameFont.getBounds(str);
-		float x = Assets.VIRTUAL_WIDTH/2 - bounds.width / 2.0f;
-		float y = Assets.VIRTUAL_HEIGHT/2 + bounds.height / 2.0f;
-		//Assets.gameFont.drawWrapped(_spriteBatch, str, x, y, Assets.VIRTUAL_HEIGHT, HAlignment.CENTER);
-		Assets.gameFont.draw(_spriteBatch, str, x, y);
-		*/
 		
 		_bkg.draw(_spriteBatch);
 		_behavior.tick(deltaTime);

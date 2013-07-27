@@ -10,7 +10,7 @@ import com.glowman.spaceunit.Assets;
 import com.glowman.spaceunit.CoordinatesTranslator;
 import com.glowman.spaceunit.game.core.TouchEvent;
 import com.glowman.spaceunit.game.mapObject.Bullet;
-import com.glowman.spaceunit.game.mapObject.Enemy;
+import com.glowman.spaceunit.game.mapObject.enemy.Enemy;
 import com.glowman.spaceunit.game.mapObject.MovingSpaceObject;
 import com.glowman.spaceunit.game.mapObject.Ship;
 
@@ -28,6 +28,11 @@ public class GameShootStrategy extends GameStrategy {
 	public GameShootStrategy(Ship ship, Vector2 screenSize)
 	{
 		super(ship, screenSize);
+	}
+
+	@Override
+	public ArrayList<Bullet> getBullets() {
+		return _bullets;
 	}
 
 	@Override

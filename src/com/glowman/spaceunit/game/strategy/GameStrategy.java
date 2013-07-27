@@ -8,7 +8,8 @@ import com.glowman.spaceunit.Assets;
 import com.glowman.spaceunit.game.animation.BlowAnimation;
 import com.glowman.spaceunit.game.core.AnimatedSprite;
 import com.glowman.spaceunit.game.core.TouchEvent;
-import com.glowman.spaceunit.game.mapObject.Enemy;
+import com.glowman.spaceunit.game.mapObject.Bullet;
+import com.glowman.spaceunit.game.mapObject.enemy.Enemy;
 import com.glowman.spaceunit.game.mapObject.Ship;
 
 import java.util.ArrayList;
@@ -38,6 +39,7 @@ public abstract class GameStrategy {
 	}
 
 	public ArrayList<Enemy> getEnemies() { return _enemies; }
+	public ArrayList<Bullet> getBullets() { return null; }
 	public ArrayList<Enemy> getDeadEnemies() { return _deadEnemies; }
 	public ArrayList<AnimatedSprite> getAnimations() { return _animations; }
 

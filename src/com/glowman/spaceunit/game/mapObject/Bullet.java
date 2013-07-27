@@ -18,6 +18,8 @@ public class Bullet {
 		_speed = speed;
 		_xCoef = xCoef;
 		_yCoef = yCoef;
+
+		_view.setScale(0.2f);
 	}
 
 	public void move()

@@ -3,15 +3,15 @@ package com.glowman.spaceunit;
 import android.util.Log;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.glowman.spaceunit.game.core.CameraHelper;
 
 public class Assets {
-	public static final float VIRTUAL_WIDTH = 300.0f;
-	public static final float VIRTUAL_HEIGHT = 200.0f;
+	public static final float VIRTUAL_WIDTH = 30.0f;
+	public static final float VIRTUAL_HEIGHT = 20.0f;
 	
 	private static TextureAtlas atlas;
 
@@ -82,14 +82,13 @@ public class Assets {
 	}
 	
 	private static float calculatePixelDensity () {
-		//for me == 3
-		float density = ((Gdx.graphics.getWidth() + Gdx.graphics.getHeight()) / (VIRTUAL_WIDTH + VIRTUAL_HEIGHT));
-		
-		Log.d("DENSITY", "density: " + density);
-		/*
-		for me == 1.5;
-		density = Gdx.graphics.getDensity();
-		*/
+		float physWidth = Gdx.graphics.getWidth();
+		float physHeight = Gdx.graphics.getHeight();
+		float physDiag = (float)Math.hypot(physWidth, physHeight);
+		float virtualDiag = (float)Math.hypot(VIRTUAL_WIDTH, VIRTUAL_HEIGHT);
+		float density = physDiag / virtualDiag;
+		Log.d("hz", "density: " + density);
+
 		return density;
 	}
 	

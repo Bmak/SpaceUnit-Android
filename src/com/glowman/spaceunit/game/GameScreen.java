@@ -15,9 +15,9 @@ import com.glowman.spaceunit.game.core.AnimatedSprite;
 import com.glowman.spaceunit.game.core.CameraHelper;
 import com.glowman.spaceunit.game.core.FPSViewer;
 import com.glowman.spaceunit.game.core.CameraHelper.ViewportMode;
+import com.glowman.spaceunit.game.mapObject.Bullet;
 import com.glowman.spaceunit.game.mapObject.Ship;
-import com.glowman.spaceunit.game.mapObject.Enemy;
-import com.glowman.spaceunit.game.strategy.GameRunStrategy;
+import com.glowman.spaceunit.game.mapObject.enemy.Enemy;
 import com.glowman.spaceunit.game.strategy.GameStrategy;
 import com.glowman.spaceunit.game.strategy.GameStrategyFactory;
 
@@ -68,6 +68,7 @@ public class GameScreen implements Screen {
 
 		this.drawHero();
 		this.drawEnemies();
+		this.drawBullets();
 		this.drawAnimations();
 		
 		FPSViewer.draw(_drawer);
@@ -96,7 +97,7 @@ public class GameScreen implements Screen {
 
 		_ship = new Ship(new Sprite(Assets.ship), _screenSize, 10);
 		_ship.setGeneralSpeed(1);
-		//_ship.setPosition(new Vector2(_screenSize.x / 2, _screenSize.y / 2));
+		_ship.setPosition(new Vector2(_screenSize.x / 2, _screenSize.y / 2));
 	}
 
 	private void drawHero() {
@@ -116,6 +117,14 @@ public class GameScreen implements Screen {
 			for (Enemy enemy : _gameStrategy.getDeadEnemies())
 			{
 				enemy.getImage().draw(_drawer);
+			}
+		}
+	}
+
+	private void drawBullets() {
+		if (_gameStrategy.getBullets() != null) {
+			for (Bullet bullet : _gameStrategy.getBullets()) {
+				bullet.getView().draw(_drawer);
 			}
 		}
 	}
