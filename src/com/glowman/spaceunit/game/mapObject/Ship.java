@@ -20,7 +20,7 @@ public class Ship extends MovingSpaceObject {
 
 	public Ship(Sprite image, int reloadTime)
 	{
-		super(image, true, false);
+		super(image, false, false);
 		_reloadTime = reloadTime;
 		_currentReloadTime = 0;
 		_readyForShoot = false;

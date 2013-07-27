@@ -1,10 +1,6 @@
 package com.glowman.spaceunit.game.strategy;
 
 
-import android.util.Log;
-import com.badlogic.gdx.graphics.g2d.Sprite;
-import com.badlogic.gdx.math.Vector2;
-import com.glowman.spaceunit.Assets;
 import com.glowman.spaceunit.game.animation.BlowAnimation;
 import com.glowman.spaceunit.game.core.AnimatedSprite;
 import com.glowman.spaceunit.game.core.TouchEvent;
@@ -74,6 +70,7 @@ public abstract class GameStrategy {
 		Enemy enemy = EnemyFactory.createEnemy();
 		enemy.setRandomBorderPosition();
 		enemy.setRandomGeneralSpeed();
+		enemy.setTarget(_heroShip);
 		_enemies.add(enemy);
 	}
 

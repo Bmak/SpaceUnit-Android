@@ -31,7 +31,6 @@ public class GameRunStrategy extends GameStrategy {
 		{
 			for (Enemy enemy : _enemies)
 			{
-				enemy.moveTo(_heroShip.getPosition().x, _heroShip.getPosition().y);
 				enemy.tick(delta);
 			}
 		}

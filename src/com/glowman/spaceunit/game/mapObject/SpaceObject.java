@@ -20,7 +20,7 @@ public abstract class SpaceObject {
 	protected float _height;
 
 	public SpaceObject(Sprite image, boolean randomScale) {
-		_scale = (float) (randomScale ? (Math.random() * (scaleMax - scaleMin)) + scaleMin : 1);
+		_scale = (float) (randomScale ? (Math.random() * (scaleMax - scaleMin)) + scaleMin : scaleMax);
 		_image = image;
 		this.setSize(_image.getWidth()/Assets.pixelDensity, _image.getHeight()/Assets.pixelDensity);
 
