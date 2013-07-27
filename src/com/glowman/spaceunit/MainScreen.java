@@ -15,6 +15,7 @@ import com.glowman.spaceunit.game.core.Button;
 import com.glowman.spaceunit.game.core.CameraHelper;
 import com.glowman.spaceunit.game.core.CameraHelper.ViewportMode;
 import com.glowman.spaceunit.game.core.FPSViewer;
+import com.glowman.spaceunit.game.core.TextButton;
 
 
 public class MainScreen implements Screen {
@@ -26,6 +27,7 @@ public class MainScreen implements Screen {
 	private OrthographicCamera _camera;
 	private Button _playBtnRun;
 	private Button _playBtnShoot;
+	private TextButton _hightscoresBtn;
 	private Sprite _bkg;
 	
 	private AsteroidsBehavior _behavior;
@@ -41,6 +43,7 @@ public class MainScreen implements Screen {
 		_bkg = new Sprite(Assets.bkg);
 		_playBtnRun = new Button(Assets.getPlayRunRegion(1), Assets.getPlayRunRegion(2));
 		_playBtnShoot = new Button(Assets.getPlayShootRegion(1), Assets.getPlayShootRegion(2));
+		_hightscoresBtn = new TextButton(Assets.getSimpleBtnRegion(1), Assets.getSimpleBtnRegion(2), "HightScrores");
 		
 		_behavior = new AsteroidsBehavior(15, _spriteBatch);
 	}
@@ -72,6 +75,10 @@ public class MainScreen implements Screen {
 		_playBtnShoot.setScale(0.9f);
 		_playBtnShoot.setX(Assets.VIRTUAL_WIDTH/2 + _playBtnShoot.getWidth()/10);
 		_playBtnShoot.setY((Assets.VIRTUAL_HEIGHT - _playBtnShoot.getHeight())/2);
+		
+		_hightscoresBtn.setSize(Assets.simpleBtnWidth, Assets.simpleBtnHeight);
+		_hightscoresBtn.setX((Assets.VIRTUAL_WIDTH - _hightscoresBtn.getWidth())/2);
+		_hightscoresBtn.setY(5);
 	}
 
 	@Override
@@ -84,7 +91,7 @@ public class MainScreen implements Screen {
 		_behavior.tick(deltaTime);
 		_playBtnRun.draw(_spriteBatch);
 		_playBtnShoot.draw(_spriteBatch);
-		
+		_hightscoresBtn.draw(_spriteBatch);
 		
 		FPSViewer.draw(_spriteBatch);
 		_spriteBatch.end();

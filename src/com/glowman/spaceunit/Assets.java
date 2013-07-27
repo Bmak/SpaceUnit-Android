@@ -29,11 +29,14 @@ public class Assets {
 
 	public static Array<TextureAtlas.AtlasRegion> blowArray;
 	
-	public static TextureRegion gameFont;
+	public static TextureRegion gameFontRegion;
 	public static String gameFontPath;
+	public static BitmapFont gameFont;
 	
 	public static float playBtnWidth;
 	public static float playBtnHeight;
+	public static float simpleBtnWidth;
+	public static float simpleBtnHeight;
 
 	public static float pixelDensity;
 
@@ -64,9 +67,9 @@ public class Assets {
 		minePassive = atlas.findRegion("enemies/mine1");
 		mineActive = atlas.findRegion("enemies/mine2");
 
-		gameFont = atlas.findRegion("fonts/font");
+		gameFontRegion = atlas.findRegion("fonts/font");
 		gameFontPath = "fonts/font.fnt";
-
+		gameFont = new BitmapFont(Gdx.files.internal(gameFontPath), gameFontRegion, false);
 		
 		soImages = new TextureRegion[2];
 		soImages[0] = asteroid;
@@ -79,6 +82,10 @@ public class Assets {
 	
 	public static TextureRegion getPlayShootRegion(int index) {
 		return atlas.findRegion("buttons/PlayBtnShoot", index);
+	}
+	
+	public static TextureRegion getSimpleBtnRegion(int index) {
+		return atlas.findRegion("buttons/SimpleBtn", index);
 	}
 	
 	private static float calculatePixelDensity () {
@@ -95,6 +102,8 @@ public class Assets {
 	private static void initialiseGeometries () {
 		playBtnWidth = toWidth(getPlayRunRegion(1));
 		playBtnHeight = toHeight(getPlayRunRegion(1));
+		simpleBtnWidth = toWidth(getSimpleBtnRegion(1));
+		simpleBtnHeight = toHeight(getSimpleBtnRegion(1));
 	}
 	
 	private static float toWidth (TextureRegion region) {
