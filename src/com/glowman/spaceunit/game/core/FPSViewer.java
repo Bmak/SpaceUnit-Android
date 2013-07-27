@@ -20,7 +20,7 @@ public class FPSViewer {
 		_show = show;
 		if (_show == false) { return; }
 		
-		_font = Assets.gameFont;
+		_font = new BitmapFont(Gdx.files.internal(Assets.gameFontPath), Assets.gameFontRegion, false);
 		_font.setColor(Color.RED);
 		_font.setScale(1f/Assets.pixelDensity);
 		_x = 0;

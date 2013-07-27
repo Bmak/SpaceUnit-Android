@@ -9,8 +9,8 @@ import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 public class Assets {
-	public static final float VIRTUAL_WIDTH = 30.0f;
-	public static final float VIRTUAL_HEIGHT = 20.0f;
+	public static final float VIRTUAL_WIDTH = 300.0f;
+	public static final float VIRTUAL_HEIGHT = 200.0f;
 	
 	private static TextureAtlas atlas;
 

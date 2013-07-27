@@ -1,5 +1,7 @@
 package com.glowman.spaceunit.game.core;
 
+import android.renderscript.Font;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
@@ -18,9 +20,9 @@ public class TextButton extends Button {
 	public TextButton(TextureRegion normal, TextureRegion clicked, String text) {
 		super(normal, clicked);
 		
-		_font = Assets.gameFont;
+		_font = new BitmapFont(Gdx.files.internal(Assets.gameFontPath), Assets.gameFontRegion, false);
 		_font.setColor(Color.RED);
-		_font.setScale(2f/Assets.pixelDensity);
+		_font.setScale(1f/Assets.pixelDensity);
 		_posText = new Vector2();
 		this.setText(text);
 	}
@@ -28,7 +30,34 @@ public class TextButton extends Button {
 	public void setText(String text) {
 		_text = text;
 		TextBounds bounds = _font.getBounds(_text);
-		_posText.set((getWidth() - bounds.width)/2, (getHeight() - bounds.height)/2);
+		float x = _currentView.getX() + (getWidth() - bounds.width)/2;
+		float y = _currentView.getY() + (getHeight() + bounds.height)/2;
+		_posText.set(x, y);
+	}
+	
+	@Override
+	public void setSize(float width, float height) {
+		super.setSize(width, height);
+		this.setText(_text);
+	}
+	
+	@Override
+	public void setScale(float scale) {
+		super.setScale(scale);
+		_font.setScale(_font.getScaleX()*_scale);
+		this.setText(_text);
+	}
+	
+	@Override
+	public void setX(float x) {
+		super.setX(x);
+		this.setText(_text);
+	}
+	
+	@Override
+	public void setY(float y) {
+		super.setY(y);
+		this.setText(_text);
 	}
 	
 	@Override
