@@ -11,6 +11,7 @@ import com.glowman.spaceunit.game.core.TouchEvent;
 import com.glowman.spaceunit.game.mapObject.Bullet;
 import com.glowman.spaceunit.game.mapObject.enemy.Enemy;
 import com.glowman.spaceunit.game.mapObject.Ship;
+import com.glowman.spaceunit.game.mapObject.enemy.EnemyFactory;
 
 import java.util.ArrayList;
 
@@ -70,8 +71,7 @@ public abstract class GameStrategy {
 		{
 			_enemies = new ArrayList<Enemy>();
 		}
-		Sprite image = new Sprite(Assets.soImages[Math.round((float)Math.random())]);
-		Enemy enemy = new Enemy(image, true);
+		Enemy enemy = EnemyFactory.createEnemy();
 		enemy.setRandomBorderPosition();
 		enemy.setRandomGeneralSpeed();
 		_enemies.add(enemy);

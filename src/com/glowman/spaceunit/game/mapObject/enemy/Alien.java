@@ -6,8 +6,9 @@ import com.glowman.spaceunit.Assets;
 /**
  *
  */
-public class Mine extends Enemy {
-	public Mine() {
-		super(new Sprite(Assets.minePassive));
+public class Alien extends Enemy {
+
+	public Alien() {
+		super(new Sprite(Assets.alienPassive));
 	}
 }

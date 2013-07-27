@@ -13,7 +13,7 @@ public abstract class SpaceObject {
 	public static double scaleMax = .4d;
 
 	private float _scale;
-	protected final Sprite _image;
+	protected Sprite _image;
 	protected Vector2 _position;
 	protected float _rotation;
 	protected float _width;
@@ -37,14 +37,14 @@ public abstract class SpaceObject {
 	public void setSize(float width, float height) {
 		_width = width;
 		_height = height;
-		_image.setSize(_width * _scale, _height * _scale);
-		this.updateOrigin();
+		this.updateImageSize();
+		this.updateImageOrigin();
 	}
 
 	public void setScale(float scale) {
 		_scale = scale;
-		_image.setSize(_width*_scale, _height*_scale);
-		this.updateOrigin();
+		this.updateImageSize();
+		this.updateImageOrigin();
 	}
 
 	public float getScale() { return _scale; }
@@ -54,14 +54,14 @@ public abstract class SpaceObject {
 	public void setRandomPosition() {
 		_position.x = (float)Math.random() * Assets.VIRTUAL_WIDTH;
 		_position.y = (float)Math.random() * Assets.VIRTUAL_HEIGHT;
-		_image.setPosition(_position.x, _position.y);
+		this.updateImagePosition();
 	}
 
 	public void setPosition(float x, float y)
 	{
 		_position.x = x;
 		_position.y = y;
-		_image.setPosition(x, y);
+		this.updateImagePosition();
 	}
 	public void setPosition(Vector2 value) {
 		this.setPosition(value.x, value.y);
@@ -75,7 +75,21 @@ public abstract class SpaceObject {
 		return result;
 	}
 
-	private void updateOrigin() {
+	protected void setImage(Sprite image)
+	{
+		_image = image;
+		this.updateImagePosition();
+		this.updateImageSize();
+		this.updateImageOrigin();
+	}
+
+	private void updateImagePosition() {
+		_image.setPosition(_position.x, _position.y);
+	}
+	private void updateImageSize() {
+		_image.setSize(_width*_scale, _height*_scale);
+	}
+	private void updateImageOrigin() {
 		_image.setOrigin(_width*_scale/2, _height*_scale/2);
 	}
 }
