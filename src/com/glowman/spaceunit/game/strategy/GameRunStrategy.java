@@ -5,6 +5,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.glowman.spaceunit.game.core.TouchEvent;
 import com.glowman.spaceunit.game.mapObject.enemy.Enemy;
 import com.glowman.spaceunit.game.mapObject.Ship;
+import com.glowman.spaceunit.game.mapObject.enemy.EnemyFactory;
 
 import java.lang.Math;
 import java.util.ArrayList;
@@ -17,6 +18,7 @@ public class GameRunStrategy extends GameStrategy {
 	public GameRunStrategy(Ship ship)
 	{
 		super(ship);
+		EnemyFactory.setGameType(GameStrategy.RUN_GAME);
 	}
 
 	@Override

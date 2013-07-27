@@ -13,6 +13,7 @@ import com.glowman.spaceunit.game.mapObject.Bullet;
 import com.glowman.spaceunit.game.mapObject.enemy.Enemy;
 import com.glowman.spaceunit.game.mapObject.MovingSpaceObject;
 import com.glowman.spaceunit.game.mapObject.Ship;
+import com.glowman.spaceunit.game.mapObject.enemy.EnemyFactory;
 
 import java.util.ArrayList;
 
@@ -28,6 +29,7 @@ public class GameShootStrategy extends GameStrategy {
 	public GameShootStrategy(Ship ship)
 	{
 		super(ship);
+		EnemyFactory.setGameType(GameStrategy.SHOOT_GAME);
 	}
 
 	@Override
