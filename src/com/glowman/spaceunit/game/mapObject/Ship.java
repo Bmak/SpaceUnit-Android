@@ -18,9 +18,9 @@ public class Ship extends MovingSpaceObject {
 	private boolean _moving;
 	private boolean _shooting;
 
-	public Ship(Sprite image, Vector2 screenSize, int reloadTime)
+	public Ship(Sprite image, int reloadTime)
 	{
-		super(image, screenSize, true, false);
+		super(image, true, false);
 		_reloadTime = reloadTime;
 		_currentReloadTime = 0;
 		_readyForShoot = false;
@@ -60,7 +60,7 @@ public class Ship extends MovingSpaceObject {
 	public void setMoving(boolean value) {
 		if (_moving != value) {
 			_moving = value;
-			if (!_moving) { Log.d("hz", "stop ship"); super.stop(); }
+			if (!_moving) { super.stop(); }
 			if (_moving) { this.moveToTargetPoint(); }
 		}
 	}
@@ -71,7 +71,6 @@ public class Ship extends MovingSpaceObject {
 
 	public Vector2 getTargetPosition() { return _targetPosition; }
 	public void setTargetPosition(Vector2 value) {
-		Log.d("hz", "set target position for move");
 		_targetPosition = value;
 		if (_moving) { this.moveToTargetPoint(); }
 	}
@@ -80,7 +79,6 @@ public class Ship extends MovingSpaceObject {
 
 	private void moveToTargetPoint() {
 		this.moveTo(_targetPosition.x, _targetPosition.y);
-		//this.rotateTo(_targetPosition.x, _targetPosition.y);
 	}
 
 }

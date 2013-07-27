@@ -25,9 +25,9 @@ public class GameShootStrategy extends GameStrategy {
 
 	private ArrayList<Bullet> _bullets;
 
-	public GameShootStrategy(Ship ship, Vector2 screenSize)
+	public GameShootStrategy(Ship ship)
 	{
-		super(ship, screenSize);
+		super(ship);
 	}
 
 	@Override
@@ -154,9 +154,9 @@ public class GameShootStrategy extends GameStrategy {
 			bulletX = bullet.getView().getX();
 			bulletY = bullet.getView().getY();
 			if ((bulletX < 0) ||
-					(bulletX > super._screenSize.x) ||
+					(bulletX > Assets.VIRTUAL_WIDTH) ||
 					(bulletY < 0) ||
-					(bulletY > super._screenSize.y))
+					(bulletY > Assets.VIRTUAL_HEIGHT))
 			{
 				Log.d("hz", "remove bullet!");
 				bulletsForRemove.add(bullet);

@@ -7,7 +7,6 @@ import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.glowman.spaceunit.game.core.CameraHelper;
 
 public class Assets {
 	public static final float VIRTUAL_WIDTH = 30.0f;

@@ -10,14 +10,14 @@ import com.glowman.spaceunit.game.mapObject.MovingSpaceObject;
 public class Enemy extends MovingSpaceObject {
 
 
-	public Enemy(Sprite image, Vector2 screenSize, boolean teleportOnBorder)
+	public Enemy(Sprite image, boolean teleportOnBorder)
 	{
-		super(image, screenSize, true, teleportOnBorder);
+		super(image, true, teleportOnBorder);
 	}
 
-	public Enemy(Sprite image, Vector2 screenSize)
+	public Enemy(Sprite image)
 	{
-		this(image, screenSize, false);
+		this(image, false);
 	}
 
 	@Override

@@ -25,17 +25,15 @@ public abstract class GameStrategy {
 	protected ArrayList<Enemy> _deadEnemies;
 	protected ArrayList<AnimatedSprite> _animations;
 	protected Ship _heroShip;
-	protected Vector2 _screenSize;
 
 	protected int _shootingTouch = -1;
 	protected int _movingTouch = -1;
 
-	GameStrategy(Ship ship, Vector2 screenSize)
+	GameStrategy(Ship ship)
 	{
 		_heroShip = ship;
 		_enemies = null;
 		_deadEnemies = null;
-		_screenSize = screenSize;
 	}
 
 	public ArrayList<Enemy> getEnemies() { return _enemies; }
@@ -68,13 +66,12 @@ public abstract class GameStrategy {
 
 	protected void createEnemy()
 	{
-		Log.d("hz", "creating enemy");
 		if (_enemies == null)
 		{
 			_enemies = new ArrayList<Enemy>();
 		}
 		Sprite image = new Sprite(Assets.soImages[Math.round((float)Math.random())]);
-		Enemy enemy = new Enemy(image, _screenSize, true);
+		Enemy enemy = new Enemy(image, true);
 		enemy.setRandomBorderPosition();
 		enemy.setRandomGeneralSpeed();
 		_enemies.add(enemy);

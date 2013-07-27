@@ -12,7 +12,6 @@ public abstract class SpaceObject {
 	public static double scaleMin = .2d;
 	public static double scaleMax = .4d;
 
-	protected final Vector2 _screenSize;
 	private float _scale;
 	protected final Sprite _image;
 	protected Vector2 _position;
@@ -20,8 +19,7 @@ public abstract class SpaceObject {
 	protected float _width;
 	protected float _height;
 
-	public SpaceObject(Sprite image, Vector2 screenSize, boolean randomScale) {
-		_screenSize = screenSize;
+	public SpaceObject(Sprite image, boolean randomScale) {
 		_scale = (float) (randomScale ? (Math.random() * (scaleMax - scaleMin)) + scaleMin : 1);
 		_image = image;
 		this.setSize(_image.getWidth()/Assets.pixelDensity, _image.getHeight()/Assets.pixelDensity);
@@ -54,8 +52,8 @@ public abstract class SpaceObject {
 	public Sprite getImage() { return _image; }
 
 	public void setRandomPosition() {
-		_position.x = (float)Math.random() * _screenSize.x;
-		_position.y = (float)Math.random() * _screenSize.y;
+		_position.x = (float)Math.random() * Assets.VIRTUAL_WIDTH;
+		_position.y = (float)Math.random() * Assets.VIRTUAL_HEIGHT;
 		_image.setPosition(_position.x, _position.y);
 	}
 

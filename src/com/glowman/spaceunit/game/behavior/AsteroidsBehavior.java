@@ -25,7 +25,7 @@ public class AsteroidsBehavior {
 		Vector2 screenSize = new Vector2(Assets.VIRTUAL_WIDTH, Assets.VIRTUAL_HEIGHT);
 		for (int i = 0; i < _numStartEnemies; i++) {
 			Sprite image = new Sprite(Assets.soImages[Math.round((float)Math.random())]);
-			MovingSpaceObject spaceObject = new MovingSpaceObject(image, screenSize, true, true);
+			MovingSpaceObject spaceObject = new MovingSpaceObject(image, true, true);
 			//spaceObject.setRandomPosition();
 			spaceObject.setRandomBorderPosition();
 			spaceObject.setRandomBehaviour();

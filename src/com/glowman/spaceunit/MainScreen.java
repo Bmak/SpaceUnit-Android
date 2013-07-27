@@ -62,7 +62,7 @@ public class MainScreen implements Screen {
 	float scale;
 	@Override
 	public void show() {
-		Gdx.input.setInputProcessor(new MenuTouchListener(_game, _camera, _playBtnRun, _playBtnShoot));
+		Gdx.input.setInputProcessor(new MenuTouchListener(_game, _playBtnRun, _playBtnShoot));
 		
 		_bkg.setSize(Assets.VIRTUAL_WIDTH, Assets.VIRTUAL_HEIGHT);
 		

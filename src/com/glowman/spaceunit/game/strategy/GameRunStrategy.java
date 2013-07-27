@@ -14,9 +14,9 @@ import java.util.ArrayList;
  */
 public class GameRunStrategy extends GameStrategy {
 
-	public GameRunStrategy(Ship ship, Vector2 screenSize)
+	public GameRunStrategy(Ship ship)
 	{
-		super(ship, screenSize);
+		super(ship);
 	}
 
 	@Override
@@ -43,21 +43,18 @@ public class GameRunStrategy extends GameStrategy {
 
 	@Override
 	public void touchDown(TouchEvent touch) {
-		Log.d("hz", "touch down!");
 		_heroShip.setTargetPosition(new Vector2(touch.x, touch.y));
 		_heroShip.setMoving(true);
 	}
 
 	@Override
 	public void touchUp(TouchEvent touch) {
-		Log.d("hz", "touch up!");
 
 		_heroShip.setMoving(false);
 	}
 
 	@Override
 	public void touchMove(TouchEvent touch) {
-		Log.d("hz", "touch move!");
 
 		_heroShip.setTargetPosition(new Vector2(touch.x, touch.y));
 	}

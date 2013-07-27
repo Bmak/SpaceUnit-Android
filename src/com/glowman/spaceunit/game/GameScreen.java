@@ -38,7 +38,6 @@ public class GameScreen implements Screen {
 
 	private final SpriteBatch _drawer;
 	private OrthographicCamera _gameCam;
-	private Vector2 _screenSize;
 
 	public GameScreen(Game game, int gameType)
 	{
@@ -47,10 +46,9 @@ public class GameScreen implements Screen {
 		_drawer = new SpriteBatch();
 		_drawer.setProjectionMatrix(_gameCam.combined);
 		
-		_screenSize = new Vector2(Assets.VIRTUAL_WIDTH, Assets.VIRTUAL_HEIGHT);
 		this.createShip();
 		Log.d("hz", "game type : " + gameType);
-		_gameStrategy = GameStrategyFactory.createStrategy(_ship, _screenSize, gameType);
+		_gameStrategy = GameStrategyFactory.createStrategy(_ship, gameType);
 	}
 
 
@@ -95,9 +93,9 @@ public class GameScreen implements Screen {
 	private void createShip() {
 		if (_ship != null) { Log.e("hz", "ship already exists!"); }
 
-		_ship = new Ship(new Sprite(Assets.ship), _screenSize, 10);
-		_ship.setGeneralSpeed(1);
-		_ship.setPosition(new Vector2(_screenSize.x / 2, _screenSize.y / 2));
+		_ship = new Ship(new Sprite(Assets.ship), 10);
+		_ship.setGeneralSpeed(1f);
+		_ship.setPosition(new Vector2(Assets.VIRTUAL_WIDTH / 2, Assets.VIRTUAL_HEIGHT / 2));
 	}
 
 	private void drawHero() {
