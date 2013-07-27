@@ -11,6 +11,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.glowman.spaceunit.Assets;
 import com.glowman.spaceunit.MainScreen;
+import com.glowman.spaceunit.game.core.AnimatedSprite;
 import com.glowman.spaceunit.game.core.CameraHelper;
 import com.glowman.spaceunit.game.core.FPSViewer;
 import com.glowman.spaceunit.game.core.CameraHelper.ViewportMode;
@@ -67,6 +68,7 @@ public class GameScreen implements Screen {
 
 		this.drawHero();
 		this.drawEnemies();
+		this.drawAnimations();
 		
 		FPSViewer.draw(_drawer);
 		_drawer.end();
@@ -114,6 +116,14 @@ public class GameScreen implements Screen {
 			for (Enemy enemy : _gameStrategy.getDeadEnemies())
 			{
 				enemy.getImage().draw(_drawer);
+			}
+		}
+	}
+
+	private void drawAnimations() {
+		if (_gameStrategy.getAnimations() != null) {
+			for (AnimatedSprite animation : _gameStrategy.getAnimations()) {
+				animation.draw(_drawer);
 			}
 		}
 	}

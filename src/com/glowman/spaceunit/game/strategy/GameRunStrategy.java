@@ -1,9 +1,7 @@
 package com.glowman.spaceunit.game.strategy;
 
 import android.util.Log;
-import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.Vector2;
-import com.glowman.spaceunit.Assets;
 import com.glowman.spaceunit.game.core.TouchEvent;
 import com.glowman.spaceunit.game.mapObject.Enemy;
 import com.glowman.spaceunit.game.mapObject.Ship;
@@ -24,6 +22,7 @@ public class GameRunStrategy extends GameStrategy {
 	@Override
 	public void tick(float delta)
 	{
+		super.tick(delta);
 		super._heroShip.tick(delta);
 
 		//TODO set game balance here
@@ -72,10 +71,8 @@ public class GameRunStrategy extends GameStrategy {
 		Vector2 position1, position2;
 		for (int i = 0; i < (_enemies.size() - 1); ++i) {
 			for (int j = i + 1; j < _enemies.size(); ++j) {
-				radius1 = _enemies.get(i).getImage().getHeight()/2;// *
-						//(_enemies.get(i).getImage().getScale()/100);
-				radius2 = _enemies.get(j).getImage().getHeight()/2;// *
-						//(_enemies.get(j).getImage().getScale()/100);
+				radius1 = _enemies.get(i).getImage().getHeight()/2;
+				radius2 = _enemies.get(j).getImage().getHeight()/2;
 				position1 = _enemies.get(i).getCenterPosition();
 				position2 = _enemies.get(j).getCenterPosition();
 

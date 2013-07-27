@@ -33,6 +33,7 @@ public class GameShootStrategy extends GameStrategy {
 	@Override
 	public void tick(float delta)
 	{
+		super.tick(delta);
 		_heroShip.tick(delta);
 
 		if (_heroShip.isReadyForShoot())

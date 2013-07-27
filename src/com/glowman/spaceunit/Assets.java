@@ -3,6 +3,8 @@ package com.glowman.spaceunit;
 import android.util.Log;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -24,6 +26,8 @@ public class Assets {
 	public static TextureRegion alienActive;
 	public static TextureRegion minePassive;
 	public static TextureRegion mineActive;
+
+	public static Array<TextureRegion> blowArray;
 	
 	public static TextureRegion myfont;
 	public static BitmapFont gameFont;
@@ -49,6 +53,8 @@ public class Assets {
 
 		ship = atlas.findRegion("unit/unit");
 		bullet = atlas.findRegion("unit/bullet");
+
+		createBlowTextures();
 
 		asteroid = atlas.findRegion("enemies/asteroid");
 		meteor = atlas.findRegion("enemies/meteor");
@@ -100,5 +106,16 @@ public class Assets {
 
 	private static float toHeight (TextureRegion region) {
 		return region.getRegionHeight() / pixelDensity;
+	}
+
+	private static void createBlowTextures() {
+		Texture blowTexture = new Texture(Gdx.files.internal("textures/textures2.png"));
+		TextureRegion[][] blowMatrix = TextureRegion.split(blowTexture, 70, 72);
+		blowArray = new Array<TextureRegion>();
+		for (int i = 0; i < blowMatrix.length; ++i) {
+			for (int j = 0; j < blowMatrix[i].length; ++j) {
+				blowArray.add(blowMatrix[i][j]);
+			}
+		}
 	}
 }

@@ -5,6 +5,7 @@ import android.util.Log;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.Vector2;
 import com.glowman.spaceunit.Assets;
+import com.glowman.spaceunit.game.core.AnimatedSprite;
 import com.glowman.spaceunit.game.core.TouchEvent;
 import com.glowman.spaceunit.game.mapObject.Enemy;
 import com.glowman.spaceunit.game.mapObject.Ship;
@@ -20,6 +21,7 @@ public abstract class GameStrategy {
 
 	protected ArrayList<Enemy> _enemies;
 	protected ArrayList<Enemy> _deadEnemies;
+	protected ArrayList<AnimatedSprite> _animations;
 	protected Ship _heroShip;
 	protected Vector2 _screenSize;
 
@@ -35,10 +37,31 @@ public abstract class GameStrategy {
 	}
 
 	public ArrayList<Enemy> getEnemies() { return _enemies; }
-
 	public ArrayList<Enemy> getDeadEnemies() { return _deadEnemies; }
+	public ArrayList<AnimatedSprite> getAnimations() { return _animations; }
 
-	public abstract void tick(float delta);
+	public void tick(float delta) {
+
+		if (_animations != null)
+		{
+			ArrayList<AnimatedSprite> animationsForRemove = new ArrayList<AnimatedSprite>();
+			for (AnimatedSprite animation : _animations)
+			{
+				if (animation.isAnimationFinished())
+				{
+					animationsForRemove.add(animation);
+				} else
+				{
+					animation.tick(delta);
+				}
+			}
+			for (AnimatedSprite animation : animationsForRemove)
+			{
+				_animations.remove(animation);
+			}
+			animationsForRemove.clear();
+		}
+	}
 
 	protected void createEnemy()
 	{
@@ -61,6 +84,13 @@ public abstract class GameStrategy {
 		_enemies.remove(enemy);
 		if (_deadEnemies == null) { _deadEnemies = new ArrayList<Enemy>(); }
 		_deadEnemies.add(enemy);
+
+		AnimatedSprite animation = new AnimatedSprite(Assets.blowArray);
+		animation.setPosition(enemy.getPosition().x, enemy.getPosition().y);
+		animation.setScale(.3f);
+		animation.setOrigin(animation.getWidth()/2, animation.getHeight()/2);
+		if (_animations == null) { _animations = new ArrayList<AnimatedSprite>(); }
+		_animations.add(animation);
 	}
 
 	public abstract void touchUp(TouchEvent touch);
