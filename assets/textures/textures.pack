@@ -15,55 +15,55 @@ textures2.png
 format: RGBA8888
 filter: Nearest,Nearest
 repeat: none
-blow/blow1
+blow/blow
   rotate: false
   xy: 1, 1
   size: 70, 72
   orig: 70, 72
   offset: 0, 0
-  index: -1
-blow/blow2
+  index: 1
+blow/blow
   rotate: false
   xy: 73, 1
   size: 70, 72
   orig: 70, 72
   offset: 0, 0
-  index: -1
-blow/blow3
+  index: 2
+blow/blow
   rotate: false
   xy: 145, 1
   size: 70, 72
   orig: 70, 72
   offset: 0, 0
-  index: -1
-blow/blow4
+  index: 3
+blow/blow
   rotate: false
   xy: 217, 1
   size: 70, 72
   orig: 70, 72
   offset: 0, 0
-  index: -1
-blow/blow5
+  index: 4
+blow/blow
   rotate: false
   xy: 289, 1
   size: 70, 72
   orig: 70, 72
   offset: 0, 0
-  index: -1
-blow/blow6
+  index: 5
+blow/blow
   rotate: false
   xy: 361, 1
   size: 70, 72
   orig: 70, 72
   offset: 0, 0
-  index: -1
-blow/blow7
+  index: 6
+blow/blow
   rotate: false
   xy: 433, 1
   size: 70, 72
   orig: 70, 72
   offset: 0, 0
-  index: -1
+  index: 7
 
 textures3.png
 format: RGBA8888

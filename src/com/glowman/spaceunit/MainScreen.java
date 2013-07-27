@@ -65,13 +65,13 @@ public class MainScreen implements Screen {
 		_bkg.setSize(Assets.VIRTUAL_WIDTH, Assets.VIRTUAL_HEIGHT);
 		
 		_playBtnRun.setSize(Assets.playBtnWidth, Assets.playBtnHeight);
-		_playBtnRun.setScale(0.75f);
-		_playBtnRun.setX(Assets.VIRTUAL_WIDTH/2 - _playBtnRun.getWidth() - 5);
+		_playBtnRun.setScale(0.8f);
+		_playBtnRun.setX(Assets.VIRTUAL_WIDTH/2 - _playBtnRun.getWidth() - 20);
 		_playBtnRun.setY((Assets.VIRTUAL_HEIGHT - _playBtnRun.getHeight())/2);
 		
 		_playBtnShoot.setSize(Assets.playBtnWidth, Assets.playBtnHeight);
-		_playBtnShoot.setScale(0.75f);
-		_playBtnShoot.setX(Assets.VIRTUAL_WIDTH/2 + 5);
+		_playBtnShoot.setScale(0.8f);
+		_playBtnShoot.setX(Assets.VIRTUAL_WIDTH/2 + 20);
 		_playBtnShoot.setY((Assets.VIRTUAL_HEIGHT - _playBtnShoot.getHeight())/2);
 		
 		Assets.gameFont.setColor(Color.ORANGE);
