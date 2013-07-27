@@ -11,11 +11,11 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import android.util.Log;
 
 import com.glowman.spaceunit.game.behavior.AsteroidsBehavior;
-import com.glowman.spaceunit.game.core.Button;
-import com.glowman.spaceunit.game.core.CameraHelper;
-import com.glowman.spaceunit.game.core.CameraHelper.ViewportMode;
-import com.glowman.spaceunit.game.core.FPSViewer;
-import com.glowman.spaceunit.game.core.TextButton;
+import com.glowman.spaceunit.core.Button;
+import com.glowman.spaceunit.core.CameraHelper;
+import com.glowman.spaceunit.core.CameraHelper.ViewportMode;
+import com.glowman.spaceunit.core.FPSViewer;
+import com.glowman.spaceunit.core.TextButton;
 
 
 public class MainScreen implements Screen {
@@ -86,7 +86,7 @@ public class MainScreen implements Screen {
 		_creditsBtn.setSize(Assets.simpleBtnWidth, Assets.simpleBtnHeight);
 		_creditsBtn.setScale(1.5f);
 		_creditsBtn.setX((Assets.VIRTUAL_WIDTH - _hightscoresBtn.getWidth())/2);
-		_creditsBtn.setY(_creditsBtn.getHeight()*0.3f);
+		_creditsBtn.setY(_creditsBtn.getHeight() * 0.3f);
 	}
 
 	@Override

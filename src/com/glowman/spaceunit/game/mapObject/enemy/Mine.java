@@ -12,7 +12,7 @@ public class Mine extends ActiveEnemy {
 	private float _alarm_radius;
 
 	public Mine() {
-		super(new Sprite(Assets.minePassive), new Sprite(Assets.mineActive), true, true);
+		super(new Sprite(Assets.minePassive), new Sprite(Assets.mineActive), false, true);
 	}
 
 	@Override
@@ -25,9 +25,10 @@ public class Mine extends ActiveEnemy {
 	public void tick(float delta) {
 		super.tick(delta);
 
-		if (super.getCenterPosition().dst(_target.getCenterPosition()) < _alarm_radius &&
-				!super.isActiveMode()) {
-			super.changeToActiveMode();
+		if (super.getCenterPosition().dst(_target.getCenterPosition()) < _alarm_radius) {
+			if (!super.isActiveMode()) {
+				super.changeToActiveMode();
+			}
 		}
 		else if (super.isActiveMode()) {
 			super.changeToPassiveMode();

@@ -1,8 +1,7 @@
 package com.glowman.spaceunit.game.strategy;
 
-import android.util.Log;
 import com.badlogic.gdx.math.Vector2;
-import com.glowman.spaceunit.game.core.TouchEvent;
+import com.glowman.spaceunit.core.TouchEvent;
 import com.glowman.spaceunit.game.mapObject.enemy.Enemy;
 import com.glowman.spaceunit.game.mapObject.Ship;
 import com.glowman.spaceunit.game.mapObject.enemy.EnemyFactory;

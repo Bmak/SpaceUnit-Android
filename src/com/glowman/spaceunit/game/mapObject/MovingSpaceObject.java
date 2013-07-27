@@ -110,6 +110,12 @@ public class MovingSpaceObject extends SpaceObject {
 		super.setPosition(randomX, randomY);
 	}
 
+	@Override
+	protected void setImage(Sprite image) {
+		super.setImage(image);
+		image.setRotation(_rotation);
+	}
+
 	private void checkBorderTeleport()
 	{
 		if ((_position.x + this.getWidth() < 0) ||

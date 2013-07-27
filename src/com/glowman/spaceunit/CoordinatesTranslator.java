@@ -1,9 +1,8 @@
 package com.glowman.spaceunit;
 
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
-import com.glowman.spaceunit.game.core.CameraHelper;
+import com.glowman.spaceunit.core.CameraHelper;
 
 /**
  *

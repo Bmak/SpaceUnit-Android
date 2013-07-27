@@ -1,11 +1,10 @@
 package com.glowman.spaceunit.game;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputAdapter;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.math.Vector3;
-import com.glowman.spaceunit.game.core.CameraHelper;
-import com.glowman.spaceunit.game.core.TouchEvent;
+import com.glowman.spaceunit.core.CameraHelper;
+import com.glowman.spaceunit.core.TouchEvent;
 import com.glowman.spaceunit.game.strategy.GameStrategy;
 
 /**

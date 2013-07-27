@@ -2,10 +2,7 @@ package com.glowman.spaceunit;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Screen;
-import com.badlogic.gdx.graphics.FPSLogger;
-import com.glowman.spaceunit.Assets;
-import com.glowman.spaceunit.MainScreen;
-import com.glowman.spaceunit.game.core.FPSViewer;
+import com.glowman.spaceunit.core.FPSViewer;
 
 
 public class Main extends Game {
@@ -18,7 +15,7 @@ public class Main extends Game {
 	public void create () {
 		Assets.load();
 		FPSViewer.init(true);
-		
+
 		mainScreen = new MainScreen(this);
 		
 		setScreen(mainScreen);

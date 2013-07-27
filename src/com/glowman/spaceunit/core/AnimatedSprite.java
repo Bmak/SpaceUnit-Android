@@ -1,4 +1,4 @@
-package com.glowman.spaceunit.game.core;
+package com.glowman.spaceunit.core;
 
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Sprite;

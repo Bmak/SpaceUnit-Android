@@ -11,7 +11,7 @@
  * governing permissions and limitations under the License.
  */
 
-package com.glowman.spaceunit.game.core;
+package com.glowman.spaceunit.core;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.OrthographicCamera;

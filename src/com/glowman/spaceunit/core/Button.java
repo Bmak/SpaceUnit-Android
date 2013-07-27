@@ -1,14 +1,9 @@
-package com.glowman.spaceunit.game.core;
+package com.glowman.spaceunit.core;
 
 
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.scenes.scene2d.Actor;
-import com.badlogic.gdx.scenes.scene2d.EventListener;
-import com.badlogic.gdx.scenes.scene2d.InputEvent;
-import com.badlogic.gdx.scenes.scene2d.InputListener;
-import com.glowman.spaceunit.game.GameScreen;
 
 public class Button {
 	protected final Sprite _normal;

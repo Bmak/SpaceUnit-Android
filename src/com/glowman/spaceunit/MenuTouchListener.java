@@ -1,12 +1,11 @@
 package com.glowman.spaceunit;
 
-import android.util.Log;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputAdapter;
 import com.badlogic.gdx.math.Vector3;
 import com.glowman.spaceunit.game.GameScreen;
-import com.glowman.spaceunit.game.core.Button;
+import com.glowman.spaceunit.core.Button;
 import com.glowman.spaceunit.game.strategy.GameStrategy;
 
 /**

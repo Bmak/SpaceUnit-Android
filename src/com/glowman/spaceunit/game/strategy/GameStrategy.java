@@ -2,8 +2,8 @@ package com.glowman.spaceunit.game.strategy;
 
 
 import com.glowman.spaceunit.game.animation.BlowAnimation;
-import com.glowman.spaceunit.game.core.AnimatedSprite;
-import com.glowman.spaceunit.game.core.TouchEvent;
+import com.glowman.spaceunit.core.AnimatedSprite;
+import com.glowman.spaceunit.core.TouchEvent;
 import com.glowman.spaceunit.game.mapObject.Bullet;
 import com.glowman.spaceunit.game.mapObject.enemy.Enemy;
 import com.glowman.spaceunit.game.mapObject.Ship;

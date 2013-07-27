@@ -1,4 +1,4 @@
-package com.glowman.spaceunit.game.core;
+package com.glowman.spaceunit.core;
 
 /**
  *
