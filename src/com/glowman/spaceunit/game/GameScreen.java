@@ -15,6 +15,7 @@ import com.glowman.spaceunit.core.AnimatedSprite;
 import com.glowman.spaceunit.core.CameraHelper;
 import com.glowman.spaceunit.core.FPSViewer;
 import com.glowman.spaceunit.core.CameraHelper.ViewportMode;
+import com.glowman.spaceunit.game.core.ScreenControl;
 import com.glowman.spaceunit.game.mapObject.Bullet;
 import com.glowman.spaceunit.game.mapObject.Ship;
 import com.glowman.spaceunit.game.mapObject.enemy.Enemy;
@@ -34,21 +35,26 @@ public class GameScreen implements Screen {
 
 	private int _gameType;
 	private Ship _ship;
-	private final GameStrategy _gameStrategy;
+	private GameStrategy _gameStrategy;
 
 	private final SpriteBatch _drawer;
-	private OrthographicCamera _gameCam;
+	private OrthographicCamera _camera;
 
-	public GameScreen(Game game, int gameType)
+	public GameScreen(Game game, OrthographicCamera camera)
 	{
 		_game = game;
-		_gameCam = CameraHelper.createCamera2(ViewportMode.STRETCH_TO_SCREEN, Assets.VIRTUAL_WIDTH, Assets.VIRTUAL_HEIGHT, Assets.pixelDensity);
+		_camera = camera;
 		_drawer = new SpriteBatch();
-		_drawer.setProjectionMatrix(_gameCam.combined);
+		_drawer.setProjectionMatrix(_camera.combined);
 		
 		this.createShip();
+	}
+	
+	public void play(int gameType) {
+		//TODO reset game, update game strategy
 		Log.d("hz", "game type : " + gameType);
 		_gameStrategy = GameStrategyFactory.createStrategy(_ship, gameType);
+		Gdx.input.setInputProcessor(new GameTouchListener(_camera, _gameStrategy));
 	}
 
 
@@ -57,7 +63,7 @@ public class GameScreen implements Screen {
 		_timer++;
 		if (_timer > TIMER_MAX)
 		{
-			_game.setScreen(new MainScreen(_game));
+			_game.setScreen(ScreenControl.getScreen(ScreenControl.MAIN));
 		}
 		_gameStrategy.tick(delta);
 
@@ -78,13 +84,14 @@ public class GameScreen implements Screen {
 
 	@Override
 	public void show() {
-		Gdx.input.setInputProcessor(new GameTouchListener(_gameCam, _gameStrategy));
 		_timer = 0;
 	}
 	@Override
 	public void hide() {
 		Gdx.input.setInputProcessor(null);
 		this.clear();
+		
+		//TODO остановка/пауза всех просчетов, которые могут выполнятся
 	}
 	@Override public void pause() {}
 	@Override public void resume() {}

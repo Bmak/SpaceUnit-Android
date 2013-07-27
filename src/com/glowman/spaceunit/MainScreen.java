@@ -16,13 +16,14 @@ import com.glowman.spaceunit.core.CameraHelper;
 import com.glowman.spaceunit.core.CameraHelper.ViewportMode;
 import com.glowman.spaceunit.core.FPSViewer;
 import com.glowman.spaceunit.core.TextButton;
+import com.glowman.spaceunit.game.core.ScreenControl;
 
 
 public class MainScreen implements Screen {
 	
 	private Game _game;
 
-	SpriteBatch _spriteBatch;
+	private SpriteBatch _spriteBatch;
 	
 	private OrthographicCamera _camera;
 	private Button _playBtnRun;
@@ -31,40 +32,40 @@ public class MainScreen implements Screen {
 	private TextButton _creditsBtn;
 	private Sprite _bkg;
 	
+	private MenuTouchListener _listener;
+	
 	private AsteroidsBehavior _behavior;
 
-	public MainScreen(Game game) {
+	public MainScreen(Game game, OrthographicCamera camera) {
 		_game = game;
 
-		_camera = CameraHelper.createCamera2(ViewportMode.STRETCH_TO_SCREEN, Assets.VIRTUAL_WIDTH, Assets.VIRTUAL_HEIGHT, Assets.pixelDensity);
-		CoordinatesTranslator.init(_camera);
+		_camera = camera;
 		_spriteBatch = new SpriteBatch();
 		_spriteBatch.setProjectionMatrix(_camera.combined);
 		
+		createItems();
+	}
+	
+	private void createItems() {
 		_bkg = new Sprite(Assets.bkg);
 		_playBtnRun = new Button(Assets.getPlayRunRegion(1), Assets.getPlayRunRegion(2));
+		_playBtnRun.index = GameStrategy.RUN_GAME;
 		_playBtnShoot = new Button(Assets.getPlayShootRegion(1), Assets.getPlayShootRegion(2));
+		_playBtnShoot.index = GameStrategy.SHOOT_GAME;
 		_hightscoresBtn = new TextButton(Assets.getSimpleBtnRegion(1), Assets.getSimpleBtnRegion(2), "HightScores");
 		_creditsBtn = new TextButton(Assets.getSimpleBtnRegion(1), Assets.getSimpleBtnRegion(2), "Credits");
 		
 		_behavior = new AsteroidsBehavior(15, _spriteBatch);
-	}
-
-	@Override
-	public void resize(int width, int height) {
 		
+		initItems();
 	}
-
-	@Override
-	public void hide() {
-		this.clear();
-		Gdx.input.setInputProcessor(null);
-	}
-
-	float scale;
-	@Override
-	public void show() {
-		Gdx.input.setInputProcessor(new MenuTouchListener(_game, _playBtnRun, _playBtnShoot));
+	
+	public void initItems() {
+		_listener = new MenuTouchListener(_game);
+		_listener.addButton(_playBtnRun, ScreenControl.GAME);
+		_listener.addButton(_playBtnShoot, ScreenControl.GAME);
+		_listener.addButton(_hightscoresBtn, ScreenControl.HIGHTSCORES);
+		_listener.addButton(_creditsBtn, ScreenControl.CREDITS);
 		
 		_bkg.setSize(Assets.VIRTUAL_WIDTH, Assets.VIRTUAL_HEIGHT);
 		
@@ -86,7 +87,24 @@ public class MainScreen implements Screen {
 		_creditsBtn.setSize(Assets.simpleBtnWidth, Assets.simpleBtnHeight);
 		_creditsBtn.setScale(1.5f);
 		_creditsBtn.setX((Assets.VIRTUAL_WIDTH - _hightscoresBtn.getWidth())/2);
-		_creditsBtn.setY(_creditsBtn.getHeight() * 0.3f);
+		_creditsBtn.setY(_creditsBtn.getHeight()*0.3f);
+	}
+
+	@Override
+	public void resize(int width, int height) {
+		
+	}
+
+	@Override
+	public void hide() {
+		this.clear();
+		Gdx.input.setInputProcessor(null);
+	}
+
+	float scale;
+	@Override
+	public void show() {
+		Gdx.input.setInputProcessor(_listener);
 	}
 
 	@Override
@@ -106,15 +124,10 @@ public class MainScreen implements Screen {
 		_spriteBatch.end();
 	}
 
-
 	@Override
-	public void pause() {
-		//To change body of implemented methods use File | Settings | File Templates.
-	}
-
+	public void pause() { }
 	@Override
-	public void resume() {
-	}
+	public void resume() { }
 
 	@Override
 	public void dispose() {

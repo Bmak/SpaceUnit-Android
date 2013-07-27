@@ -12,6 +12,7 @@ public class Button {
 	protected float _width;
 	protected float _height;
 	protected float _scale;
+	public int index = -1;
 
 	public Button(TextureRegion normal, TextureRegion clicked)
 	{

@@ -1,11 +1,16 @@
 package com.glowman.spaceunit;
 
+import java.util.ArrayList;
+
+import android.util.Log;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputAdapter;
+import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.math.Vector3;
 import com.glowman.spaceunit.game.GameScreen;
 import com.glowman.spaceunit.core.Button;
+import com.glowman.spaceunit.game.core.ScreenControl;
 import com.glowman.spaceunit.game.strategy.GameStrategy;
 
 /**
@@ -13,33 +18,32 @@ import com.glowman.spaceunit.game.strategy.GameStrategy;
  */
 public class MenuTouchListener extends InputAdapter {
 	private Game _game;
-	private Button _playBtnRun;
-	private Button _playBtnShoot;
 	private Vector3 _touchPoint;
+	private ArrayList<EventButton> _buttons;
 
 	//coz touch up can fire just after screen changing, and touch down was into previous screen...
 	private boolean _wasTouchDown = false;
 
-	public MenuTouchListener(Game game, Button playBtnRun, Button playBtnShoot)
+	public MenuTouchListener(Game game)
 	{
 		_game = game;
-		_playBtnRun = playBtnRun;
-		_playBtnShoot = playBtnShoot;
+		_buttons = new ArrayList<EventButton>();
 	}
-
+	
+	public void addButton(Button button, int scrType) {
+		EventButton evBtn = new EventButton(button, scrType);
+		_buttons.add(evBtn);
+	}
+	
 	@Override
 	public boolean touchDown(int screenX, int screenY, int pointer, int button) {
 		_wasTouchDown = true;
-		if (this.isButtonUnderPoint(_playBtnRun)) {
-			_playBtnRun.setClickedMode();
-		} else {
-			_playBtnRun.setNormalMode();
-		}
-		
-		if (this.isButtonUnderPoint(_playBtnShoot)) {
-			_playBtnShoot.setClickedMode();
-		} else {
-			_playBtnShoot.setNormalMode();
+		for (EventButton evBtn : _buttons) {
+			if (this.isButtonUnderPoint(evBtn.btn)) {
+				evBtn.btn.setClickedMode();
+			} else {
+				evBtn.btn.setNormalMode();
+			}
 		}
 		return false;
 	}
@@ -48,15 +52,25 @@ public class MenuTouchListener extends InputAdapter {
 	public boolean touchUp(int screenX, int screenY, int pointer, int button) {
 		if (!_wasTouchDown) { return false; }
 		_wasTouchDown = false;
-		_playBtnRun.setNormalMode();
-		_playBtnShoot.setNormalMode();
+		for (EventButton evBtn : _buttons) {
+			evBtn.btn.setNormalMode();
+			if (this.isButtonUnderPoint(evBtn.btn)) {
+				_game.setScreen(ScreenControl.getScreen(evBtn.type));
+				if (evBtn.btn.index == GameStrategy.RUN_GAME || 
+						evBtn.btn.index == GameStrategy.SHOOT_GAME) {
+					((GameScreen)_game.getScreen()).play(evBtn.btn.index);
+				}
+			}
+		}
+		/*
 
 		if (this.isButtonUnderPoint(_playBtnRun) || this.isButtonUnderPoint(_playBtnShoot))
 		{
 			Gdx.input.setInputProcessor(null);
 			int gameType = this.isButtonUnderPoint(_playBtnRun) ? GameStrategy.RUN_GAME : GameStrategy.SHOOT_GAME;
-			_game.setScreen(new GameScreen(_game, gameType));
-		}
+			_game.setScreen(ScreenControl.getScreen(ScreenControl.GAME));
+			((GameScreen)_game.getScreen()).play(gameType);
+		}*/
 		return false;
 	}
 
@@ -75,5 +89,13 @@ public class MenuTouchListener extends InputAdapter {
 		return false;
 	}
 	
-	
+	final class EventButton {
+		Button btn;
+		int type;
+		
+		public EventButton(Button button, int scrType) {
+			btn = button;
+			type = scrType;
+		}
+	}
 }
