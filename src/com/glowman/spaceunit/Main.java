@@ -1,12 +1,11 @@
 package com.glowman.spaceunit;
 
 import com.badlogic.gdx.Game;
-import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.glowman.spaceunit.core.FPSViewer;
 import com.glowman.spaceunit.core.CameraHelper;
 import com.glowman.spaceunit.core.CameraHelper.ViewportMode;
-import com.glowman.spaceunit.game.core.ScreenControl;
+import com.glowman.spaceunit.core.ScreenControl;
 
 
 public class Main extends Game {

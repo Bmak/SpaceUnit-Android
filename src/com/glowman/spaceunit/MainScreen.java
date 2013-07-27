@@ -11,12 +11,14 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import android.util.Log;
 
 import com.glowman.spaceunit.game.behavior.AsteroidsBehavior;
+import com.glowman.spaceunit.game.strategy.GameStrategy;
 import com.glowman.spaceunit.core.Button;
 import com.glowman.spaceunit.core.CameraHelper;
+import com.glowman.spaceunit.core.ScreenControl;
 import com.glowman.spaceunit.core.CameraHelper.ViewportMode;
 import com.glowman.spaceunit.core.FPSViewer;
 import com.glowman.spaceunit.core.TextButton;
-import com.glowman.spaceunit.game.core.ScreenControl;
+import com.glowman.spaceunit.core.ScreenControl;
 
 
 public class MainScreen implements Screen {
@@ -55,13 +57,14 @@ public class MainScreen implements Screen {
 		_hightscoresBtn = new TextButton(Assets.getSimpleBtnRegion(1), Assets.getSimpleBtnRegion(2), "HightScores");
 		_creditsBtn = new TextButton(Assets.getSimpleBtnRegion(1), Assets.getSimpleBtnRegion(2), "Credits");
 		
+		_listener = new MenuTouchListener(_game);
+		
 		_behavior = new AsteroidsBehavior(15, _spriteBatch);
 		
 		initItems();
 	}
 	
-	public void initItems() {
-		_listener = new MenuTouchListener(_game);
+	private void initItems() {
 		_listener.addButton(_playBtnRun, ScreenControl.GAME);
 		_listener.addButton(_playBtnShoot, ScreenControl.GAME);
 		_listener.addButton(_hightscoresBtn, ScreenControl.HIGHTSCORES);

@@ -10,12 +10,11 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.glowman.spaceunit.Assets;
-import com.glowman.spaceunit.MainScreen;
 import com.glowman.spaceunit.core.AnimatedSprite;
-import com.glowman.spaceunit.core.CameraHelper;
 import com.glowman.spaceunit.core.FPSViewer;
+import com.glowman.spaceunit.core.ScreenControl;
 import com.glowman.spaceunit.core.CameraHelper.ViewportMode;
-import com.glowman.spaceunit.game.core.ScreenControl;
+import com.glowman.spaceunit.core.ScreenControl;
 import com.glowman.spaceunit.game.mapObject.Bullet;
 import com.glowman.spaceunit.game.mapObject.Ship;
 import com.glowman.spaceunit.game.mapObject.enemy.Enemy;
@@ -52,8 +51,9 @@ public class GameScreen implements Screen {
 	
 	public void play(int gameType) {
 		//TODO reset game, update game strategy
-		Log.d("hz", "game type : " + gameType);
-		_gameStrategy = GameStrategyFactory.createStrategy(_ship, gameType);
+		_gameType = gameType;
+		Log.d("hz", "game type : " + _gameType);
+		_gameStrategy = GameStrategyFactory.createStrategy(_ship, _gameType);
 		Gdx.input.setInputProcessor(new GameTouchListener(_camera, _gameStrategy));
 	}
 
@@ -90,7 +90,6 @@ public class GameScreen implements Screen {
 	public void hide() {
 		Gdx.input.setInputProcessor(null);
 		this.clear();
-		
 		//TODO остановка/пауза всех просчетов, которые могут выполнятся
 	}
 	@Override public void pause() {}

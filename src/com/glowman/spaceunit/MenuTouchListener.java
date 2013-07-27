@@ -2,7 +2,6 @@ package com.glowman.spaceunit;
 
 import java.util.ArrayList;
 
-import android.util.Log;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputAdapter;
@@ -10,7 +9,7 @@ import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.math.Vector3;
 import com.glowman.spaceunit.game.GameScreen;
 import com.glowman.spaceunit.core.Button;
-import com.glowman.spaceunit.game.core.ScreenControl;
+import com.glowman.spaceunit.core.ScreenControl;
 import com.glowman.spaceunit.game.strategy.GameStrategy;
 
 /**
@@ -62,18 +61,21 @@ public class MenuTouchListener extends InputAdapter {
 				}
 			}
 		}
-		/*
-
-		if (this.isButtonUnderPoint(_playBtnRun) || this.isButtonUnderPoint(_playBtnShoot))
-		{
-			Gdx.input.setInputProcessor(null);
-			int gameType = this.isButtonUnderPoint(_playBtnRun) ? GameStrategy.RUN_GAME : GameStrategy.SHOOT_GAME;
-			_game.setScreen(ScreenControl.getScreen(ScreenControl.GAME));
-			((GameScreen)_game.getScreen()).play(gameType);
-		}*/
 		return false;
 	}
-
+	
+	@Override
+	public boolean touchDragged(int screenX, int screenY, int pointer) {
+		for (EventButton evBtn : _buttons) {
+			if (this.isButtonUnderPoint(evBtn.btn)) {
+				evBtn.btn.setClickedMode();
+			} else {
+				evBtn.btn.setNormalMode();
+			}
+		}
+		return false;
+	}
+	
 	/**
 	 * Если точка текущего тача находится в пределах button, то возвращаем true
 	 * @param button
