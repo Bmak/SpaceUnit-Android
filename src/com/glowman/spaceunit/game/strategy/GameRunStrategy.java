@@ -71,8 +71,8 @@ public class GameRunStrategy extends GameStrategy {
 		Vector2 position1, position2;
 		for (int i = 0; i < (_enemies.size() - 1); ++i) {
 			for (int j = i + 1; j < _enemies.size(); ++j) {
-				radius1 = _enemies.get(i).getImage().getHeight()/2;
-				radius2 = _enemies.get(j).getImage().getHeight()/2;
+				radius1 = _enemies.get(i).getHeight()/2;
+				radius2 = _enemies.get(j).getHeight()/2;
 				position1 = _enemies.get(i).getCenterPosition();
 				position2 = _enemies.get(j).getCenterPosition();
 

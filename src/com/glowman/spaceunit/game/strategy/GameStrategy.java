@@ -5,6 +5,7 @@ import android.util.Log;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.Vector2;
 import com.glowman.spaceunit.Assets;
+import com.glowman.spaceunit.game.animation.BlowAnimation;
 import com.glowman.spaceunit.game.core.AnimatedSprite;
 import com.glowman.spaceunit.game.core.TouchEvent;
 import com.glowman.spaceunit.game.mapObject.Enemy;
@@ -85,10 +86,7 @@ public abstract class GameStrategy {
 		if (_deadEnemies == null) { _deadEnemies = new ArrayList<Enemy>(); }
 		_deadEnemies.add(enemy);
 
-		AnimatedSprite animation = new AnimatedSprite(Assets.blowArray);
-		animation.setPosition(enemy.getPosition().x, enemy.getPosition().y);
-		animation.setScale(.3f);
-		animation.setOrigin(animation.getWidth()/2, animation.getHeight()/2);
+		AnimatedSprite animation = new BlowAnimation(enemy);
 		if (_animations == null) { _animations = new ArrayList<AnimatedSprite>(); }
 		_animations.add(animation);
 	}
@@ -96,4 +94,5 @@ public abstract class GameStrategy {
 	public abstract void touchUp(TouchEvent touch);
 	public abstract void touchDown(TouchEvent touch);
 	public abstract void touchMove(TouchEvent touch);
+
 }

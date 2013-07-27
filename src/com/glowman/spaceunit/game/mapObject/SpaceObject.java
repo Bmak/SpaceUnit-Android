@@ -24,31 +24,29 @@ public abstract class SpaceObject {
 		_screenSize = screenSize;
 		_scale = (float) (randomScale ? (Math.random() * (scaleMax - scaleMin)) + scaleMin : 1);
 		_image = image;
-		//TODO WTF???
-		//_image.setScale(_scale);
-		_width = _image.getWidth() / Assets.pixelDensity;
-		_height = _image.getHeight() / Assets.pixelDensity;
-		_image.setSize(_width*_scale, _height*_scale);
+		this.setSize(_image.getWidth()/Assets.pixelDensity, _image.getHeight()/Assets.pixelDensity);
 
-		_image.setOrigin(_image.getWidth()/2, _image.getHeight()/2);
-		
 		_position = new Vector2(0,0);
 		_rotation = 0;
 	}
 	
-	//TODO metodi setSize() & setScale() ne optimal'ni, teryaetsa scale
+	public float getWidth() { return _width * _scale; }
+	public float getHeight() { return _height * _scale; }
+
+	public float basicWidth() { return _width; }
+	public float basicHeight() { return _height; }
+
 	public void setSize(float width, float height) {
-		_image.setSize(width, height);
 		_width = width;
-		_height = width;
+		_height = height;
+		_image.setSize(_width * _scale, _height * _scale);
+		this.updateOrigin();
 	}
 
-	public float getWidth() { return _width; }
-	public float getHeight() { return _height; }
-	
 	public void setScale(float scale) {
 		_scale = scale;
 		_image.setSize(_width*_scale, _height*_scale);
+		this.updateOrigin();
 	}
 
 	public float getScale() { return _scale; }
@@ -74,8 +72,12 @@ public abstract class SpaceObject {
 
 	public Vector2 getCenterPosition() {
 		Vector2 result = this.getPosition().cpy();
-		result.x += _image.getWidth()/2;
-		result.y += _image.getHeight()/2;
+		result.x += _image.getOriginX();
+		result.y += _image.getOriginY();
 		return result;
+	}
+
+	private void updateOrigin() {
+		_image.setOrigin(_width*_scale/2, _height*_scale/2);
 	}
 }

@@ -27,7 +27,7 @@ public class Assets {
 	public static TextureRegion minePassive;
 	public static TextureRegion mineActive;
 
-	public static Array<TextureRegion> blowArray;
+	public static Array<TextureAtlas.AtlasRegion> blowArray;
 	
 	public static TextureRegion myfont;
 	public static BitmapFont gameFont;
@@ -54,7 +54,7 @@ public class Assets {
 		ship = atlas.findRegion("unit/unit");
 		bullet = atlas.findRegion("unit/bullet");
 
-		createBlowTextures();
+		blowArray = atlas.findRegions("blow/blow");
 
 		asteroid = atlas.findRegion("enemies/asteroid");
 		meteor = atlas.findRegion("enemies/meteor");
@@ -66,7 +66,6 @@ public class Assets {
 
 		myfont = atlas.findRegion("fonts/newfont");
 		gameFont = new BitmapFont(Gdx.files.internal("fonts/newfont.fnt"), myfont, false);
-		//gameFont = new BitmapFont();
 
 		gameFont.setScale(1.0f / pixelDensity);
 
@@ -108,14 +107,4 @@ public class Assets {
 		return region.getRegionHeight() / pixelDensity;
 	}
 
-	private static void createBlowTextures() {
-		Texture blowTexture = new Texture(Gdx.files.internal("textures/textures2.png"));
-		TextureRegion[][] blowMatrix = TextureRegion.split(blowTexture, 70, 72);
-		blowArray = new Array<TextureRegion>();
-		for (int i = 0; i < blowMatrix.length; ++i) {
-			for (int j = 0; j < blowMatrix[i].length; ++j) {
-				blowArray.add(blowMatrix[i][j]);
-			}
-		}
-	}
 }
