@@ -11,12 +11,12 @@ import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.glowman.spaceunit.game.GameScreen;
 
 public class Button {
-	private final Sprite _normal;
-	private final Sprite _clicked;
-	private Sprite _currentView;
-	private float _width;
-	private float _height;
-	private float _scale;
+	protected final Sprite _normal;
+	protected final Sprite _clicked;
+	protected Sprite _currentView;
+	protected float _width;
+	protected float _height;
+	protected float _scale;
 
 	public Button(TextureRegion normal, TextureRegion clicked)
 	{

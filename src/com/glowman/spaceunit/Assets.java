@@ -29,8 +29,8 @@ public class Assets {
 
 	public static Array<TextureAtlas.AtlasRegion> blowArray;
 	
-	public static TextureRegion myfont;
-	public static BitmapFont gameFont;
+	public static TextureRegion gameFont;
+	public static String gameFontPath;
 	
 	public static float playBtnWidth;
 	public static float playBtnHeight;
@@ -64,11 +64,10 @@ public class Assets {
 		minePassive = atlas.findRegion("enemies/mine1");
 		mineActive = atlas.findRegion("enemies/mine2");
 
-		myfont = atlas.findRegion("fonts/newfont");
-		gameFont = new BitmapFont(Gdx.files.internal("fonts/newfont.fnt"), myfont, false);
+		gameFont = atlas.findRegion("fonts/font");
+		gameFontPath = "fonts/font.fnt";
 
-		gameFont.setScale(1.0f / pixelDensity);
-
+		
 		soImages = new TextureRegion[2];
 		soImages[0] = asteroid;
 		soImages[1] = meteor;

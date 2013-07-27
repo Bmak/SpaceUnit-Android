@@ -72,29 +72,57 @@ repeat: none
 buttons/PlayBtnRun
   rotate: false
   xy: 1, 255
-  size: 355, 252
-  orig: 355, 252
+  size: 356, 252
+  orig: 356, 252
   offset: 0, 0
   index: 1
 buttons/PlayBtnRun
   rotate: false
   xy: 1, 1
-  size: 355, 252
-  orig: 355, 252
+  size: 356, 252
+  orig: 356, 252
   offset: 0, 0
   index: 2
 buttons/PlayBtnShoot
   rotate: false
-  xy: 358, 255
-  size: 355, 252
-  orig: 355, 252
+  xy: 359, 255
+  size: 356, 252
+  orig: 356, 252
   offset: 0, 0
   index: 1
 buttons/PlayBtnShoot
   rotate: false
-  xy: 358, 1
-  size: 355, 252
-  orig: 355, 252
+  xy: 359, 1
+  size: 356, 252
+  orig: 356, 252
+  offset: 0, 0
+  index: 2
+buttons/SimpleBtn
+  rotate: false
+  xy: 717, 449
+  size: 244, 58
+  orig: 244, 58
+  offset: 0, 0
+  index: 1
+buttons/SimpleBtn
+  rotate: false
+  xy: 717, 389
+  size: 244, 58
+  orig: 244, 58
+  offset: 0, 0
+  index: 2
+buttons/PauseBtn
+  rotate: false
+  xy: 963, 463
+  size: 44, 44
+  orig: 44, 44
+  offset: 0, 0
+  index: 1
+buttons/PauseBtn
+  rotate: false
+  xy: 717, 343
+  size: 44, 44
+  orig: 44, 44
   offset: 0, 0
   index: 2
 
@@ -149,7 +177,7 @@ textures5.png
 format: RGBA8888
 filter: Nearest,Nearest
 repeat: none
-fonts/newfont
+fonts/font
   rotate: false
   xy: 1, 1
   size: 256, 256

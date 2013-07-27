@@ -65,12 +65,12 @@ public class MainScreen implements Screen {
 		_bkg.setSize(Assets.VIRTUAL_WIDTH, Assets.VIRTUAL_HEIGHT);
 		
 		_playBtnRun.setSize(Assets.playBtnWidth, Assets.playBtnHeight);
-		_playBtnRun.setScale(0.8f);
+		_playBtnRun.setScale(0.9f);
 		_playBtnRun.setX(Assets.VIRTUAL_WIDTH/2 - _playBtnRun.getWidth() - 20);
 		_playBtnRun.setY((Assets.VIRTUAL_HEIGHT - _playBtnRun.getHeight())/2);
 		
 		_playBtnShoot.setSize(Assets.playBtnWidth, Assets.playBtnHeight);
-		_playBtnShoot.setScale(0.8f);
+		_playBtnShoot.setScale(0.9f);
 		_playBtnShoot.setX(Assets.VIRTUAL_WIDTH/2 + 20);
 		_playBtnShoot.setY((Assets.VIRTUAL_HEIGHT - _playBtnShoot.getHeight())/2);
 		
