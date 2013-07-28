@@ -53,7 +53,7 @@ public class GameShootStrategy extends GameStrategy {
 		{
 			for (Bullet bullet : _bullets)
 			{
-				bullet.move();
+				bullet.tick(delta);
 			}
 			this.checkBulletsForRemove();
 			this.checkBulletsHit();
@@ -133,22 +133,12 @@ public class GameShootStrategy extends GameStrategy {
 		int touchY = Gdx.input.getY(_shootingTouch);
 
 		Vector3 targetPoint =  CoordinatesTranslator.toVirtualView(touchX, touchY);
-
 		Vector2 bulletPosition = _heroShip.getPosition();
 
-		float dx = targetPoint.x - bulletPosition.x;
-		float dy = targetPoint.y - bulletPosition.y;
-		float h = (float)Math.sqrt(dx * dx + dy * dy);
-		float vx = 0;
-		float vy = 0;
-		if (h != 0){
-			vx = dx / h;
-			vy = dy / h;
-		}
-
 		Sprite bulletView = new Sprite(Assets.bullet);
-		Bullet bullet = new Bullet(bulletView, BULLET_SPEED, vx, vy);
-		bullet.getView().setPosition(bulletPosition.x, bulletPosition.y);
+		Bullet bullet = new Bullet(bulletView, BULLET_SPEED);
+		bullet.setPosition(bulletPosition.x, bulletPosition.y);
+		bullet.moveTo(targetPoint.x, targetPoint.y);
 		_bullets.add(bullet);
 	}
 

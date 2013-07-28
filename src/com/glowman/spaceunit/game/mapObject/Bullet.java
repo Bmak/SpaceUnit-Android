@@ -5,28 +5,17 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 /**
  *
  */
-public class Bullet {
+public class Bullet extends MovingSpaceObject {
 
 	private float _speed;
-	private float _xCoef;
-	private float _yCoef;
 	private Sprite _view;
 
-	public Bullet(Sprite view, float speed, float xCoef, float yCoef)
+	public Bullet(Sprite view, float speed)
 	{
+		super(view, false, false);
 		_view = view;
 		_speed = speed;
-		_xCoef = xCoef;
-		_yCoef = yCoef;
-
-		_view.setScale(0.2f);
-	}
-
-	public void move()
-	{
-		float x = _view.getX() + _speed * _xCoef;
-		float y = _view.getY() + _speed + _yCoef;
-		_view.setPosition(x, y);
+		super.setGeneralSpeed(speed);
 	}
 
 	public Sprite getView() { return _view; }
