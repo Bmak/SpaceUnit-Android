@@ -116,6 +116,7 @@ public class GameShootStrategy extends GameStrategy {
 		enemy.setRotationSpeed(5 * ((float)Math.random() * 2 - 1)); //TODO kick it out
 		enemy.moveTo((float)Math.random() * Assets.VIRTUAL_WIDTH,
 						(float)Math.random() * Assets.VIRTUAL_HEIGHT);
+		enemy.setTarget(_heroShip);
 		return enemy;
 	}
 
