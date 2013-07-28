@@ -15,7 +15,7 @@ import com.glowman.spaceunit.core.FPSViewer;
 import com.glowman.spaceunit.core.ScreenControl;
 import com.glowman.spaceunit.game.mapObject.Bullet;
 import com.glowman.spaceunit.game.mapObject.Ship;
-import com.glowman.spaceunit.game.mapObject.enemy.AEnemy;
+import com.glowman.spaceunit.game.mapObject.enemy.Enemy;
 import com.glowman.spaceunit.game.strategy.GameStrategy;
 import com.glowman.spaceunit.game.strategy.GameStrategyFactory;
 
@@ -109,14 +109,14 @@ public class GameScreen implements Screen {
 	private void drawEnemies() {
 		if (_gameStrategy.getEnemies() != null)
 		{
-			for (AEnemy enemy : _gameStrategy.getEnemies())
+			for (Enemy enemy : _gameStrategy.getEnemies())
 			{
 				enemy.getImage().draw(_drawer);
 			}
 		}
 		if (_gameStrategy.getDeadEnemies() != null)
 		{
-			for (AEnemy enemy : _gameStrategy.getDeadEnemies())
+			for (Enemy enemy : _gameStrategy.getDeadEnemies())
 			{
 				enemy.getImage().draw(_drawer);
 			}

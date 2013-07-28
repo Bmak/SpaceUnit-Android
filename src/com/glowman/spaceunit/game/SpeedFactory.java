@@ -3,9 +3,7 @@ package com.glowman.spaceunit.game;
 import com.glowman.spaceunit.game.mapObject.MovingSpaceObject;
 import com.glowman.spaceunit.game.mapObject.Ship;
 import com.glowman.spaceunit.game.mapObject.SpaceObject;
-import com.glowman.spaceunit.game.mapObject.enemy.Alien;
-import com.glowman.spaceunit.game.mapObject.enemy.Mine;
-import com.glowman.spaceunit.game.mapObject.enemy.StupidEnemy;
+import com.glowman.spaceunit.game.mapObject.enemy.*;
 
 /**
  *
@@ -19,17 +17,20 @@ public class SpeedFactory {
 			if (object instanceof Ship) {
 				result = 2.01f;
 			}
-			// basic space object (asteroids)
-			else if (object instanceof StupidEnemy) {
-				result = (float)Math.random() * 2f;
-			}
-			//mine
-			else if (object instanceof Mine) {
-				return 1f;
-			}
-			//alien
-			else if (object instanceof Alien) {
-				return 1.6f;
+			else if (object instanceof Enemy) {
+				Enemy enemy = (Enemy) object;
+				//basic space object (asteroids)
+				if (enemy.getEnemyType() == EnemyTypeENUM.ASTEROID) {
+					result = (float)Math.random() * 2f;
+				}
+				//mine
+				else if (enemy.getEnemyType() == EnemyTypeENUM.MINE) {
+					return 1f;
+				}
+				//alien
+				else if (enemy.getEnemyType() == EnemyTypeENUM.ALIEN) {
+					return 1.6f;
+				}
 			}
 		}
 

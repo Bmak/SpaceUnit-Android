@@ -10,22 +10,34 @@ import java.util.ArrayList;
 /**
  *
  */
-abstract public class AEnemy extends MovingSpaceObject {
+public class Enemy extends MovingSpaceObject {
 	protected SpaceObject _target;
+
+	private String _enemyType;
 	private ArrayList<AEnemyBehaviour> _behaviours;
 
-	public AEnemy(Sprite image, boolean randomScale, boolean teleportOnBorder)
+	public Enemy(String enemyType, Sprite image, boolean randomScale, boolean teleportOnBorder)
 	{
 		super(image, randomScale, teleportOnBorder);
+		_enemyType = enemyType;
 	}
+
+	public String getEnemyType() { return _enemyType; }
 
 	@Override
 	public void tick(float delta) {
 		super.tick(delta);
 		if (_behaviours != null) {
+			ArrayList<AEnemyBehaviour> clonedBehaviours = new ArrayList<AEnemyBehaviour>();
 			for (AEnemyBehaviour behaviour : _behaviours) {
+				clonedBehaviours.add(behaviour);
+			}
+
+			for (AEnemyBehaviour behaviour : clonedBehaviours) {
 				behaviour.tick(delta);
 			}
+
+			clonedBehaviours.clear();
 		}
 	}
 
@@ -36,10 +48,11 @@ abstract public class AEnemy extends MovingSpaceObject {
 	 */
 	public void addBehaviour(AEnemyBehaviour behaviour) throws Error {
 		if (_behaviours == null) { _behaviours = new ArrayList<AEnemyBehaviour>(); }
-		if (this.behaviourExists(behaviour.getName())) {
+		if (this.hasBehaviour(behaviour.getName())) {
 			throw new Error("behaviour already exists");
 		}
 		_behaviours.add(behaviour);
+		behaviour.start();
 	}
 
 	/**
@@ -53,6 +66,7 @@ abstract public class AEnemy extends MovingSpaceObject {
 			for (AEnemyBehaviour behaviour : _behaviours) {
 				if (behaviour.getName() == behaviourName) {
 					_behaviours.remove(behaviour);
+					behaviour.stop();
 					behaviourFound = true;
 					break;
 				}
@@ -63,7 +77,7 @@ abstract public class AEnemy extends MovingSpaceObject {
 		}
 	}
 
-	public boolean behaviourExists(String behaviourName) {
+	public boolean hasBehaviour(String behaviourName) {
 		boolean result = false;
 		for (AEnemyBehaviour behaviour : _behaviours) {
 			if (behaviour.getName() == behaviourName) {

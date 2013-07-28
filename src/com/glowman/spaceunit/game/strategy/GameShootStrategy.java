@@ -11,7 +11,7 @@ import com.glowman.spaceunit.CoordinatesTranslator;
 import com.glowman.spaceunit.core.TouchEvent;
 import com.glowman.spaceunit.game.SpeedFactory;
 import com.glowman.spaceunit.game.mapObject.Bullet;
-import com.glowman.spaceunit.game.mapObject.enemy.AEnemy;
+import com.glowman.spaceunit.game.mapObject.enemy.Enemy;
 import com.glowman.spaceunit.game.mapObject.MovingSpaceObject;
 import com.glowman.spaceunit.game.mapObject.Ship;
 import com.glowman.spaceunit.game.mapObject.enemy.EnemyFactory;
@@ -108,9 +108,9 @@ public class GameShootStrategy extends GameStrategy {
 	}
 
 	@Override
-	protected AEnemy createEnemy()
+	protected Enemy createEnemy()
 	{
-		AEnemy enemy = super.createEnemy();
+		Enemy enemy = super.createEnemy();
 		enemy.setRandomBorderPosition();
 		enemy.setGeneralSpeed(SpeedFactory.getSpeed(enemy, GameStrategy.RUN_GAME));
 		enemy.setRotationSpeed(5 * ((float)Math.random() * 2 - 1)); //TODO kick it out
@@ -180,7 +180,7 @@ public class GameShootStrategy extends GameStrategy {
 	private void checkBulletsHit()
 	{
 		if (_enemies == null) { return; }
-		ArrayList<AEnemy> enemiesForExplosion = new ArrayList<AEnemy>();
+		ArrayList<Enemy> enemiesForExplosion = new ArrayList<Enemy>();
 		ArrayList<Bullet> bulletsForRemove = new ArrayList<Bullet>();
 		float distance;
 		float enemyRadius;
@@ -201,7 +201,7 @@ public class GameShootStrategy extends GameStrategy {
 			}
 		}
 
-		for(AEnemy enemy : enemiesForExplosion)
+		for(Enemy enemy : enemiesForExplosion)
 		{
 			super.explodeEnemy(enemy);
 		}

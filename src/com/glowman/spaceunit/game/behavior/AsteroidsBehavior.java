@@ -16,7 +16,6 @@ public class AsteroidsBehavior {
 	private int _numStartEnemies;
 	private List<MovingSpaceObject> _spaceObjects;
 	private SpriteBatch _spriteBatch;
-	
 
 	public AsteroidsBehavior(int numStartEnemies, SpriteBatch spriteBatch) {
 		_numStartEnemies = numStartEnemies;

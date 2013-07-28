@@ -1,14 +1,14 @@
 package com.glowman.spaceunit.game.mapObject.enemy.behaviour;
 
 import com.glowman.spaceunit.game.mapObject.SpaceObject;
-import com.glowman.spaceunit.game.mapObject.enemy.AEnemy;
+import com.glowman.spaceunit.game.mapObject.enemy.Enemy;
 
 /**
  *
  */
 public class EnemyFollowBehaviour extends AEnemyBehaviourWithTarget {
 
-	public EnemyFollowBehaviour(AEnemy enemy, SpaceObject target) {
+	public EnemyFollowBehaviour(Enemy enemy, SpaceObject target) {
 		super(EnemyBehaviourNameENUM.FOLLOW, enemy, target);
 	}
 
