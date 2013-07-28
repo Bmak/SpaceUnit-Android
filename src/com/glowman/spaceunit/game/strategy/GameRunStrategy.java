@@ -3,7 +3,7 @@ package com.glowman.spaceunit.game.strategy;
 import com.badlogic.gdx.math.Vector2;
 import com.glowman.spaceunit.core.TouchEvent;
 import com.glowman.spaceunit.game.SpeedFactory;
-import com.glowman.spaceunit.game.mapObject.enemy.Enemy;
+import com.glowman.spaceunit.game.mapObject.enemy.AEnemy;
 import com.glowman.spaceunit.game.mapObject.Ship;
 import com.glowman.spaceunit.game.mapObject.enemy.EnemyFactory;
 
@@ -31,7 +31,7 @@ public class GameRunStrategy extends GameStrategy {
 		if (Math.random() < .03) { this.createEnemy(); }
 		if (_enemies != null)
 		{
-			for (Enemy enemy : _enemies)
+			for (AEnemy enemy : _enemies)
 			{
 				enemy.tick(delta);
 			}
@@ -61,8 +61,8 @@ public class GameRunStrategy extends GameStrategy {
 	}
 
 	@Override
-	protected Enemy createEnemy() {
-		Enemy enemy = super.createEnemy();
+	protected AEnemy createEnemy() {
+		AEnemy enemy = super.createEnemy();
 		enemy.setRandomBorderPosition();
 		enemy.setRotationSpeed(5 * ((float)Math.random() * 2 - 1)); //TODO kick it out
 		enemy.setGeneralSpeed(SpeedFactory.getSpeed(enemy, GameStrategy.RUN_GAME));
@@ -73,7 +73,7 @@ public class GameRunStrategy extends GameStrategy {
 
 	private void checkEnemyHits()
 	{
-		ArrayList<Enemy> enemiesForExplosion = new ArrayList<Enemy>();
+		ArrayList<AEnemy> enemiesForExplosion = new ArrayList<AEnemy>();
 		float distance;
 		float radius1, radius2;
 		Vector2 position1, position2;
@@ -93,7 +93,7 @@ public class GameRunStrategy extends GameStrategy {
 			}
 		}
 
-		for (Enemy enemy : enemiesForExplosion)
+		for (AEnemy enemy : enemiesForExplosion)
 		{
 			super.explodeEnemy(enemy);
 		}

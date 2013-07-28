@@ -5,7 +5,7 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 /**
  *
  */
-public class StupidEnemy extends Enemy {
+public class StupidEnemy extends AEnemy {
 
 	public StupidEnemy(Sprite image) {
 		super(image, true, true);

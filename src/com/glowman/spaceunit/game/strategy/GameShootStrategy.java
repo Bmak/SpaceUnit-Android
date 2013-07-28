@@ -11,7 +11,7 @@ import com.glowman.spaceunit.CoordinatesTranslator;
 import com.glowman.spaceunit.core.TouchEvent;
 import com.glowman.spaceunit.game.SpeedFactory;
 import com.glowman.spaceunit.game.mapObject.Bullet;
-import com.glowman.spaceunit.game.mapObject.enemy.Enemy;
+import com.glowman.spaceunit.game.mapObject.enemy.AEnemy;
 import com.glowman.spaceunit.game.mapObject.MovingSpaceObject;
 import com.glowman.spaceunit.game.mapObject.Ship;
 import com.glowman.spaceunit.game.mapObject.enemy.EnemyFactory;
@@ -60,7 +60,7 @@ public class GameShootStrategy extends GameStrategy {
 		}
 
 		//TODO set game balance here
-		if (Math.random() < 0.3f) { this.createEnemy(); }
+		if (Math.random() < 0.03f) { this.createEnemy(); }
 		if (_enemies != null)
 		{
 			for(MovingSpaceObject enemy : _enemies)
@@ -108,14 +108,14 @@ public class GameShootStrategy extends GameStrategy {
 	}
 
 	@Override
-	protected Enemy createEnemy()
+	protected AEnemy createEnemy()
 	{
-		Enemy enemy = super.createEnemy();
+		AEnemy enemy = super.createEnemy();
 		enemy.setRandomBorderPosition();
 		enemy.setGeneralSpeed(SpeedFactory.getSpeed(enemy, GameStrategy.RUN_GAME));
 		enemy.setRotationSpeed(5 * ((float)Math.random() * 2 - 1)); //TODO kick it out
-		enemy.moveTo((float)Math.random() * Assets.VIRTUAL_WIDTH,
-						(float)Math.random() * Assets.VIRTUAL_HEIGHT);
+		enemy.moveTo((float) Math.random() * Assets.VIRTUAL_WIDTH,
+				(float) Math.random() * Assets.VIRTUAL_HEIGHT);
 		enemy.setTarget(_heroShip);
 		return enemy;
 	}
@@ -180,7 +180,7 @@ public class GameShootStrategy extends GameStrategy {
 	private void checkBulletsHit()
 	{
 		if (_enemies == null) { return; }
-		ArrayList<Enemy> enemiesForExplosion = new ArrayList<Enemy>();
+		ArrayList<AEnemy> enemiesForExplosion = new ArrayList<AEnemy>();
 		ArrayList<Bullet> bulletsForRemove = new ArrayList<Bullet>();
 		float distance;
 		float enemyRadius;
@@ -201,7 +201,7 @@ public class GameShootStrategy extends GameStrategy {
 			}
 		}
 
-		for(Enemy enemy : enemiesForExplosion)
+		for(AEnemy enemy : enemiesForExplosion)
 		{
 			super.explodeEnemy(enemy);
 		}

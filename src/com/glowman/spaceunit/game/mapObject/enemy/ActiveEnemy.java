@@ -5,7 +5,7 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 /**
  *
  */
-public class ActiveEnemy extends Enemy {
+public class ActiveEnemy extends AEnemy {
 
 	protected Sprite _passiveImage;
 	protected Sprite _activeImage;

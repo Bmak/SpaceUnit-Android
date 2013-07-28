@@ -14,10 +14,10 @@ public class EnemyFactory {
 	public static void setGameType(int gameType) { _gameType = gameType; }
 
 	//TODO game balance here
-	public static Enemy createEnemy() {
+	public static AEnemy createEnemy() {
 
 		if (_gameType == -1) { throw new Error("game type not inited!"); }
-		Enemy result;
+		AEnemy result;
 		double random = Math.random();
 		if (random < .33 || _gameType == GameStrategy.RUN_GAME) {
 			Sprite image = new Sprite(Assets.soImages[Math.round((float)Math.random())]);

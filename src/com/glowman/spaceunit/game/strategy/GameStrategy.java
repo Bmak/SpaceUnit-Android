@@ -1,12 +1,11 @@
 package com.glowman.spaceunit.game.strategy;
 
 
-import com.glowman.spaceunit.game.SpeedFactory;
 import com.glowman.spaceunit.game.animation.BlowAnimation;
 import com.glowman.spaceunit.core.AnimatedSprite;
 import com.glowman.spaceunit.core.TouchEvent;
 import com.glowman.spaceunit.game.mapObject.Bullet;
-import com.glowman.spaceunit.game.mapObject.enemy.Enemy;
+import com.glowman.spaceunit.game.mapObject.enemy.AEnemy;
 import com.glowman.spaceunit.game.mapObject.Ship;
 import com.glowman.spaceunit.game.mapObject.enemy.EnemyFactory;
 
@@ -19,8 +18,8 @@ public abstract class GameStrategy {
 	public static final int SHOOT_GAME = 0;
 	public static final int RUN_GAME = 1;
 
-	protected ArrayList<Enemy> _enemies;
-	protected ArrayList<Enemy> _deadEnemies;
+	protected ArrayList<AEnemy> _enemies;
+	protected ArrayList<AEnemy> _deadEnemies;
 	protected ArrayList<AnimatedSprite> _animations;
 	protected Ship _heroShip;
 
@@ -34,9 +33,9 @@ public abstract class GameStrategy {
 		_deadEnemies = null;
 	}
 
-	public ArrayList<Enemy> getEnemies() { return _enemies; }
+	public ArrayList<AEnemy> getEnemies() { return _enemies; }
 	public ArrayList<Bullet> getBullets() { return null; }
-	public ArrayList<Enemy> getDeadEnemies() { return _deadEnemies; }
+	public ArrayList<AEnemy> getDeadEnemies() { return _deadEnemies; }
 	public ArrayList<AnimatedSprite> getAnimations() { return _animations; }
 
 	public void tick(float delta) {
@@ -62,23 +61,23 @@ public abstract class GameStrategy {
 		}
 	}
 
-	protected Enemy createEnemy()
+	protected AEnemy createEnemy()
 	{
 		if (_enemies == null)
 		{
-			_enemies = new ArrayList<Enemy>();
+			_enemies = new ArrayList<AEnemy>();
 		}
-		Enemy enemy = EnemyFactory.createEnemy();
+		AEnemy enemy = EnemyFactory.createEnemy();
 		_enemies.add(enemy);
 		return enemy;
 	}
 
-	public void explodeEnemy(Enemy enemy) {
+	public void explodeEnemy(AEnemy enemy) {
 		enemy.getImage().setScale(.1f);
 		enemy.stop();
 		enemy.setGeneralSpeed(0);
 		_enemies.remove(enemy);
-		if (_deadEnemies == null) { _deadEnemies = new ArrayList<Enemy>(); }
+		if (_deadEnemies == null) { _deadEnemies = new ArrayList<AEnemy>(); }
 		_deadEnemies.add(enemy);
 
 		AnimatedSprite animation = new BlowAnimation(enemy);
