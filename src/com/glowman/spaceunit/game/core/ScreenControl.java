@@ -1,11 +1,9 @@
 package com.glowman.spaceunit.game.core;
 
-import java.util.ArrayList;
-
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.glowman.spaceunit.MainScreen;
+import com.glowman.spaceunit.menu.MainScreen;
 import com.glowman.spaceunit.game.GameScreen;
 
 public class ScreenControl {

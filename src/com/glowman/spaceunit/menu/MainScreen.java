@@ -1,4 +1,4 @@
-package com.glowman.spaceunit;
+package com.glowman.spaceunit.menu;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
@@ -10,15 +10,13 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 import android.util.Log;
 
-import com.glowman.spaceunit.game.behavior.AsteroidsBehavior;
+import com.glowman.spaceunit.Assets;
+import com.glowman.spaceunit.menu.behavior.AsteroidsBehavior;
 import com.glowman.spaceunit.game.strategy.GameStrategy;
 import com.glowman.spaceunit.core.Button;
-import com.glowman.spaceunit.core.CameraHelper;
 import com.glowman.spaceunit.core.ScreenControl;
-import com.glowman.spaceunit.core.CameraHelper.ViewportMode;
 import com.glowman.spaceunit.core.FPSViewer;
 import com.glowman.spaceunit.core.TextButton;
-import com.glowman.spaceunit.core.ScreenControl;
 
 
 public class MainScreen implements Screen {

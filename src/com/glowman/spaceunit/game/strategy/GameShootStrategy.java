@@ -2,13 +2,14 @@ package com.glowman.spaceunit.game.strategy;
 
 import android.util.Log;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.Vector2;
 
 import com.badlogic.gdx.math.Vector3;
 import com.glowman.spaceunit.Assets;
 import com.glowman.spaceunit.CoordinatesTranslator;
 import com.glowman.spaceunit.core.TouchEvent;
+import com.glowman.spaceunit.game.IShooter;
+import com.glowman.spaceunit.game.Shooter;
 import com.glowman.spaceunit.game.SpeedFactory;
 import com.glowman.spaceunit.game.mapObject.Bullet;
 import com.glowman.spaceunit.game.mapObject.enemy.Enemy;
@@ -23,19 +24,18 @@ import java.util.ArrayList;
  */
 public class GameShootStrategy extends GameStrategy {
 
-	public static final float BULLET_SPEED = 5;
-
-	private ArrayList<Bullet> _bullets;
+	private IShooter _shooter;
 
 	public GameShootStrategy(Ship ship)
 	{
 		super(ship);
 		EnemyFactory.setGameType(GameStrategy.SHOOT_GAME);
+		_shooter = new Shooter();
 	}
 
 	@Override
 	public ArrayList<Bullet> getBullets() {
-		return _bullets;
+		return _shooter.getBullets();
 	}
 
 	@Override
@@ -49,9 +49,9 @@ public class GameShootStrategy extends GameStrategy {
 			this.shootBullet();
 		}
 
-		if (_bullets != null)
+		if (_shooter.getBullets() != null)
 		{
-			for (Bullet bullet : _bullets)
+			for (Bullet bullet : _shooter.getBullets())
 			{
 				bullet.tick(delta);
 			}
@@ -122,11 +122,6 @@ public class GameShootStrategy extends GameStrategy {
 
 	private void shootBullet()
 	{
-		if (_bullets == null)
-		{
-			_bullets = new ArrayList<Bullet>();
-		}
-
 		if (super._shootingTouch == -1) { throw new Error("shooting touch not exist!!"); }
 
 		int touchX = Gdx.input.getX(_shootingTouch);
@@ -135,11 +130,7 @@ public class GameShootStrategy extends GameStrategy {
 		Vector3 targetPoint =  CoordinatesTranslator.toVirtualView(touchX, touchY);
 		Vector2 bulletPosition = _heroShip.getPosition();
 
-		Sprite bulletView = new Sprite(Assets.bullet);
-		Bullet bullet = new Bullet(bulletView, BULLET_SPEED);
-		bullet.setPosition(bulletPosition.x, bulletPosition.y);
-		bullet.moveTo(targetPoint.x, targetPoint.y);
-		_bullets.add(bullet);
+		_shooter.shoot(bulletPosition, new Vector2(targetPoint.x, targetPoint.y));
 	}
 
 	private void checkBulletsForRemove()
@@ -147,7 +138,7 @@ public class GameShootStrategy extends GameStrategy {
 		float bulletX;
 		float bulletY;
 		ArrayList<Bullet> bulletsForRemove = new ArrayList<Bullet>();
-		for(Bullet bullet : _bullets)
+		for(Bullet bullet : _shooter.getBullets())
 		{
 			bulletX = bullet.getView().getX();
 			bulletY = bullet.getView().getY();
@@ -163,7 +154,7 @@ public class GameShootStrategy extends GameStrategy {
 
 		for (Bullet bullet : bulletsForRemove)
 		{
-			_bullets.remove(bullet);
+			_shooter.getBullets().remove(bullet);
 		}
 	}
 
@@ -176,7 +167,7 @@ public class GameShootStrategy extends GameStrategy {
 		float enemyRadius;
 		Vector2 enemyPosition;
 
-		for(Bullet bullet : _bullets)
+		for(Bullet bullet : _shooter.getBullets())
 		{
 			for (int i = 0; i < _enemies.size(); ++i) {
 				enemyRadius = (_enemies.get(i)).getHeight()/2;
@@ -199,7 +190,7 @@ public class GameShootStrategy extends GameStrategy {
 
 		for(Bullet bullet : bulletsForRemove)
 		{
-			_bullets.remove(bullet);
+			_shooter.getBullets().remove(bullet);
 		}
 		bulletsForRemove.clear();
 	}

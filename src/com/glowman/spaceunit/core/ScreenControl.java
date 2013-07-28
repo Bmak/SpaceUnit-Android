@@ -1,11 +1,9 @@
 package com.glowman.spaceunit.core;
 
-import java.util.ArrayList;
-
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.glowman.spaceunit.MainScreen;
+import com.glowman.spaceunit.menu.MainScreen;
 import com.glowman.spaceunit.credits.CreditsScreen;
 import com.glowman.spaceunit.game.GameScreen;
 import com.glowman.spaceunit.hightscores.HightScoresScreen;

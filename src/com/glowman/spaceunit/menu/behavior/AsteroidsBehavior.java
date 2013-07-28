@@ -1,4 +1,4 @@
-package com.glowman.spaceunit.game.behavior;
+package com.glowman.spaceunit.menu.behavior;
 
 import java.util.ArrayList;
 import java.util.List;
