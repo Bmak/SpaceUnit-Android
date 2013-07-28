@@ -66,6 +66,7 @@ public class MenuTouchListener extends InputAdapter {
 	
 	@Override
 	public boolean touchDragged(int screenX, int screenY, int pointer) {
+		if (!_wasTouchDown) { return false; }
 		for (EventButton evBtn : _buttons) {
 			if (this.isButtonUnderPoint(evBtn.btn)) {
 				evBtn.btn.setClickedMode();

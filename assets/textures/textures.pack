@@ -6,8 +6,8 @@ repeat: none
 bkg/bkg
   rotate: false
   xy: 1, 1
-  size: 960, 640
-  orig: 960, 640
+  size: 881, 590
+  orig: 881, 590
   offset: 0, 0
   index: -1
 
@@ -71,56 +71,56 @@ filter: Nearest,Nearest
 repeat: none
 buttons/PlayBtnRun
   rotate: false
-  xy: 1, 255
-  size: 356, 252
-  orig: 356, 252
+  xy: 1, 285
+  size: 293, 209
+  orig: 293, 209
   offset: 0, 0
   index: 1
 buttons/PlayBtnRun
   rotate: false
+  xy: 1, 74
+  size: 293, 209
+  orig: 293, 209
+  offset: 0, 0
+  index: 2
+buttons/PlayBtnShoot
+  rotate: false
+  xy: 296, 285
+  size: 293, 209
+  orig: 293, 209
+  offset: 0, 0
+  index: 1
+buttons/PlayBtnShoot
+  rotate: false
+  xy: 296, 74
+  size: 293, 209
+  orig: 293, 209
+  offset: 0, 0
+  index: 2
+buttons/SimpleBtn
+  rotate: false
   xy: 1, 1
-  size: 356, 252
-  orig: 356, 252
-  offset: 0, 0
-  index: 2
-buttons/PlayBtnShoot
-  rotate: false
-  xy: 359, 255
-  size: 356, 252
-  orig: 356, 252
-  offset: 0, 0
-  index: 1
-buttons/PlayBtnShoot
-  rotate: false
-  xy: 359, 1
-  size: 356, 252
-  orig: 356, 252
-  offset: 0, 0
-  index: 2
-buttons/SimpleBtn
-  rotate: false
-  xy: 717, 449
-  size: 244, 58
-  orig: 244, 58
+  size: 293, 71
+  orig: 293, 71
   offset: 0, 0
   index: 1
 buttons/SimpleBtn
   rotate: false
-  xy: 717, 389
-  size: 244, 58
-  orig: 244, 58
+  xy: 591, 423
+  size: 293, 71
+  orig: 293, 71
   offset: 0, 0
   index: 2
 buttons/PauseBtn
   rotate: false
-  xy: 963, 463
+  xy: 296, 28
   size: 44, 44
   orig: 44, 44
   offset: 0, 0
   index: 1
 buttons/PauseBtn
   rotate: false
-  xy: 717, 343
+  xy: 591, 377
   size: 44, 44
   orig: 44, 44
   offset: 0, 0
