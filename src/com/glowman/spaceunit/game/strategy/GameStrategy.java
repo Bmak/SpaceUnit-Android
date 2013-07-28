@@ -1,6 +1,7 @@
 package com.glowman.spaceunit.game.strategy;
 
 
+import com.glowman.spaceunit.game.SpeedFactory;
 import com.glowman.spaceunit.game.animation.BlowAnimation;
 import com.glowman.spaceunit.core.AnimatedSprite;
 import com.glowman.spaceunit.core.TouchEvent;
@@ -61,17 +62,15 @@ public abstract class GameStrategy {
 		}
 	}
 
-	protected void createEnemy()
+	protected Enemy createEnemy()
 	{
 		if (_enemies == null)
 		{
 			_enemies = new ArrayList<Enemy>();
 		}
 		Enemy enemy = EnemyFactory.createEnemy();
-		enemy.setRandomBorderPosition();
-		enemy.setRandomGeneralSpeed();
-		enemy.setTarget(_heroShip);
 		_enemies.add(enemy);
+		return enemy;
 	}
 
 	public void explodeEnemy(Enemy enemy) {

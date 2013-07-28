@@ -77,19 +77,6 @@ public class MovingSpaceObject extends SpaceObject {
 		_rotation = angle;
 	}
 
-	public void setRandomGeneralSpeed()
-	{
-		this.setGeneralSpeed( (float)Math.random() * 2f );
-	}
-
-	public void setRandomBehaviour()
-	{
-		this.setRandomGeneralSpeed();
-		this.setRotationSpeed(5 * ((float)Math.random() * 2 - 1));
-		this.moveTo((float)Math.random() * Assets.VIRTUAL_WIDTH,
-					(float)Math.random() * Assets.VIRTUAL_HEIGHT);
-	}
-
 	public void setRandomBorderPosition()
 	{
 		float randomX, randomY;

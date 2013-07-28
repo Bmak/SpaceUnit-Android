@@ -9,6 +9,7 @@ import com.badlogic.gdx.math.Vector3;
 import com.glowman.spaceunit.Assets;
 import com.glowman.spaceunit.CoordinatesTranslator;
 import com.glowman.spaceunit.core.TouchEvent;
+import com.glowman.spaceunit.game.SpeedFactory;
 import com.glowman.spaceunit.game.mapObject.Bullet;
 import com.glowman.spaceunit.game.mapObject.enemy.Enemy;
 import com.glowman.spaceunit.game.mapObject.MovingSpaceObject;
@@ -107,11 +108,15 @@ public class GameShootStrategy extends GameStrategy {
 	}
 
 	@Override
-	protected void createEnemy()
+	protected Enemy createEnemy()
 	{
-		super.createEnemy();
-		Enemy enemy = _enemies.get(_enemies.size()-1);
-		enemy.setRandomBehaviour();
+		Enemy enemy = super.createEnemy();
+		enemy.setRandomBorderPosition();
+		enemy.setGeneralSpeed(SpeedFactory.getSpeed(enemy, GameStrategy.RUN_GAME));
+		enemy.setRotationSpeed(5 * ((float)Math.random() * 2 - 1)); //TODO kick it out
+		enemy.moveTo((float)Math.random() * Assets.VIRTUAL_WIDTH,
+						(float)Math.random() * Assets.VIRTUAL_HEIGHT);
+		return enemy;
 	}
 
 	private void shootBullet()

@@ -2,6 +2,7 @@ package com.glowman.spaceunit.game.strategy;
 
 import com.badlogic.gdx.math.Vector2;
 import com.glowman.spaceunit.core.TouchEvent;
+import com.glowman.spaceunit.game.SpeedFactory;
 import com.glowman.spaceunit.game.mapObject.enemy.Enemy;
 import com.glowman.spaceunit.game.mapObject.Ship;
 import com.glowman.spaceunit.game.mapObject.enemy.EnemyFactory;
@@ -57,6 +58,16 @@ public class GameRunStrategy extends GameStrategy {
 	public void touchMove(TouchEvent touch) {
 
 		_heroShip.setTargetPosition(new Vector2(touch.x, touch.y));
+	}
+
+	@Override
+	protected Enemy createEnemy() {
+		Enemy enemy = super.createEnemy();
+		enemy.setRandomBorderPosition();
+		enemy.setRotationSpeed(5 * ((float)Math.random() * 2 - 1)); //TODO kick it out
+		enemy.setGeneralSpeed(SpeedFactory.getSpeed(enemy, GameStrategy.RUN_GAME));
+		enemy.setTarget(_heroShip);
+		return enemy;
 	}
 
 

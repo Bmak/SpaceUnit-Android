@@ -13,9 +13,6 @@ public class Alien extends ActiveEnemy {
 	}
 
 	@Override
-	public void setRandomBehaviour() {
-		super.setRandomBehaviour();
-		super.setRotationSpeed(0f);
-	}
+	public void setRotationSpeed(float rotation) {/*TODO need something more cool then it*/ }
 
 }
