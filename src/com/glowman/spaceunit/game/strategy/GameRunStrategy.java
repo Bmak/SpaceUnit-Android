@@ -18,7 +18,7 @@ public class GameRunStrategy extends GameStrategy {
 	public GameRunStrategy(Ship ship)
 	{
 		super(ship);
-		EnemyFactory.init(GameStrategy.RUN_GAME);
+		EnemyFactory.init(GameStrategy.RUN_GAME, _heroShip);
 	}
 
 	@Override
@@ -65,7 +65,7 @@ public class GameRunStrategy extends GameStrategy {
 		Enemy enemy = super.createEnemy();
 		enemy.setRandomBorderPosition();
 		enemy.setRotationSpeed(5 * ((float)Math.random() * 2 - 1)); //TODO kick it out
-		enemy.setGeneralSpeed(SpeedFactory.getSpeed(enemy, GameStrategy.RUN_GAME));
+		enemy.setGeneralSpeed(SpeedFactory.getEnemySpeed(enemy.getEnemyType(), GameStrategy.RUN_GAME));
 		enemy.setTarget(_heroShip);
 		return enemy;
 	}

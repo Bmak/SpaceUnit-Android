@@ -29,10 +29,6 @@ public class EnemyFactory {
 		init(_gameType, heroShip, null);
 	}
 
-	public static void init(int _gameType) {
-		init(_gameType, null, null);
-	}
-
 	//TODO game balance here
 	public static Enemy createEnemy() {
 

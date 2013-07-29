@@ -40,7 +40,7 @@ public class AsteroidsBehavior {
 	private MovingSpaceObject createRandomSpaceObject(Sprite image) {
 		MovingSpaceObject spaceObject = new MovingSpaceObject(image, true, true);
 		spaceObject.setRandomBorderPosition();
-		spaceObject.setGeneralSpeed(SpeedFactory.getSpeed(spaceObject, -1));
+		spaceObject.setGeneralSpeed(SpeedFactory.getMenuAsteroidSpeed());
 		spaceObject.setRotationSpeed(5 * ((float)Math.random() * 2 - 1)); //TODO kick it out
 		spaceObject.moveTo((float)Math.random() * Assets.VIRTUAL_WIDTH,
 				(float)Math.random() * Assets.VIRTUAL_HEIGHT);

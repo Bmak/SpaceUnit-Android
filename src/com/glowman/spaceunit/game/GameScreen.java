@@ -98,7 +98,7 @@ public class GameScreen implements Screen {
 		if (_ship != null) { Log.e("hz", "ship already exists!"); }
 
 		_ship = new Ship(new Sprite(Assets.ship), 10);
-		_ship.setGeneralSpeed(SpeedFactory.getSpeed(_ship, _gameType));
+		_ship.setGeneralSpeed(SpeedFactory.getHeroSpeed(_gameType));
 		_ship.setPosition(new Vector2(Assets.VIRTUAL_WIDTH / 2, Assets.VIRTUAL_HEIGHT / 2));
 	}
 

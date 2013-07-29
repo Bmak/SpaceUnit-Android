@@ -112,7 +112,7 @@ public class GameShootStrategy extends GameStrategy {
 	{
 		Enemy enemy = super.createEnemy();
 		enemy.setRandomBorderPosition();
-		enemy.setGeneralSpeed(SpeedFactory.getSpeed(enemy, GameStrategy.RUN_GAME));
+		enemy.setGeneralSpeed(SpeedFactory.getEnemySpeed(enemy.getEnemyType(), GameStrategy.RUN_GAME));
 		enemy.setRotationSpeed(5 * ((float)Math.random() * 2 - 1)); //TODO kick it out
 		enemy.moveTo((float) Math.random() * Assets.VIRTUAL_WIDTH,
 				(float) Math.random() * Assets.VIRTUAL_HEIGHT);
