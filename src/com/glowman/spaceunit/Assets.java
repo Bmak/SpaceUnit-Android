@@ -18,6 +18,7 @@ public class Assets {
 	public static TextureRegion bullet;
 
 	public static TextureRegion bkg;
+	public static TextureRegion credits;
 
 	public static TextureRegion asteroid;
 	public static TextureRegion meteor;
@@ -36,6 +37,11 @@ public class Assets {
 	public static float playBtnHeight;
 	public static float simpleBtnWidth;
 	public static float simpleBtnHeight;
+	public static float backBtnWidth;
+	public static float backBtnHeight;
+	
+	public static float creditsWidth;
+	public static float credtisHeight;
 
 	public static float pixelDensity;
 
@@ -52,6 +58,7 @@ public class Assets {
 	
 	private static void loadTextures () {
 		bkg = atlas.findRegion("bkg/bkg");
+		credits = atlas.findRegion("credits");
 
 		ship = atlas.findRegion("unit/unit");
 		bullet = atlas.findRegion("unit/bullet");
@@ -74,7 +81,11 @@ public class Assets {
 		soImages[0] = asteroid;
 		soImages[1] = meteor;
 	}
-
+	
+	public static void dispose() {
+		atlas.dispose();
+	}
+	
 	public static TextureRegion getPlayRunRegion(int index) {
 		return atlas.findRegion("buttons/PlayBtnRun", index);
 	}
@@ -85,6 +96,10 @@ public class Assets {
 	
 	public static TextureRegion getSimpleBtnRegion(int index) {
 		return atlas.findRegion("buttons/SimpleBtn", index);
+	}
+	
+	public static TextureRegion getBackBtnRegin(int index) {
+		return atlas.findRegion("buttons/BackBtn", index);
 	}
 	
 	private static float calculatePixelDensity () {
@@ -105,6 +120,12 @@ public class Assets {
 		playBtnHeight = toHeight(getPlayRunRegion(1));
 		simpleBtnWidth = toWidth(getSimpleBtnRegion(1));
 		simpleBtnHeight = toHeight(getSimpleBtnRegion(1));
+		backBtnWidth = toWidth(getBackBtnRegin(1));
+		backBtnHeight = toHeight(getBackBtnRegin(1));
+		
+		
+		creditsWidth = toWidth(credits);
+		credtisHeight = toHeight(credits);
 	}
 	
 	private static float toWidth (TextureRegion region) {
@@ -114,5 +135,5 @@ public class Assets {
 	private static float toHeight (TextureRegion region) {
 		return region.getRegionHeight() / pixelDensity;
 	}
-
+	
 }

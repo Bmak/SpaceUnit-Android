@@ -111,6 +111,20 @@ buttons/SimpleBtn
   orig: 293, 71
   offset: 0, 0
   index: 2
+buttons/BackBtn
+  rotate: false
+  xy: 591, 324
+  size: 97, 97
+  orig: 97, 97
+  offset: 0, 0
+  index: 1
+buttons/BackBtn
+  rotate: false
+  xy: 591, 225
+  size: 97, 97
+  orig: 97, 97
+  offset: 0, 0
+  index: 2
 buttons/PauseBtn
   rotate: false
   xy: 296, 28
@@ -120,13 +134,25 @@ buttons/PauseBtn
   index: 1
 buttons/PauseBtn
   rotate: false
-  xy: 591, 377
+  xy: 886, 450
   size: 44, 44
   orig: 44, 44
   offset: 0, 0
   index: 2
 
 textures4.png
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+credits
+  rotate: false
+  xy: 1, 1
+  size: 658, 1022
+  orig: 658, 1022
+  offset: 0, 0
+  index: -1
+
+textures5.png
 format: RGBA8888
 filter: Nearest,Nearest
 repeat: none
@@ -173,7 +199,7 @@ enemies/meteor
   offset: 0, 0
   index: -1
 
-textures5.png
+textures6.png
 format: RGBA8888
 filter: Nearest,Nearest
 repeat: none
@@ -185,7 +211,7 @@ fonts/font
   offset: 0, 0
   index: 0
 
-textures6.png
+textures7.png
 format: RGBA8888
 filter: Nearest,Nearest
 repeat: none
