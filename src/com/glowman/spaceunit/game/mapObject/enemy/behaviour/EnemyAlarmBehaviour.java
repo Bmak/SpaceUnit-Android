@@ -27,19 +27,18 @@ public class EnemyAlarmBehaviour extends AEnemyBehaviourWithTarget {
 	@Override
 	public void tick(float delta) {
 		if (_enemy.getCenterPosition().dst(_target.getCenterPosition()) < distance) {
-			if (!_enemy.hasBehaviour(EnemyBehaviourNameENUM.FOLLOW)) {
-				_enemy.addBehaviour(new EnemyFollowBehaviour(_enemy, _target));
-			}
-			if (!_enemy.hasBehaviour(EnemyBehaviourNameENUM.ACTIVATE)) {
-				_enemy.addBehaviour(new EnemyActivateBehaviour(_enemy));
+
+			for (AEnemyBehaviour behaviour : executeBehaviours) {
+				if (!_enemy.hasBehaviour(behaviour.getName())) {
+					_enemy.addBehaviour(behaviour);
+				}
 			}
 		}
 		else {
-			if (_enemy.hasBehaviour(EnemyBehaviourNameENUM.ACTIVATE)) {
-				_enemy.removeBehaviour(EnemyBehaviourNameENUM.ACTIVATE);
-			}
-			if (_enemy.hasBehaviour(EnemyBehaviourNameENUM.FOLLOW)) {
-				_enemy.removeBehaviour(EnemyBehaviourNameENUM.FOLLOW);
+			for (AEnemyBehaviour behaviour : executeBehaviours) {
+				if (_enemy.hasBehaviour(behaviour.getName())) {
+					_enemy.removeBehaviour(behaviour.getName());
+				}
 			}
 		}
 
