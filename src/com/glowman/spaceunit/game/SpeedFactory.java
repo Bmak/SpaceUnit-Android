@@ -32,6 +32,9 @@ public class SpeedFactory {
 					return 1.6f;
 				}
 			}
+			else if (object instanceof MovingSpaceObject && gameType == -1) {
+				return (float)Math.random() * 2f;
+			}
 		}
 
 		return result;
