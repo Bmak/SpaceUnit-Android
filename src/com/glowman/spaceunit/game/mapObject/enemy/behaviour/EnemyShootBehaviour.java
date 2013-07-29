@@ -43,7 +43,7 @@ public class EnemyShootBehaviour extends AEnemyBehaviourWithTarget{
 	public void tick(float delta) {
 		_stateTime += delta;
 		if (_stateTime >= _options.frequency) {
-			_options.shooter.shoot(_enemy.getPosition(), _options.targetToShoot.getPosition());
+			_options.shooter.shoot(_enemy, _options.targetToShoot.getCenterPosition());
 			_stateTime %= _options.frequency;
 		}
 	}

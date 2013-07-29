@@ -1,14 +1,12 @@
-package com.glowman.spaceunit.game;
+package com.glowman.spaceunit.game.balance;
 
-import com.glowman.spaceunit.game.mapObject.MovingSpaceObject;
 import com.glowman.spaceunit.game.mapObject.SpaceObject;
-import com.glowman.spaceunit.game.mapObject.enemy.Enemy;
 import com.glowman.spaceunit.game.mapObject.enemy.EnemyTypeENUM;
 
 /**
  *
  */
-public class SpeedFactory {
+public class SpeedCollector {
 
 	public static float getHeroSpeed(int gameType) {
 		return 2.01f;

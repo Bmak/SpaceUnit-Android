@@ -10,10 +10,10 @@ import com.glowman.spaceunit.CoordinatesTranslator;
 import com.glowman.spaceunit.core.TouchEvent;
 import com.glowman.spaceunit.game.IShooter;
 import com.glowman.spaceunit.game.Shooter;
-import com.glowman.spaceunit.game.SpeedFactory;
+import com.glowman.spaceunit.game.balance.EnemySetCollector;
+import com.glowman.spaceunit.game.balance.SpeedCollector;
 import com.glowman.spaceunit.game.mapObject.Bullet;
 import com.glowman.spaceunit.game.mapObject.enemy.Enemy;
-import com.glowman.spaceunit.game.mapObject.MovingSpaceObject;
 import com.glowman.spaceunit.game.mapObject.Ship;
 import com.glowman.spaceunit.game.mapObject.enemy.EnemyFactory;
 
@@ -31,6 +31,7 @@ public class GameShootStrategy extends GameStrategy {
 		super(ship);
 		_shooter = new Shooter();
 		EnemyFactory.init(GameStrategy.SHOOT_GAME, ship, _shooter);
+		_availableEnemyTypes = EnemySetCollector.getEnemySet(GameStrategy.SHOOT_GAME);
 	}
 
 	@Override
@@ -56,17 +57,7 @@ public class GameShootStrategy extends GameStrategy {
 				bullet.tick(delta);
 			}
 			this.checkBulletsForRemove();
-			//this.checkBulletsHit();
-		}
-
-		//TODO set game balance here
-		if (Math.random() < 0.03f) { this.createEnemy(); }
-		if (_enemies != null)
-		{
-			for(MovingSpaceObject enemy : _enemies)
-			{
-				enemy.tick(delta);
-			}
+			this.checkBulletsHit();
 		}
 	}
 
@@ -108,16 +99,14 @@ public class GameShootStrategy extends GameStrategy {
 	}
 
 	@Override
-	protected Enemy createEnemy()
+	protected void setEnemyParams(Enemy enemy)
 	{
-		Enemy enemy = super.createEnemy();
 		enemy.setRandomBorderPosition();
-		enemy.setGeneralSpeed(SpeedFactory.getEnemySpeed(enemy.getEnemyType(), GameStrategy.RUN_GAME));
+		enemy.setGeneralSpeed(SpeedCollector.getEnemySpeed(enemy.getEnemyType(), GameStrategy.RUN_GAME));
 		enemy.setRotationSpeed(5 * ((float)Math.random() * 2 - 1)); //TODO kick it out
 		enemy.moveTo((float) Math.random() * Assets.VIRTUAL_WIDTH,
 				(float) Math.random() * Assets.VIRTUAL_HEIGHT);
 		enemy.setTarget(_heroShip);
-		return enemy;
 	}
 
 	private void shootBullet()
@@ -165,16 +154,20 @@ public class GameShootStrategy extends GameStrategy {
 		ArrayList<Bullet> bulletsForRemove = new ArrayList<Bullet>();
 		float distance;
 		float enemyRadius;
+		float bulletRadius;
 		Vector2 enemyPosition;
 
 		for(Bullet bullet : _shooter.getBullets())
 		{
 			for (int i = 0; i < _enemies.size(); ++i) {
-				enemyRadius = (_enemies.get(i)).getHeight()/2;
-				enemyPosition = _enemies.get(i).getPosition();
+				if (bullet.getOwner() == _enemies.get(i)) continue;
 
-				distance = enemyPosition.dst(bullet.getView().getX(), bullet.getView().getY());
-				if (distance < enemyRadius)
+				enemyRadius = _enemies.get(i).getWidth()/2;
+				bulletRadius = bullet.getWidth()/2;
+				enemyPosition = _enemies.get(i).getCenterPosition();
+
+				distance = enemyPosition.dst(bullet.getCenterPosition());
+				if (distance < enemyRadius + bulletRadius)
 				{
 					enemiesForExplosion.add(_enemies.get(i));
 					bulletsForRemove.add(bullet);

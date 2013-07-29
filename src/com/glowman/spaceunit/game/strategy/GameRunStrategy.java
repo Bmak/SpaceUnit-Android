@@ -2,7 +2,8 @@ package com.glowman.spaceunit.game.strategy;
 
 import com.badlogic.gdx.math.Vector2;
 import com.glowman.spaceunit.core.TouchEvent;
-import com.glowman.spaceunit.game.SpeedFactory;
+import com.glowman.spaceunit.game.balance.EnemySetCollector;
+import com.glowman.spaceunit.game.balance.SpeedCollector;
 import com.glowman.spaceunit.game.mapObject.enemy.Enemy;
 import com.glowman.spaceunit.game.mapObject.Ship;
 import com.glowman.spaceunit.game.mapObject.enemy.EnemyFactory;
@@ -19,6 +20,7 @@ public class GameRunStrategy extends GameStrategy {
 	{
 		super(ship);
 		EnemyFactory.init(GameStrategy.RUN_GAME, _heroShip);
+		_availableEnemyTypes = EnemySetCollector.getEnemySet(GameStrategy.RUN_GAME);
 	}
 
 	@Override
@@ -27,15 +29,6 @@ public class GameRunStrategy extends GameStrategy {
 		super.tick(delta);
 		super._heroShip.tick(delta);
 
-		//TODO set game balance here
-		if (Math.random() < .03) { this.createEnemy(); }
-		if (_enemies != null)
-		{
-			for (Enemy enemy : _enemies)
-			{
-				enemy.tick(delta);
-			}
-		}
 		if (_enemies != null)
 		{
 			this.checkEnemyHits();
@@ -61,13 +54,11 @@ public class GameRunStrategy extends GameStrategy {
 	}
 
 	@Override
-	protected Enemy createEnemy() {
-		Enemy enemy = super.createEnemy();
+	protected void setEnemyParams(Enemy enemy) {
 		enemy.setRandomBorderPosition();
 		enemy.setRotationSpeed(5 * ((float)Math.random() * 2 - 1)); //TODO kick it out
-		enemy.setGeneralSpeed(SpeedFactory.getEnemySpeed(enemy.getEnemyType(), GameStrategy.RUN_GAME));
+		enemy.setGeneralSpeed(SpeedCollector.getEnemySpeed(enemy.getEnemyType(), GameStrategy.RUN_GAME));
 		enemy.setTarget(_heroShip);
-		return enemy;
 	}
 
 

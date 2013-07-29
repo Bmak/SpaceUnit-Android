@@ -24,7 +24,7 @@ public class EnemyAlienBehaviour extends EnemyShootBehaviour {
 		super.tick(delta);
 		//TODO Game Balance here
 		ActiveEnemy activeEnemy = (ActiveEnemy) _enemy;
-		if (super._stateTime / super._options.frequency  > 0.6f) {
+		if (super._stateTime / super._options.frequency  > 0.8f) {
 			if (!activeEnemy.isActiveMode()) activeEnemy.changeToActiveMode();
 		} else {
 			if (activeEnemy.isActiveMode()) activeEnemy.changeToPassiveMode();

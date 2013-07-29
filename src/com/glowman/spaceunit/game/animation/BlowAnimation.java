@@ -15,7 +15,7 @@ public class BlowAnimation extends AnimatedSprite {
 	{
 		super(Assets.blowArray);
 		Vector2 enemyCenterPoint = enemy.getCenterPosition();
-		super.setSize(enemy.getWidth() * SCALE, enemy.getHeight() * SCALE);
+		super.setSize(enemy.getWidth() * SCALE, enemy.getWidth() * SCALE);
 		super.setOrigin(super.getWidth() / 2, super.getHeight() / 2);
 		float animationX = enemyCenterPoint.x - super.getOriginX();
 		float animationY = enemyCenterPoint.y - super.getOriginY();

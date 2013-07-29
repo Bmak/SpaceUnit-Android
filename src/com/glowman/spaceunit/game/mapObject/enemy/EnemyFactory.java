@@ -29,44 +29,57 @@ public class EnemyFactory {
 		init(_gameType, heroShip, null);
 	}
 
-	//TODO game balance here
-	public static Enemy createEnemy() {
-
-		if (_gameType == -1) { throw new Error("game type not inited!"); }
+	public static Enemy createEnemy(String enemyType) {
 		Enemy result;
-		double random = Math.random();
-		if (random < .33 || _gameType == GameStrategy.RUN_GAME) {
-			//asteroid enemy
-
-			Sprite image = new Sprite(Assets.soImages[Math.round((float)Math.random())]);
-			result = new Enemy(EnemyTypeENUM.ASTEROID, image, true, true);
-			if (_gameType == GameStrategy.RUN_GAME) {
-				result.addBehaviour(new EnemyFollowBehaviour(result, _heroShip));
-			}
-		} else if (random < .63) {
-			//mine
-
-			Sprite passiveImage = new Sprite(Assets.minePassive);
-			Sprite activeImage = new Sprite(Assets.mineActive);
-			result = new ActiveEnemy(EnemyTypeENUM.MINE, passiveImage, activeImage, false, true);
-
-			AEnemyBehaviour[] behavioursExecute = new AEnemyBehaviour[2];
-			behavioursExecute[0] = new EnemyFollowBehaviour(result, _heroShip);
-			behavioursExecute[1] = new EnemyActivateBehaviour(result);
-
-			BehaviourOptions options = new AlarmBehaviourOptions(100, behavioursExecute);
-			result.addBehaviour(new EnemyAlarmBehaviour(result, _heroShip, options));
-		} else {
-			//alien
-			//TODO need to fill
-			Sprite passiveImage = new Sprite(Assets.alienPassive);
-			Sprite activeImage = new Sprite(Assets.alienActive);
-			result = new ActiveEnemy(EnemyTypeENUM.ALIEN, passiveImage, activeImage, false, true);
-
-			BehaviourOptions options = new ShootBehaviourOptions(3f, _heroShip, _shooter);
-			result.addBehaviour(new EnemyAlienBehaviour(result, _heroShip, options));
+		if (enemyType == EnemyTypeENUM.ASTEROID) {
+			result = createAsteroid();
 		}
-
+		else if (enemyType == EnemyTypeENUM.MINE) {
+			result = createMine();
+		}
+		else if (enemyType == EnemyTypeENUM.ALIEN) {
+			result = createAlien();
+		}
+		else {
+			throw new Error("unknown enemy");
+		}
 		return result;
 	}
+
+	private static Enemy createAsteroid() {
+		Enemy result;
+		Sprite image = new Sprite(Assets.soImages[Math.round((float)Math.random())]);
+		result = new Enemy(EnemyTypeENUM.ASTEROID, image, true, true);
+		if (_gameType == GameStrategy.RUN_GAME) {
+			result.addBehaviour(new EnemyFollowBehaviour(result, _heroShip));
+		}
+		return result;
+	}
+
+	private static Enemy createMine() {
+		Enemy result;
+		Sprite passiveImage = new Sprite(Assets.minePassive);
+		Sprite activeImage = new Sprite(Assets.mineActive);
+		result = new ActiveEnemy(EnemyTypeENUM.MINE, passiveImage, activeImage, false, true);
+
+		AEnemyBehaviour[] behavioursExecute = new AEnemyBehaviour[2];
+		behavioursExecute[0] = new EnemyFollowBehaviour(result, _heroShip);
+		behavioursExecute[1] = new EnemyActivateBehaviour(result);
+
+		BehaviourOptions options = new AlarmBehaviourOptions(100, behavioursExecute);
+		result.addBehaviour(new EnemyAlarmBehaviour(result, _heroShip, options));
+		return result;
+	}
+
+	private static Enemy createAlien() {
+		Enemy result;
+		Sprite passiveImage = new Sprite(Assets.alienPassive);
+		Sprite activeImage = new Sprite(Assets.alienActive);
+		result = new ActiveEnemy(EnemyTypeENUM.ALIEN, passiveImage, activeImage, false, true);
+
+		BehaviourOptions options = new ShootBehaviourOptions(6f, _heroShip, _shooter);
+		result.addBehaviour(new EnemyAlienBehaviour(result, _heroShip, options));
+		return result;
+	}
+
 }

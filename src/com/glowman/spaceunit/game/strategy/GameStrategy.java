@@ -1,6 +1,7 @@
 package com.glowman.spaceunit.game.strategy;
 
 
+import com.glowman.spaceunit.game.balance.RespawnFrequencyCollector;
 import com.glowman.spaceunit.game.animation.BlowAnimation;
 import com.glowman.spaceunit.core.AnimatedSprite;
 import com.glowman.spaceunit.core.TouchEvent;
@@ -22,6 +23,8 @@ public abstract class GameStrategy {
 	protected ArrayList<Enemy> _deadEnemies;
 	protected ArrayList<AnimatedSprite> _animations;
 	protected Ship _heroShip;
+
+	protected String[] _availableEnemyTypes;
 
 	protected int _shootingTouch = -1;
 	protected int _movingTouch = -1;
@@ -59,17 +62,44 @@ public abstract class GameStrategy {
 			}
 			animationsForRemove.clear();
 		}
+
+		this.createEnemies();
+		this.tickEnemies(delta);
 	}
 
-	protected Enemy createEnemy()
+	private void tickEnemies(float delta) {
+		if (_enemies != null)
+		{
+			for (Enemy enemy : _enemies)
+			{
+				enemy.tick(delta);
+			}
+		}
+	}
+
+	private void createEnemies()
 	{
+		if (_availableEnemyTypes == null || _availableEnemyTypes.length == 0) {
+			return;
+		}
 		if (_enemies == null)
 		{
 			_enemies = new ArrayList<Enemy>();
 		}
-		Enemy enemy = EnemyFactory.createEnemy();
-		_enemies.add(enemy);
-		return enemy;
+		String enemyType;
+		for (int i = 0; i < _availableEnemyTypes.length; ++i) {
+			enemyType = _availableEnemyTypes[i];
+			if (Math.random() <
+					RespawnFrequencyCollector.getFrequency(enemyType, GameStrategy.SHOOT_GAME)) {
+				Enemy enemy = EnemyFactory.createEnemy(enemyType);
+				_enemies.add(enemy);
+				this.setEnemyParams(enemy);
+			}
+		}
+	}
+
+	protected void setEnemyParams(Enemy enemy) {
+		//need to override
 	}
 
 	public void explodeEnemy(Enemy enemy) {

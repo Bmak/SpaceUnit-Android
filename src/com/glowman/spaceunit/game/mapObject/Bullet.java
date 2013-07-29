@@ -7,15 +7,20 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
  */
 public class Bullet extends MovingSpaceObject {
 
-	private float _speed;
 	private Sprite _view;
+	private SpaceObject _owner;
 
-	public Bullet(Sprite view, float speed)
-	{
+	public Bullet(Sprite view, SpaceObject owner) {
 		super(view, false, false);
 		_view = view;
-		_speed = speed;
-		super.setGeneralSpeed(speed);
+		_owner = owner;
+	}
+
+	public SpaceObject getOwner() { return _owner; }
+
+	public Bullet(Sprite view)
+	{
+		this(view, null);
 	}
 
 	public Sprite getView() { return _view; }

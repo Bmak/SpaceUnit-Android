@@ -7,7 +7,7 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.glowman.spaceunit.Assets;
-import com.glowman.spaceunit.game.SpeedFactory;
+import com.glowman.spaceunit.game.balance.SpeedCollector;
 import com.glowman.spaceunit.game.mapObject.MovingSpaceObject;
 
 
@@ -40,7 +40,7 @@ public class AsteroidsBehavior {
 	private MovingSpaceObject createRandomSpaceObject(Sprite image) {
 		MovingSpaceObject spaceObject = new MovingSpaceObject(image, true, true);
 		spaceObject.setRandomBorderPosition();
-		spaceObject.setGeneralSpeed(SpeedFactory.getMenuAsteroidSpeed());
+		spaceObject.setGeneralSpeed(SpeedCollector.getMenuAsteroidSpeed());
 		spaceObject.setRotationSpeed(5 * ((float)Math.random() * 2 - 1)); //TODO kick it out
 		spaceObject.moveTo((float)Math.random() * Assets.VIRTUAL_WIDTH,
 				(float)Math.random() * Assets.VIRTUAL_HEIGHT);

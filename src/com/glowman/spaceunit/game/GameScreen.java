@@ -13,6 +13,7 @@ import com.glowman.spaceunit.Assets;
 import com.glowman.spaceunit.core.AnimatedSprite;
 import com.glowman.spaceunit.core.FPSViewer;
 import com.glowman.spaceunit.core.ScreenControl;
+import com.glowman.spaceunit.game.balance.SpeedCollector;
 import com.glowman.spaceunit.game.mapObject.Bullet;
 import com.glowman.spaceunit.game.mapObject.Ship;
 import com.glowman.spaceunit.game.mapObject.enemy.Enemy;
@@ -98,7 +99,7 @@ public class GameScreen implements Screen {
 		if (_ship != null) { Log.e("hz", "ship already exists!"); }
 
 		_ship = new Ship(new Sprite(Assets.ship), 10);
-		_ship.setGeneralSpeed(SpeedFactory.getHeroSpeed(_gameType));
+		_ship.setGeneralSpeed(SpeedCollector.getHeroSpeed(_gameType));
 		_ship.setPosition(new Vector2(Assets.VIRTUAL_WIDTH / 2, Assets.VIRTUAL_HEIGHT / 2));
 	}
 

@@ -1,9 +1,11 @@
 package com.glowman.spaceunit.game;
 
+import android.widget.Space;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.Vector2;
 import com.glowman.spaceunit.Assets;
 import com.glowman.spaceunit.game.mapObject.Bullet;
+import com.glowman.spaceunit.game.mapObject.SpaceObject;
 
 import java.util.ArrayList;
 
@@ -33,16 +35,28 @@ public class Shooter implements IShooter {
 	public float getBulletSpeed() { return _bulletSpeed; }
 
 	@Override
-	public void shoot(Vector2 from, Vector2 to) {
+	public void shoot(SpaceObject owner, Vector2 from, Vector2 to) {
 		if (_bullets == null) {
 			_bullets = new ArrayList<Bullet>();
 		}
 
 		Sprite bulletView = new Sprite(Assets.bullet);
-		Bullet bullet = new Bullet(bulletView, _bulletSpeed);
+		Bullet bullet = new Bullet(bulletView, owner);
+		bullet.setGeneralSpeed(_bulletSpeed);
 		bullet.setPosition(from.x, from.y);
 		bullet.moveTo(to.x, to.y);
+		bullet.rotateTo(to.x, to.y);
 		_bullets.add(bullet);
+	}
+
+	@Override
+	public void shoot(Vector2 from, Vector2 to) {
+		this.shoot(null, from, to);
+	}
+
+	@Override
+	public void shoot(SpaceObject owner, Vector2 to) {
+		this.shoot(owner, owner.getCenterPosition(), to);
 	}
 
 	@Override
