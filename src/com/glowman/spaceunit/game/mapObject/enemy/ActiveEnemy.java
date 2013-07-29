@@ -19,7 +19,7 @@ public class ActiveEnemy extends Enemy {
 		_isActiveMode = false;
 	}
 
-	protected boolean isActiveMode() { return _isActiveMode; }
+	public boolean isActiveMode() { return _isActiveMode; }
 
 	public void changeToActiveMode() {
 		super.setImage(_activeImage);

@@ -67,7 +67,7 @@ public abstract class GameStrategy {
 		{
 			_enemies = new ArrayList<Enemy>();
 		}
-		Enemy enemy = EnemyFactory.createEnemy(_heroShip);
+		Enemy enemy = EnemyFactory.createEnemy();
 		_enemies.add(enemy);
 		return enemy;
 	}

@@ -10,8 +10,8 @@ public class AlarmBehaviourOptions extends BehaviourOptions {
 	public float distance;
 	public AEnemyBehaviour[] executeBehaviours;
 
-	public AlarmBehaviourOptions(SpaceObject target, float distance, AEnemyBehaviour[] behaviours) {
-		super(target);
+	public AlarmBehaviourOptions(float distance, AEnemyBehaviour[] behaviours) {
+		super();
 		this.distance = distance;
 		this.executeBehaviours = behaviours;
 	}

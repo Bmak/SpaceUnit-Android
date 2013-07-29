@@ -18,7 +18,7 @@ public class GameRunStrategy extends GameStrategy {
 	public GameRunStrategy(Ship ship)
 	{
 		super(ship);
-		EnemyFactory.setGameType(GameStrategy.RUN_GAME);
+		EnemyFactory.init(GameStrategy.RUN_GAME);
 	}
 
 	@Override

@@ -9,8 +9,7 @@ import com.glowman.spaceunit.game.mapObject.enemy.behaviour.options.BehaviourOpt
  *
  */
 public class EnemyAlarmBehaviour extends AEnemyBehaviourWithTarget {
-	private float distance;
-	private AEnemyBehaviour[] executeBehaviours;
+	private AlarmBehaviourOptions _options;
 
 	public EnemyAlarmBehaviour(Enemy enemy, SpaceObject target, BehaviourOptions options) {
 		super(EnemyBehaviourNameENUM.ALARM, enemy, target);
@@ -19,23 +18,21 @@ public class EnemyAlarmBehaviour extends AEnemyBehaviourWithTarget {
 			throw new Error("need only AlarmBehaviourOptions here");
 		}
 
-		AlarmBehaviourOptions alarmOptions = (AlarmBehaviourOptions) options;
-		distance = alarmOptions.distance;
-		executeBehaviours = alarmOptions.executeBehaviours;
+		_options = (AlarmBehaviourOptions) options;
 	}
 
 	@Override
 	public void tick(float delta) {
-		if (_enemy.getCenterPosition().dst(_target.getCenterPosition()) < distance) {
+		if (_enemy.getCenterPosition().dst(_target.getCenterPosition()) < _options.distance) {
 
-			for (AEnemyBehaviour behaviour : executeBehaviours) {
+			for (AEnemyBehaviour behaviour : _options.executeBehaviours) {
 				if (!_enemy.hasBehaviour(behaviour.getName())) {
 					_enemy.addBehaviour(behaviour);
 				}
 			}
 		}
 		else {
-			for (AEnemyBehaviour behaviour : executeBehaviours) {
+			for (AEnemyBehaviour behaviour : _options.executeBehaviours) {
 				if (_enemy.hasBehaviour(behaviour.getName())) {
 					_enemy.removeBehaviour(behaviour.getName());
 				}

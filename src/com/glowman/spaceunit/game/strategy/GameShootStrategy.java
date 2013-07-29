@@ -29,8 +29,8 @@ public class GameShootStrategy extends GameStrategy {
 	public GameShootStrategy(Ship ship)
 	{
 		super(ship);
-		EnemyFactory.setGameType(GameStrategy.SHOOT_GAME);
 		_shooter = new Shooter();
+		EnemyFactory.init(GameStrategy.SHOOT_GAME, ship, _shooter);
 	}
 
 	@Override
@@ -56,7 +56,7 @@ public class GameShootStrategy extends GameStrategy {
 				bullet.tick(delta);
 			}
 			this.checkBulletsForRemove();
-			this.checkBulletsHit();
+			//this.checkBulletsHit();
 		}
 
 		//TODO set game balance here
