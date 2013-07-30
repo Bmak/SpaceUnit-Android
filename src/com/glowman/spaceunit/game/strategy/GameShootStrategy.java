@@ -58,6 +58,7 @@ public class GameShootStrategy extends GameStrategy {
 			}
 			this.checkBulletsForRemove();
 			this.checkBulletsHit();
+			this.checkHeroHit();
 		}
 	}
 
@@ -152,23 +153,13 @@ public class GameShootStrategy extends GameStrategy {
 		if (_enemies == null) { return; }
 		ArrayList<Enemy> enemiesForExplosion = new ArrayList<Enemy>();
 		ArrayList<Bullet> bulletsForRemove = new ArrayList<Bullet>();
-		float distance;
-		float enemyRadius;
-		float bulletRadius;
-		Vector2 enemyPosition;
 
 		for(Bullet bullet : _shooter.getBullets())
 		{
 			for (int i = 0; i < _enemies.size(); ++i) {
 				if (bullet.getOwner() == _enemies.get(i)) continue;
 
-				enemyRadius = _enemies.get(i).getWidth()/2;
-				bulletRadius = bullet.getWidth()/2;
-				enemyPosition = _enemies.get(i).getCenterPosition();
-
-				distance = enemyPosition.dst(bullet.getCenterPosition());
-				if (distance < enemyRadius + bulletRadius)
-				{
+				if (super.checkObjectsHit(_enemies.get(i), bullet)) {
 					enemiesForExplosion.add(_enemies.get(i));
 					bulletsForRemove.add(bullet);
 				}
@@ -186,6 +177,30 @@ public class GameShootStrategy extends GameStrategy {
 			_shooter.getBullets().remove(bullet);
 		}
 		bulletsForRemove.clear();
+	}
+
+	private void checkHeroHit() {
+		Enemy enemyToExplode = null;
+		for (Enemy enemy : _enemies) {
+			if (super.checkObjectsHit(_heroShip, enemy)) {
+				enemyToExplode = enemy;
+				super.gameOver();
+				break;
+			}
+		}
+		if (enemyToExplode != null) {
+			super.explodeEnemy(enemyToExplode);
+			super.explodeHero();
+		}
+		else {
+			for (Bullet bullet : _shooter.getBullets()) {
+				if (bullet.getOwner() != _heroShip &&
+						super.checkObjectsHit(_heroShip, bullet)) {
+					super.explodeHero();
+					super.gameOver();
+				}
+			}
+		}
 	}
 
 

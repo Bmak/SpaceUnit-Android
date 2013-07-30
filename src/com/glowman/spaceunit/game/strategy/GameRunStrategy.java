@@ -4,6 +4,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.glowman.spaceunit.core.TouchEvent;
 import com.glowman.spaceunit.game.balance.EnemySetCollector;
 import com.glowman.spaceunit.game.balance.SpeedCollector;
+import com.glowman.spaceunit.game.mapObject.SpaceObject;
 import com.glowman.spaceunit.game.mapObject.enemy.Enemy;
 import com.glowman.spaceunit.game.mapObject.Ship;
 import com.glowman.spaceunit.game.mapObject.enemy.EnemyFactory;
@@ -32,7 +33,9 @@ public class GameRunStrategy extends GameStrategy {
 		if (_enemies != null)
 		{
 			this.checkEnemyHits();
+			this.checkHeroHit();
 		}
+
 	}
 
 	@Override
@@ -61,22 +64,29 @@ public class GameRunStrategy extends GameStrategy {
 		enemy.setTarget(_heroShip);
 	}
 
+	private void checkHeroHit() {
+		Enemy enemyToExplode = null;
+		for (Enemy enemy : _enemies) {
+			if (super.checkObjectsHit(_heroShip, enemy)) {
+				enemyToExplode = enemy;
+				super.gameOver();
+				break;
+			}
+		}
+
+		if (enemyToExplode != null) {
+			super.explodeEnemy(enemyToExplode);
+			super.explodeHero();
+		}
+	}
 
 	private void checkEnemyHits()
 	{
 		ArrayList<Enemy> enemiesForExplosion = new ArrayList<Enemy>();
-		float distance;
-		float radius1, radius2;
-		Vector2 position1, position2;
 		for (int i = 0; i < (_enemies.size() - 1); ++i) {
 			for (int j = i + 1; j < _enemies.size(); ++j) {
-				radius1 = _enemies.get(i).getHeight()/2;
-				radius2 = _enemies.get(j).getHeight()/2;
-				position1 = _enemies.get(i).getCenterPosition();
-				position2 = _enemies.get(j).getCenterPosition();
 
-				distance = position1.dst(position2);
-				if (distance < radius1 + radius2)
+				if (super.checkObjectsHit(_enemies.get(i), _enemies.get(j)))
 				{
 					enemiesForExplosion.add(_enemies.get(i));
 					enemiesForExplosion.add(_enemies.get(j));

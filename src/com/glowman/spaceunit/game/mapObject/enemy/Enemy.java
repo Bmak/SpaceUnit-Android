@@ -57,6 +57,18 @@ public class Enemy extends MovingSpaceObject {
 
 	/**
 	 *
+	 */
+	public void removeAllBehaviours() {
+		if (_behaviours != null) {
+			for (AEnemyBehaviour behaviour : _behaviours) {
+				behaviour.stop();
+			}
+			_behaviours.clear();
+		}
+	}
+
+	/**
+	 *
 	 * @param behaviourName
 	 * @throws Error "behaviour " + behaviourName + " not found in behaviours"
 	 */

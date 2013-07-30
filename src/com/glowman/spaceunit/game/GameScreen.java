@@ -4,8 +4,10 @@ import android.util.Log;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.Game;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL10;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
@@ -22,12 +24,6 @@ import com.glowman.spaceunit.game.strategy.GameStrategyFactory;
 
 
 public class GameScreen implements Screen {
-	public static final int MAX_TIME_ENEMY_RESPAWN = 3;
-
-
-	//DEBUG
-	private int _timer = 0;
-	private final int TIMER_MAX = 1000;
 
 	private final Game _game;
 
@@ -37,6 +33,9 @@ public class GameScreen implements Screen {
 
 	private final SpriteBatch _drawer;
 	private OrthographicCamera _camera;
+	private GameTouchListener _gameTouchListener;
+
+	private BitmapFont _font;
 
 	public GameScreen(Game game, OrthographicCamera camera)
 	{
@@ -44,36 +43,39 @@ public class GameScreen implements Screen {
 		_camera = camera;
 		_drawer = new SpriteBatch();
 		_drawer.setProjectionMatrix(_camera.combined);
+		_gameTouchListener = new GameTouchListener(_game, _camera);
 		
-		this.createShip();
 	}
 	
 	public void play(int gameType) {
-		//TODO reset game, update game strategy
 		_gameType = gameType;
 		Log.d("hz", "game type : " + _gameType);
+		this.createShip();
 		_gameStrategy = GameStrategyFactory.createStrategy(_ship, _gameType);
-		Gdx.input.setInputProcessor(new GameTouchListener(_camera, _gameStrategy));
+		_gameStrategy.startGame();
+		_gameTouchListener.init(_gameStrategy);
+		Gdx.input.setInputProcessor(_gameTouchListener);
 	}
 
 
 	@Override
 	public void render(float delta) {
-		_timer++;
-		if (_timer > TIMER_MAX)
-		{
-			_game.setScreen(ScreenControl.getScreen(ScreenControl.MAIN));
-		}
+		this.clear();
 		_gameStrategy.tick(delta);
 
-		this.clear();
+		if (_gameStrategy.isGameOver()) {
+			_gameTouchListener.gameOver();
+		}
+
 		_drawer.begin();
 
 		this.drawHero();
 		this.drawEnemies();
 		this.drawBullets();
 		this.drawAnimations();
-		
+
+		if (_gameStrategy.isGameOver()) { this.drawGameOver(); }
+
 		FPSViewer.draw(_drawer);
 		_drawer.end();
 	}
@@ -83,7 +85,6 @@ public class GameScreen implements Screen {
 
 	@Override
 	public void show() {
-		_timer = 0;
 	}
 	@Override
 	public void hide() {
@@ -138,6 +139,16 @@ public class GameScreen implements Screen {
 				animation.draw(_drawer);
 			}
 		}
+	}
+
+	private void drawGameOver() {
+		if (_font == null) {
+			_font = new BitmapFont(Gdx.files.internal(Assets.gameFontPath), Assets.gameFontRegion, false);
+			_font.setColor(Color.RED);
+			_font.setScale(1f / Assets.pixelDensity);
+		}
+		BitmapFont.TextBounds bounds = _font.getBounds("Game Over");
+		_font.draw(_drawer, "Game Over", Assets.VIRTUAL_WIDTH/2, Assets.VIRTUAL_HEIGHT/2);
 	}
 
 	private void clear() {

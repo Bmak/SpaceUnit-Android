@@ -1,14 +1,17 @@
 package com.glowman.spaceunit.game.strategy;
 
 
+import com.badlogic.gdx.math.Vector2;
 import com.glowman.spaceunit.game.balance.RespawnFrequencyCollector;
 import com.glowman.spaceunit.game.animation.BlowAnimation;
 import com.glowman.spaceunit.core.AnimatedSprite;
 import com.glowman.spaceunit.core.TouchEvent;
 import com.glowman.spaceunit.game.mapObject.Bullet;
+import com.glowman.spaceunit.game.mapObject.SpaceObject;
 import com.glowman.spaceunit.game.mapObject.enemy.Enemy;
 import com.glowman.spaceunit.game.mapObject.Ship;
 import com.glowman.spaceunit.game.mapObject.enemy.EnemyFactory;
+import com.glowman.spaceunit.game.mapObject.enemy.behaviour.EnemyBehaviourNameENUM;
 
 import java.util.ArrayList;
 
@@ -29,6 +32,8 @@ public abstract class GameStrategy {
 	protected int _shootingTouch = -1;
 	protected int _movingTouch = -1;
 
+	private boolean _gameOver;
+
 	GameStrategy(Ship ship)
 	{
 		_heroShip = ship;
@@ -36,13 +41,25 @@ public abstract class GameStrategy {
 		_deadEnemies = null;
 	}
 
+	public void startGame() {
+		_gameOver = false;
+	}
+
+	public boolean isGameOver() { return _gameOver; }
+
 	public ArrayList<Enemy> getEnemies() { return _enemies; }
 	public ArrayList<Bullet> getBullets() { return null; }
 	public ArrayList<Enemy> getDeadEnemies() { return _deadEnemies; }
 	public ArrayList<AnimatedSprite> getAnimations() { return _animations; }
 
 	public void tick(float delta) {
+		if (!_gameOver) this.createEnemies();
 
+		this.tickAnimations(delta);
+		this.tickEnemies(delta);
+	}
+
+	private void tickAnimations(float delta) {
 		if (_animations != null)
 		{
 			ArrayList<AnimatedSprite> animationsForRemove = new ArrayList<AnimatedSprite>();
@@ -62,9 +79,6 @@ public abstract class GameStrategy {
 			}
 			animationsForRemove.clear();
 		}
-
-		this.createEnemies();
-		this.tickEnemies(delta);
 	}
 
 	private void tickEnemies(float delta) {
@@ -102,15 +116,45 @@ public abstract class GameStrategy {
 		//need to override
 	}
 
-	public void explodeEnemy(Enemy enemy) {
-		enemy.getImage().setScale(.1f);
+	protected void gameOver() {
+		_gameOver = true;
+		if (_enemies != null) {
+			for (Enemy enemy : _enemies) {
+				enemy.removeAllBehaviours();
+			}
+		}
+	}
+
+	protected boolean checkObjectsHit(SpaceObject object1, SpaceObject object2) {
+		float distance;
+		float radius1, radius2;
+		Vector2 position1, position2;
+		radius1 = object1.getHeight()/2;
+		radius2 = object2.getHeight()/2;
+		position1 = object1.getCenterPosition();
+		position2 = object2.getCenterPosition();
+
+		distance = position1.dst(position2);
+
+		return distance < radius1 + radius2;
+	}
+
+	protected void explodeEnemy(Enemy enemy) {
 		enemy.stop();
 		enemy.setGeneralSpeed(0);
 		_enemies.remove(enemy);
-		if (_deadEnemies == null) { _deadEnemies = new ArrayList<Enemy>(); }
-		_deadEnemies.add(enemy);
+		this.blow(enemy.getCenterPosition().x, enemy.getCenterPosition().y, enemy.getWidth());
+	}
 
-		AnimatedSprite animation = new BlowAnimation(enemy);
+	protected void explodeHero() {
+		_heroShip.stop();
+		_heroShip.setGeneralSpeed(0);
+		this.blow(_heroShip.getCenterPosition().x, _heroShip.getCenterPosition().y, _heroShip.getWidth());
+		_heroShip.setScale(.1f);
+	}
+
+	private void blow(float blowX, float blowY, float radius) {
+		AnimatedSprite animation = new BlowAnimation(blowX, blowY, radius);
 		if (_animations == null) { _animations = new ArrayList<AnimatedSprite>(); }
 		_animations.add(animation);
 	}

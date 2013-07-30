@@ -1,9 +1,11 @@
 package com.glowman.spaceunit.game;
 
+import com.badlogic.gdx.Game;
 import com.badlogic.gdx.InputAdapter;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.math.Vector3;
 import com.glowman.spaceunit.core.CameraHelper;
+import com.glowman.spaceunit.core.ScreenControl;
 import com.glowman.spaceunit.core.TouchEvent;
 import com.glowman.spaceunit.game.strategy.GameStrategy;
 
@@ -13,16 +15,33 @@ import com.glowman.spaceunit.game.strategy.GameStrategy;
 public class GameTouchListener extends InputAdapter {
 	private GameStrategy _gameStrategy;
 	private OrthographicCamera _camera;
+	private Game _game;
 
-	GameTouchListener(OrthographicCamera camera, GameStrategy gameStrategy) {
-		_gameStrategy = gameStrategy;
+	private boolean _gameOver;
+
+	GameTouchListener(Game game, OrthographicCamera camera) {
 		_camera = camera;
+		_game = game;
+		_gameOver = false;
+	}
+
+	public void init(GameStrategy gameStrategy) {
+		_gameStrategy = gameStrategy;
+		_gameOver = false;
+	}
+
+	public void gameOver() {
+		_gameOver = true;
 	}
 
 	@Override
 	public boolean touchDown(int screenX, int screenY, int pointer, int button) {
-		Vector3 virtualPosition = CameraHelper.screenToViewport(_camera, screenX, screenY);
-		_gameStrategy.touchDown(new TouchEvent(TouchEvent.TOUCH_DOWN, (int)virtualPosition.x, (int)virtualPosition.y, pointer));
+		if (_gameOver) {
+			_game.setScreen(ScreenControl.getScreen(ScreenControl.MAIN));
+		}  else {
+			Vector3 virtualPosition = CameraHelper.screenToViewport(_camera, screenX, screenY);
+			_gameStrategy.touchDown(new TouchEvent(TouchEvent.TOUCH_DOWN, (int)virtualPosition.x, (int)virtualPosition.y, pointer));
+		}
 		return false;
 	}
 

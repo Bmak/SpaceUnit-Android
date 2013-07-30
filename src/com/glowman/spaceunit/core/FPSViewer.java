@@ -24,7 +24,7 @@ public class FPSViewer {
 		_font.setColor(Color.RED);
 		_font.setScale(1f/Assets.pixelDensity);
 		_x = 0;
-		_y = 0;
+		_y = Assets.VIRTUAL_HEIGHT;
 	}
 	
 	public static void draw(SpriteBatch spriteBatch) {
@@ -34,7 +34,6 @@ public class FPSViewer {
 		if (_bounds == null) {
 			_bounds = _font.getBounds(_fps);
 		}
-		_y = Assets.VIRTUAL_HEIGHT;
 		_font.draw(spriteBatch, _fps, _x, _y);
 	}
 }
