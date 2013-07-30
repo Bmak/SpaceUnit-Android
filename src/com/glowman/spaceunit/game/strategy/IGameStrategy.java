@@ -12,6 +12,8 @@ public interface IGameStrategy {
 	void pauseGame();
 	void resumeGame();
 
+	Score getScore();
+
 	void tick(float delta);
 	GameStatus getGameStatus();
 	Sprite[] getDrawableObjects();

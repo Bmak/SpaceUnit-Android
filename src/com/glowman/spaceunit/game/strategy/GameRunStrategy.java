@@ -4,7 +4,6 @@ import com.badlogic.gdx.math.Vector2;
 import com.glowman.spaceunit.core.TouchEvent;
 import com.glowman.spaceunit.game.balance.EnemySetCollector;
 import com.glowman.spaceunit.game.balance.SpeedCollector;
-import com.glowman.spaceunit.game.mapObject.SpaceObject;
 import com.glowman.spaceunit.game.mapObject.enemy.Enemy;
 import com.glowman.spaceunit.game.mapObject.Ship;
 import com.glowman.spaceunit.game.mapObject.enemy.EnemyFactory;
@@ -17,16 +16,25 @@ import java.util.ArrayList;
  */
 public class GameRunStrategy extends GameStrategy {
 
+	private float _score;
+
 	public GameRunStrategy(Ship ship)
 	{
 		super(ship);
+		_score = 0;
 		EnemyFactory.init(GameStrategy.RUN_GAME, _heroShip);
 		_availableEnemyTypes = EnemySetCollector.getEnemySet(GameStrategy.RUN_GAME);
 	}
 
 	@Override
+	public Score getScore() {
+		return new Score(Score.SECONDS, _score);
+	}
+
+	@Override
 	public void tick(float delta)
 	{
+		if (super.getGameStatus() == GameStatus.IN_PROCESS) _score+= delta;
 		super.tick(delta);
 		super._heroShip.tick(delta);
 
@@ -35,7 +43,6 @@ public class GameRunStrategy extends GameStrategy {
 			this.checkEnemyHits();
 			this.checkHeroHit();
 		}
-
 	}
 
 	@Override

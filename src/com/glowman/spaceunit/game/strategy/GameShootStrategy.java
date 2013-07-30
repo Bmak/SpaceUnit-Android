@@ -26,13 +26,20 @@ import java.util.ArrayList;
 public class GameShootStrategy extends GameStrategy {
 
 	private IShooter _shooter;
+	private float _score;
 
 	public GameShootStrategy(Ship ship)
 	{
 		super(ship);
+		_score = 0;
 		_shooter = new Shooter();
 		EnemyFactory.init(GameStrategy.SHOOT_GAME, ship, _shooter);
 		_availableEnemyTypes = EnemySetCollector.getEnemySet(GameStrategy.SHOOT_GAME);
+	}
+
+	@Override
+	public Score getScore() {
+		return new Score(Score.POINTS, _score);
 	}
 
 	@Override
@@ -73,8 +80,8 @@ public class GameShootStrategy extends GameStrategy {
 			}
 			this.checkBulletsForRemove();
 			this.checkBulletsHit();
-			this.checkHeroHit();
 		}
+		this.checkHeroHit();
 	}
 
 	@Override
@@ -177,6 +184,10 @@ public class GameShootStrategy extends GameStrategy {
 				if (super.checkObjectsHit(_enemies.get(i), bullet)) {
 					enemiesForExplosion.add(_enemies.get(i));
 					bulletsForRemove.add(bullet);
+					if (bullet.getOwner() == _heroShip &&
+							super.getGameStatus() != GameStatus.GAME_OVER) {
+						_score++;
+					}
 				}
 			}
 		}
@@ -208,11 +219,13 @@ public class GameShootStrategy extends GameStrategy {
 			super.explodeHero();
 		}
 		else {
-			for (Bullet bullet : _shooter.getBullets()) {
-				if (bullet.getOwner() != _heroShip &&
-						super.checkObjectsHit(_heroShip, bullet)) {
-					super.explodeHero();
-					super.gameOver();
+			if (_shooter.getBullets() != null) {
+				for (Bullet bullet : _shooter.getBullets()) {
+					if (bullet.getOwner() != _heroShip &&
+							super.checkObjectsHit(_heroShip, bullet)) {
+						super.explodeHero();
+						super.gameOver();
+					}
 				}
 			}
 		}

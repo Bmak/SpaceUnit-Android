@@ -18,6 +18,7 @@ import com.glowman.spaceunit.game.mapObject.Ship;
 import com.glowman.spaceunit.game.strategy.GameStatus;
 import com.glowman.spaceunit.game.strategy.GameStrategyFactory;
 import com.glowman.spaceunit.game.strategy.IGameStrategy;
+import com.glowman.spaceunit.game.strategy.Score;
 
 
 public class GameScreen implements Screen {
@@ -118,8 +119,10 @@ public class GameScreen implements Screen {
 			_font.setColor(Color.RED);
 			_font.setScale(1f / Assets.pixelDensity);
 		}
-		BitmapFont.TextBounds bounds = _font.getBounds("Game Over");
-		_font.draw(_drawer, "Game Over", Assets.VIRTUAL_WIDTH/2, Assets.VIRTUAL_HEIGHT/2);
+		Score score = _gameStrategy.getScore();
+		BitmapFont.TextBounds bounds = _font.getBounds("Game \n Over. " + score.type + " : " + score.score);
+		_font.draw(_drawer, "Game Over. " + score.type + " : " + score.score,
+					Assets.VIRTUAL_WIDTH/4f, Assets.VIRTUAL_HEIGHT/2f);
 	}
 
 	private void clear() {
