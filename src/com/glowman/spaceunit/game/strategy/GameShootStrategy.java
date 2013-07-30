@@ -45,9 +45,11 @@ public class GameShootStrategy extends GameStrategy {
 		for (i = 0; i < basicObjects.length; ++i) {
 			result[i] = basicObjects[i];
 		}
-		for (Bullet bullet : _shooter.getBullets()) {
-			result[i] = bullet.getImage();
-			++i;
+		if (_shooter.getBullets() != null) {
+			for (Bullet bullet : _shooter.getBullets()) {
+				result[i] = bullet.getImage();
+				++i;
+			}
 		}
 		return result;
 	}

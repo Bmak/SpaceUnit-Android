@@ -28,6 +28,7 @@ public class GameScreen implements Screen {
 	private Ship _ship;
 	private IGameStrategy _gameStrategy;
 
+	private final Sprite _bkg;
 	private final SpriteBatch _drawer;
 	private OrthographicCamera _camera;
 	private GameTouchListener _gameTouchListener;
@@ -41,7 +42,8 @@ public class GameScreen implements Screen {
 		_drawer = new SpriteBatch();
 		_drawer.setProjectionMatrix(_camera.combined);
 		_gameTouchListener = new GameTouchListener(_game, _camera);
-		
+		_bkg = new Sprite(Assets.bkg);
+		_bkg.setSize(Assets.VIRTUAL_WIDTH, Assets.VIRTUAL_HEIGHT);
 	}
 	
 	public void play(int gameType) {
@@ -65,6 +67,8 @@ public class GameScreen implements Screen {
 		}
 
 		_drawer.begin();
+
+		_bkg.draw(_drawer, 0.3f);
 
 		Sprite[] objects = _gameStrategy.getDrawableObjects();
 		for (Sprite object : objects) {
