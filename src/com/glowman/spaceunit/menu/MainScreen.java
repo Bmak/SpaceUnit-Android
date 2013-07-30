@@ -28,7 +28,7 @@ public class MainScreen implements Screen {
 	private OrthographicCamera _camera;
 	private Button _playBtnRun;
 	private Button _playBtnShoot;
-	private TextButton _hightscoresBtn;
+	private TextButton _highscoresBtn;
 	private TextButton _creditsBtn;
 	private Sprite _bkg;
 	
@@ -52,8 +52,8 @@ public class MainScreen implements Screen {
 		_playBtnRun.index = GameStrategy.RUN_GAME;
 		_playBtnShoot = new Button(Assets.getPlayShootRegion(1), Assets.getPlayShootRegion(2));
 		_playBtnShoot.index = GameStrategy.SHOOT_GAME;
-		_hightscoresBtn = new TextButton(Assets.getSimpleBtnRegion(1), Assets.getSimpleBtnRegion(2), "HightScores");
-		_creditsBtn = new TextButton(Assets.getSimpleBtnRegion(1), Assets.getSimpleBtnRegion(2), "Credits");
+		_highscoresBtn = new TextButton(Assets.getSimpleBtnRegion(1), Assets.getSimpleBtnRegion(2), "Highscores");
+		_creditsBtn = new TextButton(Assets.getSimpleBtnRegion(1), Assets.getSimpleBtnRegion(2), "About");
 		
 		_listener = new MenuTouchListener(_game);
 		
@@ -65,7 +65,7 @@ public class MainScreen implements Screen {
 	private void initItems() {
 		_listener.addButton(_playBtnRun, ScreenControl.GAME);
 		_listener.addButton(_playBtnShoot, ScreenControl.GAME);
-		_listener.addButton(_hightscoresBtn, ScreenControl.HIGHTSCORES);
+		_listener.addButton(_highscoresBtn, ScreenControl.HIGHSCORES);
 		_listener.addButton(_creditsBtn, ScreenControl.CREDITS);
 		
 		_bkg.setSize(Assets.VIRTUAL_WIDTH, Assets.VIRTUAL_HEIGHT);
@@ -80,14 +80,14 @@ public class MainScreen implements Screen {
 		_playBtnShoot.setX(Assets.VIRTUAL_WIDTH/2 + _playBtnShoot.getWidth()/10);
 		_playBtnShoot.setY((Assets.VIRTUAL_HEIGHT - _playBtnShoot.getHeight())/2 + _playBtnShoot.getHeight()*0.3f);
 		
-		_hightscoresBtn.setSize(Assets.simpleBtnWidth, Assets.simpleBtnHeight);
+		_highscoresBtn.setSize(Assets.simpleBtnWidth, Assets.simpleBtnHeight);
 		//_hightscoresBtn.setScale(1.5f);
-		_hightscoresBtn.setX((Assets.VIRTUAL_WIDTH - _hightscoresBtn.getWidth())/2);
-		_hightscoresBtn.setY(_hightscoresBtn.getHeight()*1.5f);
+		_highscoresBtn.setX((Assets.VIRTUAL_WIDTH - _highscoresBtn.getWidth())/2);
+		_highscoresBtn.setY(_highscoresBtn.getHeight()*1.5f);
 		
 		_creditsBtn.setSize(Assets.simpleBtnWidth, Assets.simpleBtnHeight);
 		//_creditsBtn.setScale(1.5f);
-		_creditsBtn.setX((Assets.VIRTUAL_WIDTH - _hightscoresBtn.getWidth())/2);
+		_creditsBtn.setX((Assets.VIRTUAL_WIDTH - _highscoresBtn.getWidth())/2);
 		_creditsBtn.setY(_creditsBtn.getHeight()*0.3f);
 	}
 
@@ -118,7 +118,7 @@ public class MainScreen implements Screen {
 		_behavior.tick(deltaTime);
 		_playBtnRun.draw(_spriteBatch);
 		_playBtnShoot.draw(_spriteBatch);
-		_hightscoresBtn.draw(_spriteBatch);
+		_highscoresBtn.draw(_spriteBatch);
 		_creditsBtn.draw(_spriteBatch);
 		
 		FPSViewer.draw(_spriteBatch);

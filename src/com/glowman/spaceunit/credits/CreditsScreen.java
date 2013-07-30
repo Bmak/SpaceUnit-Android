@@ -17,6 +17,7 @@ import com.badlogic.gdx.input.GestureDetector.GestureAdapter;
 import com.badlogic.gdx.math.Vector2;
 import com.glowman.spaceunit.Assets;
 import com.glowman.spaceunit.core.Button;
+import com.glowman.spaceunit.core.FPSViewer;
 import com.glowman.spaceunit.core.ScreenControl;
 
 public class CreditsScreen extends GestureAdapter implements Screen {
@@ -24,8 +25,6 @@ public class CreditsScreen extends GestureAdapter implements Screen {
 	private final Game _game;
 	private final SpriteBatch _drawer;
 	private OrthographicCamera _camera;
-	
-	
 	
 	private Button _backBtn;
 	
@@ -85,7 +84,7 @@ public class CreditsScreen extends GestureAdapter implements Screen {
 		updatePositions(delta);
 		
 		_backBtn.draw(_drawer);
-		//FPSViewer.draw(_drawer);
+		FPSViewer.draw(_drawer);
 		_drawer.end();
 	}
 	

@@ -6,13 +6,13 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.glowman.spaceunit.menu.MainScreen;
 import com.glowman.spaceunit.credits.CreditsScreen;
 import com.glowman.spaceunit.game.GameScreen;
-import com.glowman.spaceunit.hightscores.HightScoresScreen;
+import com.glowman.spaceunit.hightscores.HighScoresScreen;
 
 public class ScreenControl {
 	
 	public static final int MAIN = 0;
 	public static final int GAME = 1;
-	public static final int HIGHTSCORES = 2;
+	public static final int HIGHSCORES = 2;
 	public static final int CREDITS = 3;
 	
 	//private static MainScreen _mainScreen;
@@ -43,8 +43,8 @@ public class ScreenControl {
 				case GAME:
 					Screens[type] = new GameScreen(_game, _camera);
 					break;
-				case HIGHTSCORES:
-					Screens[type] = new HightScoresScreen(_game, _camera);
+				case HIGHSCORES:
+					Screens[type] = new HighScoresScreen(_game, _camera);
 					break;
 				case CREDITS:
 					Screens[type] = new CreditsScreen(_game, _camera);

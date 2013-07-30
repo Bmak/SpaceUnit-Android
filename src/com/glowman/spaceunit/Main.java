@@ -1,5 +1,7 @@
 package com.glowman.spaceunit;
 
+
+
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.glowman.spaceunit.core.FPSViewer;
@@ -36,10 +38,15 @@ public class Main extends Game {
 	}
 	
 	@Override
+	public void resume() {
+		super.resume();
+	}
+	
+	@Override
 	public void dispose () {
 		super.dispose();
 
 		getScreen().dispose();
 	}
-
+	
 }

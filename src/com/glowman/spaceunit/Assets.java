@@ -9,8 +9,8 @@ import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 public class Assets {
-	public static final float VIRTUAL_WIDTH = 300.0f;
-	public static final float VIRTUAL_HEIGHT = 200.0f;
+	public static final float VIRTUAL_WIDTH = 800.0f;
+	public static final float VIRTUAL_HEIGHT = 480.0f;
 	
 	private static TextureAtlas atlas;
 
@@ -19,6 +19,7 @@ public class Assets {
 
 	public static TextureRegion bkg;
 	public static TextureRegion credits;
+	public static TextureRegion highscores;
 
 	public static TextureRegion asteroid;
 	public static TextureRegion meteor;
@@ -42,6 +43,8 @@ public class Assets {
 	
 	public static float creditsWidth;
 	public static float credtisHeight;
+	public static float highscoresWidth;
+	public static float highscoresHeight;
 
 	public static float pixelDensity;
 
@@ -54,11 +57,14 @@ public class Assets {
 		
 		loadTextures();
 		initialiseGeometries();
+		
+		Settings.load();
 	}
 	
 	private static void loadTextures () {
 		bkg = atlas.findRegion("bkg/bkg");
 		credits = atlas.findRegion("credits");
+		highscores = atlas.findRegion("highscores");
 
 		ship = atlas.findRegion("unit/unit");
 		bullet = atlas.findRegion("unit/bullet");
@@ -123,9 +129,10 @@ public class Assets {
 		backBtnWidth = toWidth(getBackBtnRegin(1));
 		backBtnHeight = toHeight(getBackBtnRegin(1));
 		
-		
 		creditsWidth = toWidth(credits);
 		credtisHeight = toHeight(credits);
+		highscoresWidth = toWidth(highscores);
+		highscoresHeight = toHeight(highscores);
 	}
 	
 	private static float toWidth (TextureRegion region) {

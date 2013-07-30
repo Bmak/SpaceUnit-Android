@@ -156,6 +156,18 @@ textures5.png
 format: RGBA8888
 filter: Nearest,Nearest
 repeat: none
+highscores
+  rotate: false
+  xy: 1, 1
+  size: 1013, 619
+  orig: 1013, 619
+  offset: 0, 0
+  index: -1
+
+textures6.png
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
 enemies/mine1
   rotate: false
   xy: 1, 1
@@ -199,7 +211,7 @@ enemies/meteor
   offset: 0, 0
   index: -1
 
-textures6.png
+textures7.png
 format: RGBA8888
 filter: Nearest,Nearest
 repeat: none
@@ -211,21 +223,21 @@ fonts/font
   offset: 0, 0
   index: 0
 
-textures7.png
+textures8.png
 format: RGBA8888
 filter: Nearest,Nearest
 repeat: none
 unit/unit
   rotate: false
-  xy: 1, 1
+  xy: 1, 20
   size: 205, 191
   orig: 205, 191
   offset: 0, 0
   index: -1
 unit/bullet
   rotate: false
-  xy: 208, 120
-  size: 60, 72
-  orig: 60, 72
+  xy: 1, 1
+  size: 20, 17
+  orig: 20, 17
   offset: 0, 0
   index: -1
