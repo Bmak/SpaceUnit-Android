@@ -38,7 +38,8 @@ public class GameShootStrategy extends GameStrategy {
 	@Override
 	public Sprite[] getDrawableObjects() {
 		Sprite[] basicObjects = super.getDrawableObjects();
-		int length = basicObjects.length + _shooter.getBullets().size();
+		int bulletSize = _shooter.getBullets() == null ? 0 : _shooter.getBullets().size();
+		int length = basicObjects.length + bulletSize;
 		Sprite[] result = new Sprite[length];
 		int i = 0;
 		for (i = 0; i < basicObjects.length; ++i) {
