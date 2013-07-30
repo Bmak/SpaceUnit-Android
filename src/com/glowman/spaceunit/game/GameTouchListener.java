@@ -8,12 +8,13 @@ import com.glowman.spaceunit.core.CameraHelper;
 import com.glowman.spaceunit.core.ScreenControl;
 import com.glowman.spaceunit.core.TouchEvent;
 import com.glowman.spaceunit.game.strategy.GameStrategy;
+import com.glowman.spaceunit.game.strategy.IGameStrategy;
 
 /**
  *
  */
 public class GameTouchListener extends InputAdapter {
-	private GameStrategy _gameStrategy;
+	private IGameStrategy _gameStrategy;
 	private OrthographicCamera _camera;
 	private Game _game;
 
@@ -25,7 +26,7 @@ public class GameTouchListener extends InputAdapter {
 		_gameOver = false;
 	}
 
-	public void init(GameStrategy gameStrategy) {
+	public void init(IGameStrategy gameStrategy) {
 		_gameStrategy = gameStrategy;
 		_gameOver = false;
 	}

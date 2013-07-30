@@ -1,29 +1,27 @@
 package com.glowman.spaceunit.game.strategy;
 
 
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.Vector2;
 import com.glowman.spaceunit.game.balance.RespawnFrequencyCollector;
 import com.glowman.spaceunit.game.animation.BlowAnimation;
 import com.glowman.spaceunit.core.AnimatedSprite;
 import com.glowman.spaceunit.core.TouchEvent;
-import com.glowman.spaceunit.game.mapObject.Bullet;
 import com.glowman.spaceunit.game.mapObject.SpaceObject;
 import com.glowman.spaceunit.game.mapObject.enemy.Enemy;
 import com.glowman.spaceunit.game.mapObject.Ship;
 import com.glowman.spaceunit.game.mapObject.enemy.EnemyFactory;
-import com.glowman.spaceunit.game.mapObject.enemy.behaviour.EnemyBehaviourNameENUM;
 
 import java.util.ArrayList;
 
 /**
  *
  */
-public abstract class GameStrategy {
+public abstract class GameStrategy implements IGameStrategy {
 	public static final int SHOOT_GAME = 0;
 	public static final int RUN_GAME = 1;
 
 	protected ArrayList<Enemy> _enemies;
-	protected ArrayList<Enemy> _deadEnemies;
 	protected ArrayList<AnimatedSprite> _animations;
 	protected Ship _heroShip;
 
@@ -32,32 +30,60 @@ public abstract class GameStrategy {
 	protected int _shootingTouch = -1;
 	protected int _movingTouch = -1;
 
-	private boolean _gameOver;
+	private GameStatus _gameStatus;
 
 	GameStrategy(Ship ship)
 	{
 		_heroShip = ship;
-		_enemies = null;
-		_deadEnemies = null;
+		_enemies = new ArrayList<Enemy>();
+		_animations = new ArrayList<AnimatedSprite>();
 	}
 
+	@Override
+	public void pauseGame() {
+		_gameStatus = GameStatus.PAUSE;
+	}
+	@Override
+	public void resumeGame() {
+		_gameStatus = GameStatus.IN_PROCESS;
+	}
+
+	@Override
 	public void startGame() {
-		_gameOver = false;
+		_gameStatus = GameStatus.IN_PROCESS;
 	}
+	@Override
+	public void stopGame() {
+		//hz what here need to be
+	}
+	@Override
+	public GameStatus getGameStatus() { return _gameStatus; }
 
-	public boolean isGameOver() { return _gameOver; }
-
-	public ArrayList<Enemy> getEnemies() { return _enemies; }
-	public ArrayList<Bullet> getBullets() { return null; }
-	public ArrayList<Enemy> getDeadEnemies() { return _deadEnemies; }
-	public ArrayList<AnimatedSprite> getAnimations() { return _animations; }
-
+	@Override
 	public void tick(float delta) {
-		if (!_gameOver) this.createEnemies();
+		if (_gameStatus == GameStatus.IN_PROCESS) this.createEnemies();
 
 		this.tickAnimations(delta);
 		this.tickEnemies(delta);
 	}
+
+	@Override
+	public Sprite[] getDrawableObjects() {
+		int length = _enemies.size() + _animations.size() + 1;
+		Sprite[] result = new Sprite[length];
+		int i = 0;
+		for (Enemy enemy : _enemies) {
+			result[i] = enemy.getImage();
+			++i;
+		}
+		for (AnimatedSprite animation : _animations) {
+			result[i] = animation;
+			++i;
+		}
+		result[i] = _heroShip.getImage();
+		return result;
+	}
+
 
 	private void tickAnimations(float delta) {
 		if (_animations != null)
@@ -82,12 +108,9 @@ public abstract class GameStrategy {
 	}
 
 	private void tickEnemies(float delta) {
-		if (_enemies != null)
+		for (Enemy enemy : _enemies)
 		{
-			for (Enemy enemy : _enemies)
-			{
-				enemy.tick(delta);
-			}
+			enemy.tick(delta);
 		}
 	}
 
@@ -95,10 +118,6 @@ public abstract class GameStrategy {
 	{
 		if (_availableEnemyTypes == null || _availableEnemyTypes.length == 0) {
 			return;
-		}
-		if (_enemies == null)
-		{
-			_enemies = new ArrayList<Enemy>();
 		}
 		String enemyType;
 		for (int i = 0; i < _availableEnemyTypes.length; ++i) {
@@ -117,11 +136,9 @@ public abstract class GameStrategy {
 	}
 
 	protected void gameOver() {
-		_gameOver = true;
-		if (_enemies != null) {
-			for (Enemy enemy : _enemies) {
-				enemy.removeAllBehaviours();
-			}
+		_gameStatus = GameStatus.GAME_OVER;
+		for (Enemy enemy : _enemies) {
+			enemy.removeAllBehaviours();
 		}
 	}
 
@@ -155,12 +172,14 @@ public abstract class GameStrategy {
 
 	private void blow(float blowX, float blowY, float radius) {
 		AnimatedSprite animation = new BlowAnimation(blowX, blowY, radius);
-		if (_animations == null) { _animations = new ArrayList<AnimatedSprite>(); }
 		_animations.add(animation);
 	}
 
+	@Override
 	public abstract void touchUp(TouchEvent touch);
+	@Override
 	public abstract void touchDown(TouchEvent touch);
+	@Override
 	public abstract void touchMove(TouchEvent touch);
 
 }

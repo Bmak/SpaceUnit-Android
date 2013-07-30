@@ -12,15 +12,12 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.glowman.spaceunit.Assets;
-import com.glowman.spaceunit.core.AnimatedSprite;
 import com.glowman.spaceunit.core.FPSViewer;
-import com.glowman.spaceunit.core.ScreenControl;
 import com.glowman.spaceunit.game.balance.SpeedCollector;
-import com.glowman.spaceunit.game.mapObject.Bullet;
 import com.glowman.spaceunit.game.mapObject.Ship;
-import com.glowman.spaceunit.game.mapObject.enemy.Enemy;
-import com.glowman.spaceunit.game.strategy.GameStrategy;
+import com.glowman.spaceunit.game.strategy.GameStatus;
 import com.glowman.spaceunit.game.strategy.GameStrategyFactory;
+import com.glowman.spaceunit.game.strategy.IGameStrategy;
 
 
 public class GameScreen implements Screen {
@@ -29,7 +26,7 @@ public class GameScreen implements Screen {
 
 	private int _gameType;
 	private Ship _ship;
-	private GameStrategy _gameStrategy;
+	private IGameStrategy _gameStrategy;
 
 	private final SpriteBatch _drawer;
 	private OrthographicCamera _camera;
@@ -63,18 +60,18 @@ public class GameScreen implements Screen {
 		this.clear();
 		_gameStrategy.tick(delta);
 
-		if (_gameStrategy.isGameOver()) {
+		if (_gameStrategy.getGameStatus() == GameStatus.GAME_OVER) {
 			_gameTouchListener.gameOver();
 		}
 
 		_drawer.begin();
 
-		this.drawHero();
-		this.drawEnemies();
-		this.drawBullets();
-		this.drawAnimations();
+		Sprite[] objects = _gameStrategy.getDrawableObjects();
+		for (Sprite object : objects) {
+			object.draw(_drawer);
+		}
 
-		if (_gameStrategy.isGameOver()) { this.drawGameOver(); }
+		if (_gameStrategy.getGameStatus() == GameStatus.GAME_OVER) { this.drawGameOver(); }
 
 		FPSViewer.draw(_drawer);
 		_drawer.end();
@@ -89,12 +86,19 @@ public class GameScreen implements Screen {
 	@Override
 	public void hide() {
 		Gdx.input.setInputProcessor(null);
+		_gameStrategy.stopGame();
 		this.clear();
-		//TODO остановка/пауза всех просчетов, которые могут выполнятся
+		//TODO остановка/пауза всех просчетов, которые могут выполняться
 	}
-	@Override public void pause() {}
-	@Override public void resume() {}
-	@Override public void dispose() {}
+	@Override public void pause() {
+		_gameStrategy.pauseGame();
+	}
+	@Override public void resume() {
+		_gameStrategy.resumeGame();
+	}
+	@Override public void dispose() {
+		_gameStrategy.stopGame();
+	}
 
 	private void createShip() {
 		if (_ship != null) { Log.e("hz", "ship already exists!"); }
@@ -102,43 +106,6 @@ public class GameScreen implements Screen {
 		_ship = new Ship(new Sprite(Assets.ship), 10);
 		_ship.setGeneralSpeed(SpeedCollector.getHeroSpeed(_gameType));
 		_ship.setPosition(new Vector2(Assets.VIRTUAL_WIDTH / 2, Assets.VIRTUAL_HEIGHT / 2));
-	}
-
-	private void drawHero() {
-		_ship.getImage().draw(_drawer);
-	}
-
-	private void drawEnemies() {
-		if (_gameStrategy.getEnemies() != null)
-		{
-			for (Enemy enemy : _gameStrategy.getEnemies())
-			{
-				enemy.getImage().draw(_drawer);
-			}
-		}
-		if (_gameStrategy.getDeadEnemies() != null)
-		{
-			for (Enemy enemy : _gameStrategy.getDeadEnemies())
-			{
-				enemy.getImage().draw(_drawer);
-			}
-		}
-	}
-
-	private void drawBullets() {
-		if (_gameStrategy.getBullets() != null) {
-			for (Bullet bullet : _gameStrategy.getBullets()) {
-				bullet.getView().draw(_drawer);
-			}
-		}
-	}
-
-	private void drawAnimations() {
-		if (_gameStrategy.getAnimations() != null) {
-			for (AnimatedSprite animation : _gameStrategy.getAnimations()) {
-				animation.draw(_drawer);
-			}
-		}
 	}
 
 	private void drawGameOver() {

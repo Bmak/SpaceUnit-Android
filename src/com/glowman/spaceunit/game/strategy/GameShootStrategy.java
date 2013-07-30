@@ -2,6 +2,7 @@ package com.glowman.spaceunit.game.strategy;
 
 import android.util.Log;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.Vector2;
 
 import com.badlogic.gdx.math.Vector3;
@@ -35,8 +36,19 @@ public class GameShootStrategy extends GameStrategy {
 	}
 
 	@Override
-	public ArrayList<Bullet> getBullets() {
-		return _shooter.getBullets();
+	public Sprite[] getDrawableObjects() {
+		Sprite[] basicObjects = super.getDrawableObjects();
+		int length = basicObjects.length + _shooter.getBullets().size();
+		Sprite[] result = new Sprite[length];
+		int i = 0;
+		for (i = 0; i < basicObjects.length; ++i) {
+			result[i] = basicObjects[i];
+		}
+		for (Bullet bullet : _shooter.getBullets()) {
+			result[i] = bullet.getImage();
+			++i;
+		}
+		return result;
 	}
 
 	@Override
