@@ -115,8 +115,8 @@ public class HighScoresScreen implements Screen {
 
 	@Override
 	public void hide() {
-		this.clear();
 		Gdx.input.setInputProcessor(null);
+		this.clear();
 	}
 
 	@Override

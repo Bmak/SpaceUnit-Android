@@ -13,7 +13,7 @@ import com.glowman.spaceunit.core.ScreenControl;
 public class CreditsListener extends GestureDetector {
 	
 	private Game _game;
-	public Boolean wasTouchDown;
+	public Boolean wasTouchDown = false;
 	private Vector3 _touchPoint;
 	private ArrayList<EventButton> _buttons;
 	

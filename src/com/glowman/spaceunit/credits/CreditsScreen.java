@@ -19,6 +19,7 @@ import com.glowman.spaceunit.Assets;
 import com.glowman.spaceunit.core.Button;
 import com.glowman.spaceunit.core.FPSViewer;
 import com.glowman.spaceunit.core.ScreenControl;
+import com.glowman.spaceunit.menu.behavior.AsteroidsBehavior;
 
 public class CreditsScreen extends GestureAdapter implements Screen {
 	
@@ -43,6 +44,10 @@ public class CreditsScreen extends GestureAdapter implements Screen {
 	private float _speed;
 	
 	private CreditsListener _creditsListener;
+	private AsteroidsBehavior _asterBehavior;
+	private AsteroidsBehavior _meteorBehavior;
+	
+	private Boolean _isPan = false;
 	
 	
 	public CreditsScreen(Game game, OrthographicCamera camera)
@@ -72,6 +77,9 @@ public class CreditsScreen extends GestureAdapter implements Screen {
 		
 		_creditsListener = new CreditsListener(_game, this);
 		_creditsListener.addButton(_backBtn, ScreenControl.CREDITS);
+		
+		_asterBehavior = new AsteroidsBehavior(10, _drawer);
+		_meteorBehavior = new AsteroidsBehavior(10, _drawer);
 	}
 	
 	@Override
@@ -79,9 +87,13 @@ public class CreditsScreen extends GestureAdapter implements Screen {
 		this.clear();
 		_drawer.begin();
 		
+		_asterBehavior.tick(delta);
+		
 		_title.draw(_drawer, TITLE_TEXT, _posTitle.x, _posTitle.y);
 		_credits.draw(_drawer);
 		updatePositions(delta);
+		
+		_meteorBehavior.tick(delta);
 		
 		_backBtn.draw(_drawer);
 		FPSViewer.draw(_drawer);
@@ -89,6 +101,8 @@ public class CreditsScreen extends GestureAdapter implements Screen {
 	}
 	
 	private void updatePositions(float delta) {
+		if (_isPan) { return; }
+		
 		if (_speed > DEF_SPEED) {
 			_speed -= DEF_SPEED;
 		} else if (_speed < DEF_SPEED) {
@@ -108,11 +122,29 @@ public class CreditsScreen extends GestureAdapter implements Screen {
 		if (_credits.getY() > FINAL_POS_Y && _speed > 0) { 
 			//_credits.setY(FINAL_POS_Y);
 			_speed = 0;
+			_isPan = false;
 			return true;
 		}
 		if (_credits.getY() < START_POS_Y  && _speed < 0) { 
 			//_credits.setY(START_POS_Y);
 			_speed = 0;
+			_isPan = false;
+			return true;
+		}
+		return false;
+	}
+	
+	private boolean checkOut() {
+		if (_credits.getY() > FINAL_POS_Y) { 
+			//_credits.setY(FINAL_POS_Y);
+			_speed = 0;
+			_isPan = false;
+			return true;
+		}
+		if (_credits.getY() < START_POS_Y) { 
+			//_credits.setY(START_POS_Y);
+			_speed = 0;
+			_isPan = false;
 			return true;
 		}
 		return false;
@@ -120,21 +152,22 @@ public class CreditsScreen extends GestureAdapter implements Screen {
 	
 	@Override
 	public boolean fling(float velocityX, float velocityY, int button) {
+		if (checkOutOfBounds()) { return super.fling(velocityX, velocityY, button); }
 		
 		Log.d("CREDITS", "FLIP FLIP FLIP " + velocityY/Assets.pixelDensity);
-		_speed += -velocityY/Assets.pixelDensity;
-		
+		_speed += -Math.min(700, velocityY/(2*Assets.pixelDensity));
+		_isPan = false;
 		return super.fling(velocityX, velocityY, button);
 	}
 	
 	@Override
 	public boolean pan(float x, float y, float deltaX, float deltaY) {
+		if (checkOut()) { return super.pan(x, y, deltaX, deltaY); }
 		
 		Log.d("CREDITS", "pan pan pan " + deltaY);
-		
-		if (checkOutOfBounds()) { return super.pan(x, y, deltaX, deltaY); }
 		//TODO dodelat'!!!
-		_speed = 0;
+		
+		_isPan = true;
 		_posTitle.y += -deltaY/Assets.pixelDensity;
 		_posY += -deltaY/Assets.pixelDensity;
 		_credits.setY(_posY);
@@ -150,6 +183,7 @@ public class CreditsScreen extends GestureAdapter implements Screen {
 		Gdx.input.setInputProcessor(_creditsListener);
 		
 		_speed = DEF_SPEED;
+		_isPan = false;
 		
 		_credits.setX((Assets.VIRTUAL_WIDTH - _credits.getWidth())/2);
 		_credits.setY(START_POS_Y);
