@@ -39,6 +39,7 @@ public class HighScoresScreen implements Screen {
 	
 	public HighScoresScreen(Game game, OrthographicCamera camera)
 	{
+
 		_game = game;
 		_camera = camera;
 		_drawer = new SpriteBatch();
@@ -48,7 +49,7 @@ public class HighScoresScreen implements Screen {
 		_highscores.setSize(Assets.VIRTUAL_WIDTH, Assets.VIRTUAL_HEIGHT);
 		
 		_backBtn = new Button(Assets.getBackBtnRegin(1), Assets.getBackBtnRegin(2));
-		_backBtn.setSize(Assets.backBtnWidth/1.5f, Assets.backBtnHeight/1.5f);
+		_backBtn.setSize(Assets.backBtnWidth, Assets.backBtnHeight);
 		_backBtn.setX(_backBtn.getWidth()/5);
 		_backBtn.setY(_backBtn.getHeight()/5);
 		

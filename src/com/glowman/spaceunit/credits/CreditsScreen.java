@@ -40,7 +40,7 @@ public class CreditsScreen extends GestureAdapter implements Screen {
 	private Vector2 _posTitle;
 	private float _posY;
 	
-	private final int DEF_SPEED = 20;
+	private final int DEF_SPEED = 50;
 	private float _speed;
 	
 	private CreditsListener _creditsListener;
@@ -68,7 +68,7 @@ public class CreditsScreen extends GestureAdapter implements Screen {
 		_credits.setSize(Assets.creditsWidth, Assets.credtisHeight);
 		
 		_backBtn = new Button(Assets.getBackBtnRegin(1), Assets.getBackBtnRegin(2));
-		_backBtn.setSize(Assets.backBtnWidth/1.5f, Assets.backBtnHeight/1.5f);
+		_backBtn.setSize(Assets.backBtnWidth, Assets.backBtnHeight);
 		_backBtn.setX(_backBtn.getWidth()/5);
 		_backBtn.setY(_backBtn.getHeight()/5);
 		
@@ -154,7 +154,8 @@ public class CreditsScreen extends GestureAdapter implements Screen {
 	public boolean fling(float velocityX, float velocityY, int button) {
 		if (checkOutOfBounds()) { return super.fling(velocityX, velocityY, button); }
 		
-		Log.d("CREDITS", "FLIP FLIP FLIP " + velocityY/Assets.pixelDensity);
+		
+		Log.d("CREDITS", "FLIP FLIP FLIP " + velocityX/Assets.pixelDensity + " " + velocityY/Assets.pixelDensity);
 		_speed += -Math.min(700, velocityY/(2*Assets.pixelDensity));
 		_isPan = false;
 		return super.fling(velocityX, velocityY, button);
@@ -164,8 +165,9 @@ public class CreditsScreen extends GestureAdapter implements Screen {
 	public boolean pan(float x, float y, float deltaX, float deltaY) {
 		if (checkOut()) { return super.pan(x, y, deltaX, deltaY); }
 		
-		Log.d("CREDITS", "pan pan pan " + deltaY);
+		Log.d("CREDITS", "pan pan pan " + deltaX + " " + deltaY);
 		//TODO dodelat'!!!
+		
 		
 		_isPan = true;
 		_posTitle.y += -deltaY/Assets.pixelDensity;

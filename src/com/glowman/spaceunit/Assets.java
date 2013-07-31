@@ -9,8 +9,8 @@ import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 public class Assets {
-	public static final float VIRTUAL_WIDTH = 800.0f;
-	public static final float VIRTUAL_HEIGHT = 480.0f;
+	public static final float VIRTUAL_WIDTH = 960.0f;
+	public static final float VIRTUAL_HEIGHT = 540.0f;
 	
 	private static TextureAtlas atlas;
 
@@ -63,8 +63,8 @@ public class Assets {
 	
 	private static void loadTextures () {
 		bkg = atlas.findRegion("bkg/bkg");
-		credits = atlas.findRegion("credits");
-		highscores = atlas.findRegion("highscores");
+		credits = atlas.findRegion("screens/credits");
+		highscores = atlas.findRegion("screens/highscores");
 
 		ship = atlas.findRegion("unit/unit");
 		bullet = atlas.findRegion("unit/bullet");
@@ -115,6 +115,7 @@ public class Assets {
 		float virtualDiag = (float)Math.hypot(VIRTUAL_WIDTH, VIRTUAL_HEIGHT);
 		float density = physDiag / virtualDiag;
 		Log.d("hz", "density: " + density);
+		
 		
 		//density = 2.5f;
 		

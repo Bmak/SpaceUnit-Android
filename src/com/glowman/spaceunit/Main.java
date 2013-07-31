@@ -21,7 +21,7 @@ public class Main extends Game {
 		Assets.load();
 		FPSViewer.init(true);
 		
-		_camera = CameraHelper.createCamera2(ViewportMode.STRETCH_TO_SCREEN, Assets.VIRTUAL_WIDTH, Assets.VIRTUAL_HEIGHT, Assets.pixelDensity);
+		_camera = CameraHelper.createCamera2(ViewportMode.STRETCH_TO_ASPECT, Assets.VIRTUAL_WIDTH, Assets.VIRTUAL_HEIGHT,1/*, Assets.pixelDensity*/);
 		CoordinatesTranslator.init(_camera);
 		
 		ScreenControl.init(this, _camera);

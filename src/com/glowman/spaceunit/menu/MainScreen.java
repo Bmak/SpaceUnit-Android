@@ -24,6 +24,7 @@ public class MainScreen implements Screen {
 	private Game _game;
 
 	private SpriteBatch _spriteBatch;
+	private SpriteBatch _bkgBatch;
 	
 	private OrthographicCamera _camera;
 	private Button _playBtnRun;
@@ -42,6 +43,8 @@ public class MainScreen implements Screen {
 		_camera = camera;
 		_spriteBatch = new SpriteBatch();
 		_spriteBatch.setProjectionMatrix(_camera.combined);
+		
+		_bkgBatch = new SpriteBatch();
 		
 		createItems();
 	}
@@ -68,7 +71,7 @@ public class MainScreen implements Screen {
 		_listener.addButton(_highscoresBtn, ScreenControl.HIGHSCORES);
 		_listener.addButton(_creditsBtn, ScreenControl.CREDITS);
 		
-		_bkg.setSize(Assets.VIRTUAL_WIDTH, Assets.VIRTUAL_HEIGHT);
+		_bkg.setSize(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
 		
 		_playBtnRun.setSize(Assets.playBtnWidth, Assets.playBtnHeight);
 		//_playBtnRun.setScale(0.9f);
@@ -112,9 +115,14 @@ public class MainScreen implements Screen {
 	public void render(float deltaTime) {
 		this.clear();
 		
+		_bkgBatch.begin();
+		_bkg.draw(_bkgBatch);
+		_bkgBatch.end();
+		
+		
 		_spriteBatch.begin();
 		
-		_bkg.draw(_spriteBatch);
+		
 		_behavior.tick(deltaTime);
 		_playBtnRun.draw(_spriteBatch);
 		_playBtnShoot.draw(_spriteBatch);
