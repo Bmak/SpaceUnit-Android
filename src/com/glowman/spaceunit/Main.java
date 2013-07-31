@@ -12,8 +12,6 @@ import com.glowman.spaceunit.core.ScreenControl;
 
 public class Main extends Game {
 	
-	//public static FPSLogger FPS;
-	
 	private OrthographicCamera _camera;
 	
 	@Override
@@ -27,14 +25,11 @@ public class Main extends Game {
 		ScreenControl.init(this, _camera);
 		
 		setScreen(ScreenControl.getScreen(ScreenControl.MAIN));
-		
-		//FPS = new FPSLogger();
 	}
 	
 	@Override
 	public void render() {
 		super.render();
-		//FPS.log();
 	}
 	
 	@Override

@@ -10,4 +10,5 @@ public class EnemyBehaviourNameENUM {
 	public static final String SHOOT = "shoot";
 	public static final String ALIEN = "alien";
 	public static final String ALARM = "alarm";
+	public static final String CRAZY_MINE = "crazy_mine";
 }

@@ -63,10 +63,11 @@ public class EnemyFactory {
 		result = new ActiveEnemy(EnemyTypeENUM.MINE, passiveImage, activeImage, false, true);
 
 		AEnemyBehaviour[] behavioursExecute = new AEnemyBehaviour[2];
-		behavioursExecute[0] = new EnemyFollowBehaviour(result, _heroShip);
+		//behavioursExecute[0] = new EnemyFollowBehaviour(result, _heroShip);
+		behavioursExecute[0] = new EnemyCrazyMineBehaviour(result);
 		behavioursExecute[1] = new EnemyActivateBehaviour(result);
 
-		BehaviourOptions options = new AlarmBehaviourOptions(100, behavioursExecute);
+		BehaviourOptions options = new AlarmBehaviourOptions(result.getWidth() * 4, behavioursExecute);
 		result.addBehaviour(new EnemyAlarmBehaviour(result, _heroShip, options));
 		return result;
 	}

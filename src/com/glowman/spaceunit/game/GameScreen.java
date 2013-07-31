@@ -1,5 +1,6 @@
 package com.glowman.spaceunit.game;
 
+import java.util.ArrayList;
 import java.util.Random;
 
 import android.util.Log;
@@ -75,7 +76,7 @@ public class GameScreen implements Screen {
 
 		_bkg.draw(_drawer, 0.3f);
 
-		Sprite[] objects = _gameStrategy.getDrawableObjects();
+		ArrayList<Sprite> objects = _gameStrategy.getDrawableObjects();
 		for (Sprite object : objects) {
 			object.draw(_drawer);
 		}

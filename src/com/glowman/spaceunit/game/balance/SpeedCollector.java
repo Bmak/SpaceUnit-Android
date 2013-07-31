@@ -9,7 +9,7 @@ import com.glowman.spaceunit.game.mapObject.enemy.EnemyTypeENUM;
 public class SpeedCollector {
 
 	public static float getHeroSpeed(int gameType) {
-		return 2.01f;
+		return 3.01f;
 	}
 
 	public static float getEnemySpeed(String enemyType, int gameType) {

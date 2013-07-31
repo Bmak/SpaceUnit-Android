@@ -3,6 +3,8 @@ package com.glowman.spaceunit.game.strategy;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.glowman.spaceunit.core.TouchEvent;
 
+import java.util.ArrayList;
+
 /**
  *
  */
@@ -16,7 +18,7 @@ public interface IGameStrategy {
 
 	void tick(float delta);
 	GameStatus getGameStatus();
-	Sprite[] getDrawableObjects();
+	ArrayList<Sprite> getDrawableObjects();
 
 	void touchUp(TouchEvent touch);
 	void touchDown(TouchEvent touch);

@@ -14,23 +14,29 @@ public class MovingSpaceObject extends SpaceObject {
 
 	protected float _vX;
 	protected float _vY;
+	protected float _frozenVX;
+	protected float _frozenVY;
 	protected float _rotationSpeed;
+
+	protected boolean _paused;
 
 	public MovingSpaceObject(Sprite image, boolean randomScale, boolean teleportOnBorder) {
 		super(image, randomScale);
 		_teleportOnBorder = teleportOnBorder;
 		_generalSpeed = 0;
 		_rotationSpeed = 0;
-		_vX = 0;
-		_vY = 0;
+		this.setVelocity(0, 0);
+		_paused = false;
 	}
-	
+
 	public MovingSpaceObject(Sprite image) {
 		this(image, false, false);
 	}
 
 	public void setGeneralSpeed(float value) { _generalSpeed = value / Assets.pixelDensity; }
 	public void setRotationSpeed(float value) { _rotationSpeed = value / Assets.pixelDensity; }
+
+	public float getRotationSpeed() { return _generalSpeed * Assets.pixelDensity; }
 
 	public void moveTo(float targetX, float targetY)
 	{
@@ -43,18 +49,24 @@ public class MovingSpaceObject extends SpaceObject {
 			vx = (dx / h) * _generalSpeed;
 			vy = (dy / h) * _generalSpeed;
 		}
-		_vX = vx;
-		_vY = vy;
+		this.setVelocity(vx, vy);
 	}
 
-	public void stop()
+	public void stopMoving()
 	{
 		_vX = 0;
 		_vY = 0;
 	}
 
+	public void resumeMoving() {
+		_vX = _frozenVX;
+		_vY = _frozenVY;
+	}
+
+	@Override
 	public void tick(float delta) {
-		if (_vX == 0 && _vY == 0) { return; }
+		super.tick(delta);
+		if (_paused) { return; }
 
 		_position.x += _vX;
 		_position.y += _vY;
@@ -101,6 +113,13 @@ public class MovingSpaceObject extends SpaceObject {
 	protected void setImage(Sprite image) {
 		super.setImage(image);
 		image.setRotation(_rotation);
+	}
+
+	private void setVelocity(float vx, float vy) {
+		_vX = vx;
+		_vY = vy;
+		_frozenVX = vx;
+		_frozenVY = vy;
 	}
 
 	private void checkBorderTeleport()

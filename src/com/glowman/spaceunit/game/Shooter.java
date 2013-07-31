@@ -47,6 +47,7 @@ public class Shooter implements IShooter {
 		bullet.moveTo(to.x, to.y);
 		bullet.rotateTo(to.x, to.y);
 		_bullets.add(bullet);
+		Assets.shotSound.play();
 	}
 
 	@Override

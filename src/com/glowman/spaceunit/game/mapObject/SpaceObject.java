@@ -3,6 +3,9 @@ package com.glowman.spaceunit.game.mapObject;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.Vector2;
 import com.glowman.spaceunit.Assets;
+import com.glowman.spaceunit.core.AnimatedSprite;
+import com.glowman.spaceunit.game.animation.BlowAnimation;
+import com.glowman.spaceunit.game.animation.IBlowMaker;
 
 /**
  *
@@ -19,6 +22,8 @@ public abstract class SpaceObject {
 	protected float _width;
 	protected float _height;
 
+	protected boolean _isDead;
+
 	public SpaceObject(Sprite image, boolean randomScale) {
 		_scale = (float) (randomScale ? (Math.random() * (scaleMax - scaleMin)) + scaleMin : scaleMax);
 		_image = image;
@@ -26,7 +31,14 @@ public abstract class SpaceObject {
 
 		_position = new Vector2(0,0);
 		_rotation = 0;
+		_isDead = false;
 	}
+
+	public void tick(float delta) {
+	}
+
+	public void setDead() { _isDead = true; }
+	public boolean isDead() { return _isDead; }
 	
 	public float getWidth() { return _width * _scale; }
 	public float getHeight() { return _height * _scale; }
@@ -73,6 +85,10 @@ public abstract class SpaceObject {
 		result.x += _image.getOriginX();
 		result.y += _image.getOriginY();
 		return result;
+	}
+
+	public void explode(IBlowMaker blowMaker) {
+		blowMaker.makeBlow(this.getCenterPosition().x, this.getCenterPosition().y, this.getWidth());
 	}
 
 	protected void setImage(Sprite image)

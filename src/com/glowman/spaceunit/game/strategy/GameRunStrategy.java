@@ -47,20 +47,19 @@ public class GameRunStrategy extends GameStrategy {
 
 	@Override
 	public void touchDown(TouchEvent touch) {
-		_heroShip.setTargetPosition(new Vector2(touch.x, touch.y));
-		_heroShip.setMoving(true);
+		_heroShip.moveTo(touch.x, touch.y);
 	}
 
 	@Override
 	public void touchUp(TouchEvent touch) {
 
-		_heroShip.setMoving(false);
+		_heroShip.stopMoving();
 	}
 
 	@Override
 	public void touchMove(TouchEvent touch) {
 
-		_heroShip.setTargetPosition(new Vector2(touch.x, touch.y));
+		_heroShip.moveTo(touch.x, touch.y);
 	}
 
 	@Override

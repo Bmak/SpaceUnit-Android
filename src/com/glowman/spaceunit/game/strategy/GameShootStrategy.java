@@ -43,19 +43,11 @@ public class GameShootStrategy extends GameStrategy {
 	}
 
 	@Override
-	public Sprite[] getDrawableObjects() {
-		Sprite[] basicObjects = super.getDrawableObjects();
-		int bulletSize = _shooter.getBullets() == null ? 0 : _shooter.getBullets().size();
-		int length = basicObjects.length + bulletSize;
-		Sprite[] result = new Sprite[length];
-		int i = 0;
-		for (i = 0; i < basicObjects.length; ++i) {
-			result[i] = basicObjects[i];
-		}
+	public ArrayList<Sprite> getDrawableObjects() {
+		ArrayList<Sprite> result = super.getDrawableObjects();
 		if (_shooter.getBullets() != null) {
 			for (Bullet bullet : _shooter.getBullets()) {
-				result[i] = bullet.getImage();
-				++i;
+				result.add(bullet.getImage());
 			}
 		}
 		return result;
@@ -92,7 +84,9 @@ public class GameShootStrategy extends GameStrategy {
 		}
 		_heroShip.setShooting(false);
 		_shootingTouch = -1;
-		_heroShip.setMoving(_movingTouch != -1);
+		if (_movingTouch == -1) {
+			_heroShip.stopMoving();
+		}
 	}
 
 	@Override
@@ -106,8 +100,7 @@ public class GameShootStrategy extends GameStrategy {
 		else
 		{
 			_movingTouch = touch.pointer;
-			_heroShip.setTargetPosition(new Vector2(touch.x, touch.y));
-			_heroShip.setMoving(true);
+			_heroShip.moveTo(touch.x, touch.y);
 		}
 
 	}
@@ -116,7 +109,7 @@ public class GameShootStrategy extends GameStrategy {
 		if (_movingTouch == touch.pointer)
 		{
 
-			_heroShip.setTargetPosition(new Vector2(touch.x, touch.y));
+			_heroShip.moveTo(touch.x, touch.y);
 		}
 
 	}
@@ -140,9 +133,8 @@ public class GameShootStrategy extends GameStrategy {
 		int touchY = Gdx.input.getY(_shootingTouch);
 
 		Vector3 targetPoint =  CoordinatesTranslator.toVirtualView(touchX, touchY);
-		Vector2 bulletPosition = _heroShip.getPosition();
 
-		_shooter.shoot(bulletPosition, new Vector2(targetPoint.x, targetPoint.y));
+		_shooter.shoot(_heroShip, new Vector2(targetPoint.x, targetPoint.y));
 	}
 
 	private void checkBulletsForRemove()

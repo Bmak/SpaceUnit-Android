@@ -15,7 +15,6 @@ public class Ship extends MovingSpaceObject {
 	private boolean _readyForShoot;
 	private Vector2 _targetPosition;
 	private Vector2 _targetForShooting;
-	private boolean _moving;
 	private boolean _shooting;
 
 	public Ship(Sprite image, int reloadTime)
@@ -26,7 +25,6 @@ public class Ship extends MovingSpaceObject {
 		_readyForShoot = false;
 		_targetForShooting = new Vector2(0, 0);
 		_targetPosition = new Vector2(0, 0);
-		_moving = false;
 		_shooting = false;
 	}
 
@@ -56,29 +54,16 @@ public class Ship extends MovingSpaceObject {
 		super.rotateTo(x, y);
 	}
 
-	public boolean isMoving() { return _moving; }
-	public void setMoving(boolean value) {
-		if (_moving != value) {
-			_moving = value;
-			if (!_moving) { super.stop(); }
-			if (_moving) { this.moveToTargetPoint(); }
-		}
-	}
 	public boolean isShooting() { return _shooting; }
 	public void setShooting(boolean value) { _shooting = value; }
 
 	public boolean isReadyForShoot() { return _readyForShoot; }
 
-	public Vector2 getTargetPosition() { return _targetPosition; }
-	public void setTargetPosition(Vector2 value) {
-		_targetPosition = value;
-		if (_moving) { this.moveToTargetPoint(); }
-	}
 	public void setTargetForShooting(Vector2 value) { _targetForShooting = value; }
 
 
 	private void moveToTargetPoint() {
-		this.moveTo(_targetPosition.x, _targetPosition.y);
+
 	}
 
 }

@@ -3,6 +3,10 @@ package com.glowman.spaceunit;
 import android.util.Log;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Sound;
+import com.badlogic.gdx.backends.openal.Mp3;
+import com.badlogic.gdx.backends.openal.OpenALAudio;
+import com.badlogic.gdx.backends.openal.Wav;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
@@ -48,6 +52,9 @@ public class Assets {
 
 	public static float pixelDensity;
 
+	//Sounds
+	public static Sound shotSound;
+
 
 	public static TextureRegion[] soImages;
 
@@ -86,6 +93,8 @@ public class Assets {
 		soImages = new TextureRegion[2];
 		soImages[0] = asteroid;
 		soImages[1] = meteor;
+
+		shotSound = Gdx.audio.newSound(Gdx.files.internal("sounds/shot.wav"));
 	}
 	
 	public static void dispose() {

@@ -3,8 +3,8 @@ package com.glowman.spaceunit.game.strategy;
 
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.Vector2;
+import com.glowman.spaceunit.game.animation.BlowController;
 import com.glowman.spaceunit.game.balance.RespawnFrequencyCollector;
-import com.glowman.spaceunit.game.animation.BlowAnimation;
 import com.glowman.spaceunit.core.AnimatedSprite;
 import com.glowman.spaceunit.core.TouchEvent;
 import com.glowman.spaceunit.game.mapObject.SpaceObject;
@@ -21,8 +21,8 @@ public abstract class GameStrategy implements IGameStrategy {
 	public static final int SHOOT_GAME = 0;
 	public static final int RUN_GAME = 1;
 
+	protected BlowController _blowController;
 	protected ArrayList<Enemy> _enemies;
-	protected ArrayList<AnimatedSprite> _animations;
 	protected Ship _heroShip;
 
 	protected String[] _availableEnemyTypes;
@@ -36,7 +36,7 @@ public abstract class GameStrategy implements IGameStrategy {
 	{
 		_heroShip = ship;
 		_enemies = new ArrayList<Enemy>();
-		_animations = new ArrayList<AnimatedSprite>();
+		_blowController = new BlowController();
 	}
 
 	@Override
@@ -68,43 +68,25 @@ public abstract class GameStrategy implements IGameStrategy {
 	}
 
 	@Override
-	public Sprite[] getDrawableObjects() {
-		int length = _enemies.size() + _animations.size() + 1;
-		Sprite[] result = new Sprite[length];
-		int i = 0;
+	public ArrayList<Sprite> getDrawableObjects() {
+		ArrayList<Sprite> result = new ArrayList<Sprite>();
 		for (Enemy enemy : _enemies) {
-			result[i] = enemy.getImage();
-			++i;
+			if (!enemy.isDead()) result.add(enemy.getImage());
 		}
-		for (AnimatedSprite animation : _animations) {
-			result[i] = animation;
-			++i;
+
+		if (_blowController.getBlows() != null) {
+			for (AnimatedSprite animation : _blowController.getBlows()) {
+				result.add(animation);
+			}
 		}
-		result[i] = _heroShip.getImage();
+
+		if (!_heroShip.isDead()) result.add(_heroShip.getImage());
 		return result;
 	}
 
 
 	private void tickAnimations(float delta) {
-		if (_animations != null)
-		{
-			ArrayList<AnimatedSprite> animationsForRemove = new ArrayList<AnimatedSprite>();
-			for (AnimatedSprite animation : _animations)
-			{
-				if (animation.isAnimationFinished())
-				{
-					animationsForRemove.add(animation);
-				} else
-				{
-					animation.tick(delta);
-				}
-			}
-			for (AnimatedSprite animation : animationsForRemove)
-			{
-				_animations.remove(animation);
-			}
-			animationsForRemove.clear();
-		}
+		_blowController.tick(delta);
 	}
 
 	private void tickEnemies(float delta) {
@@ -143,6 +125,8 @@ public abstract class GameStrategy implements IGameStrategy {
 	}
 
 	protected boolean checkObjectsHit(SpaceObject object1, SpaceObject object2) {
+		if (object1.isDead() || object2.isDead()) { return false; }
+
 		float distance;
 		float radius1, radius2;
 		Vector2 position1, position2;
@@ -157,22 +141,17 @@ public abstract class GameStrategy implements IGameStrategy {
 	}
 
 	protected void explodeEnemy(Enemy enemy) {
-		enemy.stop();
 		enemy.setGeneralSpeed(0);
 		_enemies.remove(enemy);
-		this.blow(enemy.getCenterPosition().x, enemy.getCenterPosition().y, enemy.getWidth());
+		enemy.explode(_blowController);
+		enemy.setDead();
 	}
 
 	protected void explodeHero() {
-		_heroShip.stop();
+		_heroShip.stopMoving();
 		_heroShip.setGeneralSpeed(0);
-		this.blow(_heroShip.getCenterPosition().x, _heroShip.getCenterPosition().y, _heroShip.getWidth());
-		_heroShip.setScale(.1f);
-	}
-
-	private void blow(float blowX, float blowY, float radius) {
-		AnimatedSprite animation = new BlowAnimation(blowX, blowY, radius);
-		_animations.add(animation);
+		_heroShip.explode(_blowController);
+		_heroShip.setDead();
 	}
 
 	@Override
