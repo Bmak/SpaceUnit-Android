@@ -4,10 +4,8 @@ import android.util.Log;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Sound;
-import com.badlogic.gdx.backends.openal.Mp3;
-import com.badlogic.gdx.backends.openal.OpenALAudio;
-import com.badlogic.gdx.backends.openal.Wav;
 import com.badlogic.gdx.utils.Array;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -17,7 +15,7 @@ public class Assets {
 	public static final float VIRTUAL_HEIGHT = 540.0f;
 	
 	private static TextureAtlas atlas;
-
+	
 	public static TextureRegion ship;
 	public static TextureRegion bullet;
 

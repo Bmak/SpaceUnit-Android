@@ -17,6 +17,7 @@ import com.glowman.spaceunit.Settings;
 import com.glowman.spaceunit.core.Button;
 import com.glowman.spaceunit.core.FPSViewer;
 import com.glowman.spaceunit.core.ScreenControl;
+import com.glowman.spaceunit.data.GooglePlayData;
 
 public class HighScoresScreen implements Screen {
 
@@ -112,8 +113,13 @@ public class HighScoresScreen implements Screen {
 		_posKillers.y = (Assets.VIRTUAL_HEIGHT - killBounds.height*0.8f);
 		
 		Gdx.input.setInputProcessor(_listener);
+		
+		if (GooglePlayData.gameHelper.isSignedIn()) {
+			GooglePlayData.game.startActivityForResult(
+					GooglePlayData.gamesClient.getAllLeaderboardsIntent(), GooglePlayData.game.RC_UNUSED);
+        }
 	}
-
+	
 	@Override
 	public void hide() {
 		Gdx.input.setInputProcessor(null);

@@ -28,7 +28,8 @@ public class GameRunStrategy extends GameStrategy {
 
 	@Override
 	public Score getScore() {
-		return new Score(Score.SECONDS, _score);
+		//TODO в отображение выводить в таком формате 32:53:12 в таком же виде идет запись в топы
+		return new Score(Score.SECONDS, _score*1000f);
 	}
 
 	@Override

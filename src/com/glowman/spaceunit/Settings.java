@@ -30,9 +30,9 @@ public class Settings {
 		boolean isExtAvailable = Gdx.files.isExternalStorageAvailable();
 		boolean isLocAvailable = Gdx.files.isLocalStorageAvailable();
 		
-		Log.d("EXTERNAL", "storage path: " + isExtAvailable + Gdx.files.getExternalStoragePath());
-		Log.d("LOCAL", "storage path: " + isLocAvailable + Gdx.files.getLocalStoragePath());
-		Log.d("INPUT", "storage path: " + Gdx.files.getLocalStoragePath());
+		//Log.d("EXTERNAL", "storage path: " + isExtAvailable + Gdx.files.getExternalStoragePath());
+		//Log.d("LOCAL", "storage path: " + isLocAvailable + Gdx.files.getLocalStoragePath());
+		//Log.d("INPUT", "storage path: " + Gdx.files.getLocalStoragePath());
 		
 		
 		FileHandle handle = Gdx.files.external(file);

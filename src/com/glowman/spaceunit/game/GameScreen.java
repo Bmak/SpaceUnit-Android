@@ -16,8 +16,10 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.glowman.spaceunit.Assets;
 import com.glowman.spaceunit.MainAndroid;
+import com.glowman.spaceunit.R;
 import com.glowman.spaceunit.core.AnimatedSprite;
 import com.glowman.spaceunit.core.FPSViewer;
+import com.glowman.spaceunit.data.GooglePlayData;
 import com.glowman.spaceunit.game.balance.SpeedCollector;
 import com.glowman.spaceunit.game.mapObject.Ship;
 import com.glowman.spaceunit.game.strategy.GameStatus;
@@ -125,6 +127,10 @@ public class GameScreen implements Screen {
 			_font.setScale(1f / Assets.pixelDensity);
 		}
 		Score score = _gameStrategy.getScore();
+		if (GooglePlayData.gameHelper.isSignedIn()) {
+			GooglePlayData.gamesClient.submitScore(
+					GooglePlayData.getLeaderboardID(_gameType), (long)score.score);
+		}
 		BitmapFont.TextBounds bounds = _font.getBounds("Game \n Over. " + score.type + " : " + score.score);
 		_font.draw(_drawer, "Game Over. " + score.type + " : " + score.score,
 					Assets.VIRTUAL_WIDTH/4f, Assets.VIRTUAL_HEIGHT/2f);
