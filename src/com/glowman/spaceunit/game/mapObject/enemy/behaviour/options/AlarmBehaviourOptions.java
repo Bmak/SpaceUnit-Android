@@ -1,7 +1,7 @@
 package com.glowman.spaceunit.game.mapObject.enemy.behaviour.options;
 
-import com.glowman.spaceunit.game.mapObject.SpaceObject;
-import com.glowman.spaceunit.game.mapObject.enemy.behaviour.AEnemyBehaviour;
+import com.glowman.spaceunit.game.mapObject.enemy.behaviour.core.AEnemyBehaviour;
+import com.glowman.spaceunit.game.mapObject.enemy.behaviour.core.BehaviourOptions;
 
 /**
  *

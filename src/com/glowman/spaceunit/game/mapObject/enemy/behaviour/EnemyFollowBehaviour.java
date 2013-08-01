@@ -9,7 +9,7 @@ import com.glowman.spaceunit.game.mapObject.enemy.Enemy;
 public class EnemyFollowBehaviour extends AEnemyBehaviourWithTarget {
 
 	public EnemyFollowBehaviour(Enemy enemy, SpaceObject target) {
-		super(EnemyBehaviourNameENUM.FOLLOW, enemy, target);
+		super(EBehaviourENUM.FOLLOW, enemy, target);
 	}
 
 	@Override

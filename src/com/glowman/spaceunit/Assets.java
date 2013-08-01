@@ -4,8 +4,8 @@ import android.util.Log;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Sound;
-import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -18,6 +18,8 @@ public class Assets {
 	
 	public static TextureRegion ship;
 	public static TextureRegion bullet;
+
+	public static Texture blueCircle;
 
 	public static TextureRegion bkg;
 	public static TextureRegion credits;
@@ -67,6 +69,9 @@ public class Assets {
 	}
 	
 	private static void loadTextures () {
+		blueCircle = new Texture(Gdx.files.internal("textures/circle.png"));
+
+
 		bkg = atlas.findRegion("bkg/bkg");
 		credits = atlas.findRegion("screens/credits");
 		highscores = atlas.findRegion("screens/highscores");

@@ -4,7 +4,7 @@ import com.glowman.spaceunit.game.mapObject.SpaceObject;
 import com.glowman.spaceunit.game.mapObject.enemy.ActiveEnemy;
 import com.glowman.spaceunit.game.mapObject.enemy.Enemy;
 import com.glowman.spaceunit.game.mapObject.enemy.EnemyTypeENUM;
-import com.glowman.spaceunit.game.mapObject.enemy.behaviour.options.BehaviourOptions;
+import com.glowman.spaceunit.game.mapObject.enemy.behaviour.core.BehaviourOptions;
 
 /**
  *
@@ -12,7 +12,7 @@ import com.glowman.spaceunit.game.mapObject.enemy.behaviour.options.BehaviourOpt
 public class EnemyAlienBehaviour extends EnemyShootBehaviour {
 
 	public EnemyAlienBehaviour(Enemy enemy, SpaceObject target, BehaviourOptions options) {
-		super(EnemyBehaviourNameENUM.ALIEN, enemy, target, options);
+		super(EBehaviourENUM.ALIEN, enemy, target, options);
 
 		if (enemy.getEnemyType() != EnemyTypeENUM.ALIEN) {
 			throw new Error("enemy need to be ALIEN");

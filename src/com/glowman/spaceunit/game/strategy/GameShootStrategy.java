@@ -1,6 +1,7 @@
 package com.glowman.spaceunit.game.strategy;
 
 import android.util.Log;
+import android.widget.Space;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.Vector2;
@@ -14,6 +15,8 @@ import com.glowman.spaceunit.game.Shooter;
 import com.glowman.spaceunit.game.balance.EnemySetCollector;
 import com.glowman.spaceunit.game.balance.SpeedCollector;
 import com.glowman.spaceunit.game.mapObject.Bullet;
+import com.glowman.spaceunit.game.mapObject.SpaceObject;
+import com.glowman.spaceunit.game.mapObject.enemy.BehaviourOptionsData;
 import com.glowman.spaceunit.game.mapObject.enemy.Enemy;
 import com.glowman.spaceunit.game.mapObject.Ship;
 import com.glowman.spaceunit.game.mapObject.enemy.EnemyFactory;
@@ -33,13 +36,23 @@ public class GameShootStrategy extends GameStrategy {
 		super(ship);
 		_score = 0;
 		_shooter = new Shooter();
-		EnemyFactory.init(GameStrategy.SHOOT_GAME, ship, _shooter);
+		BehaviourOptionsData bhOptions = new BehaviourOptionsData(_shooter, _blowController, ship, _impactController);
+		EnemyFactory.init(GameStrategy.SHOOT_GAME, ship, bhOptions);
 		_availableEnemyTypes = EnemySetCollector.getEnemySet(GameStrategy.SHOOT_GAME);
 	}
 
 	@Override
 	public Score getScore() {
 		return new Score(Score.POINTS, _score);
+	}
+
+	@Override
+	protected ArrayList<SpaceObject> getAllSpaceObjects() {
+		ArrayList<SpaceObject> result = super.getAllSpaceObjects();
+		if (_shooter.getBullets() != null) {
+			result.addAll(_shooter.getBullets());
+		}
+		return result;
 	}
 
 	@Override

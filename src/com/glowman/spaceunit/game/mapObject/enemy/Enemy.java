@@ -3,7 +3,8 @@ package com.glowman.spaceunit.game.mapObject.enemy;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.glowman.spaceunit.game.mapObject.SpaceObject;
 import com.glowman.spaceunit.game.mapObject.MovingSpaceObject;
-import com.glowman.spaceunit.game.mapObject.enemy.behaviour.AEnemyBehaviour;
+import com.glowman.spaceunit.game.mapObject.enemy.behaviour.EBehaviourENUM;
+import com.glowman.spaceunit.game.mapObject.enemy.behaviour.core.AEnemyBehaviour;
 
 import java.util.ArrayList;
 
@@ -41,6 +42,12 @@ public class Enemy extends MovingSpaceObject {
 		}
 	}
 
+	@Override
+	public void setDead(){
+		super.setDead();
+		this.removeAllBehaviours();
+	}
+
 	/**
 	 *
 	 * @param behaviour
@@ -72,7 +79,7 @@ public class Enemy extends MovingSpaceObject {
 	 * @param behaviourName
 	 * @throws Error "behaviour " + behaviourName + " not found in behaviours"
 	 */
-	public void removeBehaviour(String behaviourName) {
+	public void removeBehaviour(EBehaviourENUM behaviourName) {
 		boolean behaviourFound = false;
 		if (_behaviours != null) {
 			for (AEnemyBehaviour behaviour : _behaviours) {
@@ -89,7 +96,7 @@ public class Enemy extends MovingSpaceObject {
 		}
 	}
 
-	public boolean hasBehaviour(String behaviourName) {
+	public boolean hasBehaviour(EBehaviourENUM behaviourName) {
 		boolean result = false;
 		for (AEnemyBehaviour behaviour : _behaviours) {
 			if (behaviour.getName() == behaviourName) {

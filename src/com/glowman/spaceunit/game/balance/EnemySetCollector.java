@@ -19,6 +19,7 @@ public class EnemySetCollector {
 			result[0] = EnemyTypeENUM.ASTEROID;
 			result[1] = EnemyTypeENUM.ALIEN;
 			result[2] = EnemyTypeENUM.MINE;
+			result[2] = EnemyTypeENUM.CRAZY_MINE;
 		}
 		else {
 			throw new Error("unknown game strategy");

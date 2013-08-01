@@ -2,7 +2,7 @@ package com.glowman.spaceunit.game.mapObject.enemy.behaviour;
 
 import com.glowman.spaceunit.game.mapObject.SpaceObject;
 import com.glowman.spaceunit.game.mapObject.enemy.Enemy;
-import com.glowman.spaceunit.game.mapObject.enemy.behaviour.options.BehaviourOptions;
+import com.glowman.spaceunit.game.mapObject.enemy.behaviour.core.BehaviourOptions;
 import com.glowman.spaceunit.game.mapObject.enemy.behaviour.options.ShootBehaviourOptions;
 
 /**
@@ -13,7 +13,7 @@ public class EnemyShootBehaviour extends AEnemyBehaviourWithTarget{
 
 	protected float _stateTime;
 
-	public EnemyShootBehaviour(String name, Enemy enemy, SpaceObject target, BehaviourOptions options) {
+	public EnemyShootBehaviour(EBehaviourENUM name, Enemy enemy, SpaceObject target, BehaviourOptions options) {
 		super(name, enemy, target);
 
 		if (!(options instanceof ShootBehaviourOptions)) {
@@ -24,7 +24,7 @@ public class EnemyShootBehaviour extends AEnemyBehaviourWithTarget{
 	}
 
 	public EnemyShootBehaviour(Enemy enemy, SpaceObject target, BehaviourOptions options) {
-		this(EnemyBehaviourNameENUM.SHOOT, enemy, target, options);
+		this(EBehaviourENUM.SHOOT, enemy, target, options);
 	}
 
 	@Override

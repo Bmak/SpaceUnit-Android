@@ -11,6 +11,8 @@ import com.glowman.spaceunit.game.mapObject.SpaceObject;
 import com.glowman.spaceunit.game.mapObject.enemy.Enemy;
 import com.glowman.spaceunit.game.mapObject.Ship;
 import com.glowman.spaceunit.game.mapObject.enemy.EnemyFactory;
+import com.glowman.spaceunit.game.mapObject.impact.ISpaceImpact;
+import com.glowman.spaceunit.game.mapObject.impact.ImpactController;
 
 import java.util.ArrayList;
 
@@ -22,6 +24,7 @@ public abstract class GameStrategy implements IGameStrategy {
 	public static final int RUN_GAME = 1;
 
 	protected BlowController _blowController;
+	protected ImpactController _impactController;
 	protected ArrayList<Enemy> _enemies;
 	protected Ship _heroShip;
 
@@ -37,6 +40,7 @@ public abstract class GameStrategy implements IGameStrategy {
 		_heroShip = ship;
 		_enemies = new ArrayList<Enemy>();
 		_blowController = new BlowController();
+		_impactController = new ImpactController();
 	}
 
 	@Override
@@ -63,8 +67,21 @@ public abstract class GameStrategy implements IGameStrategy {
 	public void tick(float delta) {
 		if (_gameStatus == GameStatus.IN_PROCESS) this.createEnemies();
 
-		this.tickAnimations(delta);
+		_blowController.tick(delta);
+		_impactController.tick(delta);
 		this.tickEnemies(delta);
+
+		ArrayList<SpaceObject> spaceObjects = this.getAllSpaceObjects();
+		for (SpaceObject spaceObject : spaceObjects) {
+			_impactController.execute(spaceObject);
+		}
+	}
+
+	protected ArrayList<SpaceObject> getAllSpaceObjects() {
+		ArrayList<SpaceObject> result = new ArrayList<SpaceObject>();
+		result.addAll(_enemies);
+		result.add(_heroShip);
+		return result;
 	}
 
 	@Override
@@ -80,19 +97,29 @@ public abstract class GameStrategy implements IGameStrategy {
 			}
 		}
 
+		for (ISpaceImpact impact : _impactController.getImpacts()) {
+			result.add(impact.getImage());
+		}
+
 		if (!_heroShip.isDead()) result.add(_heroShip.getImage());
+
 		return result;
 	}
 
-
-	private void tickAnimations(float delta) {
-		_blowController.tick(delta);
-	}
-
 	private void tickEnemies(float delta) {
+		ArrayList<Enemy> deadEnemies = null;
 		for (Enemy enemy : _enemies)
 		{
-			enemy.tick(delta);
+			if (enemy.isDead()) {
+				if (deadEnemies == null) { deadEnemies = new ArrayList<Enemy>(); }
+				deadEnemies.add(enemy);
+			} else {
+				enemy.tick(delta);
+			}
+		}
+		if (deadEnemies != null) {
+			for (Enemy enemy : deadEnemies) { _enemies.remove(enemy); }
+			deadEnemies.clear();
 		}
 	}
 

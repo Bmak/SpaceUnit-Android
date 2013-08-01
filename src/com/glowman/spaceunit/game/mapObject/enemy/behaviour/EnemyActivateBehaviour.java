@@ -3,6 +3,7 @@ package com.glowman.spaceunit.game.mapObject.enemy.behaviour;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.glowman.spaceunit.game.mapObject.enemy.Enemy;
 import com.glowman.spaceunit.game.mapObject.enemy.ActiveEnemy;
+import com.glowman.spaceunit.game.mapObject.enemy.behaviour.core.AEnemyBehaviour;
 
 /**
  *
@@ -11,7 +12,7 @@ public class EnemyActivateBehaviour extends AEnemyBehaviour {
 	private Sprite _newLook;
 
 	public EnemyActivateBehaviour(Enemy enemy) {
-		super(EnemyBehaviourNameENUM.ACTIVATE, enemy);
+		super(EBehaviourENUM.ACTIVATE, enemy);
 
 		if (!(_enemy instanceof ActiveEnemy)) {
 			throw new Error("enemy need to be ActiveEnemy here!");

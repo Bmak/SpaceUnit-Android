@@ -1,8 +1,8 @@
 package com.glowman.spaceunit.game.mapObject.enemy.behaviour.options;
 
-import com.badlogic.gdx.math.Vector2;
 import com.glowman.spaceunit.game.IShooter;
 import com.glowman.spaceunit.game.mapObject.SpaceObject;
+import com.glowman.spaceunit.game.mapObject.enemy.behaviour.core.BehaviourOptions;
 
 /**
  *

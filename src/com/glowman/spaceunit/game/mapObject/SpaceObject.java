@@ -1,10 +1,9 @@
 package com.glowman.spaceunit.game.mapObject;
 
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.Vector2;
 import com.glowman.spaceunit.Assets;
-import com.glowman.spaceunit.core.AnimatedSprite;
-import com.glowman.spaceunit.game.animation.BlowAnimation;
 import com.glowman.spaceunit.game.animation.IBlowMaker;
 
 /**
@@ -37,7 +36,9 @@ public abstract class SpaceObject {
 	public void tick(float delta) {
 	}
 
-	public void setDead() { _isDead = true; }
+	public void setDead() {
+		_isDead = true;
+	}
 	public boolean isDead() { return _isDead; }
 	
 	public float getWidth() { return _width * _scale; }
@@ -60,6 +61,12 @@ public abstract class SpaceObject {
 	}
 
 	public float getScale() { return _scale; }
+
+	public void setAlpha(float alpha) {
+		Color color = _image.getColor();
+		color.a = alpha;
+		_image.setColor(color);
+	}
 	
 	public Sprite getImage() { return _image; }
 

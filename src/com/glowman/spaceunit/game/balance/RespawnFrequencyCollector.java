@@ -18,6 +18,9 @@ public class RespawnFrequencyCollector {
 		else if (enemyType == EnemyTypeENUM.MINE) {
 			result = .03f;
 		}
+		else if (enemyType == EnemyTypeENUM.CRAZY_MINE) {
+			result = .03f;
+		}
 		else if (enemyType == EnemyTypeENUM.ALIEN) {
 			result = .01f;
 		}

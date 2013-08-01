@@ -4,6 +4,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.glowman.spaceunit.core.TouchEvent;
 import com.glowman.spaceunit.game.balance.EnemySetCollector;
 import com.glowman.spaceunit.game.balance.SpeedCollector;
+import com.glowman.spaceunit.game.mapObject.enemy.BehaviourOptionsData;
 import com.glowman.spaceunit.game.mapObject.enemy.Enemy;
 import com.glowman.spaceunit.game.mapObject.Ship;
 import com.glowman.spaceunit.game.mapObject.enemy.EnemyFactory;
@@ -22,7 +23,8 @@ public class GameRunStrategy extends GameStrategy {
 	{
 		super(ship);
 		_score = 0;
-		EnemyFactory.init(GameStrategy.RUN_GAME, _heroShip);
+		BehaviourOptionsData bhOptions = new BehaviourOptionsData(null, _blowController, ship, _impactController);
+		EnemyFactory.init(GameStrategy.RUN_GAME, _heroShip, bhOptions);
 		_availableEnemyTypes = EnemySetCollector.getEnemySet(GameStrategy.RUN_GAME);
 	}
 

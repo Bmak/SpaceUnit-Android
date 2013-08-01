@@ -1,7 +1,6 @@
 package com.glowman.spaceunit.game;
 
 import java.util.ArrayList;
-import java.util.Random;
 
 import android.util.Log;
 import com.badlogic.gdx.Gdx;
@@ -15,9 +14,6 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.glowman.spaceunit.Assets;
-import com.glowman.spaceunit.MainAndroid;
-import com.glowman.spaceunit.R;
-import com.glowman.spaceunit.core.AnimatedSprite;
 import com.glowman.spaceunit.core.FPSViewer;
 import com.glowman.spaceunit.data.GooglePlayData;
 import com.glowman.spaceunit.game.balance.SpeedCollector;

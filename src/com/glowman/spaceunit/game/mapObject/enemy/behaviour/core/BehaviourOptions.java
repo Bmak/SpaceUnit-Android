@@ -1,9 +1,8 @@
-package com.glowman.spaceunit.game.mapObject.enemy.behaviour.options;
+package com.glowman.spaceunit.game.mapObject.enemy.behaviour.core;
 
 import com.glowman.spaceunit.game.mapObject.SpaceObject;
 
 /**
- *  I hz why it need :\
  */
 abstract public class BehaviourOptions {
 

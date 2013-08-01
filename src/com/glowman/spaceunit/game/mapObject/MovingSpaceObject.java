@@ -2,7 +2,6 @@ package com.glowman.spaceunit.game.mapObject;
 
 
 import com.badlogic.gdx.graphics.g2d.Sprite;
-import com.badlogic.gdx.math.Vector2;
 import com.glowman.spaceunit.Assets;
 
 /**
@@ -66,6 +65,7 @@ public class MovingSpaceObject extends SpaceObject {
 	@Override
 	public void tick(float delta) {
 		super.tick(delta);
+		if (_isDead) { return; }
 		if (_paused) { return; }
 
 		_position.x += _vX;

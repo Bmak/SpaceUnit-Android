@@ -1,29 +1,29 @@
-package com.glowman.spaceunit.game.mapObject.enemy.behaviour;
+package com.glowman.spaceunit.game.mapObject.enemy.behaviour.core;
 
 import com.glowman.spaceunit.game.mapObject.enemy.Enemy;
-import com.glowman.spaceunit.game.mapObject.enemy.behaviour.options.BehaviourOptions;
+import com.glowman.spaceunit.game.mapObject.enemy.behaviour.EBehaviourENUM;
 
 /**
  *
  */
 abstract public class AEnemyBehaviour {
-	private final String _behaviourName;
+	private final EBehaviourENUM _behaviourName;
 	protected final Enemy _enemy;
 	protected final BehaviourOptions _options;
 
 	protected boolean _actual;
 
-	public AEnemyBehaviour(String name, Enemy enemy, BehaviourOptions options) {
+	public AEnemyBehaviour(EBehaviourENUM name, Enemy enemy, BehaviourOptions options) {
 		_behaviourName = name;
 		_enemy = enemy;
 		_options = options;
 	}
 
-	public AEnemyBehaviour(String name, Enemy enemy) {
+	public AEnemyBehaviour(EBehaviourENUM name, Enemy enemy) {
 		this(name, enemy, null);
 	}
 
-	public String getName() { return _behaviourName; }
+	public EBehaviourENUM getName() { return _behaviourName; }
 
 	public void start() {
 		_actual = true;
