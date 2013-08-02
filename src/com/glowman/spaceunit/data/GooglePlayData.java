@@ -25,4 +25,12 @@ public class GooglePlayData {
 		//TODO добавить error
 		return null;
 	}
+	
+	public static void showAllLeaderboards() {
+		if (gameHelper.isSignedIn()) {
+			game.startActivityForResult(gamesClient.getAllLeaderboardsIntent(), game.RC_UNUSED);
+    	} else {
+    		game.beginUserInit();
+    	}
+	}
 }

@@ -26,6 +26,7 @@ public class HighScoresScreen implements Screen {
 	private OrthographicCamera _camera;
 	
 	private Button _backBtn;
+	private Button _showLeaderboardsBtn;
 	private BitmapFont _runners;
 	private Vector2 _posRunners;
 	private String TEXT_RUNNERS;
@@ -51,11 +52,17 @@ public class HighScoresScreen implements Screen {
 		
 		_backBtn = new Button(Assets.getBackBtnRegin(1), Assets.getBackBtnRegin(2));
 		_backBtn.setSize(Assets.backBtnWidth, Assets.backBtnHeight);
-		_backBtn.setX(_backBtn.getWidth()/5);
-		_backBtn.setY(_backBtn.getHeight()/5);
+		_backBtn.setX(_backBtn.getWidth()*0.2f);
+		_backBtn.setY(_backBtn.getHeight()*0.2f);
+		
+		_showLeaderboardsBtn = new Button(Assets.getGoogleBtn(1), Assets.getGoogleBtn(2));
+		_showLeaderboardsBtn.setSize(Assets.backBtnWidth, Assets.backBtnHeight);
+		_showLeaderboardsBtn.setX(Assets.VIRTUAL_WIDTH - _showLeaderboardsBtn.getWidth()*1.2f);
+		_showLeaderboardsBtn.setY(_showLeaderboardsBtn.getHeight()*0.2f);
 		
 		_listener = new HighScoresListener(_game);
 		_listener.addButton(_backBtn, ScreenControl.MAIN);
+		_listener.addButton(_showLeaderboardsBtn, -1);
 		
 		_runners = new BitmapFont(Gdx.files.internal(Assets.gameFontPath), Assets.gameFontRegion, false);
 		_runners.setColor(Color.RED);
@@ -79,6 +86,7 @@ public class HighScoresScreen implements Screen {
 		_runners.drawMultiLine(_drawer, TEXT_RUNNERS, _posRunners.x, _posRunners.y);
 		_killers.drawMultiLine(_drawer, TEXT_KILLERS, _posKillers.x, _posKillers.y);
 		_backBtn.draw(_drawer);
+		_showLeaderboardsBtn.draw(_drawer);
 		
 		FPSViewer.draw(_drawer);
 		_drawer.end();
@@ -113,11 +121,6 @@ public class HighScoresScreen implements Screen {
 		_posKillers.y = (Assets.VIRTUAL_HEIGHT - killBounds.height*0.8f);
 		
 		Gdx.input.setInputProcessor(_listener);
-		
-		if (GooglePlayData.gameHelper.isSignedIn()) {
-			GooglePlayData.game.startActivityForResult(
-					GooglePlayData.gamesClient.getAllLeaderboardsIntent(), GooglePlayData.game.RC_UNUSED);
-        }
 	}
 	
 	@Override

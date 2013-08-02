@@ -9,6 +9,7 @@ import com.badlogic.gdx.math.Vector3;
 import com.glowman.spaceunit.CoordinatesTranslator;
 import com.glowman.spaceunit.core.Button;
 import com.glowman.spaceunit.core.ScreenControl;
+import com.glowman.spaceunit.data.GooglePlayData;
 
 public class HighScoresListener extends InputAdapter {
 	
@@ -54,7 +55,11 @@ public class HighScoresListener extends InputAdapter {
 		for (EventButton evBtn : _buttons) {
 			evBtn.btn.setNormalMode();
 			if (this.isButtonUnderPoint(evBtn.btn)) {
-				_game.setScreen(ScreenControl.getScreen(ScreenControl.MAIN));
+				if (evBtn.type == -1) {
+					GooglePlayData.showAllLeaderboards();
+				} else {
+					_game.setScreen(ScreenControl.getScreen(evBtn.type));
+				}
 			}
 		}
 		return super.touchUp(screenX, screenY, pointer, button);

@@ -120,6 +120,10 @@ public class Assets {
 		return atlas.findRegion("buttons/BackBtn", index);
 	}
 	
+	public static TextureRegion getGoogleBtn(int index) {
+		return atlas.findRegion("buttons/GoogleLedBtn", index);
+	}
+	
 	private static float calculatePixelDensity () {
 		float physWidth = Gdx.graphics.getWidth();
 		float physHeight = Gdx.graphics.getHeight();

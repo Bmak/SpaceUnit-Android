@@ -71,70 +71,84 @@ filter: Nearest,Nearest
 repeat: none
 buttons/PlayBtnRun
   rotate: false
-  xy: 1, 581
+  xy: 1, 693
   size: 364, 258
   orig: 364, 258
   offset: 0, 0
   index: 1
 buttons/PlayBtnRun
   rotate: false
-  xy: 1, 321
+  xy: 1, 433
   size: 364, 258
   orig: 364, 258
   offset: 0, 0
   index: 2
 buttons/PlayBtnShoot
   rotate: false
-  xy: 367, 581
+  xy: 367, 693
   size: 364, 258
   orig: 364, 258
   offset: 0, 0
   index: 1
 buttons/PlayBtnShoot
   rotate: false
-  xy: 1, 61
+  xy: 1, 173
   size: 364, 258
   orig: 364, 258
   offset: 0, 0
   index: 2
 buttons/SimpleBtn
   rotate: false
-  xy: 367, 509
+  xy: 367, 621
   size: 288, 70
   orig: 288, 70
   offset: 0, 0
   index: 1
 buttons/SimpleBtn
   rotate: false
-  xy: 733, 769
+  xy: 733, 881
   size: 288, 70
   orig: 288, 70
   offset: 0, 0
   index: 2
 buttons/BackBtn
+  rotate: false
+  xy: 1, 87
+  size: 84, 84
+  orig: 84, 84
+  offset: 0, 0
+  index: 1
+buttons/BackBtn
+  rotate: false
+  xy: 367, 535
+  size: 84, 84
+  orig: 84, 84
+  offset: 0, 0
+  index: 2
+buttons/GoogleLedBtn
+  rotate: false
+  xy: 733, 795
+  size: 84, 84
+  orig: 84, 84
+  offset: 0, 0
+  index: 1
+buttons/GoogleLedBtn
   rotate: false
   xy: 1, 1
-  size: 58, 58
-  orig: 58, 58
-  offset: 0, 0
-  index: 1
-buttons/BackBtn
-  rotate: false
-  xy: 367, 449
-  size: 58, 58
-  orig: 58, 58
+  size: 84, 84
+  orig: 84, 84
   offset: 0, 0
   index: 2
 buttons/PauseBtn
   rotate: false
-  xy: 657, 521
+  xy: 657, 633
   size: 58, 58
   orig: 58, 58
   offset: 0, 0
   index: 1
 buttons/PauseBtn
   rotate: false
-  xy: 733, 709
+  xy: 87, 113
   size: 58, 58
   orig: 58, 58
   offset: 0, 0

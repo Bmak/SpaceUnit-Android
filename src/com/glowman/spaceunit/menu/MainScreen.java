@@ -51,9 +51,9 @@ public class MainScreen implements Screen {
 	
 	private void createItems() {
 		_bkg = new Sprite(Assets.bkg);
-		_playBtnRun = new Button(Assets.getPlayRunRegion(1), Assets.getPlayRunRegion(2));
+		_playBtnRun = new Button(Assets.getPlayRunRegion(2), Assets.getPlayRunRegion(1));
 		_playBtnRun.index = GameStrategy.RUN_GAME;
-		_playBtnShoot = new Button(Assets.getPlayShootRegion(1), Assets.getPlayShootRegion(2));
+		_playBtnShoot = new Button(Assets.getPlayShootRegion(2), Assets.getPlayShootRegion(1));
 		_playBtnShoot.index = GameStrategy.SHOOT_GAME;
 		_highscoresBtn = new TextButton(Assets.getSimpleBtnRegion(1), Assets.getSimpleBtnRegion(2), "Highscores");
 		_creditsBtn = new TextButton(Assets.getSimpleBtnRegion(1), Assets.getSimpleBtnRegion(2), "About");

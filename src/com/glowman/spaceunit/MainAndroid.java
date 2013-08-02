@@ -15,7 +15,7 @@ import com.google.android.gms.games.Player;
 
 public class MainAndroid extends GPGSActivity {
 	// request codes we use when invoking an external activity
-	public static final int RC_RESOLVE = 5000, RC_UNUSED = 5001;
+	public final int RC_RESOLVE = 5000, RC_UNUSED = 5001;
 	
 	// tag for debug logging
     final boolean ENABLE_DEBUG = false;
@@ -37,7 +37,8 @@ public class MainAndroid extends GPGSActivity {
 		GooglePlayData.game = this;
 		GooglePlayData.gameHelper = super.mHelper;
 		GooglePlayData.gamesClient = super.getGamesClient();
-		super.beginUserInitiatedSignIn();
+		
+		beginUserInit();
 		
 		
 		initialize(new Main(), config);
@@ -47,7 +48,11 @@ public class MainAndroid extends GPGSActivity {
             startActivityForResult(GooglePlayData.gamesClient.getLeaderboardIntent(leaderboardId)(), RC_UNUSED);
         }*/
 	}
-
+	
+	public void beginUserInit() {
+		super.beginUserInitiatedSignIn();
+	}
+	
 	@Override
 	public void onSignInFailed() {
 		Gdx.app.log("Google Play onSignInFailed", "Oh NOOO! ");
