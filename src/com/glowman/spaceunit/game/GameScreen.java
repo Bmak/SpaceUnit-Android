@@ -82,7 +82,8 @@ public class GameScreen implements Screen {
 
 		_drawer.begin();
 
-		_bkg.draw(_drawer, 0.3f);
+		float bkgAlpha = _gameStrategy.isPaused() ? 1 : 0.3f;
+		_bkg.draw(_drawer, bkgAlpha);
 
 		ArrayList<Sprite> objects = _gameStrategy.getDrawableObjects();
 		for (Sprite object : objects) {
