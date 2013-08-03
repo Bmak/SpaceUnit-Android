@@ -14,6 +14,7 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.glowman.spaceunit.Assets;
+import com.glowman.spaceunit.core.Button;
 import com.glowman.spaceunit.core.FPSViewer;
 import com.glowman.spaceunit.core.TextButton;
 import com.glowman.spaceunit.data.GooglePlayData;
@@ -41,6 +42,7 @@ public class GameScreen implements Screen {
 
 	private BitmapFont _font;
 	private ScoreView _scoreView;
+	private Button _pauseButton;
 
 	public GameScreen(Game game, OrthographicCamera camera)
 	{
@@ -48,13 +50,12 @@ public class GameScreen implements Screen {
 		_camera = camera;
 		_drawer = new SpriteBatch();
 		_drawer.setProjectionMatrix(_camera.combined);
-		_gameTouchListener = new GameTouchListener(_game, _camera);
 		_bkg = new Sprite(Assets.bkg);
 		_bkg.setSize(Assets.VIRTUAL_WIDTH, Assets.VIRTUAL_HEIGHT);
 
-		_scoreView = new ScoreView();
-		_scoreView.setPosition(Assets.VIRTUAL_WIDTH / 2 - _scoreView.getWidth()/2,
-							   Assets.VIRTUAL_HEIGHT - _scoreView.getHeight());
+		this.createInterface();
+
+		_gameTouchListener = new GameTouchListener(_game, _camera, _pauseButton);
 	}
 	
 	public void play(int gameType) {
@@ -71,7 +72,9 @@ public class GameScreen implements Screen {
 	@Override
 	public void render(float delta) {
 		this.clear();
-		_gameStrategy.tick(delta);
+		if (!_gameStrategy.isPaused()) {
+			_gameStrategy.tick(delta);
+		}
 
 		if (_gameStrategy.getGameStatus() == GameStatus.GAME_OVER) {
 			_gameTouchListener.gameOver();
@@ -88,6 +91,7 @@ public class GameScreen implements Screen {
 
 		if (_gameStrategy.getGameStatus() == GameStatus.GAME_OVER) { this.drawGameOver(); }
 		this.drawScore();
+		_pauseButton.draw(_drawer);
 
 		FPSViewer.draw(_drawer);
 		_drawer.end();
@@ -153,6 +157,18 @@ public class GameScreen implements Screen {
 	private void clear() {
 		Gdx.gl.glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
 		Gdx.gl.glClear(GL10.GL_COLOR_BUFFER_BIT);
+	}
+
+	private void createInterface() {
+		//score panel
+		_scoreView = new ScoreView();
+		_scoreView.setPosition(Assets.VIRTUAL_WIDTH / 2 - _scoreView.getWidth() / 2,
+				Assets.VIRTUAL_HEIGHT - _scoreView.getHeight());
+
+		//pause button
+		_pauseButton = new Button(Assets.getPauseBtn(1), Assets.getPauseBtn(2));
+		_pauseButton.setPosition(Assets.VIRTUAL_WIDTH - _pauseButton.getWidth(),
+								 Assets.VIRTUAL_HEIGHT - _pauseButton.getHeight());
 	}
 
 }

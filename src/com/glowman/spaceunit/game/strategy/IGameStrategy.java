@@ -14,6 +14,7 @@ public interface IGameStrategy {
 	void stopGame();
 	void pauseGame();
 	void resumeGame();
+	boolean isPaused();
 
 	Score getScore();
 

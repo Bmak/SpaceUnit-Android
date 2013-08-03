@@ -123,6 +123,10 @@ public class Assets {
 	public static TextureRegion getGoogleBtn(int index) {
 		return atlas.findRegion("buttons/GoogleLedBtn", index);
 	}
+
+	public static TextureRegion getPauseBtn(int index) {
+		return atlas.findRegion("buttons/PauseBtn", index);
+	}
 	
 	private static float calculatePixelDensity () {
 		float physWidth = Gdx.graphics.getWidth();
@@ -131,10 +135,7 @@ public class Assets {
 		float virtualDiag = (float)Math.hypot(VIRTUAL_WIDTH, VIRTUAL_HEIGHT);
 		float density = physDiag / virtualDiag;
 		Log.d("hz", "density: " + density);
-		
-		
-		//density = 2.5f;
-		
+
 		return density;
 	}
 	

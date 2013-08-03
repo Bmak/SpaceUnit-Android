@@ -41,8 +41,6 @@ public class MenuTouchListener extends InputAdapter {
 		for (EventButton evBtn : _buttons) {
 			if (this.isButtonUnderPoint(evBtn.btn)) {
 				evBtn.btn.setClickedMode();
-			} else {
-				evBtn.btn.setNormalMode();
 			}
 		}
 		return false;

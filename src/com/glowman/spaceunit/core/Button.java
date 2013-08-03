@@ -72,9 +72,11 @@ public class Button {
 	{
 		_normal.setY(y);
 		_clicked.setY(y);
-		
-		//float deltaHeight = (_normal.getHeight() - _clicked.getHeight());
-		//float otherY = y + deltaHeight * _normal.getScaleY() * 3/2;
+	}
+
+	public void setPosition(float x, float y) {
+		this.setX(x);
+		this.setY(y);
 	}
 
 }

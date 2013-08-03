@@ -51,6 +51,8 @@ public abstract class GameStrategy implements IGameStrategy {
 	public void resumeGame() {
 		_gameStatus = GameStatus.IN_PROCESS;
 	}
+	@Override
+	public boolean isPaused() { return _gameStatus == GameStatus.PAUSE; }
 
 	@Override
 	public void startGame() {
