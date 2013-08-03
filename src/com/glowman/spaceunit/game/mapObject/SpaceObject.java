@@ -11,8 +11,9 @@ import com.glowman.spaceunit.game.animation.IBlowMaker;
  */
 public abstract class SpaceObject {
 
-	public static double scaleMin = .2d;
-	public static double scaleMax = .4d;
+	public static double scaleMin = .6d;
+	public static double scaleMax = 1.5d;
+	public static double scaleNorm = 1d;
 
 	private float _scale;
 	protected Sprite _image;
@@ -24,7 +25,7 @@ public abstract class SpaceObject {
 	protected boolean _isDead;
 
 	public SpaceObject(Sprite image, boolean randomScale) {
-		_scale = (float) (randomScale ? (Math.random() * (scaleMax - scaleMin)) + scaleMin : scaleMax);
+		_scale = (float) (randomScale ? (Math.random() * (scaleMax - scaleMin)) + scaleMin : 1);
 		_image = image;
 		this.setSize(_image.getWidth()/Assets.pixelDensity, _image.getHeight()/Assets.pixelDensity);
 
