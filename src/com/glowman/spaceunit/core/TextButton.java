@@ -21,7 +21,6 @@ public class TextButton extends Button {
 		
 		_font = new BitmapFont(Gdx.files.internal(Assets.gameFontPath), Assets.gameFontRegion, false);
 		_font.setColor(Color.RED);
-		_font.setScale(1f/Assets.pixelDensity);
 		_posText = new Vector2();
 		this.setText(text);
 	}

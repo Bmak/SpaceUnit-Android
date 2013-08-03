@@ -20,6 +20,8 @@ import com.badlogic.gdx.utils.Array;
 public class Settings {
 	public static final int RUN = 0;
 	public static final int KILL = 1;
+
+	public static final float FRAME_TIME = 1/60f;
 	
 	public static boolean soundEnabled = true;
 	public final static int[] run_highscores = new int[] { 5, 4, 3, 2, 1 };

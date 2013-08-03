@@ -1,7 +1,6 @@
 package com.glowman.spaceunit.game.strategy;
 
 import android.util.Log;
-import android.widget.Space;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.Vector2;
@@ -11,6 +10,7 @@ import com.glowman.spaceunit.Assets;
 import com.glowman.spaceunit.CoordinatesTranslator;
 import com.glowman.spaceunit.core.TouchEvent;
 import com.glowman.spaceunit.game.IShooter;
+import com.glowman.spaceunit.game.score.Score;
 import com.glowman.spaceunit.game.Shooter;
 import com.glowman.spaceunit.game.balance.EnemySetCollector;
 import com.glowman.spaceunit.game.balance.SpeedCollector;

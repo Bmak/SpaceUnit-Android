@@ -1,4 +1,4 @@
-package com.glowman.spaceunit.game.strategy;
+package com.glowman.spaceunit.game.score;
 
 /**
  *
@@ -13,5 +13,12 @@ public class Score {
 	public Score(String type, float score) {
 		this.type = type;
 		this.score = score;
+	}
+
+	public float getPrintableScore() {
+		if (type == SECONDS) {
+			return ((int)(score / 10))/100f;
+		}
+		return score;
 	}
 }

@@ -1,7 +1,7 @@
 package com.glowman.spaceunit.game.strategy;
 
-import com.badlogic.gdx.math.Vector2;
 import com.glowman.spaceunit.core.TouchEvent;
+import com.glowman.spaceunit.game.score.Score;
 import com.glowman.spaceunit.game.balance.EnemySetCollector;
 import com.glowman.spaceunit.game.balance.SpeedCollector;
 import com.glowman.spaceunit.game.mapObject.enemy.BehaviourOptionsData;

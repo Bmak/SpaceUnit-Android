@@ -15,13 +15,15 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.glowman.spaceunit.Assets;
 import com.glowman.spaceunit.core.FPSViewer;
+import com.glowman.spaceunit.core.TextButton;
 import com.glowman.spaceunit.data.GooglePlayData;
 import com.glowman.spaceunit.game.balance.SpeedCollector;
 import com.glowman.spaceunit.game.mapObject.Ship;
+import com.glowman.spaceunit.game.score.Score;
+import com.glowman.spaceunit.game.score.ScoreView;
 import com.glowman.spaceunit.game.strategy.GameStatus;
 import com.glowman.spaceunit.game.strategy.GameStrategyFactory;
 import com.glowman.spaceunit.game.strategy.IGameStrategy;
-import com.glowman.spaceunit.game.strategy.Score;
 
 
 public class GameScreen implements Screen {
@@ -38,6 +40,7 @@ public class GameScreen implements Screen {
 	private GameTouchListener _gameTouchListener;
 
 	private BitmapFont _font;
+	private ScoreView _scoreView;
 
 	public GameScreen(Game game, OrthographicCamera camera)
 	{
@@ -48,6 +51,10 @@ public class GameScreen implements Screen {
 		_gameTouchListener = new GameTouchListener(_game, _camera);
 		_bkg = new Sprite(Assets.bkg);
 		_bkg.setSize(Assets.VIRTUAL_WIDTH, Assets.VIRTUAL_HEIGHT);
+
+		_scoreView = new ScoreView();
+		_scoreView.setPosition(Assets.VIRTUAL_WIDTH / 2 - _scoreView.getWidth()/2,
+							   Assets.VIRTUAL_HEIGHT - _scoreView.getHeight());
 	}
 	
 	public void play(int gameType) {
@@ -80,6 +87,7 @@ public class GameScreen implements Screen {
 		}
 
 		if (_gameStrategy.getGameStatus() == GameStatus.GAME_OVER) { this.drawGameOver(); }
+		this.drawScore();
 
 		FPSViewer.draw(_drawer);
 		_drawer.end();
@@ -117,19 +125,29 @@ public class GameScreen implements Screen {
 	}
 
 	private void drawGameOver() {
-		if (_font == null) {
-			_font = new BitmapFont(Gdx.files.internal(Assets.gameFontPath), Assets.gameFontRegion, false);
-			_font.setColor(Color.RED);
-			_font.setScale(1f / Assets.pixelDensity);
-		}
+		this.createFont();
 		Score score = _gameStrategy.getScore();
 		if (GooglePlayData.gameHelper.isSignedIn()) {
 			GooglePlayData.gamesClient.submitScore(
 					GooglePlayData.getLeaderboardID(_gameType), (long)score.score);
 		}
-		BitmapFont.TextBounds bounds = _font.getBounds("Game \n Over. " + score.type + " : " + score.score);
-		_font.draw(_drawer, "Game Over. " + score.type + " : " + score.score,
+		BitmapFont.TextBounds bounds = _font.getBounds("Game \n Over. " + score.type + " : " + score.getPrintableScore());
+		_font.draw(_drawer, "Game Over. " + score.type + " : " + score.getPrintableScore(),
 					Assets.VIRTUAL_WIDTH/4f, Assets.VIRTUAL_HEIGHT/2f);
+	}
+
+	private void drawScore() {
+		Score score = _gameStrategy.getScore();
+		_scoreView.updateScore(score.getPrintableScore());
+		_scoreView.draw(_drawer);
+	}
+
+	private void createFont() {
+		if (_font == null) {
+			_font = new BitmapFont(Gdx.files.internal(Assets.gameFontPath), Assets.gameFontRegion, false);
+			_font.setColor(Color.RED);
+			_font.setScale(1f);
+		}
 	}
 
 	private void clear() {

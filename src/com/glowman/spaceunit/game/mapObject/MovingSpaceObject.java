@@ -3,6 +3,7 @@ package com.glowman.spaceunit.game.mapObject;
 
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.glowman.spaceunit.Assets;
+import com.glowman.spaceunit.Settings;
 
 /**
  *
@@ -65,12 +66,14 @@ public class MovingSpaceObject extends SpaceObject {
 	@Override
 	public void tick(float delta) {
 		super.tick(delta);
+		float coef = delta / Settings.FRAME_TIME;
+
 		if (_isDead) { return; }
 		if (_paused) { return; }
 
-		_position.x += _vX;
-		_position.y += _vY;
-		_rotation+= _rotationSpeed;
+		_position.x += _vX * coef;
+		_position.y += _vY * coef;
+		_rotation+= _rotationSpeed * coef;
 		if (_rotation > 360) { _rotation %= 360; }
 		
 		if (_teleportOnBorder) {

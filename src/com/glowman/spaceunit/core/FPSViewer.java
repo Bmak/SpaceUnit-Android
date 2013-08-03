@@ -12,17 +12,12 @@ public class FPSViewer {
 	private static Boolean _show;
 	private static float _x;
 	private static float _y;
-	private static TextBounds _bounds;
-	private static BitmapFont _font;
 	private static String _fps;
 	
 	public static void init(Boolean show) {
 		_show = show;
 		if (_show == false) { return; }
 		
-		_font = new BitmapFont(Gdx.files.internal(Assets.gameFontPath), Assets.gameFontRegion, false);
-		_font.setColor(Color.RED);
-		_font.setScale(1f/Assets.pixelDensity);
 		_x = 0;
 		_y = Assets.VIRTUAL_HEIGHT;
 	}
@@ -31,9 +26,11 @@ public class FPSViewer {
 		if (_show == false) { return; }
 		
 		_fps = "fps: " + Gdx.graphics.getFramesPerSecond();
-		if (_bounds == null) {
-			_bounds = _font.getBounds(_fps);
-		}
-		_font.draw(spriteBatch, _fps, _x, _y);
+
+		BitmapFont font = FontProvider.getFont();
+		Color prevColor = font.getColor();
+		font.setColor(Color.RED);
+		font.draw(spriteBatch, _fps, _x, _y);
+		font.setColor(prevColor);
 	}
 }

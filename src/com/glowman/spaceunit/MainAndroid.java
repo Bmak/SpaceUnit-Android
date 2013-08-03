@@ -2,15 +2,11 @@ package com.glowman.spaceunit;
 
 import android.os.Bundle;
 import android.util.Log;
-import android.view.Window;
-import android.view.WindowManager;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.backends.android.AndroidApplication;
 import com.badlogic.gdx.backends.android.AndroidApplicationConfiguration;
 import com.glowman.spaceunit.core.GPGSActivity;
 import com.glowman.spaceunit.data.GooglePlayData;
-import com.google.android.gms.games.GamesClient;
 import com.google.android.gms.games.Player;
 
 public class MainAndroid extends GPGSActivity {
@@ -37,10 +33,8 @@ public class MainAndroid extends GPGSActivity {
 		GooglePlayData.game = this;
 		GooglePlayData.gameHelper = super.mHelper;
 		GooglePlayData.gamesClient = super.getGamesClient();
-		
 		beginUserInit();
-		
-		
+
 		initialize(new Main(), config);
 		
 		/*

@@ -86,12 +86,12 @@ public class MainScreen implements Screen {
 		_highscoresBtn.setSize(Assets.simpleBtnWidth, Assets.simpleBtnHeight);
 		//_hightscoresBtn.setScale(1.5f);
 		_highscoresBtn.setX((Assets.VIRTUAL_WIDTH - _highscoresBtn.getWidth())/2);
-		_highscoresBtn.setY(_highscoresBtn.getHeight()*1.5f);
+		_highscoresBtn.setY(_highscoresBtn.getHeight()*1.5f); //wat?
 		
 		_creditsBtn.setSize(Assets.simpleBtnWidth, Assets.simpleBtnHeight);
 		//_creditsBtn.setScale(1.5f);
 		_creditsBtn.setX((Assets.VIRTUAL_WIDTH - _highscoresBtn.getWidth())/2);
-		_creditsBtn.setY(_creditsBtn.getHeight()*0.3f);
+		_creditsBtn.setY(_creditsBtn.getHeight()*0.3f); // wat?
 	}
 
 	@Override
