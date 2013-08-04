@@ -5,6 +5,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL10;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.glowman.spaceunit.Assets;
 import com.glowman.spaceunit.core.Button;
@@ -17,6 +18,7 @@ public class AchievementsScreen implements Screen {
 	private final SpriteBatch _drawer;
 	private OrthographicCamera _camera;
 	
+	private Sprite _bkg;
 	private Button _backBtn;
 	private Button _showAchievementsBtn;
 	
@@ -27,6 +29,9 @@ public class AchievementsScreen implements Screen {
 		_camera = camera;
 		_drawer = new SpriteBatch();
 		_drawer.setProjectionMatrix(_camera.combined);
+		
+		_bkg = new Sprite(Assets.bkg);
+		_bkg.setSize(Assets.VIRTUAL_WIDTH, Assets.VIRTUAL_HEIGHT);
 		
 		_backBtn = new Button(Assets.getBackBtnRegin(1), Assets.getBackBtnRegin(2));
 		_backBtn.setSize(Assets.backBtnWidth, Assets.backBtnHeight);
@@ -47,6 +52,8 @@ public class AchievementsScreen implements Screen {
 		this.clear();
 		
 		_drawer.begin();
+		
+		_bkg.draw(_drawer, 0.5f);
 		
 		_backBtn.draw(_drawer);
 		_showAchievementsBtn.draw(_drawer);

@@ -71,88 +71,102 @@ filter: Nearest,Nearest
 repeat: none
 buttons/PlayBtnRun
   rotate: false
-  xy: 1, 671
+  xy: 1, 730
   size: 364, 258
   orig: 364, 258
   offset: 0, 0
   index: 1
 buttons/PlayBtnRun
   rotate: false
-  xy: 1, 411
+  xy: 1, 470
   size: 364, 258
   orig: 364, 258
   offset: 0, 0
   index: 2
 buttons/PlayBtnShoot
   rotate: false
-  xy: 367, 671
+  xy: 367, 730
   size: 364, 258
   orig: 364, 258
   offset: 0, 0
   index: 1
 buttons/PlayBtnShoot
   rotate: false
-  xy: 1, 151
+  xy: 1, 210
   size: 364, 258
   orig: 364, 258
   offset: 0, 0
   index: 2
 buttons/SimpleBtn
   rotate: false
-  xy: 367, 599
+  xy: 367, 658
   size: 288, 70
   orig: 288, 70
   offset: 0, 0
   index: 1
 buttons/SimpleBtn
   rotate: false
-  xy: 733, 859
+  xy: 733, 918
   size: 288, 70
   orig: 288, 70
   offset: 0, 0
   index: 2
-buttons/BackBtn
+buttons/joyPadBkg
   rotate: false
   xy: 1, 76
+  size: 132, 132
+  orig: 132, 132
+  offset: 0, 0
+  index: -1
+buttons/BackBtn
+  rotate: false
+  xy: 367, 583
   size: 73, 73
   orig: 73, 73
   offset: 0, 0
   index: 1
 buttons/BackBtn
   rotate: false
-  xy: 367, 524
+  xy: 733, 843
   size: 73, 73
   orig: 73, 73
   offset: 0, 0
   index: 2
-buttons/GoogleLedBtn
-  rotate: false
-  xy: 733, 784
-  size: 73, 73
-  orig: 73, 73
-  offset: 0, 0
-  index: 1
 buttons/GoogleLedBtn
   rotate: false
   xy: 1, 1
   size: 73, 73
   orig: 73, 73
   offset: 0, 0
+  index: 1
+buttons/GoogleLedBtn
+  rotate: false
+  xy: 135, 135
+  size: 73, 73
+  orig: 73, 73
+  offset: 0, 0
   index: 2
 buttons/PauseBtn
   rotate: false
-  xy: 76, 76
+  xy: 367, 508
   size: 73, 73
   orig: 73, 73
   offset: 0, 0
   index: 1
 buttons/PauseBtn
   rotate: false
-  xy: 367, 449
+  xy: 442, 583
   size: 73, 73
   orig: 73, 73
   offset: 0, 0
   index: 2
+buttons/joyPad
+  rotate: false
+  xy: 733, 770
+  size: 71, 71
+  orig: 71, 71
+  offset: 0, 0
+  index: -1
 
 textures4.png
 format: RGBA8888

@@ -135,7 +135,9 @@ public class Assets {
 		float virtualDiag = (float)Math.hypot(VIRTUAL_WIDTH, VIRTUAL_HEIGHT);
 		float density = physDiag / virtualDiag;
 		Log.d("hz", "density: " + density);
-
+		
+		density = 1;
+		
 		return density;
 	}
 	
