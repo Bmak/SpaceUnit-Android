@@ -23,6 +23,7 @@ public class Assets {
 
 	public static TextureRegion bkg;
 	public static TextureRegion credits;
+	public static TextureRegion title;
 	public static TextureRegion highscores;
 
 	public static TextureRegion asteroid;
@@ -74,7 +75,8 @@ public class Assets {
 
 		bkg = atlas.findRegion("bkg/bkg");
 		credits = atlas.findRegion("screens/credits");
-		highscores = atlas.findRegion("screens/highscores");
+		title = atlas.findRegion("screens/title");
+		//highscores = atlas.findRegion("screens/highscores");
 
 		ship = atlas.findRegion("unit/unit");
 		bullet = atlas.findRegion("unit/bullet");
