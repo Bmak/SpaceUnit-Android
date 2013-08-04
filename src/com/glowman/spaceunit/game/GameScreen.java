@@ -133,6 +133,7 @@ public class GameScreen implements Screen {
 		this.createFont();
 		Score score = _gameStrategy.getScore();
 		if (GooglePlayData.gameHelper.isSignedIn()) {
+			//TODO create AchievementControl for tracking update achievements 
 			GooglePlayData.gamesClient.submitScore(
 					GooglePlayData.getLeaderboardID(_gameType), (long)score.score);
 		}
@@ -168,8 +169,8 @@ public class GameScreen implements Screen {
 
 		//pause button
 		_pauseButton = new Button(Assets.getPauseBtn(1), Assets.getPauseBtn(2));
-		_pauseButton.setPosition(Assets.VIRTUAL_WIDTH - _pauseButton.getWidth(),
-								 Assets.VIRTUAL_HEIGHT - _pauseButton.getHeight());
+		_pauseButton.setPosition(Assets.VIRTUAL_WIDTH - _pauseButton.getWidth() - 15,
+								 Assets.VIRTUAL_HEIGHT - _pauseButton.getHeight() - 15);
 	}
 
 }

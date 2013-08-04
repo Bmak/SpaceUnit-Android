@@ -41,7 +41,6 @@ public class HighScoresScreen implements Screen {
 	
 	public HighScoresScreen(Game game, OrthographicCamera camera)
 	{
-
 		_game = game;
 		_camera = camera;
 		_drawer = new SpriteBatch();

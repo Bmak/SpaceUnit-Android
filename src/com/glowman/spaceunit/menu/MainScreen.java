@@ -30,6 +30,7 @@ public class MainScreen implements Screen {
 	private Button _playBtnRun;
 	private Button _playBtnShoot;
 	private TextButton _highscoresBtn;
+	private TextButton _achievementsBtn;
 	private TextButton _creditsBtn;
 	private Sprite _bkg;
 	
@@ -56,6 +57,7 @@ public class MainScreen implements Screen {
 		_playBtnShoot = new Button(Assets.getPlayShootRegion(2), Assets.getPlayShootRegion(1));
 		_playBtnShoot.index = GameStrategy.SHOOT_GAME;
 		_highscoresBtn = new TextButton(Assets.getSimpleBtnRegion(1), Assets.getSimpleBtnRegion(2), "Highscores");
+		_achievementsBtn = new TextButton(Assets.getSimpleBtnRegion(1), Assets.getSimpleBtnRegion(2), "Achievements");
 		_creditsBtn = new TextButton(Assets.getSimpleBtnRegion(1), Assets.getSimpleBtnRegion(2), "About");
 		
 		_listener = new MenuTouchListener(_game);
@@ -69,29 +71,30 @@ public class MainScreen implements Screen {
 		_listener.addButton(_playBtnRun, ScreenControl.GAME);
 		_listener.addButton(_playBtnShoot, ScreenControl.GAME);
 		_listener.addButton(_highscoresBtn, ScreenControl.HIGHSCORES);
+		_listener.addButton(_achievementsBtn, ScreenControl.ACHIEVEMENTS);
 		_listener.addButton(_creditsBtn, ScreenControl.CREDITS);
 		
 		_bkg.setSize(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
 		
 		_playBtnRun.setSize(Assets.playBtnWidth, Assets.playBtnHeight);
-		//_playBtnRun.setScale(0.9f);
 		_playBtnRun.setX(Assets.VIRTUAL_WIDTH/2 - _playBtnRun.getWidth() - _playBtnRun.getWidth()/10);
 		_playBtnRun.setY((Assets.VIRTUAL_HEIGHT - _playBtnRun.getHeight())/2 + _playBtnRun.getHeight()*0.3f);
 		
 		_playBtnShoot.setSize(Assets.playBtnWidth, Assets.playBtnHeight);
-		//_playBtnShoot.setScale(0.9f);
 		_playBtnShoot.setX(Assets.VIRTUAL_WIDTH/2 + _playBtnShoot.getWidth()/10);
 		_playBtnShoot.setY((Assets.VIRTUAL_HEIGHT - _playBtnShoot.getHeight())/2 + _playBtnShoot.getHeight()*0.3f);
 		
 		_highscoresBtn.setSize(Assets.simpleBtnWidth, Assets.simpleBtnHeight);
-		//_hightscoresBtn.setScale(1.5f);
-		_highscoresBtn.setX((Assets.VIRTUAL_WIDTH - _highscoresBtn.getWidth())/2);
-		_highscoresBtn.setY(_highscoresBtn.getHeight()*1.5f); //wat?
+		_highscoresBtn.setX(Assets.VIRTUAL_WIDTH/2 - _highscoresBtn.getWidth()*1.3f);
+		_highscoresBtn.setY(_highscoresBtn.getHeight()*1.5f); //wat? wat what??
+		
+		_achievementsBtn.setSize(Assets.simpleBtnWidth, Assets.simpleBtnHeight);
+		_achievementsBtn.setPosition(Assets.VIRTUAL_WIDTH/2 + _achievementsBtn.getWidth()*0.3f,
+									_achievementsBtn.getHeight()*1.5f);
 		
 		_creditsBtn.setSize(Assets.simpleBtnWidth, Assets.simpleBtnHeight);
-		//_creditsBtn.setScale(1.5f);
 		_creditsBtn.setX((Assets.VIRTUAL_WIDTH - _highscoresBtn.getWidth())/2);
-		_creditsBtn.setY(_creditsBtn.getHeight()*0.3f); // wat?
+		_creditsBtn.setY(_creditsBtn.getHeight()*0.3f); // wat? wat what??
 	}
 
 	@Override
@@ -127,6 +130,7 @@ public class MainScreen implements Screen {
 		_playBtnRun.draw(_spriteBatch);
 		_playBtnShoot.draw(_spriteBatch);
 		_highscoresBtn.draw(_spriteBatch);
+		_achievementsBtn.draw(_spriteBatch);
 		_creditsBtn.draw(_spriteBatch);
 		
 		FPSViewer.draw(_spriteBatch);

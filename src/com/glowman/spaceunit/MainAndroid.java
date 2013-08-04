@@ -36,11 +36,6 @@ public class MainAndroid extends GPGSActivity {
 		beginUserInit();
 
 		initialize(new Main(), config);
-		
-		/*
-		if (isSignedIn()) {
-            startActivityForResult(GooglePlayData.gamesClient.getLeaderboardIntent(leaderboardId)(), RC_UNUSED);
-        }*/
 	}
 	
 	public void beginUserInit() {

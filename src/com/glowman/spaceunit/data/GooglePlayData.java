@@ -33,4 +33,12 @@ public class GooglePlayData {
     		game.beginUserInit();
     	}
 	}
+	
+	public static void showAchievements() {
+		if (gameHelper.isSignedIn()) {
+			game.startActivityForResult(gamesClient.getAchievementsIntent(), game.RC_UNUSED);
+    	} else {
+    		game.beginUserInit();
+    	}
+	}
 }
