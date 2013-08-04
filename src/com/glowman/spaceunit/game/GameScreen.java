@@ -112,10 +112,10 @@ public class GameScreen implements Screen {
 		//TODO остановка/пауза всех просчетов, которые могут выполняться
 	}
 	@Override public void pause() {
+		_pauseButton.setClickedMode();
 		_gameStrategy.pauseGame();
 	}
 	@Override public void resume() {
-		_gameStrategy.resumeGame();
 	}
 	@Override public void dispose() {
 		_gameStrategy.stopGame();
