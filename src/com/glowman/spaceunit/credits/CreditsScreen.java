@@ -34,7 +34,7 @@ public class CreditsScreen extends GestureAdapter implements Screen {
 	private final float FINAL_POS_Y;
 	
 	private final String TITLE_TEXT = "SPACE UNIT";
-	private BitmapFont _title;
+	private Sprite _title;
 	private final float _startX;
 	private final float _startY;
 	private Vector2 _posTitle;
@@ -57,12 +57,9 @@ public class CreditsScreen extends GestureAdapter implements Screen {
 		_drawer = new SpriteBatch();
 		_drawer.setProjectionMatrix(_camera.combined);
 		
-		_title = new BitmapFont(Gdx.files.internal(Assets.gameFontPath), Assets.gameFontRegion, false);
-		_title.setColor(Color.RED);
-		_title.setScale(3f/Assets.pixelDensity);
-		TextBounds bounds = _title.getBounds(TITLE_TEXT);
-		_startX = (Assets.VIRTUAL_WIDTH - bounds.width)/2;
-		_startY = (Assets.VIRTUAL_HEIGHT - bounds.height/2)/2;
+		_title = new Sprite(Assets.title);
+		_startX = (Assets.VIRTUAL_WIDTH - _title.getWidth())/2;
+		_startY = (Assets.VIRTUAL_HEIGHT - _title.getHeight())/2;
 		
 		_credits = new Sprite(Assets.credits);
 		_credits.setSize(Assets.creditsWidth, Assets.credtisHeight);
@@ -75,11 +72,13 @@ public class CreditsScreen extends GestureAdapter implements Screen {
 		START_POS_Y = Assets.VIRTUAL_HEIGHT - _credits.getHeight()*1.5f;
 		FINAL_POS_Y = _credits.getHeight()/10;
 		
-		_creditsListener = new CreditsListener(_game, this);
-		_creditsListener.addButton(_backBtn, ScreenControl.CREDITS);
-		
 		_asterBehavior = new AsteroidsBehavior(10, _drawer);
 		_meteorBehavior = new AsteroidsBehavior(10, _drawer);
+		
+		_creditsListener = new CreditsListener(_game, this);
+		_creditsListener.addButton(_backBtn, ScreenControl.CREDITS);
+		_creditsListener.addBehavior(_asterBehavior);
+		_creditsListener.addBehavior(_meteorBehavior);
 	}
 	
 	@Override
@@ -89,7 +88,9 @@ public class CreditsScreen extends GestureAdapter implements Screen {
 		
 		_asterBehavior.tick(delta);
 		
-		_title.draw(_drawer, TITLE_TEXT, _posTitle.x, _posTitle.y);
+		//_title.draw(_drawer, TITLE_TEXT, _posTitle.x, _posTitle.y);
+		_title.setY(_posTitle.y);
+		_title.draw(_drawer);
 		_credits.draw(_drawer);
 		updatePositions(delta);
 		
@@ -192,6 +193,7 @@ public class CreditsScreen extends GestureAdapter implements Screen {
 		_posY = _credits.getY();
 		
 		_posTitle = new Vector2(_startX, _startY);
+		_title.setX(_posTitle.x);
 	}
 	
 	@Override

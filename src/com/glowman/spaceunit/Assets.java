@@ -19,7 +19,7 @@ public class Assets {
 	public static TextureRegion ship;
 	public static TextureRegion bullet;
 
-	public static Texture blueCircle;
+	public static TextureRegion blueCircle;
 
 	public static TextureRegion bkg;
 	public static TextureRegion credits;
@@ -70,9 +70,6 @@ public class Assets {
 	}
 	
 	private static void loadTextures () {
-		blueCircle = new Texture(Gdx.files.internal("textures/circle.png"));
-
-
 		bkg = atlas.findRegion("bkg/bkg");
 		credits = atlas.findRegion("screens/credits");
 		title = atlas.findRegion("screens/title");
@@ -82,6 +79,7 @@ public class Assets {
 		bullet = atlas.findRegion("unit/bullet");
 
 		blowArray = atlas.findRegions("blow/blow");
+		blueCircle = atlas.findRegion("blow/circle");
 
 		asteroid = atlas.findRegion("enemies/asteroid");
 		meteor = atlas.findRegion("enemies/meteor");
@@ -153,8 +151,8 @@ public class Assets {
 		
 		creditsWidth = toWidth(credits);
 		credtisHeight = toHeight(credits);
-		highscoresWidth = toWidth(highscores);
-		highscoresHeight = toHeight(highscores);
+		//highscoresWidth = toWidth(highscores);
+		//highscoresHeight = toHeight(highscores);
 	}
 	
 	private static float toWidth (TextureRegion region) {

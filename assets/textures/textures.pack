@@ -15,6 +15,13 @@ textures2.png
 format: RGBA8888
 filter: Nearest,Nearest
 repeat: none
+blow/circle
+  rotate: false
+  xy: 1, 75
+  size: 128, 128
+  orig: 128, 128
+  offset: 0, 0
+  index: -1
 blow/blow
   rotate: false
   xy: 1, 1
@@ -24,42 +31,42 @@ blow/blow
   index: 1
 blow/blow
   rotate: false
-  xy: 73, 1
+  xy: 131, 131
   size: 70, 72
   orig: 70, 72
   offset: 0, 0
   index: 2
 blow/blow
   rotate: false
-  xy: 145, 1
+  xy: 203, 131
   size: 70, 72
   orig: 70, 72
   offset: 0, 0
   index: 3
 blow/blow
   rotate: false
-  xy: 217, 1
+  xy: 275, 131
   size: 70, 72
   orig: 70, 72
   offset: 0, 0
   index: 4
 blow/blow
   rotate: false
-  xy: 289, 1
+  xy: 347, 131
   size: 70, 72
   orig: 70, 72
   offset: 0, 0
   index: 5
 blow/blow
   rotate: false
-  xy: 361, 1
+  xy: 419, 131
   size: 70, 72
   orig: 70, 72
   offset: 0, 0
   index: 6
 blow/blow
   rotate: false
-  xy: 433, 1
+  xy: 73, 1
   size: 70, 72
   orig: 70, 72
   offset: 0, 0
@@ -238,23 +245,16 @@ screens/credits
   orig: 658, 1022
   offset: 0, 0
   index: -1
-screens/title
-  rotate: false
-  xy: 661, 938
-  size: 308, 85
-  orig: 308, 85
-  offset: 0, 0
-  index: -1
 
 textures7.png
 format: RGBA8888
 filter: Nearest,Nearest
 repeat: none
-screens/highscores
+screens/title
   rotate: false
   xy: 1, 1
-  size: 1013, 619
-  orig: 1013, 619
+  size: 373, 50
+  orig: 373, 50
   offset: 0, 0
   index: -1
 
