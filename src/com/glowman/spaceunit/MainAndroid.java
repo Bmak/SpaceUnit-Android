@@ -1,6 +1,8 @@
 package com.glowman.spaceunit;
 
+import android.content.Context;
 import android.os.Bundle;
+import android.os.Vibrator;
 import android.util.Log;
 
 import com.badlogic.gdx.Gdx;
@@ -29,17 +31,20 @@ public class MainAndroid extends GPGSActivity {
 		config.useWakelock = true;
 		config.useGL20 = false;
 		
-		
 		GooglePlayData.game = this;
 		GooglePlayData.gameHelper = super.mHelper;
 		GooglePlayData.gamesClient = super.getGamesClient();
 		beginUserInit();
-
+		
 		initialize(new Main(), config);
 	}
 	
 	public void beginUserInit() {
-		super.beginUserInitiatedSignIn();
+		try {
+			super.beginUserInitiatedSignIn();
+		} catch (Exception ex) {
+			Log.d("Google Play hz", "beginUserInit have some faild!");
+		}
 	}
 	
 	@Override
@@ -49,17 +54,12 @@ public class MainAndroid extends GPGSActivity {
 
 	@Override
 	public void onSignInSucceeded() {
-		Gdx.app.log("Google Play onSignInSucceeded", "FUCK YEAH ");
+		Gdx.app.log("Google Play onSignInSucceeded", "FUCK YEAH!");
 		
 		Player p = GooglePlayData.gamesClient.getCurrentPlayer();
-        String displayName;
-        if (p == null) {
-            Log.w(TAG, "gamesClient.getCurrentPlayer() is NULL!");
-            displayName = "???";
-        } else {
-            displayName = p.getDisplayName();
-        }
-        Gdx.app.log(TAG, "Player: " +  displayName);
+		if (p != null) {
+			Gdx.app.log("Google Play onSignInSucceeded", "Welcome " + p.getDisplayName());
+		}
 	}
 	
 }

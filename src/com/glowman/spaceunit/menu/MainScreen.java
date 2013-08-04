@@ -70,9 +70,9 @@ public class MainScreen implements Screen {
 	private void initItems() {
 		_listener.addButton(_playBtnRun, ScreenControl.GAME);
 		_listener.addButton(_playBtnShoot, ScreenControl.GAME);
-		_listener.addButton(_highscoresBtn, ScreenControl.HIGHSCORES);
-		_listener.addButton(_achievementsBtn, ScreenControl.ACHIEVEMENTS);
 		_listener.addButton(_creditsBtn, ScreenControl.CREDITS);
+		_listener.addGooglePlayButton(_highscoresBtn, ScreenControl.HIGHSCORES);
+		_listener.addGooglePlayButton(_achievementsBtn, ScreenControl.ACHIEVEMENTS);
 		
 		_bkg.setSize(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
 		

@@ -65,7 +65,7 @@ public class Assets {
 		loadTextures();
 		initialiseGeometries();
 		
-		Settings.load();
+		//Settings.load();
 	}
 	
 	private static void loadTextures () {

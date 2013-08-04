@@ -3,6 +3,7 @@ package com.glowman.spaceunit.data;
 import com.glowman.spaceunit.MainAndroid;
 import com.glowman.spaceunit.core.GPGSActivity;
 import com.glowman.spaceunit.core.GameHelper;
+import com.glowman.spaceunit.core.ScreenControl;
 import com.glowman.spaceunit.game.strategy.GameStrategy;
 import com.google.android.gms.games.GamesClient;
 
@@ -24,6 +25,17 @@ public class GooglePlayData {
 		}
 		//TODO добавить error
 		return null;
+	}
+	
+	public static void showGooglePlayScreen(int type) {
+		switch (type) {
+			case ScreenControl.HIGHSCORES:
+				showAllLeaderboards();
+				break;
+			case ScreenControl.ACHIEVEMENTS:
+				showAchievements();
+				break;
+		}
 	}
 	
 	public static void showAllLeaderboards() {

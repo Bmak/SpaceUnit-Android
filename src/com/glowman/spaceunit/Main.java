@@ -4,6 +4,7 @@ package com.glowman.spaceunit;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.glowman.spaceunit.achievements.AchievementsConrol;
 import com.glowman.spaceunit.core.FPSViewer;
 import com.glowman.spaceunit.core.CameraHelper;
 import com.glowman.spaceunit.core.CameraHelper.ViewportMode;
@@ -17,6 +18,7 @@ public class Main extends Game {
 	@Override
 	public void create () {
 		Assets.load();
+		AchievementsConrol.init();
 		FPSViewer.init(true);
 		
 		_camera = CameraHelper.createCamera2(ViewportMode.STRETCH_TO_ASPECT, Assets.VIRTUAL_WIDTH, Assets.VIRTUAL_HEIGHT,1/*, Assets.pixelDensity*/);

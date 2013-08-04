@@ -14,6 +14,7 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.glowman.spaceunit.Assets;
+import com.glowman.spaceunit.achievements.AchievementsConrol;
 import com.glowman.spaceunit.core.Button;
 import com.glowman.spaceunit.core.FPSViewer;
 import com.glowman.spaceunit.core.TextButton;
@@ -133,7 +134,7 @@ public class GameScreen implements Screen {
 		this.createFont();
 		Score score = _gameStrategy.getScore();
 		if (GooglePlayData.gameHelper.isSignedIn()) {
-			//TODO create AchievementControl for tracking update achievements 
+			AchievementsConrol.checkUnlockAchievement(_gameType, (long)score.score);
 			GooglePlayData.gamesClient.submitScore(
 					GooglePlayData.getLeaderboardID(_gameType), (long)score.score);
 		}

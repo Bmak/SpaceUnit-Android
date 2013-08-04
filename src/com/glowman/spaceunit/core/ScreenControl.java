@@ -13,9 +13,10 @@ public class ScreenControl {
 	
 	public static final int MAIN = 0;
 	public static final int GAME = 1;
-	public static final int HIGHSCORES = 2;
-	public static final int ACHIEVEMENTS = 3;
-	public static final int CREDITS = 4;
+	public static final int CREDITS = 2;
+	public static final int HIGHSCORES = 3;
+	public static final int ACHIEVEMENTS = 4;
+	
 	
 	//private static MainScreen _mainScreen;
 	//private static GameScreen _gameScreen;
@@ -25,7 +26,7 @@ public class ScreenControl {
 	private static OrthographicCamera _camera;
 	private static Game _game;
 	
-	private static final int LEN = 5;
+	private static final int LEN = 3;
 	
 	public static Screen[] Screens = new Screen[LEN];
 	
@@ -47,10 +48,10 @@ public class ScreenControl {
 					Screens[type] = new GameScreen(_game, _camera);
 					break;
 				case HIGHSCORES:
-					Screens[type] = new HighScoresScreen(_game, _camera);
+					//Screens[type] = new HighScoresScreen(_game, _camera);
 					break;
 				case ACHIEVEMENTS:
-					Screens[type] = new AchievementsScreen(_game, _camera);
+					//Screens[type] = new AchievementsScreen(_game, _camera);
 					break;
 				case CREDITS:
 					Screens[type] = new CreditsScreen(_game, _camera);

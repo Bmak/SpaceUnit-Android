@@ -24,6 +24,8 @@ public class Settings {
 	public static final float FRAME_TIME = 1/60f;
 	
 	public static boolean soundEnabled = true;
+	
+	//TODO u will not release in v.1.0.0 :)
 	public final static int[] run_highscores = new int[] { 5, 4, 3, 2, 1 };
 	public final static int[] kill_highscores = new int[] { 50, 40, 30, 20, 10 };
 	public final static String file = ".highscores";
