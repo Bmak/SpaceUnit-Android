@@ -62,10 +62,8 @@ public class CreditsScreen extends GestureAdapter implements Screen {
 		_startY = (Assets.VIRTUAL_HEIGHT - _title.getHeight())/2;
 		
 		_credits = new Sprite(Assets.credits);
-		_credits.setSize(Assets.creditsWidth, Assets.credtisHeight);
-		
+
 		_backBtn = new Button(Assets.getBackBtnRegin(1), Assets.getBackBtnRegin(2));
-		_backBtn.setSize(Assets.backBtnWidth, Assets.backBtnHeight);
 		_backBtn.setX(_backBtn.getWidth()/5);
 		_backBtn.setY(_backBtn.getHeight()/5);
 		
@@ -156,8 +154,8 @@ public class CreditsScreen extends GestureAdapter implements Screen {
 		if (checkOutOfBounds()) { return super.fling(velocityX, velocityY, button); }
 		
 		
-		Log.d("CREDITS", "FLIP FLIP FLIP " + velocityX/Assets.pixelDensity + " " + velocityY/Assets.pixelDensity);
-		_speed += -Math.min(700, velocityY/(2*Assets.pixelDensity));
+		Log.d("CREDITS", "FLIP FLIP FLIP " + velocityX + " " + velocityY);
+		_speed += -Math.min(700, velocityY/2);
 		_isPan = false;
 		return super.fling(velocityX, velocityY, button);
 	}
@@ -171,8 +169,8 @@ public class CreditsScreen extends GestureAdapter implements Screen {
 		
 		
 		_isPan = true;
-		_posTitle.y += -deltaY/Assets.pixelDensity;
-		_posY += -deltaY/Assets.pixelDensity;
+		_posTitle.y += -deltaY;
+		_posY += -deltaY;
 		_credits.setY(_posY);
 		
 		return super.pan(x, y, deltaX, deltaY);

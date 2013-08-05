@@ -50,12 +50,10 @@ public class HighScoresScreen implements Screen {
 		_highscores.setSize(Assets.VIRTUAL_WIDTH, Assets.VIRTUAL_HEIGHT);
 		
 		_backBtn = new Button(Assets.getBackBtnRegin(1), Assets.getBackBtnRegin(2));
-		_backBtn.setSize(Assets.backBtnWidth, Assets.backBtnHeight);
 		_backBtn.setX(_backBtn.getWidth()*0.2f);
 		_backBtn.setY(_backBtn.getHeight()*0.2f);
 		
 		_showLeaderboardsBtn = new Button(Assets.getGoogleBtn(1), Assets.getGoogleBtn(2));
-		_showLeaderboardsBtn.setSize(Assets.backBtnWidth, Assets.backBtnHeight);
 		_showLeaderboardsBtn.setX(Assets.VIRTUAL_WIDTH - _showLeaderboardsBtn.getWidth()*1.2f);
 		_showLeaderboardsBtn.setY(_showLeaderboardsBtn.getHeight()*0.2f);
 		
@@ -65,12 +63,12 @@ public class HighScoresScreen implements Screen {
 		
 		_runners = new BitmapFont(Gdx.files.internal(Assets.gameFontPath), Assets.gameFontRegion, false);
 		_runners.setColor(Color.RED);
-		_runners.setScale(1.5f/Assets.pixelDensity);
+		_runners.setScale(1.5f);
 		_posRunners = new Vector2();
 		
 		_killers = new BitmapFont(Gdx.files.internal(Assets.gameFontPath), Assets.gameFontRegion, false);
 		_killers.setColor(Color.RED);
-		_killers.setScale(1.5f/Assets.pixelDensity);
+		_killers.setScale(1.5f);
 		_posKillers = new Vector2();
 	}
 	

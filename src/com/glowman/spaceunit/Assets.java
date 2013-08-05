@@ -4,7 +4,6 @@ import android.util.Log;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Sound;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
@@ -13,6 +12,11 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 public class Assets {
 	public static final float VIRTUAL_WIDTH = 960.0f;
 	public static final float VIRTUAL_HEIGHT = 540.0f;
+
+	public static float FULL_VIRTUAL_WIDTH;
+	public static float FULL_VIRTUAL_HEIGHT;
+	public static float FULL_X_OFFSET;
+	public static float FULL_Y_OFFSET;
 
 	public static final float GAME_INTERFACE_ALPHA = .6f;
 	public static final float GAME_BKG_ALPHA = .3f;
@@ -45,20 +49,6 @@ public class Assets {
 	public static String gameFontPath;
 	public static BitmapFont gameFont;
 	
-	public static float playBtnWidth;
-	public static float playBtnHeight;
-	public static float simpleBtnWidth;
-	public static float simpleBtnHeight;
-	public static float backBtnWidth;
-	public static float backBtnHeight;
-	
-	public static float creditsWidth;
-	public static float credtisHeight;
-	public static float highscoresWidth;
-	public static float highscoresHeight;
-
-	public static float pixelDensity;
-
 	//Sounds
 	public static Sound shotSound;
 
@@ -66,13 +56,21 @@ public class Assets {
 	public static TextureRegion[] soImages;
 
 	public static void load() {
-		pixelDensity = calculatePixelDensity();
+		initVirtualDimension();
+
 		atlas = new TextureAtlas(Gdx.files.internal("textures/textures.pack"));
 		
 		loadTextures();
-		initialiseGeometries();
-		
-		//Settings.load();
+
+	}
+
+	private static void initVirtualDimension() {
+		float coef = Math.max(VIRTUAL_WIDTH / Gdx.graphics.getWidth(), VIRTUAL_HEIGHT / Gdx.graphics.getHeight());
+		FULL_VIRTUAL_WIDTH = Gdx.graphics.getWidth() * coef;
+		FULL_VIRTUAL_HEIGHT = Gdx.graphics.getHeight() * coef;
+		FULL_X_OFFSET = - (int) ((FULL_VIRTUAL_WIDTH - VIRTUAL_WIDTH) / 2);
+		FULL_Y_OFFSET = - (int) ((FULL_VIRTUAL_HEIGHT - VIRTUAL_HEIGHT) / 2);
+
 	}
 	
 	private static void loadTextures () {
@@ -148,28 +146,6 @@ public class Assets {
 		density = 1;
 		
 		return density;
-	}
-	
-	private static void initialiseGeometries () {
-		playBtnWidth = toWidth(getPlayRunRegion(1));
-		playBtnHeight = toHeight(getPlayRunRegion(1));
-		simpleBtnWidth = toWidth(getSimpleBtnRegion(1));
-		simpleBtnHeight = toHeight(getSimpleBtnRegion(1));
-		backBtnWidth = toWidth(getBackBtnRegin(1));
-		backBtnHeight = toHeight(getBackBtnRegin(1));
-		
-		creditsWidth = toWidth(credits);
-		credtisHeight = toHeight(credits);
-		//highscoresWidth = toWidth(highscores);
-		//highscoresHeight = toHeight(highscores);
-	}
-	
-	private static float toWidth (TextureRegion region) {
-		return region.getRegionWidth() / pixelDensity;
-	}
-
-	private static float toHeight (TextureRegion region) {
-		return region.getRegionHeight() / pixelDensity;
 	}
 	
 }

@@ -13,8 +13,6 @@ public class Ship extends MovingSpaceObject {
 	private int _reloadTime;
 	private int _currentReloadTime;
 	private boolean _readyForShoot;
-	private Vector2 _targetPosition;
-	private Vector2 _targetForShooting;
 	private boolean _shooting;
 
 	public Ship(Sprite image, int reloadTime)
@@ -23,8 +21,6 @@ public class Ship extends MovingSpaceObject {
 		_reloadTime = reloadTime;
 		_currentReloadTime = 0;
 		_readyForShoot = false;
-		_targetForShooting = new Vector2(0, 0);
-		_targetPosition = new Vector2(0, 0);
 		_shooting = false;
 	}
 
@@ -52,8 +48,12 @@ public class Ship extends MovingSpaceObject {
 	@Override
 	public void moveTo(float x, float y)
 	{
-		//super.moveTo(x, y);
-		//super.rotateTo(x, y);
+	}
+
+	@Override
+	public void setDead() {
+		super.setDead();
+		_shooting = false;
 	}
 
 	public void moveOn(float dx, float dy) {
@@ -69,12 +69,5 @@ public class Ship extends MovingSpaceObject {
 	public void setShooting(boolean value) { _shooting = value; }
 
 	public boolean isReadyForShoot() { return _readyForShoot; }
-
-	public void setTargetForShooting(Vector2 value) { _targetForShooting = value; }
-
-
-	private void moveToTargetPoint() {
-
-	}
 
 }

@@ -34,11 +34,9 @@ public class AchievementsScreen implements Screen {
 		_bkg.setSize(Assets.VIRTUAL_WIDTH, Assets.VIRTUAL_HEIGHT);
 		
 		_backBtn = new Button(Assets.getBackBtnRegin(1), Assets.getBackBtnRegin(2));
-		_backBtn.setSize(Assets.backBtnWidth, Assets.backBtnHeight);
 		_backBtn.setPosition(_backBtn.getWidth()*0.2f, _backBtn.getHeight()*0.2f);
 		
 		_showAchievementsBtn = new Button(Assets.getGoogleBtn(1), Assets.getGoogleBtn(2));
-		_showAchievementsBtn.setSize(Assets.backBtnWidth, Assets.backBtnHeight);
 		_showAchievementsBtn.setPosition(Assets.VIRTUAL_WIDTH - _showAchievementsBtn.getWidth()*1.2f,
 							_showAchievementsBtn.getHeight()*0.2f);
 		

@@ -24,8 +24,7 @@ public class MainScreen implements Screen {
 	private Game _game;
 
 	private SpriteBatch _spriteBatch;
-	private SpriteBatch _bkgBatch;
-	
+
 	private OrthographicCamera _camera;
 	private Button _playBtnRun;
 	private Button _playBtnShoot;
@@ -44,8 +43,6 @@ public class MainScreen implements Screen {
 		_camera = camera;
 		_spriteBatch = new SpriteBatch();
 		_spriteBatch.setProjectionMatrix(_camera.combined);
-		
-		_bkgBatch = new SpriteBatch();
 		
 		createItems();
 	}
@@ -74,25 +71,21 @@ public class MainScreen implements Screen {
 		_listener.addGooglePlayButton(_highscoresBtn, ScreenControl.HIGHSCORES);
 		_listener.addGooglePlayButton(_achievementsBtn, ScreenControl.ACHIEVEMENTS);
 		
-		_bkg.setSize(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+		_bkg.setSize(Assets.FULL_VIRTUAL_WIDTH, Assets.FULL_VIRTUAL_HEIGHT);
+		_bkg.setPosition(Assets.FULL_X_OFFSET, Assets.FULL_Y_OFFSET);
 		
-		_playBtnRun.setSize(Assets.playBtnWidth, Assets.playBtnHeight);
 		_playBtnRun.setX(Assets.VIRTUAL_WIDTH/2 - _playBtnRun.getWidth() - _playBtnRun.getWidth()/10);
 		_playBtnRun.setY((Assets.VIRTUAL_HEIGHT - _playBtnRun.getHeight())/2 + _playBtnRun.getHeight()*0.3f);
 		
-		_playBtnShoot.setSize(Assets.playBtnWidth, Assets.playBtnHeight);
 		_playBtnShoot.setX(Assets.VIRTUAL_WIDTH/2 + _playBtnShoot.getWidth()/10);
 		_playBtnShoot.setY((Assets.VIRTUAL_HEIGHT - _playBtnShoot.getHeight())/2 + _playBtnShoot.getHeight()*0.3f);
 		
-		_highscoresBtn.setSize(Assets.simpleBtnWidth, Assets.simpleBtnHeight);
 		_highscoresBtn.setX(Assets.VIRTUAL_WIDTH/2 - _highscoresBtn.getWidth()*1.3f);
 		_highscoresBtn.setY(_highscoresBtn.getHeight()*1.5f); //wat? wat what??
 		
-		_achievementsBtn.setSize(Assets.simpleBtnWidth, Assets.simpleBtnHeight);
 		_achievementsBtn.setPosition(Assets.VIRTUAL_WIDTH/2 + _achievementsBtn.getWidth()*0.3f,
 									_achievementsBtn.getHeight()*1.5f);
 		
-		_creditsBtn.setSize(Assets.simpleBtnWidth, Assets.simpleBtnHeight);
 		_creditsBtn.setX((Assets.VIRTUAL_WIDTH - _highscoresBtn.getWidth())/2);
 		_creditsBtn.setY(_creditsBtn.getHeight()*0.3f); // wat? wat what??
 	}
@@ -118,14 +111,10 @@ public class MainScreen implements Screen {
 	public void render(float deltaTime) {
 		this.clear();
 		
-		_bkgBatch.begin();
-		_bkg.draw(_bkgBatch);
-		_bkgBatch.end();
-		
-		
 		_spriteBatch.begin();
-		
-		
+
+		_bkg.draw(_spriteBatch);
+
 		_behavior.tick(deltaTime);
 		_playBtnRun.draw(_spriteBatch);
 		_playBtnShoot.draw(_spriteBatch);

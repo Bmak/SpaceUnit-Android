@@ -27,7 +27,7 @@ public abstract class SpaceObject {
 	public SpaceObject(Sprite image, boolean randomScale) {
 		_scale = (float) (randomScale ? (Math.random() * (scaleMax - scaleMin)) + scaleMin : 1);
 		_image = image;
-		this.setSize(_image.getWidth()/Assets.pixelDensity, _image.getHeight()/Assets.pixelDensity);
+		this.setSize(_image.getWidth(), _image.getHeight());
 
 		_position = new Vector2(0,0);
 		_rotation = 0;

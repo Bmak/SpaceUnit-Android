@@ -33,10 +33,10 @@ public class MovingSpaceObject extends SpaceObject {
 		this(image, false, BORDER_BEHAVIOUR.NONE);
 	}
 
-	public void setGeneralSpeed(float value) { _generalSpeed = value / Assets.pixelDensity; }
-	public void setRotationSpeed(float value) { _rotationSpeed = value / Assets.pixelDensity; }
+	public void setGeneralSpeed(float value) { _generalSpeed = value; }
+	public void setRotationSpeed(float value) { _rotationSpeed = value; }
 
-	public float getRotationSpeed() { return _generalSpeed * Assets.pixelDensity; }
+	public float getRotationSpeed() { return _generalSpeed; }
 
 	public void moveTo(float targetX, float targetY)
 	{
@@ -75,9 +75,11 @@ public class MovingSpaceObject extends SpaceObject {
 		float newY = _position.y + _vY * coef;
 
 		if (_borderBehaviour == BORDER_BEHAVIOUR.STOP) {
-			if (newX < Assets.VIRTUAL_WIDTH && newX > 0)
+			if (newX + this.getWidth() < Assets.FULL_VIRTUAL_WIDTH + Assets.FULL_X_OFFSET &&
+					newX > Assets.FULL_X_OFFSET)
 				_position.x = newX;
-			if (newY < Assets.VIRTUAL_HEIGHT && newY > 0)
+			if (newY + this.getHeight() < Assets.FULL_VIRTUAL_HEIGHT + Assets.FULL_Y_OFFSET &&
+					newY > Assets.FULL_Y_OFFSET)
 				_position.y = newY;
 		}
 		else {
@@ -112,15 +114,19 @@ public class MovingSpaceObject extends SpaceObject {
 
 		if (Math.random() < .5)
 		{
-			float randomWidth = (float)Math.round(Math.random());
-			randomX = -this.getWidth() + randomWidth * (Assets.VIRTUAL_WIDTH + this.getWidth()*2);
-			randomY = -this.getHeight() + (float)Math.random() * (Assets.VIRTUAL_HEIGHT + this.getHeight()*2);
+			float randomWidth = (float)Math.round(Math.random()); //0 or 1
+			randomX = -this.getWidth() + Assets.FULL_X_OFFSET + randomWidth *
+										(Assets.FULL_VIRTUAL_WIDTH + (this.getWidth())*2);
+			randomY = -this.getHeight() + Assets.FULL_Y_OFFSET + (float)Math.random() *
+										(Assets.FULL_VIRTUAL_HEIGHT + (this.getHeight())*2);
 		}
 		else
 		{
-			randomX = -this.getWidth() + (float)Math.random() * (Assets.VIRTUAL_WIDTH + this.getWidth()*2);
+			randomX = -this.getWidth() + Assets.FULL_X_OFFSET + (float)Math.random() *
+										(Assets.FULL_VIRTUAL_WIDTH + (this.getWidth())*2);
 			float randomHeight = (float) Math.round(Math.random());
-			randomY = -this.getHeight() + randomHeight * (Assets.VIRTUAL_HEIGHT + this.getHeight()*2);
+			randomY = -this.getHeight() + Assets.FULL_Y_OFFSET + randomHeight *
+										(Assets.FULL_VIRTUAL_HEIGHT + (this.getHeight())*2);
 		}
 
 		super.setPosition(randomX, randomY);
@@ -140,10 +146,10 @@ public class MovingSpaceObject extends SpaceObject {
 	}
 
 	protected boolean checkBorderHit() {
-		return ((_position.x + this.getWidth() < 0) ||
-				(_position.x - this.getWidth() > Assets.VIRTUAL_WIDTH) ||
-				(_position.y + this.getHeight() < 0) ||
-				(_position.y - this.getHeight() > Assets.VIRTUAL_HEIGHT));
+		return ((_position.x + this.getWidth() < Assets.FULL_X_OFFSET) ||
+				(_position.x - this.getWidth() + Assets.FULL_Y_OFFSET > Assets.FULL_VIRTUAL_WIDTH) ||
+				(_position.y + this.getHeight() < Assets.FULL_Y_OFFSET) ||
+				(_position.y - this.getHeight() + Assets.FULL_Y_OFFSET > Assets.FULL_VIRTUAL_HEIGHT));
 	}
 
 	public static enum BORDER_BEHAVIOUR {

@@ -60,7 +60,8 @@ public class GameScreen implements Screen {
 		_drawer = new SpriteBatch();
 		_drawer.setProjectionMatrix(_camera.combined);
 		_bkg = new Sprite(Assets.bkg);
-		_bkg.setSize(Assets.VIRTUAL_WIDTH, Assets.VIRTUAL_HEIGHT);
+		_bkg.setSize(Assets.FULL_VIRTUAL_WIDTH, Assets.FULL_VIRTUAL_HEIGHT);
+		_bkg.setPosition(Assets.FULL_X_OFFSET, Assets.FULL_Y_OFFSET);
 
 		this.createInterface();
 
