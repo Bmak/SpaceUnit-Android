@@ -5,6 +5,7 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Rectangle;
+import com.glowman.spaceunit.Assets;
 
 public class Button {
 	protected final Sprite _normal;
@@ -36,11 +37,14 @@ public class Button {
 	
 	public void setClickedMode()
 	{
+		if (_currentView == _clicked) return;
 		_currentView = _clicked;
+		Assets.btnSound.play();
 	}
 
 	public void setNormalMode()
 	{
+		if (_currentView == _normal) return;
 		_currentView = _normal;
 	}
 	

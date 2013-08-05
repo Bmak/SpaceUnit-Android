@@ -97,6 +97,7 @@ public abstract class SpaceObject {
 
 	public void explode(IBlowMaker blowMaker) {
 		blowMaker.makeBlow(this.getCenterPosition().x, this.getCenterPosition().y, this.getWidth());
+		Assets.bamSound.play();
 	}
 
 	protected void setImage(Sprite image)

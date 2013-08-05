@@ -51,6 +51,9 @@ public class Assets {
 	
 	//Sounds
 	public static Sound shotSound;
+	public static Sound bigBamSound;
+	public static Sound bamSound;
+	public static Sound btnSound;
 
 
 	public static TextureRegion[] soImages;
@@ -105,6 +108,9 @@ public class Assets {
 		soImages[1] = meteor;
 
 		shotSound = Gdx.audio.newSound(Gdx.files.internal("sounds/shot.wav"));
+		bamSound = Gdx.audio.newSound(Gdx.files.internal("sounds/bam2.wav"));
+		bigBamSound = Gdx.audio.newSound(Gdx.files.internal("sounds/bam6.mp3"));
+		btnSound = Gdx.audio.newSound(Gdx.files.internal("sounds/click1.wav"));
 	}
 	
 	public static void dispose() {
