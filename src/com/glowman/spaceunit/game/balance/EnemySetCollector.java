@@ -15,11 +15,11 @@ public class EnemySetCollector {
 			result[0] = EnemyTypeENUM.ASTEROID;
 		}
 		else if (strategy == GameStrategy.SHOOT_GAME) {
-			result = new String[3];
+			result = new String[4];
 			result[0] = EnemyTypeENUM.ASTEROID;
 			result[1] = EnemyTypeENUM.ALIEN;
 			result[2] = EnemyTypeENUM.MINE;
-			result[2] = EnemyTypeENUM.CRAZY_MINE;
+			result[3] = EnemyTypeENUM.CRAZY_MINE;
 		}
 		else {
 			throw new Error("unknown game strategy");

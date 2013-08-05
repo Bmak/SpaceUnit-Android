@@ -93,7 +93,7 @@ public class EnemyFactory {
 		Enemy result;
 		Sprite passiveImage = new Sprite(Assets.minePassive);
 		Sprite activeImage = new Sprite(Assets.mineActive);
-		result = new ActiveEnemy(EnemyTypeENUM.MINE, passiveImage, activeImage, false,
+		result = new ActiveEnemy(EnemyTypeENUM.CRAZY_MINE, passiveImage, activeImage, false,
 									BORDER_BEHAVIOUR.TELEPORT);
 
 		AEnemyBehaviour[] behavioursExecute = new AEnemyBehaviour[2];

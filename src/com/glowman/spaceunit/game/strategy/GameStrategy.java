@@ -34,6 +34,7 @@ public abstract class GameStrategy implements IGameStrategy {
 	protected int _movingTouch = -1;
 
 	private GameStatus _gameStatus;
+	protected float _timeState;
 
 	GameStrategy(Ship ship)
 	{
@@ -41,6 +42,7 @@ public abstract class GameStrategy implements IGameStrategy {
 		_enemies = new ArrayList<Enemy>();
 		_blowController = new BlowController();
 		_impactController = new ImpactController(_blowController);
+		_timeState = 0;
 	}
 
 	@Override
@@ -67,6 +69,7 @@ public abstract class GameStrategy implements IGameStrategy {
 
 	@Override
 	public void tick(float delta) {
+		_timeState += delta;
 		if (_gameStatus == GameStatus.IN_PROCESS) this.createEnemies();
 
 		_blowController.tick(delta);
@@ -138,7 +141,7 @@ public abstract class GameStrategy implements IGameStrategy {
 		for (int i = 0; i < _availableEnemyTypes.length; ++i) {
 			enemyType = _availableEnemyTypes[i];
 			if (Math.random() <
-					RespawnFrequencyCollector.getFrequency(enemyType, GameStrategy.SHOOT_GAME)) {
+					RespawnFrequencyCollector.getFrequency(enemyType, GameStrategy.SHOOT_GAME, _timeState)) {
 				Enemy enemy = EnemyFactory.createEnemy(enemyType);
 				_enemies.add(enemy);
 				this.setEnemyParams(enemy);

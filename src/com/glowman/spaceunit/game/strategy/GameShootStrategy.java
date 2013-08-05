@@ -10,6 +10,7 @@ import com.glowman.spaceunit.Assets;
 import com.glowman.spaceunit.CoordinatesTranslator;
 import com.glowman.spaceunit.core.TouchEvent;
 import com.glowman.spaceunit.game.IShooter;
+import com.glowman.spaceunit.game.balance.RotationSpeedCollector;
 import com.glowman.spaceunit.game.score.Score;
 import com.glowman.spaceunit.game.Shooter;
 import com.glowman.spaceunit.game.balance.EnemySetCollector;
@@ -109,7 +110,7 @@ public class GameShootStrategy extends GameStrategy {
 	{
 		enemy.setRandomBorderPosition();
 		enemy.setGeneralSpeed(SpeedCollector.getEnemySpeed(enemy.getEnemyType(), GameStrategy.RUN_GAME));
-		enemy.setRotationSpeed(5 * ((float)Math.random() * 2 - 1)); //TODO kick it out
+		enemy.setRotationSpeed(RotationSpeedCollector.getEnemyRotation());
 		enemy.moveTo((float) Math.random() * Assets.VIRTUAL_WIDTH,
 				(float) Math.random() * Assets.VIRTUAL_HEIGHT);
 		enemy.setTarget(_heroShip);

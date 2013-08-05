@@ -1,6 +1,7 @@
 package com.glowman.spaceunit.game.strategy;
 
 import com.glowman.spaceunit.core.TouchEvent;
+import com.glowman.spaceunit.game.balance.RotationSpeedCollector;
 import com.glowman.spaceunit.game.score.Score;
 import com.glowman.spaceunit.game.balance.EnemySetCollector;
 import com.glowman.spaceunit.game.balance.SpeedCollector;
@@ -62,7 +63,7 @@ public class GameRunStrategy extends GameStrategy {
 	@Override
 	protected void setEnemyParams(Enemy enemy) {
 		enemy.setRandomBorderPosition();
-		enemy.setRotationSpeed(5 * ((float)Math.random() * 2 - 1)); //TODO kick it out
+		enemy.setRotationSpeed(RotationSpeedCollector.getEnemyRotation());
 		enemy.setGeneralSpeed(SpeedCollector.getEnemySpeed(enemy.getEnemyType(), GameStrategy.RUN_GAME));
 		enemy.setTarget(_heroShip);
 	}
