@@ -9,13 +9,11 @@ import com.badlogic.gdx.Game;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL10;
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
-import com.badlogic.gdx.scenes.scene2d.ui.Touchpad;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.glowman.spaceunit.Assets;
 import com.glowman.spaceunit.achievements.AchievementsConrol;
@@ -50,6 +48,7 @@ public class GameScreen implements Screen {
 	private ScoreView _scoreView;
 	private Button _pauseButton;
 	private TouchPad _touchPad;
+	private TextButton _returnToMenuBtn;
 
 	private float _interfaceAlpha;
 
@@ -65,7 +64,7 @@ public class GameScreen implements Screen {
 
 		this.createInterface();
 
-		_gameTouchListener = new GameTouchListener(_game, _pauseButton, _touchPad);
+		_gameTouchListener = new GameTouchListener(_game, _pauseButton, _touchPad, _returnToMenuBtn);
 	}
 	
 	public void play(int gameType) {
@@ -106,6 +105,8 @@ public class GameScreen implements Screen {
 		if (_gameStrategy.getGameStatus() == GameStatus.GAME_OVER) { this.drawGameOver(); }
 		this.drawScore();
 		_pauseButton.draw(_drawer, _interfaceAlpha);
+
+		if (_gameStrategy.isPaused()) _returnToMenuBtn.draw(_drawer);
 
 		//_touchPad.act(delta);
 		_touchPad.draw(_drawer, _interfaceAlpha);
@@ -189,6 +190,12 @@ public class GameScreen implements Screen {
 		_pauseButton = new Button(Assets.getPauseBtn(1), Assets.getPauseBtn(2));
 		_pauseButton.setPosition(Assets.VIRTUAL_WIDTH - _pauseButton.getWidth() - 15,
 								 Assets.VIRTUAL_HEIGHT - _pauseButton.getHeight() - 15);
+
+		//return to menu button
+		_returnToMenuBtn = new TextButton(Assets.getSimpleBtnRegion(1), Assets.getSimpleBtnRegion(2), "Quit");
+		_returnToMenuBtn.setPosition(Assets.VIRTUAL_WIDTH/2 - _returnToMenuBtn.getWidth()/2,
+									 Assets.VIRTUAL_HEIGHT/2 - _returnToMenuBtn.getHeight()/2);
+
 	}
 
 	private void createTouchPad() {

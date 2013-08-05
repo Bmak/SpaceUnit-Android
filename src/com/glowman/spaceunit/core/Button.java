@@ -4,6 +4,7 @@ package com.glowman.spaceunit.core;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.math.Rectangle;
 
 public class Button {
 	protected final Sprite _normal;
@@ -28,6 +29,10 @@ public class Button {
 	public Sprite getView() { return _currentView; }
 	public float getWidth() { return _width*_scale; }
 	public float getHeight() { return _height*_scale; }
+
+	public Rectangle getBounds() {
+		return _currentView.getBoundingRectangle();
+	}
 	
 	public void setClickedMode()
 	{

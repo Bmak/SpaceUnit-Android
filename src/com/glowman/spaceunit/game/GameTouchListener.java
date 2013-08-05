@@ -1,13 +1,12 @@
 package com.glowman.spaceunit.game;
 
 import com.badlogic.gdx.Game;
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputAdapter;
-import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.math.Vector3;
 import com.glowman.spaceunit.CoordinatesTranslator;
 import com.glowman.spaceunit.core.Button;
 import com.glowman.spaceunit.core.ScreenControl;
+import com.glowman.spaceunit.core.TextButton;
 import com.glowman.spaceunit.core.TouchEvent;
 import com.glowman.spaceunit.game.mapObject.Ship;
 import com.glowman.spaceunit.game.mapObject.enemy.behaviour.core.TouchPad;
@@ -22,15 +21,17 @@ public class GameTouchListener extends InputAdapter {
 	private Button _pauseBtn;
 	private TouchPad _touchpad;
 	private Ship _ship;
+	private TextButton _toMenuBtn;
 
 	private boolean _gameOver;
 
 	GameTouchListener(Game game, Button pauseBtn,
-					  TouchPad touchPad) {
+					  TouchPad touchPad, TextButton toMenuBtn) {
 		_game = game;
 		_pauseBtn = pauseBtn;
 		_gameOver = false;
 		_touchpad = touchPad;
+		_toMenuBtn = toMenuBtn;
 	}
 
 	public void setShip(Ship ship) {
@@ -56,7 +57,7 @@ public class GameTouchListener extends InputAdapter {
 			if (_pauseBtn.getView().getBoundingRectangle().contains(touchPoint.x, touchPoint.y)) {
 				//pause
 				this.processPauseBtn();
-			} else {
+			} else if (!_gameStrategy.isPaused()) {
 				if (_touchpad.hit(touchPoint.x, touchPoint.y)) {
 					_touchpad.touchDown(touchPoint.x, touchPoint.y);
 					if (_ship != null) {
@@ -64,6 +65,11 @@ public class GameTouchListener extends InputAdapter {
 					}
 				} else {
 					_gameStrategy.touchDown(new TouchEvent(TouchEvent.TOUCH_DOWN, (int)touchPoint.x, (int)touchPoint.y, pointer));
+				}
+			} else {
+				//in pause
+				if (_toMenuBtn.getBounds().contains(touchPoint.x, touchPoint.y)) {
+					_toMenuBtn.setClickedMode();
 				}
 			}
 		}
@@ -73,25 +79,35 @@ public class GameTouchListener extends InputAdapter {
 	@Override
 	public boolean touchUp(int screenX, int screenY, int pointer, int button) {
 		Vector3 touchPoint = CoordinatesTranslator.toVirtualView(screenX, screenY);
-		_touchpad.touchUp(touchPoint.x, touchPoint.y);
-		if (_ship != null) {
-			_ship.stopMoving();
+		if (!_gameStrategy.isPaused()) {
+			_touchpad.touchUp(touchPoint.x, touchPoint.y);
+			if (_ship != null) {
+				_ship.stopMoving();
+			}
+			_gameStrategy.touchUp(new TouchEvent(TouchEvent.TOUCH_UP, screenX, screenY, pointer));
+		} else {
+			//in pause
+			if (_toMenuBtn.getBounds().contains(touchPoint.x, touchPoint.y)) {
+				_toMenuBtn.setNormalMode();
+				_game.setScreen(ScreenControl.getScreen(ScreenControl.MAIN));
+			}
 		}
-		_gameStrategy.touchUp(new TouchEvent(TouchEvent.TOUCH_UP, screenX, screenY, pointer));
 		return false;
 	}
 
 	@Override
 	public boolean touchDragged(int screenX, int screenY, int pointer) {
-		Vector3 touchPoint = CoordinatesTranslator.toVirtualView(screenX, screenY);
-		if (_touchpad.hit(touchPoint.x, touchPoint.y)) {
-			_touchpad.touchMove(touchPoint.x, touchPoint.y);
-			if (_ship != null) {
-				_ship.moveOn(_touchpad.getKnobPercentX(), _touchpad.getKnobPercentY());
+		if (!_gameStrategy.isPaused()) {
+			Vector3 touchPoint = CoordinatesTranslator.toVirtualView(screenX, screenY);
+			if (_touchpad.hit(touchPoint.x, touchPoint.y)) {
+				_touchpad.touchMove(touchPoint.x, touchPoint.y);
+				if (_ship != null) {
+					_ship.moveOn(_touchpad.getKnobPercentX(), _touchpad.getKnobPercentY());
+				}
 			}
-		}
-		else {
-			_gameStrategy.touchMove(new TouchEvent(TouchEvent.TOUCH_UP, (int)touchPoint.x, (int)touchPoint.y, pointer));
+			else {
+				_gameStrategy.touchMove(new TouchEvent(TouchEvent.TOUCH_UP, (int)touchPoint.x, (int)touchPoint.y, pointer));
+			}
 		}
 		return false;
 	}
