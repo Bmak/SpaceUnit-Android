@@ -19,6 +19,7 @@ import com.glowman.spaceunit.Assets;
 import com.glowman.spaceunit.core.Button;
 import com.glowman.spaceunit.core.FPSViewer;
 import com.glowman.spaceunit.core.ScreenControl;
+import com.glowman.spaceunit.core.TextButton;
 import com.glowman.spaceunit.menu.behavior.AsteroidsBehavior;
 
 public class CreditsScreen extends GestureAdapter implements Screen {
@@ -28,6 +29,10 @@ public class CreditsScreen extends GestureAdapter implements Screen {
 	private OrthographicCamera _camera;
 	
 	private Button _backBtn;
+	private BitmapFont _link;
+	private TextButton _continueBtn;
+	private Vector2 _continuePos;
+	private float _continueStartPosY;
 	
 	private Sprite _credits;
 	private final float START_POS_Y;
@@ -67,14 +72,23 @@ public class CreditsScreen extends GestureAdapter implements Screen {
 		_backBtn.setX(_backBtn.getWidth()/5);
 		_backBtn.setY(_backBtn.getHeight()/5);
 		
+		
 		START_POS_Y = Assets.VIRTUAL_HEIGHT - _credits.getHeight()*1.5f;
-		FINAL_POS_Y = _credits.getHeight()/10;
+		FINAL_POS_Y = _credits.getHeight()/7;
+		
+		_continueBtn = new TextButton(Assets.getSimpleBtnRegion(1), Assets.getSimpleBtnRegion(2), "to be continued...");
+		_continuePos = new Vector2();
+		_continuePos.x = (Assets.VIRTUAL_WIDTH - _continueBtn.getWidth())/2;
+		_continueStartPosY = START_POS_Y - _continueBtn.getHeight()*1.5f;
+		_continuePos.y = _continueStartPosY;
+		_continueBtn.setX(_continuePos.x);
 		
 		_asterBehavior = new AsteroidsBehavior(10, _drawer);
 		_meteorBehavior = new AsteroidsBehavior(10, _drawer);
 		
 		_creditsListener = new CreditsListener(_game, this);
-		_creditsListener.addButton(_backBtn, ScreenControl.CREDITS);
+		_creditsListener.addButton(_backBtn, ScreenControl.MAIN);
+		_creditsListener.addButton(_continueBtn, -1);
 		_creditsListener.addBehavior(_asterBehavior);
 		_creditsListener.addBehavior(_meteorBehavior);
 	}
@@ -90,6 +104,7 @@ public class CreditsScreen extends GestureAdapter implements Screen {
 		_title.setY(_posTitle.y);
 		_title.draw(_drawer);
 		_credits.draw(_drawer);
+		_continueBtn.draw(_drawer);
 		updatePositions(delta);
 		
 		_meteorBehavior.tick(delta);
@@ -115,6 +130,8 @@ public class CreditsScreen extends GestureAdapter implements Screen {
 		_posTitle.y += _speed*delta;
 		_posY += _speed*delta;
 		_credits.setY(_posY);
+		_continuePos.y += _speed*delta;
+		_continueBtn.setY(_continuePos.y);
 	}
 	
 	private boolean checkOutOfBounds() {
@@ -172,6 +189,8 @@ public class CreditsScreen extends GestureAdapter implements Screen {
 		_posTitle.y += -deltaY;
 		_posY += -deltaY;
 		_credits.setY(_posY);
+		_continuePos.y += -deltaY;
+		_continueBtn.setY(_continuePos.y);
 		
 		return super.pan(x, y, deltaX, deltaY);
 	}
@@ -192,6 +211,9 @@ public class CreditsScreen extends GestureAdapter implements Screen {
 		
 		_posTitle = new Vector2(_startX, _startY);
 		_title.setX(_posTitle.x);
+		
+		_continuePos.y = _continueStartPosY;
+		_continueBtn.setY(_continueStartPosY);
 	}
 	
 	@Override

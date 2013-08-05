@@ -1,5 +1,6 @@
 package com.glowman.spaceunit;
 
+import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
@@ -37,8 +38,18 @@ public class MainAndroid extends GPGSActivity {
 		GooglePlayData.game = this;
 		GooglePlayData.gameHelper = super.mHelper;
 		GooglePlayData.gamesClient = super.getGamesClient();
-		beginUserInit();
-
+		
+		//Sing in with Google to earn achievements and submit scores to leaderboards.
+		
+		//this.showAlert("Wanna game?", "Sign in with Google");
+		//beginUserInit();
+		//new AlertDialog.Builder(getContext())).setMessage(message)
+		//.setNeutralButton(android.R.string.ok, null).create().show();
+		//TODO доработать приветствие
+		if (!mHelper.isSignedIn()) {
+			this.mHelper.showGreetAlert();
+		}
+		
 		initialize(new Main(), config);
 	}
 	

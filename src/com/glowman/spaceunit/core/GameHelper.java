@@ -24,6 +24,8 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
+import android.content.DialogInterface;
+import android.content.DialogInterface.OnClickListener;
 import android.content.Intent;
 import android.content.IntentSender.SendIntentException;
 import android.content.pm.PackageManager;
@@ -45,8 +47,8 @@ import com.google.android.gms.games.multiplayer.Invitation;
 import com.google.android.gms.plus.PlusClient;
 
 public class GameHelper implements GooglePlayServicesClient.ConnectionCallbacks,
-        GooglePlayServicesClient.OnConnectionFailedListener {
-
+        GooglePlayServicesClient.OnConnectionFailedListener, OnClickListener {
+	
     /** Listener for sign-in success or failure events. */
     public interface GameHelperListener {
         /**
@@ -578,7 +580,17 @@ public class GameHelper implements GooglePlayServicesClient.ConnectionCallbacks,
             }
         }
     }
+    
+    public void showGreetAlert() {
+    	new AlertDialog.Builder(getContext()).setTitle("Welcome!")
+        .setMessage("Sign in with Google to earn achievements and submit scores to leaderboards.")
+        .setNeutralButton(android.R.string.ok, this).create().show();
+    }
 
+	@Override
+	public void onClick(DialogInterface dialog, int which) {
+		beginUserInitiatedSignIn();
+	}
     /**
      * Starts a user-initiated sign-in flow. This should be called when the user
      * clicks on a "Sign In" button. As a result, authentication/consent dialogs
@@ -586,18 +598,21 @@ public class GameHelper implements GooglePlayServicesClient.ConnectionCallbacks,
      * onSignInSucceeded() or onSignInFailed() methods will be called.
      */
     public void beginUserInitiatedSignIn() {
-        if (mState == STATE_CONNECTED) {
+    	if (mState == STATE_CONNECTED) {
             // nothing to do
+        	
+        	Log.d("mState == STATE_CONNECTED", "nothing to do");
             notifyListener(true);
             return;
         }
+    	
         assertState("beginUserInitiatedSignIn", STATE_DISCONNECTED);
 
         debugLog("Starting USER-INITIATED sign-in flow.");
 
         // sign in automatically on onStart()
         mAutoSignIn = true;
-
+        
         // Is Google Play services available?
         int result = GooglePlayServicesUtil.isGooglePlayServicesAvailable(getContext());
         debugLog("isGooglePlayServicesAvailable returned " + result);
@@ -609,11 +624,15 @@ public class GameHelper implements GooglePlayServicesClient.ConnectionCallbacks,
             notifyListener(false);
             return;
         }
-
+        
         // indicate that user is actively trying to sign in (so we know to resolve
         // connection problems by showing dialogs)
         mUserInitiatedSignIn = true;
-
+        
+        //boolean wtf = false;
+    	//if (wtf == false) { return; }
+        
+        
         if (mConnectionResult != null) {
             // We have a pending connection result from a previous failure, so
             // start with that.
@@ -626,7 +645,7 @@ public class GameHelper implements GooglePlayServicesClient.ConnectionCallbacks,
             startConnections();
         }
     }
-
+    
     Context getContext() {
         return mActivity;
     }
@@ -1092,5 +1111,6 @@ public class GameHelper implements GooglePlayServicesClient.ConnectionCallbacks,
         sb.append("0123456789ABCDEF".substring(hi, hi + 1));
         sb.append("0123456789ABCDEF".substring(lo, lo + 1));
     }
+
 
 }

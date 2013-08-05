@@ -64,9 +64,6 @@ public class CreditsListener extends GestureDetector {
 				}
 			}
 		}
-		
-		
-		
 		return super.touchDown(x, y, pointer, button);
 	}
 	
@@ -77,7 +74,11 @@ public class CreditsListener extends GestureDetector {
 		for (EventButton evBtn : _buttons) {
 			evBtn.btn.setNormalMode();
 			if (this.isViewUnderPoint(evBtn.btn.getView())) {
-				_game.setScreen(ScreenControl.getScreen(ScreenControl.MAIN));
+				if (evBtn.type != -1) {
+					_game.setScreen(ScreenControl.getScreen(evBtn.type));
+				} else {
+					GooglePlayData.game.showURLIntent();
+				}
 			}
 		}
 		return super.touchUp(x, y, pointer, button);

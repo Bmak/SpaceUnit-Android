@@ -5,26 +5,26 @@ import com.glowman.spaceunit.game.strategy.GameStrategy;
 
 public class AchievementsConrol {
 	private static final String achiev_kills_15 = "CgkI8evoqtYQEAIQAw";
-	private static final String achiev_kills_30 = "CgkI8evoqtYQEAIQBQ";
-	private static final String achiev_kills_50 = "CgkI8evoqtYQEAIQBg";
+	private static final String achiev_kills_100 = "CgkI8evoqtYQEAIQBQ";
+	private static final String achiev_kills_500 = "CgkI8evoqtYQEAIQBg";
 	
-	private static final String achiev_hold_15s = "CgkI8evoqtYQEAIQBA";
-	private static final String achiev_hold_30s = "CgkI8evoqtYQEAIQBw";
-	private static final String achiev_hold_1m = "CgkI8evoqtYQEAIQCA";
+	private static final String achiev_hold_20s = "CgkI8evoqtYQEAIQBA";
+	private static final String achiev_hold_3m = "CgkI8evoqtYQEAIQBw";
+	private static final String achiev_hold_10m = "CgkI8evoqtYQEAIQCA";
 	
 	private static AchievementItem[] _runAchievements;
 	private static AchievementItem[] _shootAchievements;
 	
 	public static void init() {
 		_runAchievements = new AchievementItem[3];
-		_runAchievements[0] = new AchievementItem(achiev_hold_15s, 15000);
-		_runAchievements[1] = new AchievementItem(achiev_hold_30s, 30000);
-		_runAchievements[2] = new AchievementItem(achiev_hold_1m, 60000);
+		_runAchievements[0] = new AchievementItem(achiev_hold_20s, 20000);
+		_runAchievements[1] = new AchievementItem(achiev_hold_3m, 180000);
+		_runAchievements[2] = new AchievementItem(achiev_hold_10m, 600000);
 		
 		_shootAchievements = new AchievementItem[3];
 		_shootAchievements[0] = new AchievementItem(achiev_kills_15, 15);
-		_shootAchievements[1] = new AchievementItem(achiev_kills_30, 30);
-		_shootAchievements[2] = new AchievementItem(achiev_kills_50, 50);
+		_shootAchievements[1] = new AchievementItem(achiev_kills_100, 100);
+		_shootAchievements[2] = new AchievementItem(achiev_kills_500, 500);
 	}
 	
 	public static void checkUnlockAchievement(int gameType, long score) {
