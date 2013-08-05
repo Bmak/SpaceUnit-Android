@@ -1,6 +1,5 @@
 package com.glowman.spaceunit.game;
 
-import android.widget.Space;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.Vector2;
 import com.glowman.spaceunit.Assets;
@@ -21,10 +20,35 @@ public class Shooter implements IShooter {
 
 	public Shooter(float bulletSpeed) {
 		_bulletSpeed = bulletSpeed;
+		_bullets = new ArrayList<Bullet>();
 	}
 
 	public Shooter() {
 		this(DEFAULT_BULLET_SPEED);
+	}
+
+	@Override
+	public void tick(float delta) {
+
+		ArrayList<Bullet> deadBullets = null;
+
+		for (Bullet bullet : _bullets)
+		{
+			if (bullet.isDead()) {
+				if (deadBullets == null) {
+					deadBullets = new ArrayList<Bullet>();
+				}
+				deadBullets.add(bullet);
+			}
+			else {
+				bullet.tick(delta);
+			}
+		}
+
+		if (deadBullets != null) {
+			for (Bullet bullet : deadBullets) { _bullets.remove(bullet); }
+			deadBullets.clear();
+		}
 	}
 
 	@Override

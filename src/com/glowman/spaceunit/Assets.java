@@ -13,6 +13,9 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 public class Assets {
 	public static final float VIRTUAL_WIDTH = 960.0f;
 	public static final float VIRTUAL_HEIGHT = 540.0f;
+
+	public static final float GAME_INTERFACE_ALPHA = .6f;
+	public static final float GAME_BKG_ALPHA = .3f;
 	
 	private static TextureAtlas atlas;
 	
@@ -32,6 +35,9 @@ public class Assets {
 	public static TextureRegion alienActive;
 	public static TextureRegion minePassive;
 	public static TextureRegion mineActive;
+
+	public static TextureRegion joyPadBkg;
+	public static TextureRegion joyPad;
 
 	public static Array<TextureAtlas.AtlasRegion> blowArray;
 	
@@ -88,6 +94,9 @@ public class Assets {
 		alienActive = atlas.findRegion("enemies/alien2");
 		minePassive = atlas.findRegion("enemies/mine1");
 		mineActive = atlas.findRegion("enemies/mine2");
+
+		joyPad = atlas.findRegion("buttons/joyPad");
+		joyPadBkg = atlas.findRegion("buttons/joyPadBkg");
 
 		gameFontRegion = atlas.findRegion("fonts/font");
 		gameFontPath = "fonts/font.fnt";

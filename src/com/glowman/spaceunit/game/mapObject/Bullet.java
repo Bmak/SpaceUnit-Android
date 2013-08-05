@@ -11,7 +11,7 @@ public class Bullet extends MovingSpaceObject {
 	private SpaceObject _owner;
 
 	public Bullet(Sprite view, SpaceObject owner) {
-		super(view, false, false);
+		super(view, false, BORDER_BEHAVIOUR.NONE);
 		_view = view;
 		_owner = owner;
 	}

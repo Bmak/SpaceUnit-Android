@@ -44,8 +44,9 @@ public class MainAndroid extends GPGSActivity {
 	public void beginUserInit() {
 		try {
 			super.beginUserInitiatedSignIn();
-		} catch (Exception ex) {
-			Log.d("Google Play hz", "beginUserInit have some faild!");
+		}
+		catch (Error e) {
+			Log.e("hz", e.getMessage());
 		}
 	}
 	

@@ -1,5 +1,6 @@
 package com.glowman.spaceunit.game.mapObject.impact;
 
+import com.glowman.spaceunit.game.animation.IBlowMaker;
 import com.glowman.spaceunit.game.mapObject.SpaceObject;
 
 import java.util.ArrayList;
@@ -10,9 +11,11 @@ import java.util.ArrayList;
 public class ImpactController implements IImpactMaker {
 	private ArrayList<ISpaceImpact> _impacts;
 
+	private final IBlowMaker _blowMaker;
 
-	public ImpactController() {
+	public ImpactController(IBlowMaker blowMaker) {
 		_impacts = new ArrayList<ISpaceImpact>();
+		_blowMaker = blowMaker;
 	}
 
 	public void execute(SpaceObject object) {
@@ -39,7 +42,7 @@ public class ImpactController implements IImpactMaker {
 	}
 
 	public void createBlowImpact(float x, float y) {
-		ISpaceImpact blowImpact = new BlowImpact(x, y);
+		ISpaceImpact blowImpact = new BlowImpact(x, y, _blowMaker);
 		blowImpact.start();
 		_impacts.add(blowImpact);
 	}

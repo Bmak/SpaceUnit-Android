@@ -77,12 +77,10 @@ public class GameShootStrategy extends GameStrategy {
 			this.shootBullet();
 		}
 
+		_shooter.tick(delta);
+
 		if (_shooter.getBullets() != null)
 		{
-			for (Bullet bullet : _shooter.getBullets())
-			{
-				bullet.tick(delta);
-			}
 			this.checkBulletsForRemove();
 			this.checkBulletsHit();
 		}
@@ -91,40 +89,19 @@ public class GameShootStrategy extends GameStrategy {
 
 	@Override
 	public void touchUp(TouchEvent touch){
-		if (touch.pointer == _movingTouch)
-		{
-			_movingTouch = _shootingTouch;
-		}
-		_heroShip.setShooting(false);
-		_shootingTouch = -1;
-		if (_movingTouch == -1) {
-			_heroShip.stopMoving();
+		if (touch.pointer == _shootingTouch) {
+			_shootingTouch = -1;
+			_heroShip.setShooting(false);
 		}
 	}
 
 	@Override
 	public void touchDown(TouchEvent touch){
-		if (_movingTouch != -1)
-		{
-			_shootingTouch = touch.pointer;
-			_heroShip.setTargetForShooting(new Vector2(touch.x, touch.y));
-			_heroShip.setShooting(true);
-		}
-		else
-		{
-			_movingTouch = touch.pointer;
-			_heroShip.moveTo(touch.x, touch.y);
-		}
-
+		_shootingTouch = touch.pointer;
+		_heroShip.setShooting(true);
 	}
 	@Override
 	public void touchMove(TouchEvent touch){
-		if (_movingTouch == touch.pointer)
-		{
-
-			_heroShip.moveTo(touch.x, touch.y);
-		}
-
 	}
 
 	@Override
@@ -154,7 +131,6 @@ public class GameShootStrategy extends GameStrategy {
 	{
 		float bulletX;
 		float bulletY;
-		ArrayList<Bullet> bulletsForRemove = new ArrayList<Bullet>();
 		for(Bullet bullet : _shooter.getBullets())
 		{
 			bulletX = bullet.getView().getX();
@@ -165,13 +141,8 @@ public class GameShootStrategy extends GameStrategy {
 					(bulletY > Assets.VIRTUAL_HEIGHT))
 			{
 				Log.d("hz", "remove bullet!");
-				bulletsForRemove.add(bullet);
+				bullet.setDead();
 			}
-		}
-
-		for (Bullet bullet : bulletsForRemove)
-		{
-			_shooter.getBullets().remove(bullet);
 		}
 	}
 
@@ -179,7 +150,6 @@ public class GameShootStrategy extends GameStrategy {
 	{
 		if (_enemies == null) { return; }
 		ArrayList<Enemy> enemiesForExplosion = new ArrayList<Enemy>();
-		ArrayList<Bullet> bulletsForRemove = new ArrayList<Bullet>();
 
 		for(Bullet bullet : _shooter.getBullets())
 		{
@@ -188,7 +158,7 @@ public class GameShootStrategy extends GameStrategy {
 
 				if (super.checkObjectsHit(_enemies.get(i), bullet)) {
 					enemiesForExplosion.add(_enemies.get(i));
-					bulletsForRemove.add(bullet);
+					bullet.setDead();
 					if (bullet.getOwner() == _heroShip &&
 							super.getGameStatus() != GameStatus.GAME_OVER) {
 						_score++;
@@ -202,12 +172,6 @@ public class GameShootStrategy extends GameStrategy {
 			super.explodeEnemy(enemy);
 		}
 		enemiesForExplosion.clear();
-
-		for(Bullet bullet : bulletsForRemove)
-		{
-			_shooter.getBullets().remove(bullet);
-		}
-		bulletsForRemove.clear();
 	}
 
 	private void checkHeroHit() {
@@ -229,6 +193,7 @@ public class GameShootStrategy extends GameStrategy {
 					if (bullet.getOwner() != _heroShip &&
 							super.checkObjectsHit(_heroShip, bullet)) {
 						super.explodeHero();
+						bullet.setDead();
 						super.gameOver();
 					}
 				}

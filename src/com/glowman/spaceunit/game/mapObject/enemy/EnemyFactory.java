@@ -2,8 +2,13 @@ package com.glowman.spaceunit.game.mapObject.enemy;
 
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.glowman.spaceunit.Assets;
+import com.glowman.spaceunit.game.mapObject.MovingSpaceObject.BORDER_BEHAVIOUR;
 import com.glowman.spaceunit.game.mapObject.Ship;
-import com.glowman.spaceunit.game.mapObject.enemy.behaviour.*;
+import com.glowman.spaceunit.game.mapObject.enemy.behaviour.EnemyActivateBehaviour;
+import com.glowman.spaceunit.game.mapObject.enemy.behaviour.EnemyAlarmBehaviour;
+import com.glowman.spaceunit.game.mapObject.enemy.behaviour.EnemyAlienBehaviour;
+import com.glowman.spaceunit.game.mapObject.enemy.behaviour.EnemyCrazyMineBehaviour;
+import com.glowman.spaceunit.game.mapObject.enemy.behaviour.EnemyFollowBehaviour;
 import com.glowman.spaceunit.game.mapObject.enemy.behaviour.core.AEnemyBehaviour;
 import com.glowman.spaceunit.game.mapObject.enemy.behaviour.options.AlarmBehaviourOptions;
 import com.glowman.spaceunit.game.mapObject.enemy.behaviour.core.BehaviourOptions;
@@ -53,7 +58,7 @@ public class EnemyFactory {
 	private static Enemy createAsteroid() {
 		Enemy result;
 		Sprite image = new Sprite(Assets.soImages[Math.round((float)Math.random())]);
-		result = new Enemy(EnemyTypeENUM.ASTEROID, image, true, true);
+		result = new Enemy(EnemyTypeENUM.ASTEROID, image, true, BORDER_BEHAVIOUR.TELEPORT);
 		if (_gameType == GameStrategy.RUN_GAME) {
 			result.addBehaviour(new EnemyFollowBehaviour(result, _heroShip));
 		}
@@ -68,7 +73,8 @@ public class EnemyFactory {
 		Enemy result;
 		Sprite passiveImage = new Sprite(Assets.minePassive);
 		Sprite activeImage = new Sprite(Assets.mineActive);
-		result = new ActiveEnemy(EnemyTypeENUM.MINE, passiveImage, activeImage, false, true);
+		result = new ActiveEnemy(EnemyTypeENUM.MINE, passiveImage, activeImage, false,
+									BORDER_BEHAVIOUR.TELEPORT);
 
 		AEnemyBehaviour[] behavioursExecute = new AEnemyBehaviour[2];
 		behavioursExecute[0] = new EnemyFollowBehaviour(result, _heroShip);
@@ -87,7 +93,8 @@ public class EnemyFactory {
 		Enemy result;
 		Sprite passiveImage = new Sprite(Assets.minePassive);
 		Sprite activeImage = new Sprite(Assets.mineActive);
-		result = new ActiveEnemy(EnemyTypeENUM.MINE, passiveImage, activeImage, false, true);
+		result = new ActiveEnemy(EnemyTypeENUM.MINE, passiveImage, activeImage, false,
+									BORDER_BEHAVIOUR.TELEPORT);
 
 		AEnemyBehaviour[] behavioursExecute = new AEnemyBehaviour[2];
 		BehaviourOptions cmOptions = new CrazyMineBehaviourOptions(_behaviourOptions.blowMaker,
@@ -108,7 +115,8 @@ public class EnemyFactory {
 		Enemy result;
 		Sprite passiveImage = new Sprite(Assets.alienPassive);
 		Sprite activeImage = new Sprite(Assets.alienActive);
-		result = new ActiveEnemy(EnemyTypeENUM.ALIEN, passiveImage, activeImage, false, true);
+		result = new ActiveEnemy(EnemyTypeENUM.ALIEN, passiveImage, activeImage, false,
+									BORDER_BEHAVIOUR.TELEPORT.TELEPORT);
 
 		BehaviourOptions options = new ShootBehaviourOptions(6f, _heroShip, _behaviourOptions.shooter);
 		result.addBehaviour(new EnemyAlienBehaviour(result, _heroShip, options));

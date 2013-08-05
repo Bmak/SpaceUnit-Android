@@ -9,10 +9,14 @@ import com.badlogic.gdx.Game;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL10;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.badlogic.gdx.scenes.scene2d.ui.Touchpad;
+import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.glowman.spaceunit.Assets;
 import com.glowman.spaceunit.achievements.AchievementsConrol;
 import com.glowman.spaceunit.core.Button;
@@ -21,6 +25,7 @@ import com.glowman.spaceunit.core.TextButton;
 import com.glowman.spaceunit.data.GooglePlayData;
 import com.glowman.spaceunit.game.balance.SpeedCollector;
 import com.glowman.spaceunit.game.mapObject.Ship;
+import com.glowman.spaceunit.game.mapObject.enemy.behaviour.core.TouchPad;
 import com.glowman.spaceunit.game.score.Score;
 import com.glowman.spaceunit.game.score.ScoreView;
 import com.glowman.spaceunit.game.strategy.GameStatus;
@@ -44,6 +49,9 @@ public class GameScreen implements Screen {
 	private BitmapFont _font;
 	private ScoreView _scoreView;
 	private Button _pauseButton;
+	private TouchPad _touchPad;
+
+	private float _interfaceAlpha;
 
 	public GameScreen(Game game, OrthographicCamera camera)
 	{
@@ -56,13 +64,14 @@ public class GameScreen implements Screen {
 
 		this.createInterface();
 
-		_gameTouchListener = new GameTouchListener(_game, _camera, _pauseButton);
+		_gameTouchListener = new GameTouchListener(_game, _pauseButton, _touchPad);
 	}
 	
 	public void play(int gameType) {
 		_gameType = gameType;
 		Log.d("hz", "game type : " + _gameType);
 		this.createShip();
+		_gameTouchListener.setShip(_ship);
 		_gameStrategy = GameStrategyFactory.createStrategy(_ship, _gameType);
 		_gameStrategy.startGame();
 		_gameTouchListener.init(_gameStrategy);
@@ -83,7 +92,8 @@ public class GameScreen implements Screen {
 
 		_drawer.begin();
 
-		float bkgAlpha = _gameStrategy.isPaused() ? 1 : 0.3f;
+		_interfaceAlpha = _gameStrategy.isPaused() ? 1 : Assets.GAME_INTERFACE_ALPHA;
+		float bkgAlpha = _gameStrategy.isPaused() ? 1 : Assets.GAME_BKG_ALPHA;
 		_bkg.draw(_drawer, bkgAlpha);
 
 		ArrayList<Sprite> objects = _gameStrategy.getDrawableObjects();
@@ -93,7 +103,10 @@ public class GameScreen implements Screen {
 
 		if (_gameStrategy.getGameStatus() == GameStatus.GAME_OVER) { this.drawGameOver(); }
 		this.drawScore();
-		_pauseButton.draw(_drawer);
+		_pauseButton.draw(_drawer, _interfaceAlpha);
+
+		//_touchPad.act(delta);
+		_touchPad.draw(_drawer, _interfaceAlpha);
 
 		FPSViewer.draw(_drawer);
 		_drawer.end();
@@ -146,7 +159,7 @@ public class GameScreen implements Screen {
 	private void drawScore() {
 		Score score = _gameStrategy.getScore();
 		_scoreView.updateScore(score.getPrintableScore());
-		_scoreView.draw(_drawer);
+		_scoreView.draw(_drawer, _interfaceAlpha);
 	}
 
 	private void createFont() {
@@ -163,6 +176,8 @@ public class GameScreen implements Screen {
 	}
 
 	private void createInterface() {
+		this.createTouchPad();
+
 		//score panel
 		_scoreView = new ScoreView();
 		_scoreView.setPosition(Assets.VIRTUAL_WIDTH / 2 - _scoreView.getWidth() / 2,
@@ -172,6 +187,17 @@ public class GameScreen implements Screen {
 		_pauseButton = new Button(Assets.getPauseBtn(1), Assets.getPauseBtn(2));
 		_pauseButton.setPosition(Assets.VIRTUAL_WIDTH - _pauseButton.getWidth() - 15,
 								 Assets.VIRTUAL_HEIGHT - _pauseButton.getHeight() - 15);
+	}
+
+	private void createTouchPad() {
+		Skin skin = new Skin();
+		skin.add("background", Assets.joyPadBkg);
+		skin.add("knob", Assets.joyPad);
+
+		TouchPad.TouchpadStyle style = new TouchPad.TouchpadStyle(new TextureRegionDrawable(Assets.joyPadBkg),
+																  new TextureRegionDrawable(Assets.joyPad));
+		_touchPad = new TouchPad(10, style);
+		_touchPad.setPosition(20, 20);
 	}
 
 }

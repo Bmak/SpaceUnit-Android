@@ -9,8 +9,8 @@ import com.glowman.spaceunit.Settings;
  *
  */
 public class MovingSpaceObject extends SpaceObject {
-	private float _generalSpeed;
-	private boolean _teleportOnBorder;
+	protected float _generalSpeed;
+	private BORDER_BEHAVIOUR _borderBehaviour;
 
 	protected float _vX;
 	protected float _vY;
@@ -20,9 +20,9 @@ public class MovingSpaceObject extends SpaceObject {
 
 	protected boolean _paused;
 
-	public MovingSpaceObject(Sprite image, boolean randomScale, boolean teleportOnBorder) {
+	public MovingSpaceObject(Sprite image, boolean randomScale, BORDER_BEHAVIOUR borderBehaviour) {
 		super(image, randomScale);
-		_teleportOnBorder = teleportOnBorder;
+		_borderBehaviour = borderBehaviour;
 		_generalSpeed = 0;
 		_rotationSpeed = 0;
 		this.setVelocity(0, 0);
@@ -30,7 +30,7 @@ public class MovingSpaceObject extends SpaceObject {
 	}
 
 	public MovingSpaceObject(Sprite image) {
-		this(image, false, false);
+		this(image, false, BORDER_BEHAVIOUR.NONE);
 	}
 
 	public void setGeneralSpeed(float value) { _generalSpeed = value / Assets.pixelDensity; }
@@ -40,8 +40,8 @@ public class MovingSpaceObject extends SpaceObject {
 
 	public void moveTo(float targetX, float targetY)
 	{
-		float dx = targetX - _position.x;
-		float dy = targetY - _position.y;
+		float dx = targetX - getCenterPosition().x;
+		float dy = targetY - getCenterPosition().y;
 		float h = (float) Math.sqrt((double) (dx * dx + dy * dy) );
 		float vx = 0;
 		float vy = 0;
@@ -71,13 +71,27 @@ public class MovingSpaceObject extends SpaceObject {
 		if (_isDead) { return; }
 		if (_paused) { return; }
 
-		_position.x += _vX * coef;
-		_position.y += _vY * coef;
+		float newX = _position.x + _vX * coef;
+		float newY = _position.y + _vY * coef;
+
+		if (_borderBehaviour == BORDER_BEHAVIOUR.STOP) {
+			if (newX < Assets.VIRTUAL_WIDTH && newX > 0)
+				_position.x = newX;
+			if (newY < Assets.VIRTUAL_HEIGHT && newY > 0)
+				_position.y = newY;
+		}
+		else {
+			_position.x  = newX;
+			_position.y = newY;
+		}
 		_rotation+= _rotationSpeed * coef;
 		if (_rotation > 360) { _rotation %= 360; }
 		
-		if (_teleportOnBorder) {
-			checkBorderTeleport();
+		if (_borderBehaviour == BORDER_BEHAVIOUR.TELEPORT) {
+			if (this.checkBorderHit())
+			{
+				this.setRandomBorderPosition();
+			}
 		}
 
 		super._image.setPosition(_position.x, _position.y);
@@ -118,21 +132,25 @@ public class MovingSpaceObject extends SpaceObject {
 		image.setRotation(_rotation);
 	}
 
-	private void setVelocity(float vx, float vy) {
+	protected void setVelocity(float vx, float vy) {
 		_vX = vx;
 		_vY = vy;
 		_frozenVX = vx;
 		_frozenVY = vy;
 	}
 
-	private void checkBorderTeleport()
-	{
-		if ((_position.x + this.getWidth() < 0) ||
+	protected boolean checkBorderHit() {
+		return ((_position.x + this.getWidth() < 0) ||
 				(_position.x - this.getWidth() > Assets.VIRTUAL_WIDTH) ||
 				(_position.y + this.getHeight() < 0) ||
-				(_position.y - this.getHeight() > Assets.VIRTUAL_HEIGHT))
-		{
-			this.setRandomBorderPosition();
-		}
+				(_position.y - this.getHeight() > Assets.VIRTUAL_HEIGHT));
 	}
+
+	public static enum BORDER_BEHAVIOUR {
+		NONE,
+		TELEPORT,
+		STOP
+	}
+
 }
+

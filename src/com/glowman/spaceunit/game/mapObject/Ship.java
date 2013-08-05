@@ -19,7 +19,7 @@ public class Ship extends MovingSpaceObject {
 
 	public Ship(Sprite image, int reloadTime)
 	{
-		super(image, false, false);
+		super(image, false, BORDER_BEHAVIOUR.STOP);
 		_reloadTime = reloadTime;
 		_currentReloadTime = 0;
 		_readyForShoot = false;
@@ -31,7 +31,9 @@ public class Ship extends MovingSpaceObject {
 	@Override
 	public void tick(float deltaTime)
 	{
-		super.tick(deltaTime);
+		if (!super.checkBorderHit()) {
+			super.tick(deltaTime);
+		}
 		_readyForShoot = false;
 		if (_shooting)
 		{
@@ -50,8 +52,17 @@ public class Ship extends MovingSpaceObject {
 	@Override
 	public void moveTo(float x, float y)
 	{
-		super.moveTo(x, y);
-		super.rotateTo(x, y);
+		//super.moveTo(x, y);
+		//super.rotateTo(x, y);
+	}
+
+	public void moveOn(float dx, float dy) {
+		float h = (float) Math.sqrt((double) (dx * dx + dy * dy) );
+		float vx = dx / h * _generalSpeed;
+		float vy = dy / h * _generalSpeed;
+
+		super.setVelocity( vx, vy);
+		super.rotateTo(_position.x + vx, _position.y + vy);
 	}
 
 	public boolean isShooting() { return _shooting; }

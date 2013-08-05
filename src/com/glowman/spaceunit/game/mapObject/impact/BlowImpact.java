@@ -3,6 +3,7 @@ package com.glowman.spaceunit.game.mapObject.impact;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.Vector2;
 import com.glowman.spaceunit.Assets;
+import com.glowman.spaceunit.game.animation.IBlowMaker;
 import com.glowman.spaceunit.game.mapObject.SpaceObject;
 
 /**
@@ -10,13 +11,16 @@ import com.glowman.spaceunit.game.mapObject.SpaceObject;
  */
 public class BlowImpact extends SpaceObject implements ISpaceImpact {
 	private final float MAX_STRAIGHT = 1; //5 seconds active
-	private final float MAX_SCALE = 5 * MAX_STRAIGHT;
+	private final float MAX_SCALE = 3 * MAX_STRAIGHT;
+	private final float KICK_STRAIGHT = 30;
 	private float _currentStraight;
 
+	private final IBlowMaker _blowMaker;
 
-	public BlowImpact(float x, float y) {
+	public BlowImpact(float x, float y, IBlowMaker blowMaker) {
 		super(new Sprite(Assets.blueCircle), false);
 		super.setPosition(x - super.getWidth()/2, y - super.getHeight()/2);
+		_blowMaker = blowMaker;
 	}
 
 	@Override
@@ -47,8 +51,15 @@ public class BlowImpact extends SpaceObject implements ISpaceImpact {
 		Vector2 objCenter = object.getCenterPosition();
 		Vector2 impactCenter = super.getCenterPosition();
 		float maxDistance = (super.getWidth() * MAX_SCALE)/2;
-		float impactValue = ((maxDistance - objCenter.dst(impactCenter))/maxDistance) * 30;
-		if (impactValue <= 0) { return; }
+		float distanceCoef = (maxDistance - objCenter.dst(impactCenter))/maxDistance;
+		if (distanceCoef <= 0) { return; }
+
+		if (distanceCoef > .7f) {
+			object.explode(_blowMaker);
+			object.setDead();
+		}
+
+		float impactValue = distanceCoef * KICK_STRAIGHT;
 
 		float dx = objCenter.x - impactCenter.x;
 		float dy = objCenter.y - impactCenter.y;

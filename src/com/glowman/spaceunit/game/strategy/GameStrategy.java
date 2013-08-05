@@ -40,7 +40,7 @@ public abstract class GameStrategy implements IGameStrategy {
 		_heroShip = ship;
 		_enemies = new ArrayList<Enemy>();
 		_blowController = new BlowController();
-		_impactController = new ImpactController();
+		_impactController = new ImpactController(_blowController);
 	}
 
 	@Override
@@ -76,6 +76,10 @@ public abstract class GameStrategy implements IGameStrategy {
 		ArrayList<SpaceObject> spaceObjects = this.getAllSpaceObjects();
 		for (SpaceObject spaceObject : spaceObjects) {
 			_impactController.execute(spaceObject);
+		}
+
+		if (_heroShip.isDead()) {
+			this.gameOver();
 		}
 	}
 

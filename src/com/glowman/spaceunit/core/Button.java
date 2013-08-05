@@ -42,6 +42,10 @@ public class Button {
 	public void draw(SpriteBatch batch) {
 		_currentView.draw(batch);
 	}
+
+	public void draw(SpriteBatch batch, float alpha) {
+		_currentView.draw(batch, alpha);
+	}
 	
 	public void setSize(float width, float height) {
 		_normal.setSize(width, height);

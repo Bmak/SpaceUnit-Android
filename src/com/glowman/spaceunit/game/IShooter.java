@@ -12,14 +12,15 @@ import java.util.ArrayList;
  */
 public interface IShooter {
 
-	public void setBulletSpeed(float speed);
+	void setBulletSpeed(float speed);
 
-	public float getBulletSpeed();
+	float getBulletSpeed();
 
-	public void shoot(Vector2 from, Vector2 to);
-	public void shoot(SpaceObject owner, Vector2 from, Vector2 to);
-	public void shoot(SpaceObject owner, Vector2 to);
-	public void shoot(Vector2 from, Vector2 to, float bulletSpeed);
+	void tick(float delta);
+	void shoot(Vector2 from, Vector2 to);
+	void shoot(SpaceObject owner, Vector2 from, Vector2 to);
+	void shoot(SpaceObject owner, Vector2 to);
+	void shoot(Vector2 from, Vector2 to, float bulletSpeed);
 
-	public ArrayList<Bullet> getBullets();
+	ArrayList<Bullet> getBullets();
 }

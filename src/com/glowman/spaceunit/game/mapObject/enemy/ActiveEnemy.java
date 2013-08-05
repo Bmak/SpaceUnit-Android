@@ -12,8 +12,9 @@ public class ActiveEnemy extends Enemy {
 
 	private boolean _isActiveMode;
 
-	public ActiveEnemy(String enemyType, Sprite passiveImage, Sprite activeImage, boolean randomScale, boolean teleportOnBorder) {
-		super(enemyType, passiveImage, randomScale, teleportOnBorder);
+	public ActiveEnemy(String enemyType, Sprite passiveImage, Sprite activeImage,
+					   boolean randomScale, BORDER_BEHAVIOUR borderBehaviour) {
+		super(enemyType, passiveImage, randomScale, borderBehaviour);
 		_activeImage = activeImage;
 		_passiveImage = passiveImage;
 		_isActiveMode = false;

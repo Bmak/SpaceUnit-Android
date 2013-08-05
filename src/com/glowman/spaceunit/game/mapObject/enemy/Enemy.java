@@ -17,9 +17,9 @@ public class Enemy extends MovingSpaceObject {
 	private String _enemyType;
 	private ArrayList<AEnemyBehaviour> _behaviours;
 
-	public Enemy(String enemyType, Sprite image, boolean randomScale, boolean teleportOnBorder)
+	public Enemy(String enemyType, Sprite image, boolean randomScale, BORDER_BEHAVIOUR borderBehaviour)
 	{
-		super(image, randomScale, teleportOnBorder);
+		super(image, randomScale, borderBehaviour);
 		_enemyType = enemyType;
 	}
 
