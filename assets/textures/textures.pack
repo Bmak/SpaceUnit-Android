@@ -78,42 +78,42 @@ filter: Nearest,Nearest
 repeat: none
 buttons/PlayBtnRun
   rotate: false
-  xy: 1, 730
+  xy: 1, 713
   size: 364, 258
   orig: 364, 258
   offset: 0, 0
   index: 1
 buttons/PlayBtnRun
   rotate: false
-  xy: 1, 470
+  xy: 1, 453
   size: 364, 258
   orig: 364, 258
   offset: 0, 0
   index: 2
 buttons/PlayBtnShoot
   rotate: false
-  xy: 367, 730
+  xy: 367, 713
   size: 364, 258
   orig: 364, 258
   offset: 0, 0
   index: 1
 buttons/PlayBtnShoot
   rotate: false
-  xy: 1, 210
+  xy: 1, 193
   size: 364, 258
   orig: 364, 258
   offset: 0, 0
   index: 2
 buttons/SimpleBtn
   rotate: false
-  xy: 367, 658
+  xy: 367, 641
   size: 288, 70
   orig: 288, 70
   offset: 0, 0
   index: 1
 buttons/SimpleBtn
   rotate: false
-  xy: 733, 918
+  xy: 733, 901
   size: 288, 70
   orig: 288, 70
   offset: 0, 0
@@ -121,20 +121,20 @@ buttons/SimpleBtn
 buttons/joyPadBkg
   rotate: false
   xy: 1, 76
-  size: 132, 132
-  orig: 132, 132
+  size: 115, 115
+  orig: 115, 115
   offset: 0, 0
   index: -1
 buttons/BackBtn
   rotate: false
-  xy: 367, 583
+  xy: 367, 566
   size: 73, 73
   orig: 73, 73
   offset: 0, 0
   index: 1
 buttons/BackBtn
   rotate: false
-  xy: 733, 843
+  xy: 733, 826
   size: 73, 73
   orig: 73, 73
   offset: 0, 0
@@ -148,30 +148,30 @@ buttons/GoogleLedBtn
   index: 1
 buttons/GoogleLedBtn
   rotate: false
-  xy: 135, 135
+  xy: 118, 118
   size: 73, 73
   orig: 73, 73
   offset: 0, 0
   index: 2
 buttons/PauseBtn
   rotate: false
-  xy: 367, 508
+  xy: 367, 491
   size: 73, 73
   orig: 73, 73
   offset: 0, 0
   index: 1
 buttons/PauseBtn
   rotate: false
-  xy: 442, 583
+  xy: 442, 566
   size: 73, 73
   orig: 73, 73
   offset: 0, 0
   index: 2
 buttons/joyPad
   rotate: false
-  xy: 733, 770
-  size: 71, 71
-  orig: 71, 71
+  xy: 657, 657
+  size: 50, 54
+  orig: 50, 54
   offset: 0, 0
   index: -1
 

@@ -17,12 +17,6 @@ public class ScreenControl {
 	public static final int HIGHSCORES = 3;
 	public static final int ACHIEVEMENTS = 4;
 	
-	
-	//private static MainScreen _mainScreen;
-	//private static GameScreen _gameScreen;
-	//private static HigthscoresScreen _hightscoresScreen;
-	//private static CreditsScreen _creditsScreen;
-	
 	private static OrthographicCamera _camera;
 	private static Game _game;
 	

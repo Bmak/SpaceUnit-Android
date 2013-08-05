@@ -2,6 +2,9 @@ package com.glowman.spaceunit.credits;
 
 import java.util.ArrayList;
 
+import android.content.Intent;
+import android.net.Uri;
+
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.Sprite;
@@ -10,6 +13,7 @@ import com.badlogic.gdx.math.Vector3;
 import com.glowman.spaceunit.CoordinatesTranslator;
 import com.glowman.spaceunit.core.Button;
 import com.glowman.spaceunit.core.ScreenControl;
+import com.glowman.spaceunit.data.GooglePlayData;
 import com.glowman.spaceunit.game.mapObject.MovingSpaceObject;
 import com.glowman.spaceunit.menu.behavior.AsteroidsBehavior;
 
@@ -60,6 +64,8 @@ public class CreditsListener extends GestureDetector {
 				}
 			}
 		}
+		
+		
 		
 		return super.touchDown(x, y, pointer, button);
 	}

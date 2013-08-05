@@ -1,6 +1,8 @@
 package com.glowman.spaceunit;
 
 import android.content.Context;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Vibrator;
 import android.util.Log;
@@ -60,6 +62,11 @@ public class MainAndroid extends GPGSActivity {
 		if (p != null) {
 			Gdx.app.log("Google Play onSignInSucceeded", "Welcome " + p.getDisplayName());
 		}
+	}
+	
+	public void showURLIntent() {
+		Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("http://glowmanstudio.ru/"));
+		this.startActivity(browserIntent);
 	}
 	
 }
