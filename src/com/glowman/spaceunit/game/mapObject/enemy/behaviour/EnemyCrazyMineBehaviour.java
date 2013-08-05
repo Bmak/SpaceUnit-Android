@@ -1,5 +1,7 @@
 package com.glowman.spaceunit.game.mapObject.enemy.behaviour;
 
+import android.os.Vibrator;
+import com.glowman.spaceunit.AppVibrator;
 import com.glowman.spaceunit.game.animation.IBlowMaker;
 import com.glowman.spaceunit.game.balance.RotationSpeedCollector;
 import com.glowman.spaceunit.game.mapObject.enemy.Enemy;
@@ -12,7 +14,7 @@ import com.glowman.spaceunit.game.mapObject.impact.IImpactMaker;
  *
  */
 public class EnemyCrazyMineBehaviour extends AEnemyBehaviour {
-	private final float BOOM_TIME = 4;
+	private final float BOOM_TIME = 3;
 
 	private final float _enemyRotation;
 	private float _timeState;
@@ -51,6 +53,7 @@ public class EnemyCrazyMineBehaviour extends AEnemyBehaviour {
 			_enemy.explode(_blowMaker);
 			_impactMaker.createBlowImpact(_enemy.getCenterPosition().x, _enemy.getCenterPosition().y);
 			_enemy.setDead();
+			AppVibrator.getInstance().vibrate(300);
 		}
 	}
 }

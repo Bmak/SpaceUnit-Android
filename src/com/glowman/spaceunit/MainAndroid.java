@@ -25,8 +25,9 @@ public class MainAndroid extends GPGSActivity {
 	public void onCreate (Bundle savedInstanceState) {
 		enableDebugLog(ENABLE_DEBUG, TAG);
 		super.onCreate(savedInstanceState);
-		
-		
+
+		AppVibrator.init((Vibrator) getSystemService(Context.VIBRATOR_SERVICE));
+
 		AndroidApplicationConfiguration config = new AndroidApplicationConfiguration();
 		config.useAccelerometer = false;
 		config.useCompass = false;
@@ -37,7 +38,7 @@ public class MainAndroid extends GPGSActivity {
 		GooglePlayData.gameHelper = super.mHelper;
 		GooglePlayData.gamesClient = super.getGamesClient();
 		beginUserInit();
-		
+
 		initialize(new Main(), config);
 	}
 	
