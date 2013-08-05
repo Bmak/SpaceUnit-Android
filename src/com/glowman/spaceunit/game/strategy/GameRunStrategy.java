@@ -17,12 +17,12 @@ import java.util.ArrayList;
  */
 public class GameRunStrategy extends GameStrategy {
 
-	private float _score;
+	private Score _score;
 
 	public GameRunStrategy(Ship ship)
 	{
 		super(ship);
-		_score = 0;
+		_score = new Score(Score.getScoreTypeByGameType(GameStrategy.RUN_GAME), 0);
 		BehaviourOptionsData bhOptions = new BehaviourOptionsData(null, _blowController, ship, _impactController);
 		EnemyFactory.init(GameStrategy.RUN_GAME, _heroShip, bhOptions);
 		_availableEnemyTypes = EnemySetCollector.getEnemySet(GameStrategy.RUN_GAME);
@@ -30,14 +30,13 @@ public class GameRunStrategy extends GameStrategy {
 
 	@Override
 	public Score getScore() {
-		//TODO в отображение выводить в таком формате 32:53:12 в таком же виде идет запись в топы
-		return new Score(Score.SECONDS, _score*1000f);
+		return _score;
 	}
 
 	@Override
 	public void tick(float delta)
 	{
-		if (super.getGameStatus() == GameStatus.IN_PROCESS) _score+= delta;
+		if (super.getGameStatus() == GameStatus.IN_PROCESS) _score.score+= delta * 1000;
 		super.tick(delta);
 		super._heroShip.tick(delta);
 

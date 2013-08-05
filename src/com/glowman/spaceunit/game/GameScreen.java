@@ -76,6 +76,7 @@ public class GameScreen implements Screen {
 		_gameStrategy = GameStrategyFactory.createStrategy(_ship, _gameType);
 		_gameStrategy.startGame();
 		_gameTouchListener.init(_gameStrategy);
+		_scoreView.setScoreType(Score.getScoreTypeByGameType(_gameType));
 		Gdx.input.setInputProcessor(_gameTouchListener);
 	}
 
@@ -159,7 +160,7 @@ public class GameScreen implements Screen {
 
 	private void drawScore() {
 		Score score = _gameStrategy.getScore();
-		_scoreView.updateScore(score.getPrintableScore());
+		_scoreView.setScore(score.getPrintableScore());
 		_scoreView.draw(_drawer, _interfaceAlpha);
 	}
 

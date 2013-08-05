@@ -13,19 +13,27 @@ import com.glowman.spaceunit.core.FontProvider;
 public class ScoreView extends Sprite {
 	private final String SCORE_TEXT = "Score :";
 
-	private float _score;
+	private final float MAGIC_OFFSET = 15;
 
-	public ScoreView(float score) {
+	private String _score;
+	private String _scoreType;
+
+	public ScoreView(String score) {
 		super(Assets.getSimpleBtnRegion(1));
 		_score = score;
+		super.setSize(super.getWidth() * 1.3f, super.getHeight());
 	}
 
 	public ScoreView() {
-		this(0);
+		this("");
 	}
 
-	public void updateScore(float score) {
-		_score = score;
+	public void setScoreType(String scoreType) {
+		_scoreType = scoreType;
+	}
+
+	public void setScore(String scoreValue) {
+		_score = scoreValue;
 	}
 
 	@Override
@@ -35,15 +43,18 @@ public class ScoreView extends Sprite {
 		Color prevColor = font.getColor();
 		font.setColor(Color.RED);
 		BitmapFont.TextBounds bounds = font.getBounds(SCORE_TEXT);
-		float x = super.getX() + 10;
+		float x = super.getX() + super.getWidth()/4 - bounds.width/2;
 		float y = super.getY() + (getHeight() + bounds.height)/2;
 		font.draw(spriteBatch, SCORE_TEXT, x, y);
 
-		String scoreValue = String.valueOf(_score);
-		bounds = font.getBounds(scoreValue);
-		x = super.getX() + super.getWidth() / 2 + 10;
+		bounds = font.getBounds(_score);
+		if (_scoreType == Score.SECONDS) {
+			x = super.getX() + super.getWidth() / 2 + MAGIC_OFFSET;
+		} else {
+			x = super.getX() + super.getWidth() / 4 * 3 - bounds.width/2;
+		}
 
-		font.draw(spriteBatch, scoreValue, x, y);
+		font.draw(spriteBatch, _score, x, y);
 
 		font.setColor(prevColor);
 	}

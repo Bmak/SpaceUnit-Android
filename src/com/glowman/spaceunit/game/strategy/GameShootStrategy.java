@@ -29,12 +29,12 @@ import java.util.ArrayList;
 public class GameShootStrategy extends GameStrategy {
 
 	private IShooter _shooter;
-	private float _score;
+	private Score _score;
 
 	public GameShootStrategy(Ship ship)
 	{
 		super(ship);
-		_score = 0;
+		_score = new Score(Score.getScoreTypeByGameType(GameStrategy.SHOOT_GAME), 0);
 		_shooter = new Shooter();
 		BehaviourOptionsData bhOptions = new BehaviourOptionsData(_shooter, _blowController, ship, _impactController);
 		EnemyFactory.init(GameStrategy.SHOOT_GAME, ship, bhOptions);
@@ -43,7 +43,7 @@ public class GameShootStrategy extends GameStrategy {
 
 	@Override
 	public Score getScore() {
-		return new Score(Score.POINTS, _score);
+		return _score;
 	}
 
 	@Override
@@ -161,7 +161,7 @@ public class GameShootStrategy extends GameStrategy {
 					bullet.setDead();
 					if (bullet.getOwner() == _heroShip &&
 							super.getGameStatus() != GameStatus.GAME_OVER) {
-						_score++;
+						_score.score++;
 					}
 				}
 			}
