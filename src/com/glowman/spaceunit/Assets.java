@@ -132,11 +132,11 @@ public class Assets {
 	public static TextureRegion getBackBtnRegin(int index) {
 		return atlas.findRegion("buttons/BackBtn", index);
 	}
-	
+	/*
 	public static TextureRegion getGoogleBtn(int index) {
 		return atlas.findRegion("buttons/GoogleLedBtn", index);
 	}
-
+	*/
 	public static TextureRegion getPauseBtn(int index) {
 		return atlas.findRegion("buttons/PauseBtn", index);
 	}

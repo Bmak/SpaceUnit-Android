@@ -139,37 +139,37 @@ buttons/BackBtn
   orig: 73, 73
   offset: 0, 0
   index: 2
-buttons/GoogleLedBtn
+buttons/PauseBtn
   rotate: false
   xy: 1, 1
   size: 73, 73
   orig: 73, 73
   offset: 0, 0
   index: 1
-buttons/GoogleLedBtn
+buttons/PauseBtn
   rotate: false
   xy: 118, 118
   size: 73, 73
   orig: 73, 73
   offset: 0, 0
   index: 2
-buttons/PauseBtn
+buttons/SoundBtn
   rotate: false
-  xy: 367, 491
-  size: 73, 73
-  orig: 73, 73
+  xy: 657, 653
+  size: 51, 58
+  orig: 51, 58
   offset: 0, 0
   index: 1
-buttons/PauseBtn
+buttons/SoundBtn
   rotate: false
-  xy: 442, 566
-  size: 73, 73
-  orig: 73, 73
+  xy: 367, 506
+  size: 51, 58
+  orig: 51, 58
   offset: 0, 0
   index: 2
 buttons/joyPad
   rotate: false
-  xy: 657, 657
+  xy: 442, 585
   size: 50, 54
   orig: 50, 54
   offset: 0, 0

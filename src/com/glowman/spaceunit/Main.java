@@ -19,7 +19,7 @@ public class Main extends Game {
 	public void create () {
 		Assets.load();
 		AchievementsConrol.init();
-		FPSViewer.init(true);
+		FPSViewer.init(false);
 		
 		_camera = CameraHelper.createCamera2(ViewportMode.STRETCH_TO_ASPECT, Assets.VIRTUAL_WIDTH, Assets.VIRTUAL_HEIGHT,1/*, Assets.pixelDensity*/);
 		CoordinatesTranslator.init(_camera);
