@@ -61,9 +61,6 @@ public class Button {
 		_clicked.setSize(width, height);
 		_width = width;
 		_height = height;
-		
-		//TODO need?
-		//_scale = 1f;
 	}
 	
 	public void setScale(float scale)
@@ -71,8 +68,6 @@ public class Button {
 		_scale = scale;
 		_normal.setSize(_width*_scale, _height*_scale);
 		_clicked.setSize(_width*_scale, _height*_scale);
-		//_normal.setScale(scale);
-		//_clicked.setScale(scale);
 	}
 
 	public void setX(float x)

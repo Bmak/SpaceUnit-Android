@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Vibrator;
 import android.util.Log;
@@ -45,8 +46,9 @@ public class MainAndroid extends GPGSActivity {
 		//beginUserInit();
 		//new AlertDialog.Builder(getContext())).setMessage(message)
 		//.setNeutralButton(android.R.string.ok, null).create().show();
-		//TODO доработать приветствие
-		if (!mHelper.isSignedIn()) {
+		//TODO доработать приветствие // ага, чтоб работало на эмуляторе ((
+		Log.d("hz", "build product : " + Build.PRODUCT);
+		if (!"google_sdk".equals( Build.PRODUCT ) && !mHelper.isSignedIn()) {
 			this.mHelper.showGreetAlert();
 		}
 		

@@ -13,19 +13,27 @@ public class RespawnFrequencyCollector {
 		float result;
 		if (enemyType == EnemyTypeENUM.ASTEROID) {
 			if (gameType == GameStrategy.RUN_GAME) {
-				result =  0.2f * (timeState / 1000); //after 10 sec 0.2f
+				if (timeState < 3) { //чтобы вначале небыло простоя
+					result = .1f;
+				} else {
+					result =  0.1f * (timeState / 200); //after 200 sec -- 0.1 frequency
+				}
 			} else {
-				result = 0.7f * (timeState / 100);
+				if (timeState < 3) {
+					result = .1f;
+				} else {
+					result = 0.1f * (timeState / 500);
+				}
 			}
 		}
 		else if (enemyType == EnemyTypeENUM.MINE) {
-			result = .03f * (timeState / 300);
+			result = .1f * (timeState / 1000);
 		}
 		else if (enemyType == EnemyTypeENUM.CRAZY_MINE) {
-			result = .03f * (timeState / 400);
+			result = .1f * (timeState / 1500);
 		}
 		else if (enemyType == EnemyTypeENUM.ALIEN) {
-			result = .01f * (timeState / 300);
+			result = .1f * (timeState / 3000);
 		}
 		else {
 			throw new Error("unknown enemy : " + enemyType);
