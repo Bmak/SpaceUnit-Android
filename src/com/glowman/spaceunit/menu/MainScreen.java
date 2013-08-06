@@ -11,6 +11,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import android.util.Log;
 
 import com.glowman.spaceunit.Assets;
+import com.glowman.spaceunit.SoundPlayer;
 import com.glowman.spaceunit.menu.behavior.AsteroidsBehavior;
 import com.glowman.spaceunit.game.strategy.GameStrategy;
 import com.glowman.spaceunit.core.Button;
@@ -28,6 +29,7 @@ public class MainScreen implements Screen {
 	private OrthographicCamera _camera;
 	private Button _playBtnRun;
 	private Button _playBtnShoot;
+	private Button _soundBtn;
 	private TextButton _highscoresBtn;
 	private TextButton _achievementsBtn;
 	private TextButton _creditsBtn;
@@ -53,11 +55,12 @@ public class MainScreen implements Screen {
 		_playBtnRun.index = GameStrategy.RUN_GAME;
 		_playBtnShoot = new Button(Assets.getPlayShootRegion(2), Assets.getPlayShootRegion(1));
 		_playBtnShoot.index = GameStrategy.SHOOT_GAME;
+		_soundBtn = new Button(Assets.getSoundBtnRegion(1), Assets.getSoundBtnRegion(2));
 		_highscoresBtn = new TextButton(Assets.getSimpleBtnRegion(1), Assets.getSimpleBtnRegion(2), "Highscores");
 		_achievementsBtn = new TextButton(Assets.getSimpleBtnRegion(1), Assets.getSimpleBtnRegion(2), "Achievements");
 		_creditsBtn = new TextButton(Assets.getSimpleBtnRegion(1), Assets.getSimpleBtnRegion(2), "About");
 		
-		_listener = new MenuTouchListener(_game);
+		_listener = new MenuTouchListener(_game, _soundBtn);
 		
 		_behavior = new AsteroidsBehavior(15, _spriteBatch);
 		
@@ -79,6 +82,9 @@ public class MainScreen implements Screen {
 		
 		_playBtnShoot.setX(Assets.VIRTUAL_WIDTH/2 + _playBtnShoot.getWidth()/10);
 		_playBtnShoot.setY((Assets.VIRTUAL_HEIGHT - _playBtnShoot.getHeight())/2 + _playBtnShoot.getHeight()*0.3f);
+
+		_soundBtn.setPosition(Assets.VIRTUAL_WIDTH - _soundBtn.getWidth(),
+							  Assets.VIRTUAL_HEIGHT - _soundBtn.getHeight());
 		
 		_highscoresBtn.setX(Assets.VIRTUAL_WIDTH/2 - _highscoresBtn.getWidth()*1.3f);
 		_highscoresBtn.setY(_highscoresBtn.getHeight()*1.5f); //wat? wat what??
@@ -99,12 +105,15 @@ public class MainScreen implements Screen {
 	public void hide() {
 		this.clear();
 		Gdx.input.setInputProcessor(null);
+		SoundPlayer.stopMusic(Assets.backMenuSound);
 	}
 
 	float scale;
 	@Override
 	public void show() {
 		Gdx.input.setInputProcessor(_listener);
+		Log.d("hz", "volume : " + Assets.backMenuSound.getVolume());
+		SoundPlayer.playMusic(Assets.backMenuSound);
 	}
 
 	@Override
@@ -121,6 +130,7 @@ public class MainScreen implements Screen {
 		_highscoresBtn.draw(_spriteBatch);
 		_achievementsBtn.draw(_spriteBatch);
 		_creditsBtn.draw(_spriteBatch);
+		_soundBtn.draw(_spriteBatch);
 		
 		FPSViewer.draw(_spriteBatch);
 		_spriteBatch.end();

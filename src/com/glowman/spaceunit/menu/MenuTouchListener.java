@@ -8,6 +8,7 @@ import com.badlogic.gdx.InputAdapter;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.math.Vector3;
 import com.glowman.spaceunit.CoordinatesTranslator;
+import com.glowman.spaceunit.SoundPlayer;
 import com.glowman.spaceunit.game.GameScreen;
 import com.glowman.spaceunit.core.Button;
 import com.glowman.spaceunit.core.ScreenControl;
@@ -22,13 +23,15 @@ public class MenuTouchListener extends InputAdapter {
 	private Vector3 _touchPoint;
 	private ArrayList<EventButton> _buttons;
 	private ArrayList<EventButton> _googlePlayButtons;
+	private Button _soundBtn;
 
 	//coz touch up can fire just after screen changing, and touch down was into previous screen...
 	private boolean _wasTouchDown = false;
 
-	public MenuTouchListener(Game game)
+	public MenuTouchListener(Game game, Button soundBtn)
 	{
 		_game = game;
+		_soundBtn = soundBtn;
 		_buttons = new ArrayList<EventButton>();
 		_googlePlayButtons = new ArrayList<EventButton>();
 	}
@@ -77,6 +80,17 @@ public class MenuTouchListener extends InputAdapter {
 			evBtn.btn.setNormalMode();
 			if (this.isButtonUnderPoint(evBtn.btn)) {
 				GooglePlayData.showGooglePlayScreen(evBtn.type);
+			}
+		}
+
+		if (this.isButtonUnderPoint(_soundBtn)) {
+			if (_soundBtn.isClicked()) {
+				_soundBtn.setNormalMode();
+				SoundPlayer.soundOn();
+			}
+			else {
+				_soundBtn.setClickedMode();
+				SoundPlayer.soundOff();
 			}
 		}
 		return false;

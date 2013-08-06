@@ -1,5 +1,7 @@
 package com.glowman.spaceunit.achievements;
 
+import com.glowman.spaceunit.Assets;
+import com.glowman.spaceunit.SoundPlayer;
 import com.glowman.spaceunit.data.GooglePlayData;
 import com.glowman.spaceunit.game.strategy.GameStrategy;
 
@@ -45,6 +47,7 @@ public class AchievementsConrol {
 			if (achieve.score <= score && !achieve.unlock) {
 				//achieve.unlock = true;
 				GooglePlayData.gamesClient.unlockAchievement(achieve.id);
+				SoundPlayer.playSound(Assets.achieveSound);
 			}
 		}
 	}
@@ -54,6 +57,7 @@ public class AchievementsConrol {
 			if (achieve.score <= score && !achieve.unlock) {
 				//achieve.unlock = true; For other users this achive will be unlock in currently game session
 				GooglePlayData.gamesClient.unlockAchievement(achieve.id);
+				SoundPlayer.playSound(Assets.achieveSound);
 			}
 		}
 	}

@@ -6,6 +6,7 @@ import android.util.Log;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.Game;
+import com.badlogic.gdx.assets.loaders.SoundLoader;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL10;
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -16,6 +17,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.glowman.spaceunit.Assets;
+import com.glowman.spaceunit.SoundPlayer;
 import com.glowman.spaceunit.achievements.AchievementsConrol;
 import com.glowman.spaceunit.core.Button;
 import com.glowman.spaceunit.core.FPSViewer;
@@ -120,13 +122,14 @@ public class GameScreen implements Screen {
 
 	@Override
 	public void show() {
+		SoundPlayer.playMusic(Assets.backGameSound, .5f);
 	}
 	@Override
 	public void hide() {
 		Gdx.input.setInputProcessor(null);
 		_gameStrategy.stopGame();
 		this.clear();
-		//TODO остановка/пауза всех просчетов, которые могут выполняться
+		SoundPlayer.stopMusic(Assets.backGameSound);
 	}
 	@Override public void pause() {
 		_pauseButton.setClickedMode();

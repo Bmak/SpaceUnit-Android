@@ -3,6 +3,7 @@ package com.glowman.spaceunit;
 import android.util.Log;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
@@ -54,6 +55,9 @@ public class Assets {
 	public static Sound bigBamSound;
 	public static Sound bamSound;
 	public static Sound btnSound;
+	public static Music backMenuSound;
+	public static Music backGameSound;
+	public static Sound achieveSound;
 
 
 	public static TextureRegion[] soImages;
@@ -107,10 +111,16 @@ public class Assets {
 		soImages[0] = asteroid;
 		soImages[1] = meteor;
 
-		shotSound = Gdx.audio.newSound(Gdx.files.internal("sounds/shot.wav"));
+		shotSound = Gdx.audio.newSound(Gdx.files.internal("sounds/shot.mp3"));
 		bamSound = Gdx.audio.newSound(Gdx.files.internal("sounds/bam2.wav"));
 		bigBamSound = Gdx.audio.newSound(Gdx.files.internal("sounds/bam6.mp3"));
-		btnSound = Gdx.audio.newSound(Gdx.files.internal("sounds/click1.wav"));
+		btnSound = Gdx.audio.newSound(Gdx.files.internal("sounds/click.mp3"));
+		backGameSound = Gdx.audio.newMusic(Gdx.files.internal("sounds/gameplay.mp3"));
+		Assets.backGameSound.setLooping(true);
+		backMenuSound = Gdx.audio.newMusic(Gdx.files.internal("sounds/mainmenu.mp3"));
+		Assets.backMenuSound.setLooping(true);
+		achieveSound = Gdx.audio.newSound(Gdx.files.internal("sounds/unlockAchieve.mp3"));
+
 	}
 	
 	public static void dispose() {
@@ -132,11 +142,11 @@ public class Assets {
 	public static TextureRegion getBackBtnRegin(int index) {
 		return atlas.findRegion("buttons/BackBtn", index);
 	}
-	/*
-	public static TextureRegion getGoogleBtn(int index) {
-		return atlas.findRegion("buttons/GoogleLedBtn", index);
+
+	public static TextureRegion getSoundBtnRegion(int index) {
+		return atlas.findRegion("buttons/SoundBtn", index);
 	}
-	*/
+
 	public static TextureRegion getPauseBtn(int index) {
 		return atlas.findRegion("buttons/PauseBtn", index);
 	}

@@ -3,6 +3,7 @@ package com.glowman.spaceunit.game;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.Vector2;
 import com.glowman.spaceunit.Assets;
+import com.glowman.spaceunit.SoundPlayer;
 import com.glowman.spaceunit.game.mapObject.Bullet;
 import com.glowman.spaceunit.game.mapObject.SpaceObject;
 
@@ -71,7 +72,7 @@ public class Shooter implements IShooter {
 		bullet.moveTo(to.x, to.y);
 		bullet.rotateTo(to.x, to.y);
 		_bullets.add(bullet);
-		Assets.shotSound.play();
+		SoundPlayer.playSound(Assets.shotSound);
 	}
 
 	@Override

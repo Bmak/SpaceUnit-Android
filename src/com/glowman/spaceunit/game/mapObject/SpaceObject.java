@@ -4,6 +4,7 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.Vector2;
 import com.glowman.spaceunit.Assets;
+import com.glowman.spaceunit.SoundPlayer;
 import com.glowman.spaceunit.game.animation.IBlowMaker;
 
 /**
@@ -97,7 +98,7 @@ public abstract class SpaceObject {
 
 	public void explode(IBlowMaker blowMaker) {
 		blowMaker.makeBlow(this.getCenterPosition().x, this.getCenterPosition().y, this.getWidth());
-		Assets.bamSound.play();
+		SoundPlayer.playSound(Assets.bamSound);
 	}
 
 	protected void setImage(Sprite image)

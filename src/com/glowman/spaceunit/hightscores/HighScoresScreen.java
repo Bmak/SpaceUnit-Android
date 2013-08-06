@@ -53,7 +53,6 @@ public class HighScoresScreen implements Screen {
 		_backBtn.setX(_backBtn.getWidth()*0.2f);
 		_backBtn.setY(_backBtn.getHeight()*0.2f);
 		
-		_showLeaderboardsBtn = new Button(Assets.getGoogleBtn(1), Assets.getGoogleBtn(2));
 		_showLeaderboardsBtn.setX(Assets.VIRTUAL_WIDTH - _showLeaderboardsBtn.getWidth()*1.2f);
 		_showLeaderboardsBtn.setY(_showLeaderboardsBtn.getHeight()*0.2f);
 		

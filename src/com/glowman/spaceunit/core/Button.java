@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Rectangle;
 import com.glowman.spaceunit.Assets;
+import com.glowman.spaceunit.SoundPlayer;
 
 public class Button {
 	protected final Sprite _normal;
@@ -34,12 +35,14 @@ public class Button {
 	public Rectangle getBounds() {
 		return _currentView.getBoundingRectangle();
 	}
+
+	public boolean isClicked() { return _currentView == _clicked; }
 	
 	public void setClickedMode()
 	{
 		if (_currentView == _clicked) return;
 		_currentView = _clicked;
-		Assets.btnSound.play();
+		SoundPlayer.playSound(Assets.btnSound, 0.1f);
 	}
 
 	public void setNormalMode()

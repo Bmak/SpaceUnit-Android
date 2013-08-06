@@ -22,6 +22,10 @@ public class SpeedCollector {
 			else if (enemyType == EnemyTypeENUM.MINE) {
 				result = 1f;
 			}
+			//crazy mine
+			else if (enemyType == EnemyTypeENUM.CRAZY_MINE) {
+				result = 1f;
+			}
 			//alien
 			else if (enemyType == EnemyTypeENUM.ALIEN) {
 				result = 1.6f;
