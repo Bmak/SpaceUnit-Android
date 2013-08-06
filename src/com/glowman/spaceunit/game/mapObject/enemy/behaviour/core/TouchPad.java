@@ -48,9 +48,8 @@ public class TouchPad {
 
 		knobBounds.set(getWidth()/2, getHeight()/2, getWidth()/2);
 		touchBounds.set(getWidth()/2, getHeight()/2, getWidth());
-		knobPosition.set(style.background.getMinWidth() / 2f, style.background.getMinHeight() / 2f);
 
-		this.updatePosition();
+		this.updateKnobPosition();
 
 		//setWidth(getPrefWidth());
 		//setHeight(getPrefHeight());
@@ -59,7 +58,6 @@ public class TouchPad {
 	public void setPosition(float x, float y) {
 		this.position.x = x;
 		this.position.y = y;
-		this.updatePosition();
 	}
 
 	public boolean hit(float x, float y) {
@@ -193,11 +191,12 @@ public class TouchPad {
 		return knobPercent.y;
 	}
 
+	public void updateKnobPosition() {
+		knobPosition.set(style.background.getMinWidth() / 2f, style.background.getMinHeight() / 2f);
+	}
+
 	private float getWidth() { return style.background.getMinWidth(); }
 	private float getHeight() { return style.background.getMinHeight(); }
-
-	private void updatePosition() {
-	}
 
 	/** The style for a {@link TouchPad}.
 	 * @author Josh Street */

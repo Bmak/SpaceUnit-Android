@@ -122,6 +122,7 @@ public class GameScreen implements Screen {
 
 	@Override
 	public void show() {
+		_touchPad.updateKnobPosition();
 		SoundPlayer.playMusic(Assets.backGameSound, .5f);
 	}
 	@Override
