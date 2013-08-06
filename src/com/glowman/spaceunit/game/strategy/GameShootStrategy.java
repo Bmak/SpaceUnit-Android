@@ -34,7 +34,7 @@ public class GameShootStrategy extends GameStrategy {
 
 	public GameShootStrategy(Ship ship)
 	{
-		super(ship);
+		super(ship, GameStrategy.SHOOT_GAME);
 		_score = new Score(Score.getScoreTypeByGameType(GameStrategy.SHOOT_GAME), 0);
 		_shooter = new Shooter();
 		BehaviourOptionsData bhOptions = new BehaviourOptionsData(_shooter, _blowController, ship, _impactController);

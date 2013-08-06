@@ -10,7 +10,6 @@ import com.glowman.spaceunit.game.mapObject.enemy.Enemy;
 import com.glowman.spaceunit.game.mapObject.Ship;
 import com.glowman.spaceunit.game.mapObject.enemy.EnemyFactory;
 
-import java.lang.Math;
 import java.util.ArrayList;
 
 /**
@@ -22,7 +21,7 @@ public class GameRunStrategy extends GameStrategy {
 
 	public GameRunStrategy(Ship ship)
 	{
-		super(ship);
+		super(ship, GameStrategy.RUN_GAME);
 		_score = new Score(Score.getScoreTypeByGameType(GameStrategy.RUN_GAME), 0);
 		BehaviourOptionsData bhOptions = new BehaviourOptionsData(null, _blowController, ship, _impactController);
 		EnemyFactory.init(GameStrategy.RUN_GAME, _heroShip, bhOptions);

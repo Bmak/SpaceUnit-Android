@@ -1,5 +1,6 @@
 package com.glowman.spaceunit.game.balance;
 
+import android.util.Log;
 import com.glowman.spaceunit.game.mapObject.enemy.EnemyTypeENUM;
 import com.glowman.spaceunit.game.strategy.GameStrategy;
 
@@ -22,7 +23,7 @@ public class RespawnFrequencyCollector {
 				if (timeState < 3) {
 					result = .1f;
 				} else {
-					result = 0.1f * (timeState / 500);
+					result = 0.1f * (timeState / 200);
 				}
 			}
 		}

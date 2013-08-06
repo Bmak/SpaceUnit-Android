@@ -23,6 +23,7 @@ public abstract class GameStrategy implements IGameStrategy {
 	public static final int SHOOT_GAME = 0;
 	public static final int RUN_GAME = 1;
 
+	private final int _gameType;
 	protected BlowController _blowController;
 	protected ImpactController _impactController;
 	protected ArrayList<Enemy> _enemies;
@@ -36,8 +37,9 @@ public abstract class GameStrategy implements IGameStrategy {
 	private GameStatus _gameStatus;
 	protected float _timeState;
 
-	GameStrategy(Ship ship)
+	GameStrategy(Ship ship, int gameType)
 	{
+		_gameType = gameType;
 		_heroShip = ship;
 		_enemies = new ArrayList<Enemy>();
 		_blowController = new BlowController();
@@ -141,7 +143,7 @@ public abstract class GameStrategy implements IGameStrategy {
 		for (int i = 0; i < _availableEnemyTypes.length; ++i) {
 			enemyType = _availableEnemyTypes[i];
 			if (Math.random() <
-					RespawnFrequencyCollector.getFrequency(enemyType, GameStrategy.SHOOT_GAME, _timeState)) {
+					RespawnFrequencyCollector.getFrequency(enemyType, _gameType, _timeState)) {
 				Enemy enemy = EnemyFactory.createEnemy(enemyType);
 				_enemies.add(enemy);
 				this.setEnemyParams(enemy);
