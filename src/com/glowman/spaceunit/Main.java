@@ -27,6 +27,8 @@ public class Main extends Game {
 		ScreenControl.init(this, _camera);
 		
 		setScreen(ScreenControl.getScreen(ScreenControl.MAIN));
+		
+		SoundPlayer.playMusic(Assets.backMenuSound);
 	}
 	
 	@Override

@@ -123,6 +123,7 @@ public class GameScreen implements Screen {
 	@Override
 	public void show() {
 		_touchPad.updateKnobPosition();
+		SoundPlayer.stopMusic(Assets.backMenuSound);
 		SoundPlayer.playMusic(Assets.backGameSound, .5f);
 	}
 	@Override
@@ -131,6 +132,7 @@ public class GameScreen implements Screen {
 		_gameStrategy.stopGame();
 		this.clear();
 		SoundPlayer.stopMusic(Assets.backGameSound);
+		SoundPlayer.playMusic(Assets.backMenuSound);
 	}
 	@Override public void pause() {
 		_pauseButton.setClickedMode();

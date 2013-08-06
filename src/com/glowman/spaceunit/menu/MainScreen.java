@@ -83,8 +83,8 @@ public class MainScreen implements Screen {
 		_playBtnShoot.setX(Assets.VIRTUAL_WIDTH/2 + _playBtnShoot.getWidth()/10);
 		_playBtnShoot.setY((Assets.VIRTUAL_HEIGHT - _playBtnShoot.getHeight())/2 + _playBtnShoot.getHeight()*0.3f);
 
-		_soundBtn.setPosition(Assets.VIRTUAL_WIDTH - _soundBtn.getWidth(),
-							  Assets.VIRTUAL_HEIGHT - _soundBtn.getHeight());
+		_soundBtn.setPosition(Assets.VIRTUAL_WIDTH - _soundBtn.getWidth()- 15,
+							  Assets.VIRTUAL_HEIGHT - _soundBtn.getHeight()- 15);
 		
 		_highscoresBtn.setX(Assets.VIRTUAL_WIDTH/2 - _highscoresBtn.getWidth()*1.3f);
 		_highscoresBtn.setY(_highscoresBtn.getHeight()*1.5f); //wat? wat what??
@@ -105,7 +105,6 @@ public class MainScreen implements Screen {
 	public void hide() {
 		this.clear();
 		Gdx.input.setInputProcessor(null);
-		SoundPlayer.stopMusic(Assets.backMenuSound);
 	}
 
 	float scale;
@@ -113,7 +112,6 @@ public class MainScreen implements Screen {
 	public void show() {
 		Gdx.input.setInputProcessor(_listener);
 		Log.d("hz", "volume : " + Assets.backMenuSound.getVolume());
-		SoundPlayer.playMusic(Assets.backMenuSound);
 	}
 
 	@Override

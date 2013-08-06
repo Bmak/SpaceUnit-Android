@@ -27,9 +27,10 @@ public class Score {
 	public String getPrintableScore() {
 		if (type == SECONDS) {
 			float cutedScore = ((int)(score / 10))/100f;
-			int s = (int) cutedScore;
-			int ms = (int) ((cutedScore - s) * 10);
+			int s = (int) (cutedScore);
 			int m = (int) (s / 60f);
+			int ms = (int) ((cutedScore - s) * 10);
+			s = (int) (s % 60);
 			return stringifyTime(m) + ":" + stringifyTime(s) + ":" + stringifyTime(ms);
 		}
 		return String.valueOf((int)score);
