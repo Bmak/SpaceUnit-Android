@@ -157,10 +157,12 @@ public class GameScreen implements Screen {
 			GooglePlayData.gamesClient.submitScore(
 					GooglePlayData.getLeaderboardID(_gameType), (long)score.score);
 		}
-		BitmapFont.TextBounds bounds = _font.getBounds("Game \n Over. " + score.type + " : " + score.getPrintableScore());
-		_font.draw(_drawer, "Game Over. " + score.type + " : " + score.getPrintableScore(),
-					Assets.VIRTUAL_WIDTH/4f, Assets.VIRTUAL_HEIGHT/2f);
-	}
+		String text = "GAME OVER\n" + score.type + " : " + score.getPrintableScore();
+		BitmapFont.TextBounds bounds = _font.getMultiLineBounds(text);
+
+		_font.drawMultiLine(_drawer, text,
+				Assets.VIRTUAL_WIDTH/2 - bounds.width/2, (Assets.VIRTUAL_HEIGHT - bounds.height)/2,
+				Assets.VIRTUAL_WIDTH, BitmapFont.HAlignment.LEFT);}
 
 	private void drawScore() {
 		Score score = _gameStrategy.getScore();
