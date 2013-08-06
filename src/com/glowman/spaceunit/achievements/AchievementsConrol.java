@@ -45,9 +45,9 @@ public class AchievementsConrol {
 	private static void checkUnlockRunAchievement(long score) {
 		for (AchievementItem achieve : _runAchievements) {
 			if (achieve.score <= score && !achieve.unlock) {
-				//achieve.unlock = true;
+				achieve.unlock = true;
 				GooglePlayData.gamesClient.unlockAchievement(achieve.id);
-				SoundPlayer.playSound(Assets.achieveSound);
+				//SoundPlayer.playSound(Assets.achieveSound);
 			}
 		}
 	}
@@ -55,9 +55,9 @@ public class AchievementsConrol {
 	private static void checkUnlockShootAchievement(long score) {
 		for (AchievementItem achieve : _shootAchievements) {
 			if (achieve.score <= score && !achieve.unlock) {
-				//achieve.unlock = true; For other users this achive will be unlock in currently game session
+				achieve.unlock = true;// For other users this achive will be unlock in currently game session
 				GooglePlayData.gamesClient.unlockAchievement(achieve.id);
-				SoundPlayer.playSound(Assets.achieveSound);
+				//SoundPlayer.playSound(Assets.achieveSound);
 			}
 		}
 	}

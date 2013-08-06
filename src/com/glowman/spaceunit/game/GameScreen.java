@@ -53,6 +53,7 @@ public class GameScreen implements Screen {
 	private TextButton _returnToMenuBtn;
 
 	private float _interfaceAlpha;
+	private boolean _achieveFlag;
 
 	public GameScreen(Game game, OrthographicCamera camera)
 	{
@@ -71,6 +72,7 @@ public class GameScreen implements Screen {
 	
 	public void play(int gameType) {
 		_gameType = gameType;
+		_achieveFlag = false;
 		Log.d("hz", "game type : " + _gameType);
 		this.createShip();
 		_gameTouchListener.setShip(_ship);
@@ -155,11 +157,15 @@ public class GameScreen implements Screen {
 	private void drawGameOver() {
 		this.createFont();
 		Score score = _gameStrategy.getScore();
-		if (GooglePlayData.gameHelper.isSignedIn()) {
-			AchievementsConrol.checkUnlockAchievement(_gameType, (long)score.score);
-			GooglePlayData.gamesClient.submitScore(
-					GooglePlayData.getLeaderboardID(_gameType), (long)score.score);
+		if (!_achieveFlag) {
+			_achieveFlag = true;
+			if (GooglePlayData.gameHelper.isSignedIn()) {
+				AchievementsConrol.checkUnlockAchievement(_gameType, (long)score.score);
+				GooglePlayData.gamesClient.submitScore(
+						GooglePlayData.getLeaderboardID(_gameType), (long)score.score);
+			}
 		}
+		
 		String text = "GAME OVER\n" + score.type + " : " + score.getPrintableScore();
 		BitmapFont.TextBounds bounds = _font.getMultiLineBounds(text);
 

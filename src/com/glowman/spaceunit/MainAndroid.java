@@ -49,7 +49,7 @@ public class MainAndroid extends GPGSActivity {
 		//TODO доработать приветствие // ага, чтоб работало на эмуляторе ((
 		Log.d("hz", "build product : " + Build.PRODUCT);
 		if (!"google_sdk".equals( Build.PRODUCT ) && !mHelper.isSignedIn()) {
-			//this.mHelper.showGreetAlert();
+			this.mHelper.showGreetAlert();
 		}
 		
 		initialize(new Main(), config);
