@@ -78,102 +78,102 @@ filter: Nearest,Nearest
 repeat: none
 buttons/PlayBtnRun
   rotate: false
-  xy: 1, 713
+  xy: 1, 756
   size: 364, 258
   orig: 364, 258
   offset: 0, 0
   index: 1
 buttons/PlayBtnRun
   rotate: false
-  xy: 1, 453
+  xy: 1, 496
   size: 364, 258
   orig: 364, 258
   offset: 0, 0
   index: 2
 buttons/PlayBtnShoot
   rotate: false
-  xy: 367, 713
+  xy: 367, 756
   size: 364, 258
   orig: 364, 258
   offset: 0, 0
   index: 1
 buttons/PlayBtnShoot
   rotate: false
-  xy: 1, 193
+  xy: 1, 236
   size: 364, 258
   orig: 364, 258
   offset: 0, 0
   index: 2
 buttons/SimpleBtn
   rotate: false
-  xy: 367, 641
+  xy: 367, 684
   size: 288, 70
   orig: 288, 70
   offset: 0, 0
   index: 1
 buttons/SimpleBtn
   rotate: false
-  xy: 733, 901
+  xy: 733, 944
   size: 288, 70
   orig: 288, 70
   offset: 0, 0
   index: 2
 buttons/joyPadBkg
   rotate: false
-  xy: 1, 76
-  size: 115, 115
-  orig: 115, 115
+  xy: 1, 61
+  size: 173, 173
+  orig: 173, 173
   offset: 0, 0
   index: -1
-buttons/BackBtn
-  rotate: false
-  xy: 367, 566
-  size: 73, 73
-  orig: 73, 73
-  offset: 0, 0
-  index: 1
-buttons/BackBtn
-  rotate: false
-  xy: 733, 826
-  size: 73, 73
-  orig: 73, 73
-  offset: 0, 0
-  index: 2
-buttons/PauseBtn
-  rotate: false
-  xy: 1, 1
-  size: 73, 73
-  orig: 73, 73
-  offset: 0, 0
-  index: 1
-buttons/PauseBtn
-  rotate: false
-  xy: 118, 118
-  size: 73, 73
-  orig: 73, 73
-  offset: 0, 0
-  index: 2
-buttons/SoundBtn
-  rotate: false
-  xy: 657, 653
-  size: 51, 58
-  orig: 51, 58
-  offset: 0, 0
-  index: 1
-buttons/SoundBtn
-  rotate: false
-  xy: 367, 506
-  size: 51, 58
-  orig: 51, 58
-  offset: 0, 0
-  index: 2
 buttons/joyPad
   rotate: false
-  xy: 442, 585
-  size: 50, 54
-  orig: 50, 54
+  xy: 367, 601
+  size: 75, 81
+  orig: 75, 81
   offset: 0, 0
   index: -1
+buttons/BackBtn
+  rotate: false
+  xy: 733, 869
+  size: 73, 73
+  orig: 73, 73
+  offset: 0, 0
+  index: 1
+buttons/BackBtn
+  rotate: false
+  xy: 176, 161
+  size: 73, 73
+  orig: 73, 73
+  offset: 0, 0
+  index: 2
+buttons/PauseBtn
+  rotate: false
+  xy: 367, 526
+  size: 73, 73
+  orig: 73, 73
+  offset: 0, 0
+  index: 1
+buttons/PauseBtn
+  rotate: false
+  xy: 444, 609
+  size: 73, 73
+  orig: 73, 73
+  offset: 0, 0
+  index: 2
+buttons/SoundBtn
+  rotate: false
+  xy: 657, 696
+  size: 51, 58
+  orig: 51, 58
+  offset: 0, 0
+  index: 1
+buttons/SoundBtn
+  rotate: false
+  xy: 1, 1
+  size: 51, 58
+  orig: 51, 58
+  offset: 0, 0
+  index: 2
 
 textures4.png
 format: RGBA8888
@@ -262,13 +262,34 @@ textures8.png
 format: RGBA8888
 filter: Nearest,Nearest
 repeat: none
-unit/unit
+unit/ship
   rotate: false
   xy: 1, 12
-  size: 44, 41
-  orig: 44, 41
+  size: 52, 41
+  orig: 52, 41
   offset: 0, 0
   index: -1
+unit/unit
+  rotate: false
+  xy: 55, 12
+  size: 52, 41
+  orig: 52, 41
+  offset: 0, 0
+  index: 1
+unit/unit
+  rotate: false
+  xy: 109, 12
+  size: 52, 41
+  orig: 52, 41
+  offset: 0, 0
+  index: 2
+unit/unit
+  rotate: false
+  xy: 163, 12
+  size: 52, 41
+  orig: 52, 41
+  offset: 0, 0
+  index: 3
 unit/bullet
   rotate: false
   xy: 1, 1

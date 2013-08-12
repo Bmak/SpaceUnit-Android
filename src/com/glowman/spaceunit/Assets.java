@@ -25,6 +25,7 @@ public class Assets {
 	private static TextureAtlas atlas;
 	
 	public static TextureRegion ship;
+	public static Array<TextureAtlas.AtlasRegion> shipArray;
 	public static TextureRegion bullet;
 
 	public static TextureRegion blueCircle;
@@ -86,7 +87,8 @@ public class Assets {
 		title = atlas.findRegion("screens/title");
 		//highscores = atlas.findRegion("screens/highscores");
 
-		ship = atlas.findRegion("unit/unit");
+		ship = atlas.findRegion("unit/ship");
+		shipArray = atlas.findRegions("unit/unit");
 		bullet = atlas.findRegion("unit/bullet");
 
 		blowArray = atlas.findRegions("blow/blow");

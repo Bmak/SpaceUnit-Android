@@ -131,7 +131,9 @@ public class MovingSpaceObject extends SpaceObject {
 
 		super.setPosition(randomX, randomY);
 	}
-
+	
+	public boolean isMoving() { return _vX != 0 || _vY != 0; }
+	
 	@Override
 	protected void setImage(Sprite image) {
 		super.setImage(image);
