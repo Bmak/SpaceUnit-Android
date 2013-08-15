@@ -27,6 +27,7 @@ public class Assets {
 	public static TextureRegion ship;
 	public static Array<TextureAtlas.AtlasRegion> shipArray;
 	public static TextureRegion bullet;
+	public static TextureRegion enemyBullet;
 
 	public static TextureRegion blueCircle;
 
@@ -90,7 +91,7 @@ public class Assets {
 		ship = atlas.findRegion("unit/ship");
 		shipArray = atlas.findRegions("unit/unit");
 		bullet = atlas.findRegion("unit/bullet");
-
+		
 		blowArray = atlas.findRegions("blow/blow");
 		blueCircle = atlas.findRegion("blow/circle");
 
@@ -101,6 +102,7 @@ public class Assets {
 		alienActive = atlas.findRegion("enemies/alien2");
 		minePassive = atlas.findRegion("enemies/mine1");
 		mineActive = atlas.findRegion("enemies/mine2");
+		enemyBullet = atlas.findRegion("enemies/enemybullet");
 
 		joyPad = atlas.findRegion("buttons/joyPad");
 		joyPadBkg = atlas.findRegion("buttons/joyPadBkg");

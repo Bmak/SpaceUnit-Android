@@ -181,44 +181,51 @@ filter: Nearest,Nearest
 repeat: none
 enemies/alien1
   rotate: false
-  xy: 1, 19
+  xy: 1, 29
   size: 82, 34
   orig: 82, 34
   offset: 0, 0
   index: -1
 enemies/alien2
   rotate: false
-  xy: 85, 19
+  xy: 85, 29
   size: 82, 34
   orig: 82, 34
   offset: 0, 0
   index: -1
 enemies/asteroid
   rotate: false
-  xy: 169, 1
+  xy: 169, 11
   size: 52, 52
   orig: 52, 52
   offset: 0, 0
   index: -1
 enemies/meteor
   rotate: false
-  xy: 223, 1
+  xy: 223, 11
   size: 52, 52
   orig: 52, 52
   offset: 0, 0
   index: -1
 enemies/mine1
   rotate: false
-  xy: 277, 2
+  xy: 277, 12
   size: 51, 51
   orig: 51, 51
   offset: 0, 0
   index: -1
 enemies/mine2
   rotate: false
-  xy: 330, 2
+  xy: 330, 12
   size: 51, 51
   orig: 51, 51
+  offset: 0, 0
+  index: -1
+enemies/enemybullet
+  rotate: false
+  xy: 277, 1
+  size: 11, 9
+  orig: 11, 9
   offset: 0, 0
   index: -1
 
@@ -253,8 +260,8 @@ repeat: none
 screens/title
   rotate: false
   xy: 1, 1
-  size: 373, 50
-  orig: 373, 50
+  size: 486, 88
+  orig: 486, 88
   offset: 0, 0
   index: -1
 
