@@ -125,7 +125,7 @@ public class GameShootStrategy extends GameStrategy {
 
 		Vector3 targetPoint =  CoordinatesTranslator.toVirtualView(touchX, touchY);
 
-		_shooter.shoot(_heroShip, new Vector2(targetPoint.x, targetPoint.y));
+		_shooter.shoot(_heroShip, new Vector2(targetPoint.x, targetPoint.y), Shooter.HERO_BULLET);
 	}
 
 	private void checkBulletsForRemove()

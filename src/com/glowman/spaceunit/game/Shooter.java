@@ -1,6 +1,7 @@
 package com.glowman.spaceunit.game;
 
 import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 import com.glowman.spaceunit.Assets;
 import com.glowman.spaceunit.SoundPlayer;
@@ -14,6 +15,9 @@ import java.util.ArrayList;
  */
 public class Shooter implements IShooter {
 	public static final float DEFAULT_BULLET_SPEED = 5;
+
+	public static final int HERO_BULLET = 0;
+	public static final int ENEMY_BULLET = 1;
 
 	private float _bulletSpeed;
 
@@ -53,19 +57,17 @@ public class Shooter implements IShooter {
 	}
 
 	@Override
-	public void setBulletSpeed(float speed) {
-		_bulletSpeed = speed;
-	}
-	@Override
-	public float getBulletSpeed() { return _bulletSpeed; }
-
-	@Override
-	public void shoot(SpaceObject owner, Vector2 from, Vector2 to) {
+	public void shoot(SpaceObject owner, Vector2 from, Vector2 to, int bulletType) {
 		if (_bullets == null) {
 			_bullets = new ArrayList<Bullet>();
 		}
 
-		Sprite bulletView = new Sprite(Assets.bullet);
+		Sprite bulletView;
+		if (bulletType == HERO_BULLET) {
+			bulletView = new Sprite(Assets.bullet);
+		} else {
+			bulletView = new Sprite(Assets.enemyBullet);
+		}
 		Bullet bullet = new Bullet(bulletView, owner);
 		bullet.setGeneralSpeed(_bulletSpeed);
 		bullet.setPosition(from.x, from.y);
@@ -77,20 +79,12 @@ public class Shooter implements IShooter {
 
 	@Override
 	public void shoot(Vector2 from, Vector2 to) {
-		this.shoot(null, from, to);
+		this.shoot(null, from, to, HERO_BULLET);
 	}
 
 	@Override
-	public void shoot(SpaceObject owner, Vector2 to) {
-		this.shoot(owner, owner.getCenterPosition(), to);
-	}
-
-	@Override
-	public void shoot(Vector2 from, Vector2 to, float bulletSpeed) {
-		float oldSpeed = _bulletSpeed;
-		_bulletSpeed = bulletSpeed;
-		this.shoot(from, to);
-		_bulletSpeed = oldSpeed;
+	public void shoot(SpaceObject owner, Vector2 to, int bulletType) {
+		this.shoot(owner, owner.getCenterPosition(), to, bulletType);
 	}
 
 	@Override

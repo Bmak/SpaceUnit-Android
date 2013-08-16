@@ -1,5 +1,6 @@
 package com.glowman.spaceunit.game.mapObject.enemy.behaviour;
 
+import com.glowman.spaceunit.game.Shooter;
 import com.glowman.spaceunit.game.mapObject.SpaceObject;
 import com.glowman.spaceunit.game.mapObject.enemy.Enemy;
 import com.glowman.spaceunit.game.mapObject.enemy.behaviour.core.BehaviourOptions;
@@ -43,7 +44,7 @@ public class EnemyShootBehaviour extends AEnemyBehaviourWithTarget{
 	public void tick(float delta) {
 		_stateTime += delta;
 		if (_stateTime >= _options.frequency) {
-			_options.shooter.shoot(_enemy, _options.targetToShoot.getCenterPosition());
+			_options.shooter.shoot(_enemy, _options.targetToShoot.getCenterPosition(), Shooter.ENEMY_BULLET);
 			_stateTime %= _options.frequency;
 		}
 	}
