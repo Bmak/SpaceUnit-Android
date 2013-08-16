@@ -1,5 +1,6 @@
 package com.glowman.spaceunit;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
 
@@ -24,7 +25,12 @@ public class SoundPlayer {
 	public static void soundOff() {
 		_soundOn = false;
 		if (_playingMusic != null) {
-			_playingMusic.stop();
+			try {
+				_playingMusic.stop();
+			}
+			catch (Error e) {
+				Gdx.app.log("hz", "error while playing music stopping, something with player in Android music..");
+			}
 		}
 	}
 
