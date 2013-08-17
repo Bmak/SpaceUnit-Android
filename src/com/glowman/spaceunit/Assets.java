@@ -9,6 +9,7 @@ import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.glowman.spaceunit.data.GooglePlayData;
 
 public class Assets {
 	public static final float VIRTUAL_WIDTH = 960.0f;
@@ -70,16 +71,14 @@ public class Assets {
 		atlas = new TextureAtlas(Gdx.files.internal("textures/textures.pack"));
 		
 		loadTextures();
-
 	}
 
-	private static void initVirtualDimension() {
+	public static void initVirtualDimension() {
 		float coef = Math.max(VIRTUAL_WIDTH / Gdx.graphics.getWidth(), VIRTUAL_HEIGHT / Gdx.graphics.getHeight());
 		FULL_VIRTUAL_WIDTH = Gdx.graphics.getWidth() * coef;
 		FULL_VIRTUAL_HEIGHT = Gdx.graphics.getHeight() * coef;
 		FULL_X_OFFSET = - (int) ((FULL_VIRTUAL_WIDTH - VIRTUAL_WIDTH) / 2);
 		FULL_Y_OFFSET = - (int) ((FULL_VIRTUAL_HEIGHT - VIRTUAL_HEIGHT) / 2);
-
 	}
 	
 	private static void loadTextures () {
@@ -124,7 +123,7 @@ public class Assets {
 		backMenuSound = Gdx.audio.newMusic(Gdx.files.internal("sounds/mainmenu.mp3"));
 		Assets.backMenuSound.setLooping(true);
 		achieveSound = Gdx.audio.newSound(Gdx.files.internal("sounds/unlockAchieve.mp3"));
-
+		
 	}
 	
 	public static void dispose() {

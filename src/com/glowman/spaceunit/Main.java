@@ -9,6 +9,7 @@ import com.glowman.spaceunit.core.FPSViewer;
 import com.glowman.spaceunit.core.CameraHelper;
 import com.glowman.spaceunit.core.CameraHelper.ViewportMode;
 import com.glowman.spaceunit.core.ScreenControl;
+import com.glowman.spaceunit.data.GooglePlayData;
 
 
 public class Main extends Game {
@@ -26,9 +27,12 @@ public class Main extends Game {
 		
 		ScreenControl.init(this, _camera);
 		
-		setScreen(ScreenControl.getScreen(ScreenControl.MAIN));
+		//setScreen(new Loader(this, _camera));
 		
+		setScreen(ScreenControl.getScreen(ScreenControl.MAIN));
 		SoundPlayer.playMusic(Assets.backMenuSound);
+		
+		GooglePlayData.game.initGooglePlay();
 	}
 	
 	@Override

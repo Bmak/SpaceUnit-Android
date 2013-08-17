@@ -47,7 +47,7 @@ import com.google.android.gms.games.multiplayer.Invitation;
 import com.google.android.gms.plus.PlusClient;
 
 public class GameHelper implements GooglePlayServicesClient.ConnectionCallbacks,
-        GooglePlayServicesClient.OnConnectionFailedListener, OnClickListener {
+        GooglePlayServicesClient.OnConnectionFailedListener {
 	
     /** Listener for sign-in success or failure events. */
     public interface GameHelperListener {
@@ -581,16 +581,6 @@ public class GameHelper implements GooglePlayServicesClient.ConnectionCallbacks,
         }
     }
     
-    public void showGreetAlert() {
-    	new AlertDialog.Builder(getContext()).setTitle("Welcome!")
-        .setMessage("Sign in with Google to earn achievements and submit scores to leaderboards.")
-        .setNeutralButton(android.R.string.ok, this).create().show();
-    }
-
-	@Override
-	public void onClick(DialogInterface dialog, int which) {
-		beginUserInitiatedSignIn();
-	}
     /**
      * Starts a user-initiated sign-in flow. This should be called when the user
      * clicks on a "Sign In" button. As a result, authentication/consent dialogs
