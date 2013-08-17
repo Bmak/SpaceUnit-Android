@@ -60,13 +60,6 @@ public class MainAndroid extends GPGSActivity implements OnClickListener {
 		}
 		*/
 		
-		/*
-		_greetDialog = new AlertDialog(this);
-		_greetDialog.setTitle("Welcome!");
-		_greetDialog.setMessage("Sign in with Google to earn achievements and submit scores to leaderboards.");
-		_greetDialog.setButton(DialogInterface.BUTTON_NEUTRAL, "OK", this);
-		*/
-		
 		progress = new ProgressDialog(this);
 		progress.setMessage("Loading...");
 		progress.show();
