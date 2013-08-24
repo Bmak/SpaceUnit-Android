@@ -66,6 +66,7 @@ public abstract class GameStrategy implements IGameStrategy {
 	public void stopGame() {
 		//hz what here need to be
 	}
+
 	@Override
 	public GameStatus getGameStatus() { return _gameStatus; }
 

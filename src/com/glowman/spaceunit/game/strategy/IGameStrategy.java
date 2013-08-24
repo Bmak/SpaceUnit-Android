@@ -16,6 +16,8 @@ public interface IGameStrategy {
 	void resumeGame();
 	boolean isPaused();
 
+	void useAbility();
+
 	Score getScore();
 
 	void tick(float delta);

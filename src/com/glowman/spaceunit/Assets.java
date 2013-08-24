@@ -32,6 +32,8 @@ public class Assets {
 
 	public static TextureRegion blueCircle;
 
+	public static TextureRegion abilityButton;
+
 	public static TextureRegion bkg;
 	public static TextureRegion credits;
 	public static TextureRegion title;
@@ -102,6 +104,8 @@ public class Assets {
 		minePassive = atlas.findRegion("enemies/mine1");
 		mineActive = atlas.findRegion("enemies/mine2");
 		enemyBullet = atlas.findRegion("enemies/enemybullet");
+
+		abilityButton = atlas.findRegion("blow/blow", 4);
 
 		joyPad = atlas.findRegion("buttons/joyPad");
 		joyPadBkg = atlas.findRegion("buttons/joyPadBkg");

@@ -47,5 +47,11 @@ public class ImpactController implements IImpactMaker {
 		_impacts.add(blowImpact);
 	}
 
+	public void createAbilityBlow(float x, float y) {
+		ISpaceImpact abilityImpact = new AbilityBlowImpact(x, y, _blowMaker);
+		abilityImpact.start();
+		_impacts.add(abilityImpact);
+	}
+
 	public ArrayList<ISpaceImpact> getImpacts() { return _impacts; }
 }

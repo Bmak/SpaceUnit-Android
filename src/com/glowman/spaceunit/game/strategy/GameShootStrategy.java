@@ -89,6 +89,11 @@ public class GameShootStrategy extends GameStrategy {
 	}
 
 	@Override
+	public void useAbility()
+	{
+	}
+
+	@Override
 	public void touchUp(TouchEvent touch){
 		if (touch.pointer == _shootingTouch) {
 			_shootingTouch = -1;
