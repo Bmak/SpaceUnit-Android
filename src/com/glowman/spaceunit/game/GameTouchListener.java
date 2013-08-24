@@ -2,6 +2,7 @@ package com.glowman.spaceunit.game;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.InputAdapter;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.Vector3;
 import com.glowman.spaceunit.CoordinatesTranslator;
 import com.glowman.spaceunit.core.Button;
@@ -19,6 +20,7 @@ public class GameTouchListener extends InputAdapter {
 	private IGameStrategy _gameStrategy;
 	private Game _game;
 	private Button _pauseBtn;
+	private Sprite _abilityButton;
 	private TouchPad _touchpad;
 	private Ship _ship;
 	private TextButton _toMenuBtn;
@@ -26,12 +28,14 @@ public class GameTouchListener extends InputAdapter {
 	private boolean _gameOver;
 
 	GameTouchListener(Game game, Button pauseBtn,
-					  TouchPad touchPad, TextButton toMenuBtn) {
+					  TouchPad touchPad, TextButton toMenuBtn,
+					  Sprite abilityButton) {
 		_game = game;
 		_pauseBtn = pauseBtn;
 		_gameOver = false;
 		_touchpad = touchPad;
 		_toMenuBtn = toMenuBtn;
+		_abilityButton = abilityButton;
 	}
 
 	public void setShip(Ship ship) {
@@ -63,7 +67,10 @@ public class GameTouchListener extends InputAdapter {
 					if (_ship != null) {
 						_ship.moveOn(_touchpad.getKnobPercentX(), _touchpad.getKnobPercentY());
 					}
-				} else {
+				} else if (_abilityButton.getBoundingRectangle().contains(touchPoint.x, touchPoint.y)) {
+					_gameStrategy.useAbility();
+				}
+				else {
 					_gameStrategy.touchDown(new TouchEvent(TouchEvent.TOUCH_DOWN, (int)touchPoint.x, (int)touchPoint.y, pointer));
 				}
 			} else {

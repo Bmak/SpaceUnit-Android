@@ -48,6 +48,12 @@ public class GameRunStrategy extends GameStrategy {
 	}
 
 	@Override
+	public void useAbility() {
+		_impactController.createAbilityBlow(_heroShip.getCenterPosition().x,
+											_heroShip.getCenterPosition().y);
+	}
+
+	@Override
 	public void touchDown(TouchEvent touch) {
 	}
 

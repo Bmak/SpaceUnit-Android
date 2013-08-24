@@ -49,6 +49,7 @@ public class GameScreen implements Screen {
 	private BitmapFont _font;
 	private ScoreView _scoreView;
 	private Button _pauseButton;
+	private Sprite _abilityButton;
 	private TouchPad _touchPad;
 	private TextButton _returnToMenuBtn;
 
@@ -67,7 +68,7 @@ public class GameScreen implements Screen {
 
 		this.createInterface();
 
-		_gameTouchListener = new GameTouchListener(_game, _pauseButton, _touchPad, _returnToMenuBtn);
+		_gameTouchListener = new GameTouchListener(_game, _pauseButton, _touchPad, _returnToMenuBtn, _abilityButton);
 	}
 	
 	public void play(int gameType) {
@@ -109,6 +110,8 @@ public class GameScreen implements Screen {
 		if (_gameStrategy.getGameStatus() == GameStatus.GAME_OVER) { this.drawGameOver(); }
 		this.drawScore();
 		_pauseButton.draw(_drawer, _interfaceAlpha);
+
+		_abilityButton.draw(_drawer, _interfaceAlpha);
 
 		if (_gameStrategy.isPaused()) _returnToMenuBtn.draw(_drawer);
 
@@ -204,6 +207,11 @@ public class GameScreen implements Screen {
 		_pauseButton = new Button(Assets.getPauseBtn(1), Assets.getPauseBtn(2));
 		_pauseButton.setPosition(Assets.VIRTUAL_WIDTH - _pauseButton.getWidth() - 15,
 								 Assets.VIRTUAL_HEIGHT - _pauseButton.getHeight() - 15);
+
+		//ability button
+		_abilityButton = new Sprite(Assets.abilityButton);
+		_abilityButton.setPosition(Assets.VIRTUAL_WIDTH - _abilityButton.getWidth() - 15,
+								   15);
 
 		//return to menu button
 		_returnToMenuBtn = new TextButton(Assets.getSimpleBtnRegion(1), Assets.getSimpleBtnRegion(2), "Quit");
