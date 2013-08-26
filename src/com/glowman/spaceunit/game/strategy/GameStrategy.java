@@ -9,7 +9,7 @@ import com.glowman.spaceunit.core.AnimatedSprite;
 import com.glowman.spaceunit.core.TouchEvent;
 import com.glowman.spaceunit.game.mapObject.SpaceObject;
 import com.glowman.spaceunit.game.mapObject.enemy.Enemy;
-import com.glowman.spaceunit.game.mapObject.Ship;
+import com.glowman.spaceunit.game.mapObject.hero.Ship;
 import com.glowman.spaceunit.game.mapObject.enemy.EnemyFactory;
 import com.glowman.spaceunit.game.mapObject.impact.ISpaceImpact;
 import com.glowman.spaceunit.game.mapObject.impact.ImpactController;

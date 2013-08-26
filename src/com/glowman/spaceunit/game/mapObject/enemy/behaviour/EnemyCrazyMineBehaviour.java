@@ -53,7 +53,7 @@ public class EnemyCrazyMineBehaviour extends AEnemyBehaviour {
 		_timeState += delta;
 		if (_timeState > BOOM_TIME) {
 			_enemy.explode(_blowMaker);
-			_impactMaker.createBlowImpact(_enemy.getCenterPosition().x, _enemy.getCenterPosition().y);
+			_impactMaker.createBlow(_enemy.getCenterPosition().x, _enemy.getCenterPosition().y);
 			_enemy.setDead();
 			SoundPlayer.playSound(Assets.bigBamSound);
 			AppVibrator.getInstance().vibrate(300);

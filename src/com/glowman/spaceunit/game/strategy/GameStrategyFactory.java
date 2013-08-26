@@ -1,6 +1,6 @@
 package com.glowman.spaceunit.game.strategy;
 
-import com.glowman.spaceunit.game.mapObject.Ship;
+import com.glowman.spaceunit.game.mapObject.hero.Ship;
 
 /**
  *

@@ -41,7 +41,7 @@ public class ImpactController implements IImpactMaker {
 		completedImpacts.clear();
 	}
 
-	public void createBlowImpact(float x, float y) {
+	public void createBlow(float x, float y) {
 		ISpaceImpact blowImpact = new BlowImpact(x, y, _blowMaker);
 		blowImpact.start();
 		_impacts.add(blowImpact);

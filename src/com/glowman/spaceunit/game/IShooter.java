@@ -12,7 +12,7 @@ import java.util.ArrayList;
 public interface IShooter {
 
 	void tick(float delta);
-	void shoot(Vector2 from, Vector2 to);
+	void shoot(Vector2 from, Vector2 to, int bulletType);
 	void shoot(SpaceObject owner, Vector2 from, Vector2 to, int bulletType);
 	void shoot(SpaceObject owner, Vector2 to, int bulletType);
 

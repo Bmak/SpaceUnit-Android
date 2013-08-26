@@ -3,7 +3,7 @@ package com.glowman.spaceunit.game.mapObject.enemy;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.glowman.spaceunit.Assets;
 import com.glowman.spaceunit.game.mapObject.MovingSpaceObject.BORDER_BEHAVIOUR;
-import com.glowman.spaceunit.game.mapObject.Ship;
+import com.glowman.spaceunit.game.mapObject.hero.Ship;
 import com.glowman.spaceunit.game.mapObject.enemy.behaviour.EnemyActivateBehaviour;
 import com.glowman.spaceunit.game.mapObject.enemy.behaviour.EnemyAlarmBehaviour;
 import com.glowman.spaceunit.game.mapObject.enemy.behaviour.EnemyAlienBehaviour;

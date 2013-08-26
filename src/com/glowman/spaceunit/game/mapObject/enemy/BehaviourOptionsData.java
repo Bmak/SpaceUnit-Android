@@ -2,9 +2,8 @@ package com.glowman.spaceunit.game.mapObject.enemy;
 
 import com.glowman.spaceunit.game.IShooter;
 import com.glowman.spaceunit.game.animation.IBlowMaker;
-import com.glowman.spaceunit.game.mapObject.Ship;
+import com.glowman.spaceunit.game.mapObject.hero.Ship;
 import com.glowman.spaceunit.game.mapObject.impact.IImpactMaker;
-import com.glowman.spaceunit.game.mapObject.impact.ImpactController;
 
 /**
  *

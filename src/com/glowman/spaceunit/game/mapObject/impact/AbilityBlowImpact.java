@@ -1,7 +1,7 @@
 package com.glowman.spaceunit.game.mapObject.impact;
 
 import com.glowman.spaceunit.game.animation.IBlowMaker;
-import com.glowman.spaceunit.game.mapObject.Ship;
+import com.glowman.spaceunit.game.mapObject.hero.Ship;
 import com.glowman.spaceunit.game.mapObject.SpaceObject;
 
 /**

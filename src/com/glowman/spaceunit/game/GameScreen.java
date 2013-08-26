@@ -6,7 +6,6 @@ import android.util.Log;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.Game;
-import com.badlogic.gdx.assets.loaders.SoundLoader;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL10;
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -23,8 +22,10 @@ import com.glowman.spaceunit.core.Button;
 import com.glowman.spaceunit.core.FPSViewer;
 import com.glowman.spaceunit.core.TextButton;
 import com.glowman.spaceunit.data.GooglePlayData;
+import com.glowman.spaceunit.game.ability.Ability;
+import com.glowman.spaceunit.game.ability.AbilityENUM;
 import com.glowman.spaceunit.game.balance.SpeedCollector;
-import com.glowman.spaceunit.game.mapObject.Ship;
+import com.glowman.spaceunit.game.mapObject.hero.Ship;
 import com.glowman.spaceunit.game.mapObject.enemy.behaviour.core.TouchPad;
 import com.glowman.spaceunit.game.score.Score;
 import com.glowman.spaceunit.game.score.ScoreView;
@@ -49,7 +50,7 @@ public class GameScreen implements Screen {
 	private BitmapFont _font;
 	private ScoreView _scoreView;
 	private Button _pauseButton;
-	private Sprite _abilityButton;
+	private AbilityButton _abilityButton;
 	private TouchPad _touchPad;
 	private TextButton _returnToMenuBtn;
 
@@ -68,7 +69,7 @@ public class GameScreen implements Screen {
 
 		this.createInterface();
 
-		_gameTouchListener = new GameTouchListener(_game, _pauseButton, _touchPad, _returnToMenuBtn, _abilityButton);
+		_gameTouchListener = new GameTouchListener(_game, _pauseButton, _touchPad, _returnToMenuBtn);
 	}
 	
 	public void play(int gameType) {
@@ -79,7 +80,10 @@ public class GameScreen implements Screen {
 		_gameTouchListener.setShip(_ship);
 		_gameStrategy = GameStrategyFactory.createStrategy(_ship, _gameType);
 		_gameStrategy.startGame();
-		_gameTouchListener.init(_gameStrategy);
+		Ability ability = _gameStrategy.getAbility();
+		this.createAbilityButton(ability);
+
+		_gameTouchListener.init(_gameStrategy, _abilityButton);
 		_scoreView.setScoreType(Score.getScoreTypeByGameType(_gameType));
 		Gdx.input.setInputProcessor(_gameTouchListener);
 	}
@@ -111,7 +115,8 @@ public class GameScreen implements Screen {
 		this.drawScore();
 		_pauseButton.draw(_drawer, _interfaceAlpha);
 
-		_abilityButton.draw(_drawer, _interfaceAlpha);
+		_abilityButton.tick(delta);
+		_abilityButton.getView().draw(_drawer, _interfaceAlpha);
 
 		if (_gameStrategy.isPaused()) _returnToMenuBtn.draw(_drawer);
 
@@ -152,7 +157,7 @@ public class GameScreen implements Screen {
 	private void createShip() {
 		if (_ship != null) { Log.e("hz", "ship already exists!"); }
 
-		_ship = new Ship(new Sprite(Assets.ship), 10);
+		_ship = new Ship();
 		_ship.setGeneralSpeed(SpeedCollector.getHeroSpeed(_gameType));
 		_ship.setPosition(new Vector2(Assets.VIRTUAL_WIDTH / 2, Assets.VIRTUAL_HEIGHT / 2));
 	}
@@ -208,16 +213,18 @@ public class GameScreen implements Screen {
 		_pauseButton.setPosition(Assets.VIRTUAL_WIDTH - _pauseButton.getWidth() - 15,
 								 Assets.VIRTUAL_HEIGHT - _pauseButton.getHeight() - 15);
 
-		//ability button
-		_abilityButton = new Sprite(Assets.abilityButton);
-		_abilityButton.setPosition(Assets.VIRTUAL_WIDTH - _abilityButton.getWidth() - 15,
-								   15);
 
 		//return to menu button
 		_returnToMenuBtn = new TextButton(Assets.getSimpleBtnRegion(1), Assets.getSimpleBtnRegion(2), "Quit");
 		_returnToMenuBtn.setPosition(Assets.VIRTUAL_WIDTH/2 - _returnToMenuBtn.getWidth()/2,
 									 Assets.VIRTUAL_HEIGHT/2 - _returnToMenuBtn.getHeight()/2);
 
+	}
+
+	private void createAbilityButton(Ability ability) {
+		_abilityButton = new AbilityButton(ability);
+		_abilityButton.getView().setPosition(Assets.VIRTUAL_WIDTH - _abilityButton.getView().getWidth() - 15,
+				15);
 	}
 
 	private void createTouchPad() {

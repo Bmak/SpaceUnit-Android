@@ -3,14 +3,17 @@ package com.glowman.spaceunit.game.strategy;
 import android.util.Log;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.Sprite;
-import com.badlogic.gdx.math.Vector2;
 
 import com.badlogic.gdx.math.Vector3;
 import com.glowman.spaceunit.Assets;
 import com.glowman.spaceunit.CoordinatesTranslator;
 import com.glowman.spaceunit.core.TouchEvent;
 import com.glowman.spaceunit.game.IShooter;
+import com.glowman.spaceunit.game.ability.Ability;
+import com.glowman.spaceunit.game.ability.AbilityENUM;
+import com.glowman.spaceunit.game.ability.MultigunAbility;
 import com.glowman.spaceunit.game.balance.RotationSpeedCollector;
+import com.glowman.spaceunit.game.mapObject.gun.SimpleGun;
 import com.glowman.spaceunit.game.score.Score;
 import com.glowman.spaceunit.game.Shooter;
 import com.glowman.spaceunit.game.balance.EnemySetCollector;
@@ -19,7 +22,7 @@ import com.glowman.spaceunit.game.mapObject.Bullet;
 import com.glowman.spaceunit.game.mapObject.SpaceObject;
 import com.glowman.spaceunit.game.mapObject.enemy.BehaviourOptionsData;
 import com.glowman.spaceunit.game.mapObject.enemy.Enemy;
-import com.glowman.spaceunit.game.mapObject.Ship;
+import com.glowman.spaceunit.game.mapObject.hero.Ship;
 import com.glowman.spaceunit.game.mapObject.enemy.EnemyFactory;
 
 import java.util.ArrayList;
@@ -31,13 +34,16 @@ public class GameShootStrategy extends GameStrategy {
 
 	private IShooter _shooter;
 	private Score _score;
+	private Ability _ability;
 
 	public GameShootStrategy(Ship ship)
 	{
 		super(ship, GameStrategy.SHOOT_GAME);
+		_ability = Ability.create(AbilityENUM.MULTIGUN, ship, super._impactController);
+		ship.setGun(new SimpleGun());
 		_score = new Score(Score.getScoreTypeByGameType(GameStrategy.SHOOT_GAME), 0);
 		_shooter = new Shooter();
-		BehaviourOptionsData bhOptions = new BehaviourOptionsData(_shooter, _blowController, ship, _impactController);
+		BehaviourOptionsData bhOptions = new BehaviourOptionsData(_shooter, _blowController, ship, super._impactController);
 		EnemyFactory.init(GameStrategy.SHOOT_GAME, ship, bhOptions);
 		_availableEnemyTypes = EnemySetCollector.getEnemySet(GameStrategy.SHOOT_GAME);
 	}
@@ -71,10 +77,10 @@ public class GameShootStrategy extends GameStrategy {
 	public void tick(float delta)
 	{
 		super.tick(delta);
+		_ability.tick(delta);
 		_heroShip.tick(delta);
 
-		if (_heroShip.isReadyForShoot())
-		{
+		if (!_heroShip.isDead() && _shootingTouch != -1) {
 			this.shootBullet();
 		}
 
@@ -89,22 +95,28 @@ public class GameShootStrategy extends GameStrategy {
 	}
 
 	@Override
-	public void useAbility()
+	public Ability getAbility()
 	{
+		return _ability;
+	}
+	@Override
+	public void useAbility() {
+		if (!_ability.isReady()) {
+			throw new Error("ability not ready to activate");
+		}
+		_ability.activate();
 	}
 
 	@Override
 	public void touchUp(TouchEvent touch){
 		if (touch.pointer == _shootingTouch) {
 			_shootingTouch = -1;
-			_heroShip.setShooting(false);
 		}
 	}
 
 	@Override
 	public void touchDown(TouchEvent touch){
 		_shootingTouch = touch.pointer;
-		_heroShip.setShooting(true);
 	}
 	@Override
 	public void touchMove(TouchEvent touch){
@@ -123,14 +135,12 @@ public class GameShootStrategy extends GameStrategy {
 
 	private void shootBullet()
 	{
-		if (super._shootingTouch == -1) { throw new Error("shooting touch not exist!!"); }
-
 		int touchX = Gdx.input.getX(_shootingTouch);
 		int touchY = Gdx.input.getY(_shootingTouch);
 
 		Vector3 targetPoint =  CoordinatesTranslator.toVirtualView(touchX, touchY);
 
-		_shooter.shoot(_heroShip, new Vector2(targetPoint.x, targetPoint.y), Shooter.HERO_BULLET);
+		_heroShip.shoot(_shooter, targetPoint.x, targetPoint.y);
 	}
 
 	private void checkBulletsForRemove()

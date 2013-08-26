@@ -1,13 +1,15 @@
 package com.glowman.spaceunit.game.strategy;
 
 import com.glowman.spaceunit.core.TouchEvent;
+import com.glowman.spaceunit.game.ability.Ability;
+import com.glowman.spaceunit.game.ability.AbilityENUM;
 import com.glowman.spaceunit.game.balance.RotationSpeedCollector;
 import com.glowman.spaceunit.game.score.Score;
 import com.glowman.spaceunit.game.balance.EnemySetCollector;
 import com.glowman.spaceunit.game.balance.SpeedCollector;
 import com.glowman.spaceunit.game.mapObject.enemy.BehaviourOptionsData;
 import com.glowman.spaceunit.game.mapObject.enemy.Enemy;
-import com.glowman.spaceunit.game.mapObject.Ship;
+import com.glowman.spaceunit.game.mapObject.hero.Ship;
 import com.glowman.spaceunit.game.mapObject.enemy.EnemyFactory;
 
 import java.util.ArrayList;
@@ -18,10 +20,12 @@ import java.util.ArrayList;
 public class GameRunStrategy extends GameStrategy {
 
 	private Score _score;
+	private Ability _ability;
 
 	public GameRunStrategy(Ship ship)
 	{
 		super(ship, GameStrategy.RUN_GAME);
+		_ability = Ability.create(AbilityENUM.BLOW, ship, super._impactController);
 		_score = new Score(Score.getScoreTypeByGameType(GameStrategy.RUN_GAME), 0);
 		BehaviourOptionsData bhOptions = new BehaviourOptionsData(null, _blowController, ship, _impactController);
 		EnemyFactory.init(GameStrategy.RUN_GAME, _heroShip, bhOptions);
@@ -38,6 +42,7 @@ public class GameRunStrategy extends GameStrategy {
 	{
 		if (super.getGameStatus() == GameStatus.IN_PROCESS) _score.score+= delta * 1000;
 		super.tick(delta);
+		_ability.tick(delta);
 		super._heroShip.tick(delta);
 
 		if (_enemies != null)
@@ -48,9 +53,15 @@ public class GameRunStrategy extends GameStrategy {
 	}
 
 	@Override
+	public Ability getAbility() {
+		return _ability;
+	}
+	@Override
 	public void useAbility() {
-		_impactController.createAbilityBlow(_heroShip.getCenterPosition().x,
-											_heroShip.getCenterPosition().y);
+		if (!_ability.isReady()) {
+			throw new Error("ability not ready for use");
+		}
+		_ability.activate();
 	}
 
 	@Override

@@ -9,7 +9,7 @@ import com.glowman.spaceunit.core.Button;
 import com.glowman.spaceunit.core.ScreenControl;
 import com.glowman.spaceunit.core.TextButton;
 import com.glowman.spaceunit.core.TouchEvent;
-import com.glowman.spaceunit.game.mapObject.Ship;
+import com.glowman.spaceunit.game.mapObject.hero.Ship;
 import com.glowman.spaceunit.game.mapObject.enemy.behaviour.core.TouchPad;
 import com.glowman.spaceunit.game.strategy.IGameStrategy;
 
@@ -20,7 +20,7 @@ public class GameTouchListener extends InputAdapter {
 	private IGameStrategy _gameStrategy;
 	private Game _game;
 	private Button _pauseBtn;
-	private Sprite _abilityButton;
+	private AbilityButton _abilityButton;
 	private TouchPad _touchpad;
 	private Ship _ship;
 	private TextButton _toMenuBtn;
@@ -28,23 +28,22 @@ public class GameTouchListener extends InputAdapter {
 	private boolean _gameOver;
 
 	GameTouchListener(Game game, Button pauseBtn,
-					  TouchPad touchPad, TextButton toMenuBtn,
-					  Sprite abilityButton) {
+					  TouchPad touchPad, TextButton toMenuBtn) {
 		_game = game;
 		_pauseBtn = pauseBtn;
 		_gameOver = false;
 		_touchpad = touchPad;
 		_toMenuBtn = toMenuBtn;
-		_abilityButton = abilityButton;
 	}
 
 	public void setShip(Ship ship) {
 		_ship = ship;
 	}
 
-	public void init(IGameStrategy gameStrategy) {
+	public void init(IGameStrategy gameStrategy, AbilityButton abilityButton) {
 		_gameStrategy = gameStrategy;
 		_gameOver = false;
+		_abilityButton = abilityButton;
 	}
 
 	public void gameOver() {
@@ -62,14 +61,18 @@ public class GameTouchListener extends InputAdapter {
 				//pause
 				this.processPauseBtn();
 			} else if (!_gameStrategy.isPaused()) {
+				//click touchpad
 				if (_touchpad.hit(touchPoint.x, touchPoint.y)) {
 					_touchpad.touchDown(touchPoint.x, touchPoint.y);
 					if (_ship != null) {
 						_ship.moveOn(_touchpad.getKnobPercentX(), _touchpad.getKnobPercentY());
 					}
-				} else if (_abilityButton.getBoundingRectangle().contains(touchPoint.x, touchPoint.y)) {
+				//click abil button
+				} else if (_abilityButton.isReady() &&
+						   _abilityButton.getView().getBoundingRectangle().contains(touchPoint.x, touchPoint.y)) {
 					_gameStrategy.useAbility();
 				}
+				//click to scene
 				else {
 					_gameStrategy.touchDown(new TouchEvent(TouchEvent.TOUCH_DOWN, (int)touchPoint.x, (int)touchPoint.y, pointer));
 				}
