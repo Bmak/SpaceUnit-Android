@@ -2,6 +2,7 @@ package com.glowman.spaceunit.game.strategy;
 
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.glowman.spaceunit.core.TouchEvent;
+import com.glowman.spaceunit.game.ability.Ability;
 import com.glowman.spaceunit.game.score.Score;
 
 import java.util.ArrayList;
@@ -16,6 +17,7 @@ public interface IGameStrategy {
 	void resumeGame();
 	boolean isPaused();
 
+	Ability getAbility();
 	void useAbility();
 
 	Score getScore();

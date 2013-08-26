@@ -70,16 +70,16 @@ public class Shooter implements IShooter {
 		}
 		Bullet bullet = new Bullet(bulletView, owner);
 		bullet.setGeneralSpeed(_bulletSpeed);
-		bullet.setPosition(from.x, from.y);
+		bullet.setPosition(from.x - bullet.getWidth()/2, from.y - bullet.getHeight()/2);
 		bullet.moveTo(to.x, to.y);
 		bullet.rotateTo(to.x, to.y);
 		_bullets.add(bullet);
-		SoundPlayer.playSound(Assets.shotSound);
+		SoundPlayer.playSound(Assets.shotSound, 0.2f);
 	}
 
 	@Override
-	public void shoot(Vector2 from, Vector2 to) {
-		this.shoot(null, from, to, HERO_BULLET);
+	public void shoot(Vector2 from, Vector2 to, int bulletType) {
+		this.shoot(null, from, to, bulletType);
 	}
 
 	@Override

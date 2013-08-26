@@ -27,12 +27,11 @@ public abstract class SpaceObject {
 
 	public SpaceObject(Sprite image, boolean randomScale) {
 		_scale = (float) (randomScale ? (Math.random() * (scaleMax - scaleMin)) + scaleMin : 1);
-		_image = image;
-		this.setSize(_image.getWidth(), _image.getHeight());
-
 		_position = new Vector2(0,0);
 		_rotation = 0;
 		_isDead = false;
+
+		this.setImage(image);
 	}
 
 	public void tick(float delta) {
@@ -48,13 +47,6 @@ public abstract class SpaceObject {
 
 	public float basicWidth() { return _width; }
 	public float basicHeight() { return _height; }
-
-	public void setSize(float width, float height) {
-		_width = width;
-		_height = height;
-		this.updateImageSize();
-		this.updateImageOrigin();
-	}
 
 	public void setScale(float scale) {
 		_scale = scale;
@@ -104,6 +96,8 @@ public abstract class SpaceObject {
 	protected void setImage(Sprite image)
 	{
 		_image = image;
+		_width = image.getWidth();
+		_height = image.getHeight();
 		this.updateImagePosition();
 		this.updateImageSize();
 		this.updateImageOrigin();
@@ -113,7 +107,7 @@ public abstract class SpaceObject {
 		_image.setPosition(_position.x, _position.y);
 	}
 	private void updateImageSize() {
-		_image.setSize(_width*_scale, _height*_scale);
+		_image.setSize(this.getWidth(), this.getHeight());
 	}
 	private void updateImageOrigin() {
 		_image.setOrigin(_width*_scale/2, _height*_scale/2);
