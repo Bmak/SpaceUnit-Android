@@ -118,7 +118,7 @@ public class GameScreen implements Screen {
 		_pauseButton.draw(_drawer, _interfaceAlpha);
 
 		if (_abilityButton != null) {
-			_abilityButton.tick(delta);
+			if (!_gameStrategy.isPaused()) { _abilityButton.tick(delta); }
 			_abilityButton.draw(_drawer, _interfaceAlpha);
 			_abilityPanel.draw(_drawer, _interfaceAlpha);
 		}

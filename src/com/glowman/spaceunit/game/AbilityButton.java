@@ -45,7 +45,7 @@ public class AbilityButton {
 
 	public void draw(SpriteBatch drawer, float interfaceAlpha) {
 		_bkg.draw(drawer);
-		_view.draw(drawer, interfaceAlpha);
+		_view.draw(drawer);
 	}
 
 	public Sprite getView() { return _view; }
