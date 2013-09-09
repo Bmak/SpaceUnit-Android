@@ -18,6 +18,8 @@ public class AGun {
 		_readyForShoot = false;
 	}
 
+	public boolean isReloading() { return _reloadTimeLeft > 0; }
+
 	public void tick(float delta) {
 		_reloadTimeLeft-= delta;
 

@@ -32,13 +32,11 @@ public class MultigunAbility extends Ability {
 			_abilTimeLeft-= delta;
 			if (_abilTimeLeft <= 0) {
 				this.deactivate();
-			} else {
-				if (_heroShip.isMoving()) {
+			}
+			else if (_heroShip.getGun() != null) {
+				if (_heroShip.getGun().isReloading()) {
 					_heroShip.setRotationSpeed(4);
-					Gdx.app.log("hz", "moving");
-				}
-				else {
-					Gdx.app.log("hz", "not moving");
+				} else {
 					_heroShip.setRotationSpeed(0);
 				}
 			}

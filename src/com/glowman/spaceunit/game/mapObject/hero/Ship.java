@@ -26,6 +26,11 @@ public class Ship extends MovingSpaceObject {
 	public void setSkin(HeroSkin skin)
 	{
 		_skin = skin;
+
+		Vector2 centerPos = super.getCenterPosition();
+		super.setPosition(centerPos.x - _skin.getWidth()/2,
+						  centerPos.y - _skin.getHeight()/2);
+
 		super.setImage(skin);
 	}
 	public HeroSkin getSkin() { return _skin; }

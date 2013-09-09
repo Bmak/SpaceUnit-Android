@@ -51,6 +51,7 @@ public class GameScreen implements Screen {
 	private ScoreView _scoreView;
 	private Button _pauseButton;
 	private AbilityButton _abilityButton;
+	private Sprite _abilityPanel;
 	private TouchPad _touchPad;
 	private TextButton _returnToMenuBtn;
 
@@ -81,6 +82,7 @@ public class GameScreen implements Screen {
 		_gameStrategy = GameStrategyFactory.createStrategy(_ship, _gameType);
 		_gameStrategy.startGame();
 		Ability ability = _gameStrategy.getAbility();
+		this.createAbilityPanel(0); //TODO 1 ability for now. refact next time
 		this.createAbilityButton(ability);
 
 		_gameTouchListener.init(_gameStrategy, _abilityButton);
@@ -115,8 +117,11 @@ public class GameScreen implements Screen {
 		this.drawScore();
 		_pauseButton.draw(_drawer, _interfaceAlpha);
 
-		_abilityButton.tick(delta);
-		_abilityButton.getView().draw(_drawer, _interfaceAlpha);
+		if (_abilityButton != null) {
+			_abilityButton.tick(delta);
+			_abilityButton.draw(_drawer, _interfaceAlpha);
+			_abilityPanel.draw(_drawer, _interfaceAlpha);
+		}
 
 		if (_gameStrategy.isPaused()) _returnToMenuBtn.draw(_drawer);
 
@@ -221,10 +226,15 @@ public class GameScreen implements Screen {
 
 	}
 
+	private void createAbilityPanel(int abilityNum) {
+		_abilityPanel = new Sprite(Assets.abilPanel);
+		_abilityPanel.setPosition(Assets.VIRTUAL_WIDTH - 50 - _abilityPanel.getWidth()/2,
+								  50 - _abilityPanel.getHeight()/2);
+	}
 	private void createAbilityButton(Ability ability) {
 		_abilityButton = new AbilityButton(ability);
-		_abilityButton.getView().setPosition(Assets.VIRTUAL_WIDTH - _abilityButton.getView().getWidth() - 15,
-				15);
+		_abilityButton.setPosition(Assets.VIRTUAL_WIDTH - 50,
+				50);
 	}
 
 	private void createTouchPad() {

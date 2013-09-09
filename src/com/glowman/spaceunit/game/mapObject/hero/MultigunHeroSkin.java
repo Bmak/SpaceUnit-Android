@@ -7,7 +7,7 @@ import com.glowman.spaceunit.Assets;
  */
 public class MultigunHeroSkin extends HeroSkin {
 	public MultigunHeroSkin() {
-		super(Assets.minePassive);
+		super(Assets.superShip);
 	}
 
 	@Override
@@ -15,6 +15,6 @@ public class MultigunHeroSkin extends HeroSkin {
 
 	@Override
 	public void tick(float delta, boolean moving) {
-		this.setRegion(moving ? Assets.mineActive : Assets.minePassive);
+		//this.setRegion(moving ? Assets.mineActive : Assets.minePassive);
 	}
 }

@@ -30,7 +30,7 @@ public abstract class Ability {
 	public Ability(AbilityENUM abilityType, float cooldown) {
 		_cooldown = cooldown;
 		_abilityType = abilityType;
-		_timeLeft = 0;
+		_timeLeft = _cooldown;
 	}
 
 	public AbilityENUM getType() { return _abilityType; }

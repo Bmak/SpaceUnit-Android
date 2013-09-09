@@ -26,6 +26,7 @@ public class Assets {
 	private static TextureAtlas atlas;
 	
 	public static TextureRegion ship;
+	public static TextureRegion superShip;
 	public static Array<TextureAtlas.AtlasRegion> shipArray;
 	public static TextureRegion bullet;
 	public static TextureRegion enemyBullet;
@@ -54,6 +55,11 @@ public class Assets {
 	public static TextureRegion gameFontRegion;
 	public static String gameFontPath;
 	public static BitmapFont gameFont;
+
+	public static TextureRegion abilPanel;
+	public static TextureRegion abilBkg;
+	public static TextureRegion blowAbil;
+	public static TextureRegion superShipAbil;
 	
 	//Sounds
 	public static Sound shotSound;
@@ -90,6 +96,7 @@ public class Assets {
 		//highscores = atlas.findRegion("screens/highscores");
 
 		ship = atlas.findRegion("unit/ship");
+		superShip = atlas.findRegion("unit/supership");
 		shipArray = atlas.findRegions("unit/unit");
 		bullet = atlas.findRegion("unit/bullet");
 		
@@ -117,6 +124,11 @@ public class Assets {
 		soImages = new TextureRegion[2];
 		soImages[0] = asteroid;
 		soImages[1] = meteor;
+
+		abilPanel = atlas.findRegion("bonuses/panel");
+		abilBkg = atlas.findRegion("bonuses/bonuscircle");
+		blowAbil = atlas.findRegion("bonuses/blowbonus");
+		superShipAbil = atlas.findRegion("bonuses/supershipbonus");
 
 		shotSound = Gdx.audio.newSound(Gdx.files.internal("sounds/shot.mp3"));
 		bamSound = Gdx.audio.newSound(Gdx.files.internal("sounds/bam2.wav"));
