@@ -7,7 +7,7 @@ import android.os.Vibrator;
  */
 public class AppVibrator {
 	private static Vibrator _instance = null;
-
+	
 	public static void init(Vibrator instance) {
 		_instance = instance;
 	}

@@ -76,6 +76,39 @@ textures3.png
 format: RGBA8888
 filter: Nearest,Nearest
 repeat: none
+bonuses/panel
+  rotate: false
+  xy: 1, 26
+  size: 84, 84
+  orig: 84, 84
+  offset: 0, 0
+  index: -1
+bonuses/blowbonus
+  rotate: false
+  xy: 87, 50
+  size: 60, 60
+  orig: 60, 60
+  offset: 0, 0
+  index: -1
+bonuses/supershipbonus
+  rotate: false
+  xy: 149, 50
+  size: 60, 60
+  orig: 60, 60
+  offset: 0, 0
+  index: -1
+bonuses/bonuscircle
+  rotate: false
+  xy: 87, 1
+  size: 47, 47
+  orig: 47, 47
+  offset: 0, 0
+  index: -1
+
+textures4.png
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
 buttons/PlayBtnRun
   rotate: false
   xy: 1, 756
@@ -175,7 +208,7 @@ buttons/SoundBtn
   offset: 0, 0
   index: 2
 
-textures4.png
+textures5.png
 format: RGBA8888
 filter: Nearest,Nearest
 repeat: none
@@ -229,7 +262,7 @@ enemies/enemybullet
   offset: 0, 0
   index: -1
 
-textures5.png
+textures6.png
 format: RGBA8888
 filter: Nearest,Nearest
 repeat: none
@@ -241,7 +274,7 @@ fonts/font
   offset: 0, 0
   index: 0
 
-textures6.png
+textures7.png
 format: RGBA8888
 filter: Nearest,Nearest
 repeat: none
@@ -253,7 +286,7 @@ screens/credits
   offset: 0, 0
   index: -1
 
-textures7.png
+textures8.png
 format: RGBA8888
 filter: Nearest,Nearest
 repeat: none
@@ -265,41 +298,48 @@ screens/title
   offset: 0, 0
   index: -1
 
-textures8.png
+textures9.png
 format: RGBA8888
 filter: Nearest,Nearest
 repeat: none
+unit/supership
+  rotate: false
+  xy: 1, 44
+  size: 80, 80
+  orig: 80, 80
+  offset: 0, 0
+  index: -1
 unit/ship
   rotate: false
-  xy: 1, 12
+  xy: 1, 1
   size: 52, 41
   orig: 52, 41
   offset: 0, 0
   index: -1
 unit/unit
   rotate: false
-  xy: 55, 12
+  xy: 83, 83
   size: 52, 41
   orig: 52, 41
   offset: 0, 0
   index: 1
 unit/unit
   rotate: false
-  xy: 109, 12
+  xy: 137, 83
   size: 52, 41
   orig: 52, 41
   offset: 0, 0
   index: 2
 unit/unit
   rotate: false
-  xy: 163, 12
+  xy: 191, 83
   size: 52, 41
   orig: 52, 41
   offset: 0, 0
   index: 3
 unit/bullet
   rotate: false
-  xy: 1, 1
+  xy: 55, 33
   size: 11, 9
   orig: 11, 9
   offset: 0, 0

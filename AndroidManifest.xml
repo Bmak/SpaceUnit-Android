@@ -28,7 +28,7 @@
                 android:name="com.glowman.spaceunit.MainAndroid"
                 android:label="Space Unit"
                 android:screenOrientation="landscape"
-                android:configChanges="keyboard|keyboardHidden|orientation|screenLayout">
+                android:configChanges="keyboard|keyboardHidden|orientation">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
                 <category android:name="android.intent.category.LAUNCHER"/>
