@@ -47,8 +47,9 @@ public class GameRunStrategy extends GameStrategy {
 
 		if (_enemies != null)
 		{
-			this.checkEnemyHits();
-			this.checkHeroHit();
+            this.checkHeroHit();
+            this.checkEnemyHits();
+
 		}
 	}
 

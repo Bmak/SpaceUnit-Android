@@ -5,6 +5,8 @@ import com.glowman.spaceunit.game.IShooter;
 import com.glowman.spaceunit.game.mapObject.MovingSpaceObject;
 import com.glowman.spaceunit.game.mapObject.gun.AGun;
 
+
+
 /**
  *
  */
@@ -13,15 +15,21 @@ public class Ship extends MovingSpaceObject {
 	private HeroSkin _skin;
 	private AGun _gun;
 
-	public Ship(HeroSkin skin)
-	{
-		super(skin, false, BORDER_BEHAVIOUR.STOP);
-		_skin = skin;
-	}
 
-	public Ship() {
-		this(new BasicHeroSkin());
-	}
+
+
+
+
+        public Ship(HeroSkin skin, BORDER_BEHAVIOUR bBehaviour)
+        {
+            super(skin, false, bBehaviour);
+            _skin = skin;
+        }
+
+        public Ship(BORDER_BEHAVIOUR bBehaviour) {
+        this(new BasicHeroSkin(), bBehaviour);
+    }
+
 
 	public void setSkin(HeroSkin skin)
 	{

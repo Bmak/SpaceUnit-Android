@@ -1,6 +1,7 @@
 package com.glowman.spaceunit.game.mapObject;
 
 
+import android.util.Log;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.glowman.spaceunit.Assets;
 import com.glowman.spaceunit.Settings;
@@ -20,6 +21,16 @@ public class MovingSpaceObject extends SpaceObject {
 
 	protected boolean _paused;
 
+	private int SOFT_TOUCH_DISTANCE = 40;
+
+	public static enum BORDER_BEHAVIOUR {
+		NONE,
+		TELEPORT,
+		MIRROR_TELEPORT,
+		STOP,
+		SOFT_TOUCH
+	}
+
 	public MovingSpaceObject(Sprite image, boolean randomScale, BORDER_BEHAVIOUR borderBehaviour) {
 		super(image, randomScale);
 		_borderBehaviour = borderBehaviour;
@@ -29,9 +40,9 @@ public class MovingSpaceObject extends SpaceObject {
 		_paused = false;
 	}
 
-	public MovingSpaceObject(Sprite image) {
-		this(image, false, BORDER_BEHAVIOUR.NONE);
-	}
+    public MovingSpaceObject(Sprite image) {
+        this(image, false, BORDER_BEHAVIOUR.NONE);
+    }
 
 	public void setGeneralSpeed(float value) { _generalSpeed = value; }
 	public void setRotationSpeed(float value) { _rotationSpeed = value; }
@@ -71,33 +82,49 @@ public class MovingSpaceObject extends SpaceObject {
 		if (_isDead) { return; }
 		if (_paused) { return; }
 
+		if (_borderBehaviour == BORDER_BEHAVIOUR.SOFT_TOUCH) this.checkSoftBorderBehaviour();
+
 		float newX = _position.x + _vX * coef;
 		float newY = _position.y + _vY * coef;
 
+		_rotation+= _rotationSpeed * coef;
+		if (_rotation > 360) { _rotation %= 360; }
+
+		this.checkBorderBehaviour(newX, newY);
+
+		super._image.setPosition(_position.x, _position.y);
+		_image.setRotation(_rotation);
+	}
+
+	/**
+	 * Проверяет близость к границе экрана и выполняет заданное поведение
+	 * @param newX предполагаемый X после текущего tick
+	 * @param newY предполагаемый Y после текущего tick
+	 */
+	private void checkBorderBehaviour(float newX, float newY) {
 		if (_borderBehaviour == BORDER_BEHAVIOUR.STOP) {
-			if (newX + this.getWidth() < Assets.FULL_VIRTUAL_WIDTH + Assets.FULL_X_OFFSET &&
-					newX > Assets.FULL_X_OFFSET)
-				_position.x = newX;
-			if (newY + this.getHeight() < Assets.FULL_VIRTUAL_HEIGHT + Assets.FULL_Y_OFFSET &&
-					newY > Assets.FULL_Y_OFFSET)
-				_position.y = newY;
+			if (!this.isTouchedBorderByX(newX)) _position.x = newX;
+			if (!this.isTouchedBorderByY(newY)) _position.y = newY;
 		}
 		else {
 			_position.x  = newX;
 			_position.y = newY;
 		}
-		_rotation+= _rotationSpeed * coef;
-		if (_rotation > 360) { _rotation %= 360; }
-		
+
 		if (_borderBehaviour == BORDER_BEHAVIOUR.TELEPORT) {
-			if (this.checkBorderHit())
+			if (this.isOutOfBorder())
 			{
-				this.setRandomBorderPosition();
+
+                this.setRandomBorderPosition();
+			}
+		}
+		else if (_borderBehaviour == BORDER_BEHAVIOUR.MIRROR_TELEPORT) {
+			if (this.isOutOfBorder())
+			{
+				this.setMirrorBorderPosition();
 			}
 		}
 
-		super._image.setPosition(_position.x, _position.y);
-		_image.setRotation(_rotation);
 	}
 
 	public void rotateTo(float targetX, float targetY)
@@ -108,10 +135,77 @@ public class MovingSpaceObject extends SpaceObject {
 		_rotation = angle;
 	}
 
+	/**
+	 * Проверяет близость к границе на SOFT_TOUCH_DISTANCE
+	 * и замедляет движение в этом районе, если скорость направлена к границе
+	 */
+    private float distanceToLeft(float x)
+    {
+        float leftDistance =x-Assets.FULL_X_OFFSET;
+
+
+        return leftDistance;
+    }
+    private float distanceToRight(float x){
+        float rightDistance = Assets.FULL_VIRTUAL_WIDTH-x+Assets.FULL_X_OFFSET-this.getWidth();
+
+        return  rightDistance;
+    }
+    private float distanceToTop(float y){
+        float topDistance = Assets.FULL_VIRTUAL_HEIGHT-y+Assets.FULL_Y_OFFSET-this.getHeight();
+
+        return topDistance;
+    }
+    private float distanceToBottom(float y){
+        float bottomDistance = y-Assets.FULL_Y_OFFSET;
+
+        return bottomDistance;
+    }
+	private void checkSoftBorderBehaviour()
+	{
+		float left = this.distanceToLeft(_position.x);
+		float right = this.distanceToRight(_position.x);
+		float top = this.distanceToTop(_position.y);
+		float bottom = this.distanceToBottom(_position.y);
+
+		float minDistance = Math.min(left, Math.min(right, Math.min(top, bottom)));
+
+		if (minDistance < SOFT_TOUCH_DISTANCE) {
+			if ((minDistance == left && _vX < 0) ||
+				(minDistance == right && _vX > 0) ||
+				(minDistance == top && _vY > 0) ||
+				(minDistance == bottom && _vY < 0))
+			{
+
+				float multiplier = minDistance / SOFT_TOUCH_DISTANCE;
+				_vX = _frozenVX * multiplier;
+				_vY = _frozenVY * multiplier;
+			}
+		}
+	}
+
+	/**
+	 * Объект вылетает зеркально из противоположной стенки
+	 */
+	private void setMirrorBorderPosition()
+	{
+		boolean isOutToRight =Assets.FULL_VIRTUAL_WIDTH-_position.x+Assets.FULL_X_OFFSET-this.getWidth()<0;
+		boolean isOutToLeft = _position.x + this.getWidth() < Assets.FULL_X_OFFSET;
+		boolean isOutToTop = _position.y + this.getHeight() < Assets.FULL_Y_OFFSET;
+		boolean isOutToBottom = _position.y  + Assets.FULL_Y_OFFSET > Assets.FULL_VIRTUAL_HEIGHT;
+
+		if (isOutToRight) super.setPosition(Assets.FULL_X_OFFSET, _position.y);
+		else if (isOutToLeft) super.setPosition(Assets.VIRTUAL_WIDTH- Assets.FULL_X_OFFSET, _position.y);
+		else if (isOutToTop) super.setPosition(_position.x, Assets.VIRTUAL_HEIGHT-Assets.FULL_Y_OFFSET);
+		else if (isOutToBottom) super.setPosition(_position.x, Assets.FULL_Y_OFFSET);
+	}
+
+	/**
+	 * Объект вылетает из рандомного места на границе экрана
+	 */
 	public void setRandomBorderPosition()
 	{
 		float randomX, randomY;
-
 		if (Math.random() < .5)
 		{
 			float randomWidth = (float)Math.round(Math.random()); //0 or 1
@@ -147,18 +241,31 @@ public class MovingSpaceObject extends SpaceObject {
 		_frozenVY = vy;
 	}
 
-	protected boolean checkBorderHit() {
-		return ((_position.x + this.getWidth() < Assets.FULL_X_OFFSET) ||
-				(_position.x - this.getWidth() + Assets.FULL_Y_OFFSET > Assets.FULL_VIRTUAL_WIDTH) ||
-				(_position.y + this.getHeight() < Assets.FULL_Y_OFFSET) ||
-				(_position.y - this.getHeight() + Assets.FULL_Y_OFFSET > Assets.FULL_VIRTUAL_HEIGHT));
+	private boolean isTouchedBorderByX(float x) {
+		return !(x + this.getWidth() < Assets.FULL_VIRTUAL_WIDTH + Assets.FULL_X_OFFSET &&
+				x > Assets.FULL_X_OFFSET);
+	}
+	private boolean isTouchedBorderByY(float y) {
+		return !(y + this.getHeight() < Assets.FULL_VIRTUAL_HEIGHT + Assets.FULL_Y_OFFSET &&
+				y > Assets.FULL_Y_OFFSET);
 	}
 
-	public static enum BORDER_BEHAVIOUR {
-		NONE,
-		TELEPORT,
-		STOP
+	//TODO check this
+	protected boolean isOutOfBorder() {
+
+
+
+
+        return ((_position.x  + this.getWidth() < Assets.FULL_X_OFFSET) ||
+				(_position.x - this.getWidth() + Assets.FULL_Y_OFFSET > Assets.FULL_VIRTUAL_WIDTH) ||
+				(_position.y + this.getHeight() < Assets.FULL_Y_OFFSET) ||
+				(_position.y + Assets.FULL_Y_OFFSET > Assets.FULL_VIRTUAL_HEIGHT));
+
 	}
 
 }
 
+//boolean isOutToRight = _position.x - this.getWidth() + Assets.FULL_Y_OFFSET > Assets.FULL_VIRTUAL_WIDTH;
+//boolean isOutToLeft = _position.x   < Assets.FULL_X_OFFSET;
+//boolean isOutToTop = _position.y  < Assets.FULL_Y_OFFSET;
+//boolean isOutToBottom = _position.y - this.getHeight() + Assets.FULL_Y_OFFSET > Assets.FULL_VIRTUAL_HEIGHT;

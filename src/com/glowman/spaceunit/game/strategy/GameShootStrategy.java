@@ -89,9 +89,10 @@ public class GameShootStrategy extends GameStrategy {
 		if (_shooter.getBullets() != null)
 		{
 			this.checkBulletsForRemove();
-			this.checkBulletsHit();
+            this.checkBulletsHit();
 		}
-		this.checkHeroHit();
+        this.checkHeroHit();
+
 	}
 
 	@Override

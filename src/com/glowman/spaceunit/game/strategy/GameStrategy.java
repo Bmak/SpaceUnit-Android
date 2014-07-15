@@ -41,7 +41,7 @@ public abstract class GameStrategy implements IGameStrategy {
 	{
 		_gameType = gameType;
 		_heroShip = ship;
-		_enemies = new ArrayList<Enemy>();
+        _enemies = new ArrayList<Enemy>();
 		_blowController = new BlowController();
 		_impactController = new ImpactController(_blowController);
 		_timeState = 0;
@@ -141,14 +141,17 @@ public abstract class GameStrategy implements IGameStrategy {
 			return;
 		}
 		String enemyType;
+
+        //if (_enemies.size() > 0) return;
 		for (int i = 0; i < _availableEnemyTypes.length; ++i) {
 			enemyType = _availableEnemyTypes[i];
 			if (Math.random() <
 					RespawnFrequencyCollector.getFrequency(enemyType, _gameType, _timeState)) {
-				Enemy enemy = EnemyFactory.createEnemy(enemyType);
-				_enemies.add(enemy);
-				this.setEnemyParams(enemy);
-			}
+		Enemy enemy = EnemyFactory.createEnemy(enemyType);
+			_enemies.add(enemy);
+			this.setEnemyParams(enemy);
+                
+		}
 		}
 	}
 

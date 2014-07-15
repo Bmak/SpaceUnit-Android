@@ -25,11 +25,13 @@ import com.glowman.spaceunit.data.GooglePlayData;
 import com.glowman.spaceunit.game.ability.Ability;
 import com.glowman.spaceunit.game.ability.AbilityENUM;
 import com.glowman.spaceunit.game.balance.SpeedCollector;
+import com.glowman.spaceunit.game.mapObject.MovingSpaceObject;
 import com.glowman.spaceunit.game.mapObject.hero.Ship;
 import com.glowman.spaceunit.game.mapObject.enemy.behaviour.core.TouchPad;
 import com.glowman.spaceunit.game.score.Score;
 import com.glowman.spaceunit.game.score.ScoreView;
 import com.glowman.spaceunit.game.strategy.GameStatus;
+import com.glowman.spaceunit.game.strategy.GameStrategy;
 import com.glowman.spaceunit.game.strategy.GameStrategyFactory;
 import com.glowman.spaceunit.game.strategy.IGameStrategy;
 
@@ -159,13 +161,19 @@ public class GameScreen implements Screen {
 		_gameStrategy.stopGame();
 	}
 
-	private void createShip() {
-		if (_ship != null) { Log.e("hz", "ship already exists!"); }
 
-		_ship = new Ship();
+
+	private void createShip() {
+
+        if (_ship != null) { Log.e("hz", "ship already exists!"); }
+        MovingSpaceObject.BORDER_BEHAVIOUR bBehaviour = MovingSpaceObject.BORDER_BEHAVIOUR.MIRROR_TELEPORT;
+        if (_gameType == GameStrategy.SHOOT_GAME) bBehaviour = MovingSpaceObject.BORDER_BEHAVIOUR.SOFT_TOUCH;
+        _ship = new Ship(bBehaviour);
+
 		_ship.setGeneralSpeed(SpeedCollector.getHeroSpeed(_gameType));
 		_ship.setPosition(new Vector2(Assets.VIRTUAL_WIDTH / 2, Assets.VIRTUAL_HEIGHT / 2));
-	}
+
+    }
 
 	private void drawGameOver() {
 		this.createFont();
