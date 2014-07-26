@@ -155,7 +155,7 @@ public abstract class GameStrategy implements IGameStrategy {
 			if (Math.random() <
 					RespawnFrequencyCollector.getFrequency(enemyType, _gameType, _timeState)) {
 		Enemy enemy = EnemyFactory.createEnemy(enemyType);
-			//_enemies.add(enemy);
+			_enemies.add(enemy);
 			this.setEnemyParams(enemy);
                 
 		}
