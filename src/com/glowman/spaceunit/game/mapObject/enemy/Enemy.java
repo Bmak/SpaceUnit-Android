@@ -23,6 +23,8 @@ public class Enemy extends MovingSpaceObject {
 		_enemyType = enemyType;
 	}
 
+
+
 	public String getEnemyType() { return _enemyType; }
 
 	@Override

@@ -1,5 +1,6 @@
 package com.glowman.spaceunit.game.strategy;
 
+import android.util.Log;
 import com.glowman.spaceunit.core.TouchEvent;
 import com.glowman.spaceunit.game.ability.Ability;
 import com.glowman.spaceunit.game.ability.AbilityENUM;
@@ -37,6 +38,9 @@ public class GameRunStrategy extends GameStrategy {
 		return _score;
 	}
 
+
+
+
 	@Override
 	public void tick(float delta)
 	{
@@ -65,13 +69,8 @@ public class GameRunStrategy extends GameStrategy {
 		_ability.activate();
 	}
 
-	@Override
-	public void touchDown(TouchEvent touch) {
-	}
 
-	@Override
-	public void touchUp(TouchEvent touch) {
-	}
+
 
 	@Override
 	public void touchMove(TouchEvent touch) {

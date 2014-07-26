@@ -4,6 +4,7 @@ import android.util.Log;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import com.glowman.spaceunit.Assets;
 import com.glowman.spaceunit.CoordinatesTranslator;
@@ -62,6 +63,7 @@ public class GameShootStrategy extends GameStrategy {
 		return result;
 	}
 
+
 	@Override
 	public ArrayList<Sprite> getDrawableObjects() {
 		ArrayList<Sprite> result = super.getDrawableObjects();
@@ -73,6 +75,9 @@ public class GameShootStrategy extends GameStrategy {
 		return result;
 	}
 
+
+
+
 	@Override
 	public void tick(float delta)
 	{
@@ -80,9 +85,14 @@ public class GameShootStrategy extends GameStrategy {
 		_ability.tick(delta);
 		_heroShip.tick(delta);
 
-		if (!_heroShip.isDead() && _shootingTouch != -1) {
+		if (!_heroShip.isDead() /*&& _shootingTouch != -1*/) {
 			this.shootBullet();
-		}
+            Log.d("movfind","targetPoint");
+
+
+        }
+
+
 
 		_shooter.tick(delta);
 
@@ -94,6 +104,8 @@ public class GameShootStrategy extends GameStrategy {
         this.checkHeroHit();
 
 	}
+
+
 
 	@Override
 	public Ability getAbility()
@@ -108,17 +120,7 @@ public class GameShootStrategy extends GameStrategy {
 		_ability.activate();
 	}
 
-	@Override
-	public void touchUp(TouchEvent touch){
-		if (touch.pointer == _shootingTouch) {
-			_shootingTouch = -1;
-		}
-	}
 
-	@Override
-	public void touchDown(TouchEvent touch){
-		_shootingTouch = touch.pointer;
-	}
 	@Override
 	public void touchMove(TouchEvent touch){
 	}
@@ -134,15 +136,50 @@ public class GameShootStrategy extends GameStrategy {
 		enemy.setTarget(_heroShip);
 	}
 
+
+    private Enemy checkNearestEnemyDst() {
+        float distance = 0;
+        Vector2 position1, position2;
+        position1 = _heroShip.getCenterPosition();
+        Enemy nearestEnemy = null;
+
+        for (Enemy enemy : _enemies) {
+
+            position2 = enemy.getCenterPosition();
+            float current_dst = position1.dst(position2);
+            if (current_dst < distance || distance == 0) {
+                distance = current_dst;
+
+                nearestEnemy = enemy;
+            }
+
+        }
+        return nearestEnemy;
+
+
+    }
+
+
+
+
 	private void shootBullet()
 	{
-		int touchX = Gdx.input.getX(_shootingTouch);
-		int touchY = Gdx.input.getY(_shootingTouch);
+        Enemy nearestEnemy = this.checkNearestEnemyDst();
+        if (nearestEnemy == null) return;
+        if (nearestEnemy == null) return;
+		float targetX= nearestEnemy.getCenterPosition().x;
+        float targetY= nearestEnemy.getCenterPosition().y;
 
-		Vector3 targetPoint =  CoordinatesTranslator.toVirtualView(touchX, touchY);
 
-		_heroShip.shoot(_shooter, targetPoint.x, targetPoint.y);
-	}
+       // int touchX = Gdx.input.getX( _shootingTouch);
+	//	int touchY = Gdx.input.getY(_shootingTouch);
+
+		//Vector3 targetPoint =  CoordinatesTranslator.toVirtualView(/*touchX, touchY*/ targetX, targetY);
+
+		//_heroShip.shoot(_shooter, targetPoint.x, targetPoint.y);
+        _heroShip.shoot(_shooter, targetX, targetY);
+
+    }
 
 	private void checkBulletsForRemove()
 	{

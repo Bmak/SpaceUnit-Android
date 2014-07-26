@@ -27,7 +27,7 @@ import com.glowman.spaceunit.game.ability.AbilityENUM;
 import com.glowman.spaceunit.game.balance.SpeedCollector;
 import com.glowman.spaceunit.game.mapObject.MovingSpaceObject;
 import com.glowman.spaceunit.game.mapObject.hero.Ship;
-import com.glowman.spaceunit.game.mapObject.enemy.behaviour.core.TouchPad;
+//import com.glowman.spaceunit.game.mapObject.enemy.behaviour.core.TouchPad;
 import com.glowman.spaceunit.game.score.Score;
 import com.glowman.spaceunit.game.score.ScoreView;
 import com.glowman.spaceunit.game.strategy.GameStatus;
@@ -54,7 +54,7 @@ public class GameScreen implements Screen {
 	private Button _pauseButton;
 	private AbilityButton _abilityButton;
 	private Sprite _abilityPanel;
-	private TouchPad _touchPad;
+	//private TouchPad _touchPad;
 	private TextButton _returnToMenuBtn;
 
 	private float _interfaceAlpha;
@@ -72,7 +72,7 @@ public class GameScreen implements Screen {
 
 		this.createInterface();
 
-		_gameTouchListener = new GameTouchListener(_game, _pauseButton, _touchPad, _returnToMenuBtn);
+		_gameTouchListener = new GameTouchListener(_game, _pauseButton, _returnToMenuBtn);
 	}
 	
 	public void play(int gameType) {
@@ -128,7 +128,7 @@ public class GameScreen implements Screen {
 		if (_gameStrategy.isPaused()) _returnToMenuBtn.draw(_drawer);
 
 		//_touchPad.act(delta);
-		_touchPad.draw(_drawer, _interfaceAlpha);
+		//_touchPad.draw(_drawer, _interfaceAlpha);
 
 		FPSViewer.draw(_drawer);
 		_drawer.end();
@@ -139,7 +139,7 @@ public class GameScreen implements Screen {
 
 	@Override
 	public void show() {
-		_touchPad.updateKnobPosition();
+		//_touchPad.updateKnobPosition();
 		SoundPlayer.stopMusic(Assets.backMenuSound);
 		SoundPlayer.playMusic(Assets.backGameSound, .5f);
 	}
@@ -250,10 +250,10 @@ public class GameScreen implements Screen {
 		skin.add("background", Assets.joyPadBkg);
 		skin.add("knob", Assets.joyPad);
 
-		TouchPad.TouchpadStyle style = new TouchPad.TouchpadStyle(new TextureRegionDrawable(Assets.joyPadBkg),
-																  new TextureRegionDrawable(Assets.joyPad));
-		_touchPad = new TouchPad(10, style);
-		_touchPad.setPosition(20, 20);
+	//	TouchPad.TouchpadStyle style = new TouchPad.TouchpadStyle(new TextureRegionDrawable(Assets.joyPadBkg),
+															//	  new TextureRegionDrawable(Assets.joyPad));
+		//_touchPad = new TouchPad(10, style);
+		//_touchPad.setPosition(20, 20);
 	}
 
 }

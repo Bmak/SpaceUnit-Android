@@ -5,6 +5,7 @@ import android.util.Log;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.glowman.spaceunit.Assets;
 import com.glowman.spaceunit.Settings;
+import com.glowman.spaceunit.game.mapObject.hero.Ship;
 
 /**
  *
@@ -60,7 +61,9 @@ public class MovingSpaceObject extends SpaceObject {
 			vx = (dx / h) * _generalSpeed;
 			vy = (dy / h) * _generalSpeed;
 		}
-		this.setVelocity(vx, vy);
+
+        this.setVelocity(vx, vy);
+
 	}
 
 	public void stopMoving()

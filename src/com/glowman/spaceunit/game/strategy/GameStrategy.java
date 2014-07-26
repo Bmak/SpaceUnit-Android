@@ -1,8 +1,12 @@
 package com.glowman.spaceunit.game.strategy;
 
 
+import android.util.Log;
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.math.Vector3;
+import com.glowman.spaceunit.CoordinatesTranslator;
 import com.glowman.spaceunit.game.animation.BlowController;
 import com.glowman.spaceunit.game.balance.RespawnFrequencyCollector;
 import com.glowman.spaceunit.core.AnimatedSprite;
@@ -15,6 +19,7 @@ import com.glowman.spaceunit.game.mapObject.impact.ISpaceImpact;
 import com.glowman.spaceunit.game.mapObject.impact.ImpactController;
 
 import java.util.ArrayList;
+import java.util.PriorityQueue;
 
 /**
  *
@@ -87,6 +92,9 @@ public abstract class GameStrategy implements IGameStrategy {
 		if (_heroShip.isDead()) {
 			this.gameOver();
 		}
+        if (!_heroShip.isDead() && _movingTouch != -1) {
+            this.movingShip();
+        }
 	}
 
 	protected ArrayList<SpaceObject> getAllSpaceObjects() {
@@ -142,13 +150,12 @@ public abstract class GameStrategy implements IGameStrategy {
 		}
 		String enemyType;
 
-        //if (_enemies.size() > 0) return;
 		for (int i = 0; i < _availableEnemyTypes.length; ++i) {
 			enemyType = _availableEnemyTypes[i];
 			if (Math.random() <
 					RespawnFrequencyCollector.getFrequency(enemyType, _gameType, _timeState)) {
 		Enemy enemy = EnemyFactory.createEnemy(enemyType);
-			_enemies.add(enemy);
+			//_enemies.add(enemy);
 			this.setEnemyParams(enemy);
                 
 		}
@@ -196,10 +203,26 @@ public abstract class GameStrategy implements IGameStrategy {
 		_heroShip.setDead();
 	}
 
+   protected void movingShip(){
+
+    int touchX = Gdx.input.getX(_movingTouch);
+    int touchY = Gdx.input.getY(_movingTouch);
+    Vector3 targetPoint =  CoordinatesTranslator.toVirtualView(touchX, touchY);
+    _heroShip.moveTo(targetPoint.x, targetPoint.y);
+
+
+    }
+
 	@Override
-	public abstract void touchUp(TouchEvent touch);
+	public  void touchUp(TouchEvent touch){
+        if (touch.pointer == _movingTouch) {
+            _movingTouch = -1;
+        }
+    }
 	@Override
-	public abstract void touchDown(TouchEvent touch);
+	public void touchDown(TouchEvent touch){
+    _movingTouch = touch.pointer;}
+
 	@Override
 	public abstract void touchMove(TouchEvent touch);
 
