@@ -1,10 +1,13 @@
 package com.glowman.spaceunit.game.strategy;
 
 import android.util.Log;
+import com.glowman.spaceunit.Assets;
 import com.glowman.spaceunit.core.TouchEvent;
 import com.glowman.spaceunit.game.ability.Ability;
 import com.glowman.spaceunit.game.ability.AbilityENUM;
+import com.glowman.spaceunit.game.balance.RespawnFrequencyCollector;
 import com.glowman.spaceunit.game.balance.RotationSpeedCollector;
+import com.glowman.spaceunit.game.mapObject.enemy.EnemyTypeENUM;
 import com.glowman.spaceunit.game.score.Score;
 import com.glowman.spaceunit.game.balance.EnemySetCollector;
 import com.glowman.spaceunit.game.balance.SpeedCollector;
@@ -28,7 +31,8 @@ public class GameRunStrategy extends GameStrategy {
 		super(ship, GameStrategy.RUN_GAME);
 		_ability = Ability.create(AbilityENUM.BLOW, ship, super._impactController);
 		_score = new Score(Score.getScoreTypeByGameType(GameStrategy.RUN_GAME), 0);
-		BehaviourOptionsData bhOptions = new BehaviourOptionsData(null, _blowController, ship, _impactController);
+
+        BehaviourOptionsData bhOptions = new BehaviourOptionsData(null, _blowController, ship, _impactController);
 		EnemyFactory.init(GameStrategy.RUN_GAME, _heroShip, bhOptions);
 		_availableEnemyTypes = EnemySetCollector.getEnemySet(GameStrategy.RUN_GAME);
 	}
@@ -76,48 +80,93 @@ public class GameRunStrategy extends GameStrategy {
 	public void touchMove(TouchEvent touch) {
 	}
 
+    private final int _gameType = GameStrategy.RUN_GAME;
+
+
+    @Override
+    protected void createEnemies(){
+		if (_availableEnemyTypes == null || _availableEnemyTypes.length == 0) {
+			return;
+		}
+		String enemyType;
+		float frequency;
+
+		for (int i = 0; i < _availableEnemyTypes.length; ++i) {
+			enemyType = EnemyTypeENUM.BLACK_HOLE; //_availableEnemyTypes[i];
+			frequency = RespawnFrequencyCollector.getFrequency(enemyType, _gameType, _timeState);
+			if (Math.random() < frequency && this.getHolesNumber() < 1) {
+				Enemy enemy = EnemyFactory.createEnemy(enemyType);
+				_enemies.add(enemy);
+				this.setEnemyParams(enemy);
+
+			}
+		}
+	}
+    private int getHolesNumber(){
+        int number = 0;
+        for (Enemy enemy : _enemies){
+            if (enemy.getEnemyType()== EnemyTypeENUM.BLACK_HOLE){
+                number++;
+            }
+        }
+        return number;
+    }
+
 	@Override
 	protected void setEnemyParams(Enemy enemy) {
-		enemy.setRandomBorderPosition();
-		enemy.setRotationSpeed(RotationSpeedCollector.getEnemyRotation());
 		enemy.setGeneralSpeed(SpeedCollector.getEnemySpeed(enemy.getEnemyType(), GameStrategy.RUN_GAME));
-		enemy.setTarget(_heroShip);
+        enemy.setRotationSpeed(RotationSpeedCollector.getEnemyRotation());
+        enemy.setRandomBorderPosition();
+        enemy.setTarget(_heroShip);
+        if (enemy.getEnemyType() == EnemyTypeENUM.BLACK_HOLE) enemy.moveTo((float) Math.random() * Assets.VIRTUAL_WIDTH,
+            (float) Math.random() * Assets.VIRTUAL_HEIGHT);//черная дыра
 	}
 
 	private void checkHeroHit() {
 		Enemy enemyToExplode = null;
 		for (Enemy enemy : _enemies) {
-			if (super.checkObjectsHit(_heroShip, enemy)) {
-				enemyToExplode = enemy;
-				super.gameOver();
-				break;
-			}
-		}
+            if (super.checkObjectsHit(_heroShip, enemy)) {// бессм черной дыры
+                enemyToExplode = enemy;
+                super.gameOver();
+                break;
+            }
+        }
 
-		if (enemyToExplode != null) {
-			super.explodeEnemy(enemyToExplode);
-			super.explodeHero();
-		}
-	}
+            if (enemyToExplode != null )
+            {
+                if (enemyToExplode.getEnemyType() != EnemyTypeENUM.BLACK_HOLE)//тут
+                {
+                    super.explodeEnemy(enemyToExplode);
+                }
 
-	private void checkEnemyHits()
-	{
-		ArrayList<Enemy> enemiesForExplosion = new ArrayList<Enemy>();
-		for (int i = 0; i < (_enemies.size() - 1); ++i) {
-			for (int j = i + 1; j < _enemies.size(); ++j) {
+                super.explodeHero();
+            }
+        }
 
-				if (super.checkObjectsHit(_enemies.get(i), _enemies.get(j)))
-				{
-					enemiesForExplosion.add(_enemies.get(i));
-					enemiesForExplosion.add(_enemies.get(j));
-				}
-			}
-		}
+    private void checkEnemyHits()
+    {
+        ArrayList<Enemy> enemiesForExplosion = new ArrayList<Enemy>();
+        for (int i = 0; i < (_enemies.size() - 1); ++i) {
+            for (int j = i + 1; j < _enemies.size(); ++j) {
 
-		for (Enemy enemy : enemiesForExplosion)
-		{
-			super.explodeEnemy(enemy);
-		}
-	}
+                if (super.checkObjectsHit(_enemies.get(i), _enemies.get(j))) {
+                    if(!this.isEnemyBlackHole(_enemies.get(i)) || this.isEnemyBlackHole(_enemies.get(j)))
+                        enemiesForExplosion.add(_enemies.get(i));
+                    if(!this.isEnemyBlackHole(_enemies.get(j)) || this.isEnemyBlackHole(_enemies.get(i)))
+                        enemiesForExplosion.add(_enemies.get(j));
+                }
+            }
+        }
+
+        for (Enemy enemy : enemiesForExplosion)
+        {
+            super.explodeEnemy(enemy);
+        }
+    }
+
+    private boolean isEnemyBlackHole(Enemy enemy)
+    {
+        return enemy.getEnemyType() == EnemyTypeENUM.BLACK_HOLE;
+    }
 
 }

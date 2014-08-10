@@ -47,12 +47,22 @@ public class BlowImpact extends SpaceObject implements ISpaceImpact {
 	}
 
 	@Override
+	public boolean isUnderImpact(SpaceObject object) {
+		Vector2 objCenter = object.getCenterPosition();
+		Vector2 impactCenter = super.getCenterPosition();
+		float maxDistance = (super.getWidth() * MAX_SCALE)/2;
+		float distanceCoef = (maxDistance - objCenter.dst(impactCenter))/maxDistance;
+		return distanceCoef > 0;
+	}
+
+	@Override
 	public void execute(SpaceObject object) {
 		Vector2 objCenter = object.getCenterPosition();
 		Vector2 impactCenter = super.getCenterPosition();
 		float maxDistance = (super.getWidth() * MAX_SCALE)/2;
 		float distanceCoef = (maxDistance - objCenter.dst(impactCenter))/maxDistance;
-		if (distanceCoef <= 0) { return; }
+
+		if (!this.isUnderImpact(object)) { return; }
 
 		if (distanceCoef > .7f) {
 			object.explode(_blowMaker);

@@ -9,5 +9,6 @@ public enum  EBehaviourENUM {
 	SHOOT,
 	ALIEN,
 	ALARM,
-	CRAZY_MINE
+	CRAZY_MINE,
+    BLACK_HOLE
 }

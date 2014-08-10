@@ -19,4 +19,5 @@ public interface ISpaceImpact {
 	boolean isComplete();
 
 	void execute(SpaceObject object);
+	boolean isUnderImpact(SpaceObject object);
 }

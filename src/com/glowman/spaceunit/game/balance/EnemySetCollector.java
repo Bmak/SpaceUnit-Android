@@ -11,8 +11,9 @@ public class EnemySetCollector {
 	public static String[] getEnemySet(int strategy) {
 		String[] result;
 		if (strategy == GameStrategy.RUN_GAME) {
-			result = new String[1];
+			result = new String[2];
 			result[0] = EnemyTypeENUM.ASTEROID;
+            result[1] = EnemyTypeENUM.BLACK_HOLE;
 		}
 		else if (strategy == GameStrategy.SHOOT_GAME) {
 			result = new String[4];

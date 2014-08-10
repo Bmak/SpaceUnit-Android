@@ -30,6 +30,9 @@ public class SpeedCollector {
 			else if (enemyType == EnemyTypeENUM.ALIEN) {
 				result = 1.6f;
 			}
+            else if (enemyType == EnemyTypeENUM.BLACK_HOLE) {
+                result = 1f;
+            }
 		return result;
 	}
 

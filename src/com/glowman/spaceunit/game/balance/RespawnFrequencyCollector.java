@@ -36,6 +36,15 @@ public class RespawnFrequencyCollector {
 		else if (enemyType == EnemyTypeENUM.ALIEN) {
 			result = .1f * (timeState / 3000);
 		}
+        else if (enemyType == EnemyTypeENUM.BLACK_HOLE){
+
+
+                result =  0.1f * (timeState / 200);
+
+
+        }
+
+
 		else {
 			throw new Error("unknown enemy : " + enemyType);
 		}

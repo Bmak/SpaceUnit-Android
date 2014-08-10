@@ -8,6 +8,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import com.glowman.spaceunit.CoordinatesTranslator;
 import com.glowman.spaceunit.game.animation.BlowController;
+import com.glowman.spaceunit.game.animation.IBlowMaker;
 import com.glowman.spaceunit.game.balance.RespawnFrequencyCollector;
 import com.glowman.spaceunit.core.AnimatedSprite;
 import com.glowman.spaceunit.core.TouchEvent;
@@ -15,6 +16,8 @@ import com.glowman.spaceunit.game.mapObject.SpaceObject;
 import com.glowman.spaceunit.game.mapObject.enemy.Enemy;
 import com.glowman.spaceunit.game.mapObject.hero.Ship;
 import com.glowman.spaceunit.game.mapObject.enemy.EnemyFactory;
+import com.glowman.spaceunit.game.mapObject.impact.GravityImpact;
+import com.glowman.spaceunit.game.mapObject.impact.IImpactMaker;
 import com.glowman.spaceunit.game.mapObject.impact.ISpaceImpact;
 import com.glowman.spaceunit.game.mapObject.impact.ImpactController;
 
@@ -34,6 +37,8 @@ public abstract class GameStrategy implements IGameStrategy {
 	protected ArrayList<Enemy> _enemies;
 	protected Ship _heroShip;
 
+    protected ISpaceImpact _gravityImpact;
+
 	protected String[] _availableEnemyTypes;
 
 	protected int _shootingTouch = -1;
@@ -41,6 +46,7 @@ public abstract class GameStrategy implements IGameStrategy {
 
 	private GameStatus _gameStatus;
 	protected float _timeState;
+
 
 	GameStrategy(Ship ship, int gameType)
 	{
@@ -50,6 +56,7 @@ public abstract class GameStrategy implements IGameStrategy {
 		_blowController = new BlowController();
 		_impactController = new ImpactController(_blowController);
 		_timeState = 0;
+
 	}
 
 	@Override
@@ -121,6 +128,7 @@ public abstract class GameStrategy implements IGameStrategy {
 			result.add(impact.getImage());
 		}
 
+
 		if (!_heroShip.isDead()) result.add(_heroShip.getImage());
 
 		return result;
@@ -143,7 +151,7 @@ public abstract class GameStrategy implements IGameStrategy {
 		}
 	}
 
-	private void createEnemies()
+	protected void createEnemies()
 	{
 		if (_availableEnemyTypes == null || _availableEnemyTypes.length == 0) {
 			return;
@@ -153,12 +161,12 @@ public abstract class GameStrategy implements IGameStrategy {
 		for (int i = 0; i < _availableEnemyTypes.length; ++i) {
 			enemyType = _availableEnemyTypes[i];
 			if (Math.random() <
-					RespawnFrequencyCollector.getFrequency(enemyType, _gameType, _timeState)) {
-		Enemy enemy = EnemyFactory.createEnemy(enemyType);
-			_enemies.add(enemy);
-			this.setEnemyParams(enemy);
-                
-		}
+						RespawnFrequencyCollector.getFrequency(enemyType, _gameType, _timeState)) {
+				Enemy enemy = EnemyFactory.createEnemy(enemyType);
+				_enemies.add(enemy);
+				this.setEnemyParams(enemy);
+
+			}
 		}
 	}
 
@@ -189,11 +197,15 @@ public abstract class GameStrategy implements IGameStrategy {
 		return distance < radius1 + radius2;
 	}
 
-	protected void explodeEnemy(Enemy enemy) {
-		enemy.setGeneralSpeed(0);
+
+
+    protected void explodeEnemy(Enemy enemy) {
+
+        enemy.setGeneralSpeed(0);
 		_enemies.remove(enemy);
-		enemy.explode(_blowController);
+        enemy.explode(_blowController);
 		enemy.setDead();
+
 	}
 
 	protected void explodeHero() {
@@ -203,15 +215,22 @@ public abstract class GameStrategy implements IGameStrategy {
 		_heroShip.setDead();
 	}
 
-   protected void movingShip(){
-
-    int touchX = Gdx.input.getX(_movingTouch);
-    int touchY = Gdx.input.getY(_movingTouch);
-    Vector3 targetPoint =  CoordinatesTranslator.toVirtualView(touchX, touchY);
-    _heroShip.moveTo(targetPoint.x, targetPoint.y);
-
-
+    protected boolean isShipInGravityImpact()
+    {
+        _gravityImpact = _impactController.currentImpact();
+        return _gravityImpact != null && _gravityImpact.isUnderImpact(_heroShip);
     }
+
+
+   protected void movingShip() { //ship moves responding to touch
+
+       int touchX = Gdx.input.getX(_movingTouch);
+       int touchY = Gdx.input.getY(_movingTouch);
+       Vector3 targetPoint = CoordinatesTranslator.toVirtualView(touchX, touchY);
+       _heroShip.moveTo(targetPoint.x, targetPoint.y);
+
+
+   }
 
 	@Override
 	public  void touchUp(TouchEvent touch){
