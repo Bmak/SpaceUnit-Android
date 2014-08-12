@@ -92,9 +92,9 @@ public class GameRunStrategy extends GameStrategy {
 		float frequency;
 
 		for (int i = 0; i < _availableEnemyTypes.length; ++i) {
-			enemyType = EnemyTypeENUM.BLACK_HOLE; //_availableEnemyTypes[i];
+			enemyType = _availableEnemyTypes[i];
 			frequency = RespawnFrequencyCollector.getFrequency(enemyType, _gameType, _timeState);
-			if (Math.random() < frequency && this.getHolesNumber() < 1) {
+			if (Math.random() < frequency && this.getHolesNumber() < 2) {
 				Enemy enemy = EnemyFactory.createEnemy(enemyType);
 				_enemies.add(enemy);
 				this.setEnemyParams(enemy);
@@ -119,7 +119,7 @@ public class GameRunStrategy extends GameStrategy {
         enemy.setRandomBorderPosition();
         enemy.setTarget(_heroShip);
         if (enemy.getEnemyType() == EnemyTypeENUM.BLACK_HOLE) enemy.moveTo((float) Math.random() * Assets.VIRTUAL_WIDTH,
-            (float) Math.random() * Assets.VIRTUAL_HEIGHT);//черная дыра
+            (float) Math.random() * Assets.VIRTUAL_HEIGHT); //черная дыра
 	}
 
 	private void checkHeroHit() {

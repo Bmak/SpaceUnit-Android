@@ -6,13 +6,15 @@ import com.glowman.spaceunit.game.IShooter;
 import com.glowman.spaceunit.game.mapObject.MovingSpaceObject;
 import com.glowman.spaceunit.game.mapObject.gun.AGun;
 
+import java.util.ArrayList;
+
 
 /**
  *
  */
 public class Ship extends MovingSpaceObject {
 
-    private final int ATTACH_POINT_DISTANCE = 5;
+
 
     private HeroSkin _skin;
     private AGun _gun;
@@ -21,11 +23,16 @@ public class Ship extends MovingSpaceObject {
     public float _targetY;
 
 
+
+    float _dstToTarget;
+    float _currentDstToTarget;
+
     @Override
     public void moveTo(float targetX, float targetY) {
-        super.moveTo( targetX, targetY);
+        super.moveTo(targetX, targetY);
         _targetX = targetX;
         _targetY = targetY;
+        _dstToTarget = this.getCenterPosition().dst(_targetX, _targetY);
     }
 
 
@@ -63,12 +70,15 @@ public class Ship extends MovingSpaceObject {
     {
         super.tick(deltaTime);
         _skin.tick(deltaTime, super.isMoving());
+
+
         if (_gun != null) { _gun.tick(deltaTime); }
 
-        if (this.isMoving() && this.isTargetPointReached())
-        {
-            this.stopMoving();
-        }
+
+        _currentDstToTarget = this.getCenterPosition().dst(_targetX, _targetY);
+        _dstToTarget -= Math.abs(_dstToTarget - _currentDstToTarget);
+        if (_dstToTarget <= 0)
+        this.stopMoving();
     }
 
     public void shoot(IShooter shooter, float targetX, float targetY) {
@@ -98,12 +108,5 @@ public class Ship extends MovingSpaceObject {
         }
     }
 
-    private boolean isTargetPointReached()
-    {
-        Vector2 shipPosition = this.getCenterPosition();
-        float distToTarget = shipPosition.dst(_targetX, _targetY);
-
-        return distToTarget < ATTACH_POINT_DISTANCE;
-    }
 
 }

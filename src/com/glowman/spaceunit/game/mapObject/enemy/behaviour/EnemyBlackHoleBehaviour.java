@@ -16,7 +16,7 @@ import com.glowman.spaceunit.game.mapObject.impact.IImpactMaker;
 public class EnemyBlackHoleBehaviour extends AEnemyBehaviour {
 
     private final IImpactMaker _impactMaker;
-    private float _timeState=0;
+    private float _timeState = 0;
 
     public EnemyBlackHoleBehaviour(Enemy enemy, BehaviourOptions options) {
         super(EBehaviourENUM.BLACK_HOLE, enemy);
@@ -44,7 +44,7 @@ public class EnemyBlackHoleBehaviour extends AEnemyBehaviour {
     @Override
     public void tick(float delta) {
         _timeState += delta;
-        if (_timeState > 2) {
+        if (_timeState > 0) {
             _timeState = 0;
             _impactMaker.createGravity(_enemy.getCenterPosition().x, _enemy.getCenterPosition().y);
            // SoundPlayer.playSound(Assets.bigBamSound);

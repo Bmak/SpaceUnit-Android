@@ -84,8 +84,7 @@ public class GravityImpact extends SpaceObject implements ISpaceImpact {
         if (h != 0){
             vx = (dx / h); //* impactValue;
             vy = (dy / h); //* impactValue;
-            System.out.println ("vx"+vx);
-            System.out.println ("vx"+vy);
+
         }
 
         Vector2 objPosition = object.getPosition();
